@@ -1,0 +1,680 @@
+{
+  "software": "CSPro", 
+  "version": 8.0, 
+  "fileType": "dictionary", 
+  "name": "NAME_DICT", 
+  "labels": [ { "text": "પશુધન નિરીક્ષકની પ્રશ્નાવલી" } ], 
+  "security": {
+    "allowDataViewerModifications": true, 
+    "allowExport": true, 
+    "cachedPasswordMinutes": 0, 
+    "settings": "a76cccf18de6865e9bd78c5653b25dda88c0d51551df099f6bf326d59d23d52d"
+  }, 
+  "readOptimization": true, 
+  "recordType": {
+    "start": 1, 
+    "length": 1
+  }, 
+  "defaults": {
+    "decimalMark": true, 
+    "zeroFill": false
+  }, 
+  "relativePositions": true, 
+  "levels": [
+    {
+      "name": "NAME_LEVEL", 
+      "labels": [ { "text": "પશુધન નિરીક્ષકની પ્રશ્નાવલી Level" } ], 
+      "ids": {
+        "items": [
+          {
+            "name": "ID_INFO", 
+            "labels": [ { "text": "Person Id" } ], 
+            "contentType": "numeric", 
+            "start": 2, 
+            "length": 2, 
+            "zeroFill": false
+          }, 
+          {
+            "name": "FORM_NO", 
+            "labels": [ { "text": "Form No" } ], 
+            "contentType": "numeric", 
+            "start": 4, 
+            "length": 3, 
+            "zeroFill": false
+          }
+        ]
+      }, 
+      "records": [
+        {
+          "name": "NAME_REC", 
+          "labels": [ { "text": "પશુધન નિરીક્ષકની પ્રશ્નાવલી" } ], 
+          "recordType": "1", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q1", 
+              "labels": [ { "text": "પશુધન નિરીક્ષકનું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 20
+            }, 
+            {
+              "name": "Q2", 
+              "labels": [ { "text": "ઉપકેન્દ્રનું  નામ " } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }, 
+            {
+              "name": "Q2_1", 
+              "labels": [ { "text": "જુથ કેન્દ્રનું  નામ " } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }, 
+            {
+              "name": "Q3", 
+              "labels": [ { "text": "તાલુકાનું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 15
+            }, 
+            {
+              "name": "Q4", 
+              "labels": [ { "text": "જિલ્લાનું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 12
+            }, 
+            {
+              "name": "Q5", 
+              "labels": [ { "text": "મોબાઇલ નંબર " } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q6", 
+              "labels": [ { "text": "પશુધન નિરીક્ષક તરીકેનો કેટલા વર્ષ અનુભવ છે? " } ], 
+              "contentType": "alpha", 
+              "length": 6
+            }, 
+            {
+              "name": "Q7", 
+              "labels": [ { "text": "આપની શૈક્ષણિક લાયકાત જણાવો " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q7_VS1", 
+                  "labels": [ { "text": "આપની શૈક્ષણિક લાયકાત જણાવો " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "મા./ઉ.મા. શિક્ષણ " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્નાતક" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનુસ્નાતક" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુધન નિરીક્ષક કોર્સ  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ડિપ્લોમા/ટેક્નિકલ કોર્સ " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કૃષિ સ્નાતક " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q8", 
+              "labels": [ { "text": "સેજામાં અંદાજિત પશુપાલકોની સંખ્યા જણાવો " } ], 
+              "contentType": "alpha", 
+              "length": 6
+            }, 
+            {
+              "name": "Q9", 
+              "labels": [ { "text": "આપના સેજા હેઠળ કેટલી દૂધ ઉત્પાદક મંડળી આવેલ છે? " } ], 
+              "contentType": "alpha", 
+              "length": 6
+            }, 
+            {
+              "name": "Q10", 
+              "labels": [ { "text": "આપના સેજામાં કાર્યરત સ્વસહાય જુથ અથવા સખીમંડળ આવેલ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q10_VS1", 
+                  "labels": [ { "text": "આપના સેજામાં કાર્યરત સ્વસહાય જુથ અથવા સખીમંડળ આવેલ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q10_1", 
+              "labels": [ { "text": "જો “હા” તો  સ્વસહાય જુથ સંખ્યા જણાવો" } ], 
+              "contentType": "numeric", 
+              "length": 5, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q10_2", 
+              "labels": [ { "text": "જો “હા” તો  સખીમંડળ સંખ્યા જણાવો" } ], 
+              "contentType": "numeric", 
+              "length": 5, 
+              "zeroFill": false
+            }
+          ]
+        }, 
+        {
+          "name": "MAHITI_INFO", 
+          "labels": [ { "text": "પશુપાલકોને તાલીમ અને પ્રેરણા પ્રવાસની યોજનાકીય માહિતી" } ], 
+          "recordType": "2", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q2_2_1", 
+              "labels": [ { "text": "આપ પશુપાલકોને તાલીમ અને પ્રેરણા પ્રવાસ યોજનાની જોગવાઈથી માહિતગાર છો?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_1_VS1", 
+                  "labels": [ { "text": "આપ પશુપાલકોને તાલીમ અને પ્રેરણા પ્રવાસ યોજનાની જોગવાઈથી માહિતગાર છો?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_2", 
+              "labels": [ { "text": "પશુપાલકો તાલીમ અને પ્રેરણા પ્રવાસમાં જોડાવવા માટેની રજુઆત/ભલામણ આપને કરે છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_2_VS1", 
+                  "labels": [ { "text": "પશુપાલકો તાલીમ અને પ્રેરણા પ્રવાસમાં જોડાવવા માટેની રજુઆત/ભલામણ આપને કરે છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_2_1", 
+              "labels": [ { "text": "જો “હા” તો નાણાકીય વર્ષ ૨૦૨૩-૨૪માં કેટલી રજુઆત/ભલામણો કરવામાં  આવેલ હતી?" } ], 
+              "contentType": "alpha", 
+              "length": 5
+            }, 
+            {
+              "name": "Q2_2_2_2", 
+              "labels": [ { "text": "આપના દ્વારા તાલીમ અને પ્રેરણા પ્રવાસ માટે પશુપાલકો તરફથી આવેલ રજુઆત/ભલામણો અન્વયે આપના દ્વારા કરવામાં આવેલ કાર્યવાહીની વિગતો જણાવો? " } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q2_2_3", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ યોજનાના આયોજન માટે પશુપાલન કચેરી દ્વારા આપનો સંપર્ક કરવામાં આવે છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_3_VS1", 
+                  "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ યોજનાના આયોજન માટે પશુપાલન કચેરી દ્વારા આપનો સંપર્ક કરવામાં આવે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_4", 
+              "labels": [ { "text": "આપના મતે પશુપાલન કચેરી દ્વારા તાલીમ કાર્યક્રમો આયોજિત કરવા ઘનિષ્ટ વસતિ અને અંતરિયાળ વિસ્તારવાળા ગામોને પસંદ કરવામાં આવે છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_4_VS1", 
+                  "labels": [ { "text": "આપના મતે પશુપાલન કચેરી દ્વારા તાલીમ કાર્યક્રમો આયોજિત કરવા ઘનિષ્ટ વસતિ અને અંતરિયાળ વિસ્તારવાળા ગામોને પસંદ કરવામાં આવે છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_5", 
+              "labels": [ { "text": "આ યોજનામાં પશુપાલનનાં વારસાગત ધંધામાં જોડાયેલ પશુપાલકોને  અગ્રતા આપવામાં આવે છે?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_5_VS1", 
+                  "labels": [ { "text": "આ યોજનામાં પશુપાલનનાં વારસાગત ધંધામાં જોડાયેલ પશુપાલકોને  અગ્રતા આપવામાં આવે છે?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_6", 
+              "labels": [ { "text": "આ યોજનામાં પશુ સખીની મહિલા લાભાર્થીને અગ્રતા આપવામાં આવે છે?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_6_VS1", 
+                  "labels": [ { "text": "આ યોજનામાં પશુ સખીની મહિલા લાભાર્થીને અગ્રતા આપવામાં આવે છે?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_7", 
+              "labels": [ { "text": "આપે તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમોમાં ભાગ લીધેલ છે?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_7_VS1", 
+                  "labels": [ { "text": "આપે તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમોમાં ભાગ લીધેલ છે?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_7_1", 
+              "labels": [ { "text": "જો “હા” તો તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમોમાં શું-શું વ્યવસ્થા કરવામાં આવેલ હોય તે અંગે વિગતે જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q2_2_8", 
+              "labels": [ { "text": "આપના મતે તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમોમાં સવિશેષ શું વ્યવસ્થા/જોગવાઈ કરવી તે અંગે સુચનો જણાવો. " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_2_9", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમો અંગે ગ્રામ્ય કક્ષાએ કયાં કયાં માધ્યમો દ્વારા પ્રચાર અને પ્રસાર કરવામાં આવે છે?   " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_2_10", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમો અંગે ગ્રામ્ય કક્ષાએ પ્રચાર અને પ્રસાર વધારવા આપના સુચનો જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_2_11", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ દરમિયાન લાભાર્થીને સરકારની અન્ય યોજનાની જાણકારી આપવામાં આવે છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_11_VS1", 
+                  "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ દરમિયાન લાભાર્થીને સરકારની અન્ય યોજનાની જાણકારી આપવામાં આવે છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_12", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ બાદ લાભાર્થીઓ દ્વારા પશુપાલનની આર્થિક પ્રવૃત્તિ કરવામાં આવે છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_12_VS1", 
+                  "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ બાદ લાભાર્થીઓ દ્વારા પશુપાલનની આર્થિક પ્રવૃત્તિ કરવામાં આવે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_12_1", 
+              "labels": [ { "text": "જો “ના” તો ક્યાં કારણોસર તાલીમ અને પ્રેરણા પ્રવાસ મેળવ્યા બાદ આર્થિક પ્રવૃત્તિ કરતાં નથી? " } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q2_2_13", 
+              "labels": [ { "text": "આપના વિસ્તારમાં તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમો સિવાય પશુપાલનને લગતા અન્ય કાર્યક્રમો આયોજિત કરવામાં આવે છે?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_13_VS1", 
+                  "labels": [ { "text": "આપના વિસ્તારમાં તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમો સિવાય પશુપાલનને લગતા અન્ય કાર્યક્રમો આયોજિત કરવામાં આવે છે?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_13_1", 
+              "labels": [ { "text": "જો “હા” તો પશુપાલનને લગતા અન્ય કયા કાર્યક્રમો આયોજિત કરવામાં આવે છે?  " } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q2_2_14", 
+              "labels": [ { "text": "આપના સેજામાં ૩૦ તાલીમાર્થીઓની તાલીમ અને પ્રેરણા પ્રવાસ આયોજિત કરી શકાય તેવું સ્થળ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_14_VS1", 
+                  "labels": [ { "text": "આપના સેજામાં ૩૦ તાલીમાર્થીઓની તાલીમ અને પ્રેરણા પ્રવાસ આયોજિત કરી શકાય તેવું સ્થળ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_14_1", 
+              "labels": [ { "text": "જો “હા” તો પશુપાલન કચેરી તે સ્થળે તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમો આયોજિત કરે છે?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_14_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો પશુપાલન કચેરી તે સ્થળે તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમો આયોજિત કરે છે?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_15", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ આયોજન કરવામાં પશુપાલન કચેરી સિવાય સરપંચ, સ્વૈચ્છિક સંસ્થાઓ(CSR હેઠળ), આગેવાનો, દાતાઓ દ્વારા સહકાર આપવામાં આવે છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_15_VS1", 
+                  "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ આયોજન કરવામાં પશુપાલન કચેરી સિવાય સરપંચ, સ્વૈચ્છિક સંસ્થાઓ(CSR હેઠળ), આગેવાનો, દાતાઓ દ્વારા સહકાર આપવામાં આવે છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_16", 
+              "labels": [ { "text": "આ યોજનામાં લાભાર્થીઓને પડતી મુશ્કેલીઓ જણાવો. " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_2_17", 
+              "labels": [ { "text": "આ યોજનામાં લાભાર્થીઓને પડતી મુશ્કેલીઓ દૂર કરવા માટેના સૂચનો જણાવો. " } ], 
+              "contentType": "alpha", 
+              "length": 70
+            }, 
+            {
+              "name": "Q2_2_18", 
+              "labels": [ { "text": "આ યોજનાથી લાભાર્થીઓને થયેલ ફાયદાઓ જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 70
+            }, 
+            {
+              "name": "Q2_2_19", 
+              "labels": [ { "text": "આ યોજનાને વધુ અસરકારક બનાવવા માટે હાલના નીતિ-નિયમો/જોગવાઈ અંગે સૂચન હોય તો જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 70
+            }, 
+            {
+              "name": "Q2_2_20", 
+              "labels": [ { "text": "આ યોજના હેઠળ પશુપાલકોને તાલીમનું આયોજન યોજનાની અસરકારકતા જણાવો.   " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_20_VS1", 
+                  "labels": [ { "text": "આ યોજના હેઠળ પશુપાલકોને તાલીમનું આયોજન યોજનાની અસરકારકતા જણાવો.   " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘણી સારી " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સારી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મધ્યમ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઓછી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નહિવત" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_21", 
+              "labels": [ { "text": "આ યોજના હેઠળ પશુપાલકોને જિલ્લામાં પ્રેરણા પ્રવાસનું આયોજન યોજનાની અસરકારકતા જણાવો.   " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_21_VS1", 
+                  "labels": [ { "text": "આ યોજના હેઠળ પશુપાલકોને જિલ્લામાં પ્રેરણા પ્રવાસનું આયોજન યોજનાની અસરકારકતા જણાવો.   " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘણી સારી " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સારી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મધ્યમ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઓછી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નહિવત" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2_22", 
+              "labels": [ { "text": "આ યોજના હેઠળ પશુપાલકોને જિલ્લા બહાર પ્રેરણા પ્રવાસનું આયોજન યોજનાની અસરકારકતા જણાવો.   " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_22_VS1", 
+                  "labels": [ { "text": "આ યોજના હેઠળ પશુપાલકોને જિલ્લા બહાર પ્રેરણા પ્રવાસનું આયોજન યોજનાની અસરકારકતા જણાવો.   " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘણી સારી " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સારી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મધ્યમ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઓછી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નહિવત" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

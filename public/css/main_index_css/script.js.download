@@ -1,0 +1,95 @@
+$(document).ready(function () {
+    
+    $('#skip_main_content_start').click(function () {
+        $('html, body').animate({
+            scrollTop: $("#skip_main_content_end").offset().top
+        }, 2000);
+    });
+
+    $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    });
+
+    $('.logo-container').owlCarousel({
+        loop:true,
+        dots: false,
+        nav: true,
+        margin:5,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+                nav:true
+            },
+            480:{
+                items:2,
+                nav:false
+            },
+            600:{
+                items:3,
+                nav:false
+            },
+            1000:{
+                items:4,
+                nav:true,
+                loop:false
+            }
+        }
+    });
+
+    $(".mainslider").owlCarousel({
+        autoPlay: 10000, 
+        navigation: false,
+        slideSpeed: 300,
+        pagination : true,
+        paginationNumbers: false,
+        paginationSpeed: 400,
+        lazyLoad: true,
+        dots:true,
+        //transitionStyle : "fade",
+        singleItem: true
+
+                // "singleItem:true" is a shortcut for:
+                // items : 1, 
+                // itemsDesktop : false,
+                // itemsDesktopSmall : false,
+                // itemsTablet: false,
+                // itemsMobile : false
+
+    });
+});
+
+
+
+$(document).ready(function () {
+    $('label.tree-toggler').click(function () {
+        $(this).parent().children('ul.tree').toggle(300);
+    });
+});
+
+
+/* New Tree menu */
+!function ($) {
+    $(document).on("click", "#left ul.nav li.parent > a > span.sign", function () {
+        $(this).find('i:first').toggleClass("icon-minus");
+    });
+
+    // Open Le current menu
+    $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
+    $("#left ul.nav li.current").parents('ul.children').addClass("in");
+
+}(window.jQuery);
+
+$(document).ready(function() {
+    $('.collapse').on('show.bs.collapse', function() {
+        var id = $(this).attr('id');
+        $('a[href="#' + id + '"]').closest('.panel-heading').addClass('active-faq');
+        $('a[href="#' + id + '"] .panel-title span').html('<i class="fa fa-angle-up"></i>');
+    });
+    $('.collapse').on('hide.bs.collapse', function() {
+        var id = $(this).attr('id');
+        $('a[href="#' + id + '"]').closest('.panel-heading').removeClass('active-faq');
+        $('a[href="#' + id + '"] .panel-title span').html('<i class="fa fa-angle-down"></i>');
+    });
+});

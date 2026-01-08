@@ -1,0 +1,2692 @@
+{
+  "software": "CSPro", 
+  "version": 8.0, 
+  "fileType": "dictionary", 
+  "name": "NAME_DICT", 
+  "labels": [ { "text": "લાભાર્થીની પ્રશ્નાવલી" } ], 
+  "security": {
+    "allowDataViewerModifications": true, 
+    "allowExport": true, 
+    "cachedPasswordMinutes": 0, 
+    "settings": "a76cccf18de6865e9bd78c5653b25dda88c0d51551df099f6bf326d59d23d52d"
+  }, 
+  "readOptimization": true, 
+  "recordType": {
+    "start": 1, 
+    "length": 1
+  }, 
+  "defaults": {
+    "decimalMark": true, 
+    "zeroFill": false
+  }, 
+  "relativePositions": true, 
+  "levels": [
+    {
+      "name": "NAME_LEVEL", 
+      "labels": [ { "text": "લાભાર્થીની પ્રશ્નાવલી Level" } ], 
+      "ids": {
+        "items": [
+          {
+            "name": "PERSON_ID", 
+            "labels": [ { "text": "Person ID" } ], 
+            "contentType": "numeric", 
+            "start": 2, 
+            "length": 3, 
+            "zeroFill": false
+          }, 
+          {
+            "name": "FORM_NO", 
+            "labels": [ { "text": "Form NO" } ], 
+            "contentType": "numeric", 
+            "start": 5, 
+            "length": 3, 
+            "zeroFill": false
+          }
+        ]
+      }, 
+      "records": [
+        {
+          "name": "SIMPLE_INFO", 
+          "labels": [ { "text": "સામાન્ય માહિતી" } ], 
+          "recordType": "1", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q_1", 
+              "labels": [ { "text": "તાલીમાર્થીનું નામ" } ], 
+              "contentType": "alpha", 
+              "length": 35
+            }, 
+            {
+              "name": "Q_2", 
+              "labels": [ { "text": "જવાબ આપનાર " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_2_VS1", 
+                  "labels": [ { "text": "જવાબ આપનાર " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પુત્ર/પુત્રી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પત્ની/પિતા" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કુટુંબના અન્ય કોઈ સભ્ય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_3", 
+              "labels": [ { "text": "વિસ્તાર/સોસાયટી/ફળિયાનું નામ" } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q_4", 
+              "labels": [ { "text": "ગામ/ઝોનનું નામ" } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q_5", 
+              "labels": [ { "text": "તાલુકા/નગરપાલિકાનું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q_6", 
+              "labels": [ { "text": "જિલ્લા/મ.ન.પા.નું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q_7", 
+              "labels": [ { "text": "વિસ્તાર" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_7_VS1", 
+                  "labels": [ { "text": "વિસ્તાર" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "શહેરી વિસ્તાર " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગ્રામ્ય વિસ્તાર " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_8", 
+              "labels": [ { "text": "જાતિ" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_8_VS1", 
+                  "labels": [ { "text": "જાતિ" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પુરુષ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્ત્રી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય (વિગત)" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_9", 
+              "labels": [ { "text": "લાભાર્થીની ઉંમર જણાવો. (મોજણી સમયની ઉંમર પુરા વર્ષમાં લખવી)" } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }, 
+            {
+              "name": "Q_10", 
+              "labels": [ { "text": "મોબાઈલ નંબર" } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_11", 
+              "labels": [ { "text": "કુટુંબનો સામાજિક વર્ગ" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_11_VS1", 
+                  "labels": [ { "text": "કુટુંબનો સામાજિક વર્ગ" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "અનુસૂચિત જાતિ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનુસૂચિત જનજાતિ " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાજિક અને શૈક્ષણિક રીતે પછાત " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાન્ય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_12", 
+              "labels": [ { "text": "લાભાર્થીની શૈક્ષણિક લાયકાત " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_12_VS1", 
+                  "labels": [ { "text": "લાભાર્થીની શૈક્ષણિક લાયકાત " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "અશિક્ષિત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનૌપચારિક" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પ્રાથમિક શિક્ષણ " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "માધ્યમિક શિક્ષણ " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઉચ્ચતર માધ્યમિક શિક્ષણ " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ડિપ્લોમા/ટેક્નિકલ કોર્સ " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્નાતક/ અનું સ્નાતક " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય (વિગત)" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_13_1", 
+              "labels": [ { "text": "કુટુંબમાં પુરૂષ" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_13_2", 
+              "labels": [ { "text": "કુટુંબમાં સ્ત્રી" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_13_3", 
+              "labels": [ { "text": "કુટુંબમાં બાળકો" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_13_4", 
+              "labels": [ { "text": "કુટુંબમાં કુલ સભ્યો" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_13_5", 
+              "labels": [ { "text": "કુટુંબની કુલ સભ્ય સંખ્યા પૈકી કેટલા સભ્યો પશુપાલન કામગીરી સાથે સંકળાયેલા છે?" } ], 
+              "contentType": "alpha", 
+              "length": 10
+            }, 
+            {
+              "name": "Q_14", 
+              "labels": [ { "text": "કુટુંબનો મુખ્ય વ્યવસાય જણાવો" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_14_VS1", 
+                  "labels": [ { "text": "કુટુંબનો મુખ્ય વ્યવસાય જણાવો" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ખેતી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેત મજુરી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "છૂટક મજુરી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઘંધો/વેપાર " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી નોકરી " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેતી તથા પશુપાલન પ્રવૃત્તિ " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય (વિગત) " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_14_1", 
+              "labels": [ { "text": "આપની પાસે ખેતીની જમીન છે?  (આગળના પ્રશ્નમા 1,4,7 હોય તો) " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_14_1_VS1", 
+                  "labels": [ { "text": "આપની પાસે ખેતીની જમીન છે?  (આગળના પ્રશ્નમા 1,4,7 હોય તો) " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાગુ પડતું નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_14_2", 
+              "labels": [ { "text": "જો “હા” તો જમીનનો વિસ્તાર (વિગત વિઘામાં લેવી) " } ], 
+              "contentType": "alpha", 
+              "length": 15
+            }, 
+            {
+              "name": "Q_14_3", 
+              "labels": [ { "text": "આપ પશુપાલનનો વ્યવસાય કરો છો?  (આગળના પ્રશ્નમા 1,4,7 હોય તો) " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_14_3_VS1", 
+                  "labels": [ { "text": "આપ પશુપાલનનો વ્યવસાય કરો છો?  (આગળના પ્રશ્નમા 1,4,7 હોય તો) " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાગુ પડતું નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_14_4_1", 
+              "labels": [ { "text": "જો “હા” તો આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો. (ગાય)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_14_4_2", 
+              "labels": [ { "text": "જો “હા” તો આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો. (ભેંસ)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_14_4_3", 
+              "labels": [ { "text": "જો “હા” તો આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો. (ઘેટા)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_14_4_4", 
+              "labels": [ { "text": "જો “હા” તો આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો. (બકરા)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_14_4_5", 
+              "labels": [ { "text": "જો “હા” તો આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો. (અન્ય(વિગત))" } ], 
+              "contentType": "alpha", 
+              "length": 50
+            }, 
+            {
+              "name": "Q_14_4_6", 
+              "labels": [ { "text": "જો “હા” તો આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો. (કુલ)" } ], 
+              "contentType": "numeric", 
+              "length": 6, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q_14_5", 
+              "labels": [ { "text": "આપના દ્વારા દુધ મંડળીમાં દુધ ભરાવવામાં આવે છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_14_5_VS1", 
+                  "labels": [ { "text": "આપના દ્વારા દુધ મંડળીમાં દુધ ભરાવવામાં આવે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_14_5_1", 
+              "labels": [ { "text": "જો “હા” તો દુધમાંથી થતી વાર્ષિક આવક જણાવો?(રૂ. માં) " } ], 
+              "contentType": "alpha", 
+              "length": 25
+            }, 
+            {
+              "name": "Q_15", 
+              "labels": [ { "text": "આપ કોઈ સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય છો?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_15_VS1", 
+                  "labels": [ { "text": "આપ કોઈ સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય છો?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_16", 
+              "labels": [ { "text": "જો “હા” તો આપ દ્વારા આ યોજનાનો લાભ સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય તરીકે કરેલ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_16_VS1", 
+                  "labels": [ { "text": "જો “હા” તો આપ દ્વારા આ યોજનાનો લાભ સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય તરીકે કરેલ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_17", 
+              "labels": [ { "text": "જો “હા” તો સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય તરીકે કરેલ યોજનાના લાભ મુજબનો વેપાર મોજણી સમયે ચાલુ છે કે કેમ? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_17_VS1", 
+                  "labels": [ { "text": "જો “હા” તો સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય તરીકે કરેલ યોજનાના લાભ મુજબનો વેપાર મોજણી સમયે ચાલુ છે કે કેમ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_18", 
+              "labels": [ { "text": "સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય તરીકે ચાલતી પ્રવૃતિ દ્વારા આપને વ્યક્તિગત થતી માસિક આવક જણાવો (રૂ. માં)  " } ], 
+              "contentType": "alpha", 
+              "length": 25
+            }
+          ]
+        }, 
+        {
+          "name": "PROCESS_OF_IMPLEMENTATION", 
+          "labels": [ { "text": "A. યોજનાની અમલીકરણની પ્રક્રિયા " } ], 
+          "recordType": "2", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q_19", 
+              "labels": [ { "text": "આ યોજનાનો લાભ  મેળવ્યાનું વર્ષ " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_19_VS1", 
+                  "labels": [ { "text": "આ યોજનાનો લાભ  મેળવ્યાનું વર્ષ " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "2019-20 " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "2020-21 " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "2021-22 " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "2022-23 " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "2023-24" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_20", 
+              "labels": [ { "text": "આ યોજના અન્વયે આપે કયો લાભ મેળવેલ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_20_VS1", 
+                  "labels": [ { "text": "આ યોજના અન્વયે આપે કયો લાભ મેળવેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "તાલીમ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જિલામાં પ્રેરણા પ્રવાસ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જિલ્લા બહાર પ્રેરણા પ્રવાસ " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_21", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસના સ્થળની વિગતો  જણાવો. " } ], 
+              "contentType": "alpha", 
+              "length": 999
+            }, 
+            {
+              "name": "Q_22", 
+              "labels": [ { "text": "આપની દ્રષ્ટિએ તે સ્થળો યોગ્ય જગ્યાએ હતા?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_22_VS1", 
+                  "labels": [ { "text": "આપની દ્રષ્ટિએ તે સ્થળો યોગ્ય જગ્યાએ હતા?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_23", 
+              "labels": [ { "text": "પશુપાલન આપનો વારસાગત વ્યવસાય છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_23_VS1", 
+                  "labels": [ { "text": "પશુપાલન આપનો વારસાગત વ્યવસાય છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_24", 
+              "labels": [ { "text": "આપને પશુપાલકોને તાલીમ/પ્રેરણા પ્રવાસ યોજના અંગેની જાણકારી કયા માધ્યમ દ્વારા મળેલ છે?" } ], 
+              "contentType": "alpha", 
+              "length": 8, 
+              "valueSets": [
+                {
+                  "name": "Q_24_VS1", 
+                  "labels": [ { "text": "આપને પશુપાલકોને તાલીમ/પ્રેરણા પ્રવાસ યોજના અંગેની જાણકારી કયા માધ્યમ દ્વારા મળેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "મિત્રો/સગા-સંબંધીઓ " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જાહેરાતના બોર્ડ/હોર્ડીંગ્સ દ્વારા" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન કચેરી દ્વારા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ટી.વી. ડોકયુમેન્ટરી કાર્યક્રમ " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગ્રામ પંચાયત દ્વારા " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સોશિયલ મિડીયા દ્વારા " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "તાલીમ કાર્યક્રમ દ્વારા " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાઇવસ્ટોક ઇન્સપેક્ટર દ્વારા " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય દ્વારા(વિગત) " } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_25", 
+              "labels": [ { "text": "આપના દ્વારા આ યોજનાનો લાભ લેવા માટે અરજી કરેલ હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_25_VS1", 
+                  "labels": [ { "text": "આપના દ્વારા આ યોજનાનો લાભ લેવા માટે અરજી કરેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_26", 
+              "labels": [ { "text": "આ યોજનાના લાભાર્થી તરીકે આપની પસંદગી થયેલ છે તેની જાણ આપને કોના દ્વારા કરવામાં આવેલ હતી?" } ], 
+              "contentType": "alpha", 
+              "length": 7, 
+              "valueSets": [
+                {
+                  "name": "Q_26_VS1", 
+                  "labels": [ { "text": "આ યોજનાના લાભાર્થી તરીકે આપની પસંદગી થયેલ છે તેની જાણ આપને કોના દ્વારા કરવામાં આવેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પશુપાલન કચેરી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગ્રામ પંચાયત " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાઇવ સ્ટોક ઇન્સપેક્ટર " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સખી મંડળ" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુ દવાખાના " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "દુધ મંડળી " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્વસહાય જુથ " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત) " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_27", 
+              "labels": [ { "text": "આ યોજના માટે આપની પાસેથી કોઇ ફી લેવામાં આવેલ હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_27_VS1", 
+                  "labels": [ { "text": "આ યોજના માટે આપની પાસેથી કોઇ ફી લેવામાં આવેલ હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_28", 
+              "labels": [ { "text": "જો “હા” તો ચુકવેલ ફીની રકમ જણાવો. (રૂ. માં)" } ], 
+              "contentType": "alpha", 
+              "length": 25
+            }, 
+            {
+              "name": "Q_29", 
+              "labels": [ { "text": "આપે આ અગાઉ ક્યારેય આ યોજનાનો લાભ મેળવેલ હતો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_29_VS1", 
+                  "labels": [ { "text": "આપે આ અગાઉ ક્યારેય આ યોજનાનો લાભ મેળવેલ હતો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_29_1", 
+              "labels": [ { "text": "જો “હા” તો વિગત જણાવો. (યોજનાનું નામ અને લાભ મેળવ્યાનું વર્ષ) " } ], 
+              "contentType": "alpha", 
+              "length": 500
+            }
+          ]
+        }, 
+        {
+          "name": "UTILITY_OF_THE_PLAN", 
+          "labels": [ { "text": "B. યોજનાની ઉપયોગિતા" } ], 
+          "recordType": "3", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q_30", 
+              "labels": [ { "text": "આપને તાલીમ,પ્રેરણા પ્રવાસમાં ક્યા વિષયોની જાણકારી\\વ્યાખ્યાન આપવામાં આવેલ?" } ], 
+              "contentType": "alpha", 
+              "length": 8, 
+              "valueSets": [
+                {
+                  "name": "Q_30_VS1", 
+                  "labels": [ { "text": "આપને તાલીમ,પ્રેરણા પ્રવાસમાં ક્યા વિષયોની જાણકારી\\વ્યાખ્યાન આપવામાં આવેલ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પશુ આરોગ્ય તથા રસીકરણ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુ પોષણ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુ સંવર્ધન" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલનમાં ઘાસચારાના પાકોનું મહત્વ" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્વચ્છ દૂધ ઉત્પાદન " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન કેલેન્ડર(ૠતુ ચક્ર) " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન સહાયકારી યોજનાઓ" } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આઇ ખેડૂત પોર્ટલ –ઇ-એપ્લીકેશન બાબતે" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલનમાં ઇકોનોમિક્સ –પ્રોજેક્ટ આવક-જાવક,નફો નુકશાન સરવૈયું" } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુઓમાં આપત્તિ વ્યવસ્થાપન" } ], 
+                      "pairs": [ { "value": "10" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલકની આવક વધારવાના સિધ્ધાંત/આદર્શ પશુપાલન" } ], 
+                      "pairs": [ { "value": "11" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_31", 
+              "labels": [ { "text": "તાલીમ,પ્રેરણા પ્રવાસ બાદ આપ કઇ આર્થિક પ્રવૃતિ કરો છો ટીકમાર્ક કરો (એક કરતાં વધુ આર્થિક પ્રવૃતિ કરતાં હોય તો લખવી)" } ], 
+              "contentType": "alpha", 
+              "length": 8, 
+              "valueSets": [
+                {
+                  "name": "Q_31_VS1", 
+                  "labels": [ { "text": "તાલીમ,પ્રેરણા પ્રવાસ બાદ આપ કઇ આર્થિક પ્રવૃતિ કરો છો ટીકમાર્ક કરો (એક કરતાં વધુ આર્થિક પ્રવૃતિ કરતાં હોય તો લખવી)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતાની ખેતી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેત મજુરી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઘંધો/વેપાર " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગૃહિણી" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન/ ખેતી" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "છૂટક મજુરી" } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મોજણી સમયે કોઈ કામ કરતા નથી" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી નોકરી " } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "તાલીમ મેળવેલ પ્રવૃત્તિ " } ], 
+                      "pairs": [ { "value": "10" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત) " } ], 
+                      "pairs": [ { "value": "11" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_32", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસને અનુરૂપ વ્યવસાય ન કરતા હોય તો કારણ જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 700
+            }, 
+            {
+              "name": "Q_33", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસના પરિણામે આપની આવકમાં વધારો થયેલ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_33_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસના પરિણામે આપની આવકમાં વધારો થયેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_33_1", 
+              "labels": [ { "text": "જો “હા” તો અંદાજિત કેટલો વધારો થયેલ છે? (રૂ. માં)" } ], 
+              "contentType": "alpha", 
+              "length": 15
+            }, 
+            {
+              "name": "Q_34", 
+              "labels": [ { "text": "આ યોજનાનું સ્થળ આપના ગામથી કેટલા કી.મી. દુર હતું? " } ], 
+              "contentType": "alpha", 
+              "length": 25
+            }, 
+            {
+              "name": "Q_35", 
+              "labels": [ { "text": "યોજનાના સ્થળે આવવા-જવા માટે સાધનની વ્યવસ્થા કરવામાં આવેલ હતી?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_35_VS1", 
+                  "labels": [ { "text": "યોજનાના સ્થળે આવવા-જવા માટે સાધનની વ્યવસ્થા કરવામાં આવેલ હતી?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_35_1", 
+              "labels": [ { "text": "જો “હા” તો કઇ વ્યવસ્થા કરવામાં આવેલ હતી?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_35_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો કઇ વ્યવસ્થા કરવામાં આવેલ હતી?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સરકારી વાહન" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "રાજ્ય પરીવહન બસ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી વાહન " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_35_2", 
+              "labels": [ { "text": "યોજનાના સ્થળે આવવા-જવામાં આપને સરળતા રહેતી હતી કે કેમ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_35_2_VS1", 
+                  "labels": [ { "text": "યોજનાના સ્થળે આવવા-જવામાં આપને સરળતા રહેતી હતી કે કેમ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_35_3", 
+              "labels": [ { "text": "જો “ના” તો તાલીમ/પ્રેરણા પ્રવાસના સ્થળે જવા માટે રોકડ ભાડું આપવામાં આવેલ હતું?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_35_3_VS1", 
+                  "labels": [ { "text": "જો “ના” તો તાલીમ/પ્રેરણા પ્રવાસના સ્થળે જવા માટે રોકડ ભાડું આપવામાં આવેલ હતું?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_35_3_1", 
+              "labels": [ { "text": "જો “હા” તો કેટલા? (રૂ.માં) " } ], 
+              "contentType": "alpha", 
+              "length": 25
+            }, 
+            {
+              "name": "Q_35_3_2", 
+              "labels": [ { "text": "જો “ના” તો તાલીમ/પ્રેરણા પ્રવાસના સ્થળે પર પહોંચવા માટે શું-શું મુશ્કેલીઓ પડેલ હતી? " } ], 
+              "contentType": "alpha", 
+              "length": 999
+            }, 
+            {
+              "name": "Q_36", 
+              "labels": [ { "text": "આ તાલીમ/પ્રેરણા પ્રવાસ કેટલા દિવસના સમયગાળા માટે હતો?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_36_VS1", 
+                  "labels": [ { "text": "આ તાલીમ/પ્રેરણા પ્રવાસ કેટલા દિવસના સમયગાળા માટે હતો?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "1 દિવસ " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "2 દિવસ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_37", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં લાભાર્થીઓની સંખ્યા કેટલી હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_37_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં લાભાર્થીઓની સંખ્યા કેટલી હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "20 લાભાર્થી " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "40 લાભાર્થી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "50 લાભાર્થી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_38", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ માટે નિયત કરેલા દિવસ પુરતા હતા ?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_38_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ માટે નિયત કરેલા દિવસ પુરતા હતા ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_38_1", 
+              "labels": [ { "text": "જો “ના” તો આપના મત મુજબ કેટલા દિવસ હોવા જોઇએ?" } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q_39", 
+              "labels": [ { "text": "આપના મત મુજબ તાલીમ/પ્રેરણા પ્રવાસ બાદ સ્ટાઇપેન્ડ આપવું જોઇએ? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_39_VS1", 
+                  "labels": [ { "text": "આપના મત મુજબ તાલીમ/પ્રેરણા પ્રવાસ બાદ સ્ટાઇપેન્ડ આપવું જોઇએ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_39_1", 
+              "labels": [ { "text": "જો “હા” તો સ્ટાઇપેન્ડ તરીકે કેટલી રકમ આપવી જોઇએ? (રૂ.)" } ], 
+              "contentType": "alpha", 
+              "length": 200
+            }, 
+            {
+              "name": "Q_40", 
+              "labels": [ { "text": "સંસ્થા દ્વારા તાલીમ/પ્રેરણા પ્રવાસ કર્યા અંગેનું પ્રમાણપત્ર આપવામાં આવેલ હતું?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_40_VS1", 
+                  "labels": [ { "text": "સંસ્થા દ્વારા તાલીમ/પ્રેરણા પ્રવાસ કર્યા અંગેનું પ્રમાણપત્ર આપવામાં આવેલ હતું?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_41", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં ચા-નાસ્તા, ભોજનની વ્યવસ્થા કરવામાં આવેલ હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_41_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં ચા-નાસ્તા, ભોજનની વ્યવસ્થા કરવામાં આવેલ હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_41_1", 
+              "labels": [ { "text": "જો હા તો, ચા-નાસ્તા, ભોજનની ગુણવત્તા કેવી હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_41_1_VS1", 
+                  "labels": [ { "text": "જો હા તો, ચા-નાસ્તા, ભોજનની ગુણવત્તા કેવી હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘણી સારી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સારી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મધ્યમ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નબળી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_42", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમમાં રાત્રિ રોકાણની વ્યવસ્થા કરવામાં આવેલ હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_42_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમમાં રાત્રિ રોકાણની વ્યવસ્થા કરવામાં આવેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાગુ પડતું નથી" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_42_1", 
+              "labels": [ { "text": "જો હા તો, વ્યવસ્થા કેવી હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_42_1_VS1", 
+                  "labels": [ { "text": "જો હા તો, વ્યવસ્થા કેવી હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘણી સારી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સારી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મધ્યમ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નબળી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_43", 
+              "labels": [ { "text": "સમ્રગ યોજનાની અસરકારકતા જણાવો." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_43_VS1", 
+                  "labels": [ { "text": "સમ્રગ યોજનાની અસરકારકતા જણાવો." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘણી સારી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સારી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મધ્યમ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઓછી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નહિવત" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "REGARDING_MAKING_ECONOMIC_ACTIVITY_MORE_SUSTAINABLE", 
+          "labels": [ { "text": "C. આર્થિક પ્રવૃત્તિને વધુ ટકાઉ બનાવવા અંગે" } ], 
+          "recordType": "4", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q_44", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પશુરોગની માહિતી આપવામાં આવેલ હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_44_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પશુરોગની માહિતી આપવામાં આવેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_44_1", 
+              "labels": [ { "text": "જો “હા” તો નીચેનામાંથી કયા પશુ રોગની માહિતી આપવામાં આવેલ હતી? (√ ટીક માર્ક કરવું)" } ], 
+              "contentType": "alpha", 
+              "length": 9, 
+              "valueSets": [
+                {
+                  "name": "Q_44_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો નીચેનામાંથી કયા પશુ રોગની માહિતી આપવામાં આવેલ હતી? (√ ટીક માર્ક કરવું)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "મીલ્ક ફિવર/દૂધિયો તાવ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગળસૂઠો " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કિટોસીસ " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગઠિયો તાવ(થાઇલેરીયાં)  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખરવા –મોવા" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ક્ષય રોગ " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ચેપી ગર્ભપાત(બ્રસેલ્લોસીસ)  " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ધેટામાં આંત્ર વિષમતા/ એન્ટ્રોટ્રોક્સીમીયા (માથાવટું)" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આઉનો રોગ(મસ્ટાઇટીસ)" } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લેપ્ટોસ્પાયરોસીસ(પેશાબમાં લોહી પડવું)  " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "હડકવા " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આફરો " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_45", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પશુરોગની માહિતી મેળવ્યા બાદ આપના પશુને કોઇ રોગની સારવાર કરાવવામાં આવેલ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_45_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પશુરોગની માહિતી મેળવ્યા બાદ આપના પશુને કોઇ રોગની સારવાર કરાવવામાં આવેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_45_1", 
+              "labels": [ { "text": "જો “હા” તો નીચેનામાંથી કયા પશુ રોગની સારવાર કરાવેલ છે? (√ ટીક માર્ક કરવું)" } ], 
+              "contentType": "alpha", 
+              "length": 9, 
+              "valueSets": [
+                {
+                  "name": "Q_45_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો નીચેનામાંથી કયા પશુ રોગની સારવાર કરાવેલ છે? (√ ટીક માર્ક કરવું)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "મીલ્ક ફિવર/દૂધિયો તાવ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગળસૂઠો " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કિટોસીસ " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગઠિયો તાવ(થાઇલેરીયાં)  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખરવા –મોવા" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ક્ષય રોગ " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ચેપી ગર્ભપાત(બ્રસેલ્લોસીસ)  " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ધેટામાં આંત્ર વિષમતા/ એન્ટ્રોટ્રોક્સીમીયા (માથાવટું)" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આઉનો રોગ(મસ્ટાઇટીસ)" } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લેપ્ટોસ્પાયરોસીસ(પેશાબમાં લોહી પડવું)  " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "હડકવા " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આફરો " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_46", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પશુપાલનને સંબધિત સરકારી યોજનાઓની માહિતી આપવામાં આવેલ હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_46_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પશુપાલનને સંબધિત સરકારી યોજનાઓની માહિતી આપવામાં આવેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_46_1", 
+              "labels": [ { "text": "જો “હા” તો પશુપાલનને સંબધિત સરકારી યોજનાઓની માહિતી જણાવો? " } ], 
+              "contentType": "alpha", 
+              "length": 500
+            }, 
+            {
+              "name": "Q_47", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ દરમિયાન પશુપાલનને સંબધિત સરકારી યોજનાઓનાં જાહેરાત પુસ્તિકા, પેમ્ફ્લેટ, ચોપાનીયાનું વિતરણ કરવામાં આવેલ?   " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_47_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ દરમિયાન પશુપાલનને સંબધિત સરકારી યોજનાઓનાં જાહેરાત પુસ્તિકા, પેમ્ફ્લેટ, ચોપાનીયાનું વિતરણ કરવામાં આવેલ?   " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_48", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ બાદ પશુપાલન લગત યોજનાઓનો લાભ લીધેલ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_48_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ બાદ પશુપાલન લગત યોજનાઓનો લાભ લીધેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_48_1", 
+              "labels": [ { "text": "જો “હા” તો લાભ મેળવેલ યોજનાનું નામ જણાવો?" } ], 
+              "contentType": "alpha", 
+              "length": 500
+            }, 
+            {
+              "name": "Q_49", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં આઇ ખેડૂત પોર્ટલની માહિતી આપવામાં આવેલ હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_49_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં આઇ ખેડૂત પોર્ટલની માહિતી આપવામાં આવેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_49_1", 
+              "labels": [ { "text": "આઇ ખેડૂત પોર્ટલનો તમે ઉપયોગ કરેલ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_49_1_VS1", 
+                  "labels": [ { "text": "આઇ ખેડૂત પોર્ટલનો તમે ઉપયોગ કરેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_49_2", 
+              "labels": [ { "text": "જો “હા” તો તમે કઇ યોજનાનો લાભ લીધેલ છે જણાવો?" } ], 
+              "contentType": "alpha", 
+              "length": 500
+            }, 
+            {
+              "name": "Q_50", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં કાર્યક્રમમાં પશુપોષણ વિષે જાણકારી આપવામાં આવેલ હતી?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_50_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં કાર્યક્રમમાં પશુપોષણ વિષે જાણકારી આપવામાં આવેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_50_1", 
+              "labels": [ { "text": "જો “હા” તો નીચેમાંથી કયા પશુપોષણ વિષે જાણકારી આપવામાં આવેલ હતી? (√ ટીક માર્ક કરવું)" } ], 
+              "contentType": "alpha", 
+              "length": 7, 
+              "valueSets": [
+                {
+                  "name": "Q_50_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો નીચેમાંથી કયા પશુપોષણ વિષે જાણકારી આપવામાં આવેલ હતી? (√ ટીક માર્ક કરવું)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સાયલેજ ઘાસ(ઘાસનું અથાણું)  " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંઘ/મંડળીનું પશુદાણ " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "વિટામિન " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મીનરલ્સ " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પરંપરાગત પદ્ધતિ  " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી કંપનીનું  પશુદાણ" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પાપડીનો ખોળ " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_50_2", 
+              "labels": [ { "text": "જો “હા” તો નીચેમાંથી કયા પશુપોષણનો તમે ઉપયોગ પશુ માટે કરો છે? (√ ટીક માર્ક કરવું)" } ], 
+              "contentType": "alpha", 
+              "length": 7, 
+              "valueSets": [
+                {
+                  "name": "Q_50_2_VS1", 
+                  "labels": [ { "text": "જો “હા” તો નીચેમાંથી કયા પશુપોષણનો તમે ઉપયોગ પશુ માટે કરો છે? (√ ટીક માર્ક કરવું)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સાયલેજ ઘાસ(ઘાસનું અથાણું)  " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંઘ/મંડળીનું પશુદાણ " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "વિટામિન " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મીનરલ્સ " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પરંપરાગત પદ્ધતિ  " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી કંપનીનું  પશુદાણ" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પાપડીનો ખોળ " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_51", 
+              "labels": [ { "text": "આ યોજનામાં જાણકારી મેળવ્યા (લાભ મેળવ્યા) બાદ પશુ સારવાર માટેના ખર્ચમાં ઘટાડો થયેલ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_51_VS1", 
+                  "labels": [ { "text": "આ યોજનામાં જાણકારી મેળવ્યા (લાભ મેળવ્યા) બાદ પશુ સારવાર માટેના ખર્ચમાં ઘટાડો થયેલ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_52", 
+              "labels": [ { "text": "પશુઓનાં રોગ માટે આપવામાં આવતી ખરવા - મોવાસા અને બ્રસેલ્લોસીસ રસી વિષે જાણકારી ધરાવો છો?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_52_VS1", 
+                  "labels": [ { "text": "પશુઓનાં રોગ માટે આપવામાં આવતી ખરવા - મોવાસા અને બ્રસેલ્લોસીસ રસી વિષે જાણકારી ધરાવો છો?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_53", 
+              "labels": [ { "text": "આ યોજનાના લાભ મળવાથી આપની આવકમાં વધારો થયેલ છે તેમ આપ માનો છો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_53_VS1", 
+                  "labels": [ { "text": "આ યોજનાના લાભ મળવાથી આપની આવકમાં વધારો થયેલ છે તેમ આપ માનો છો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_54", 
+              "labels": [ { "text": "આ યોજનામાં જાણકારી મેળવ્યા (લાભ મેળવ્યા) બાદ આપના દ્વારા ઉચ્ચ ગુણવત્તાવાળા પશુ ઓલાદની જાત વિકસાવેલ/ખરીદેલ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_54_VS1", 
+                  "labels": [ { "text": "આ યોજનામાં જાણકારી મેળવ્યા (લાભ મેળવ્યા) બાદ આપના દ્વારા ઉચ્ચ ગુણવત્તાવાળા પશુ ઓલાદની જાત વિકસાવેલ/ખરીદેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_55", 
+              "labels": [ { "text": "જો હા તો આપના દ્વારા ઉચ્ચ ગુણવત્તાવાળા પશુ ઓલાદની જાત વિકસાવવા /ખરીદવાથી પશુઓની સંખ્યા કે ઉત્પાદનમાં વધારો થયો છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_55_VS1", 
+                  "labels": [ { "text": "જો હા તો આપના દ્વારા ઉચ્ચ ગુણવત્તાવાળા પશુ ઓલાદની જાત વિકસાવવા /ખરીદવાથી પશુઓની સંખ્યા કે ઉત્પાદનમાં વધારો થયો છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_55_1", 
+              "labels": [ { "text": "જો હા તો અંદાજે કેટલા ટકા વધારો થયેલ છે?" } ], 
+              "contentType": "alpha", 
+              "length": 25
+            }, 
+            {
+              "name": "Q_56", 
+              "labels": [ { "text": "આ યોજનાના લાભ મળવાથી આપના પશુ માટે કઇ બીજદાન પદ્ધતિનો ઉપયોગ કરવામાં આવે છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_56_VS1", 
+                  "labels": [ { "text": "આ યોજનાના લાભ મળવાથી આપના પશુ માટે કઇ બીજદાન પદ્ધતિનો ઉપયોગ કરવામાં આવે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પરંપરાગત પદ્ધતિ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કૃત્રિમ બીજદાન પદ્ધતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_57", 
+              "labels": [ { "text": "આપના મત મુજબ પશુપાલન વ્યવસાયમાં કૃત્રિમ બીજદાન પદ્ધતિનો પશુની ઓલાદ સુધારણાંમાં કેટલો ફાળો રહેલો છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_57_VS1", 
+                  "labels": [ { "text": "આપના મત મુજબ પશુપાલન વ્યવસાયમાં કૃત્રિમ બીજદાન પદ્ધતિનો પશુની ઓલાદ સુધારણાંમાં કેટલો ફાળો રહેલો છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ખૂબ જ અગત્યનો" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અગત્યનો" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાન્ય" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જાણકારી નથી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_58", 
+              "labels": [ { "text": "આપના દ્વારા પશુ દોવણ માટે કઇ પદ્ધતિ અપનાવવામાં આવે છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_58_VS1", 
+                  "labels": [ { "text": "આપના દ્વારા પશુ દોવણ માટે કઇ પદ્ધતિ અપનાવવામાં આવે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પરંપરાગત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કૃત્રિમ (મશીનથી)" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_58_1", 
+              "labels": [ { "text": "જો જવાબ ૨ હોયતો કૃત્રિમ (મશીનથી) સમયનો બચાવ થાય છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_58_1_VS1", 
+                  "labels": [ { "text": "જો જવાબ ૨ હોયતો કૃત્રિમ (મશીનથી) સમયનો બચાવ થાય છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_59", 
+              "labels": [ { "text": "પશુપાલન માટે સ્થાનિક બજારમાં જરૂરી દાણ, બિયારણ, ખાતર, ઓજારો અને તેની મશીનરી મળી રહે છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_59_VS1", 
+                  "labels": [ { "text": "પશુપાલન માટે સ્થાનિક બજારમાં જરૂરી દાણ, બિયારણ, ખાતર, ઓજારો અને તેની મશીનરી મળી રહે છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_60", 
+              "labels": [ { "text": "પશુપાલન વ્યવસાય માટે બેંકમાંથી લોન/સહાય મેળવવા અરજી કરેલ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_60_VS1", 
+                  "labels": [ { "text": "પશુપાલન વ્યવસાય માટે બેંકમાંથી લોન/સહાય મેળવવા અરજી કરેલ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_60_1", 
+              "labels": [ { "text": "જો હા તો, બેંકની વિગતો જણાવો. (લોન/સહાયનો હેતુ)" } ], 
+              "contentType": "alpha", 
+              "length": 200
+            }, 
+            {
+              "name": "Q_60_2", 
+              "labels": [ { "text": "જો હા તો, બેંકની વિગતો જણાવો. (રકમ રૂ.)" } ], 
+              "contentType": "alpha", 
+              "length": 200
+            }, 
+            {
+              "name": "Q_60_3", 
+              "labels": [ { "text": "જો હા તો, બેંકની વિગતો જણાવો. (બેંક/નિગમ/સંસ્થાનું નામ)" } ], 
+              "contentType": "alpha", 
+              "length": 200
+            }, 
+            {
+              "name": "Q_61", 
+              "labels": [ { "text": "આ યોજનાનો લાભ મળવાથી થયેલ ફાયદાઓ જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 999
+            }, 
+            {
+              "name": "Q_62", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસમાં આપને પડેલ મુશ્કેલીઓ જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 999
+            }, 
+            {
+              "name": "Q_63", 
+              "labels": [ { "text": "તાલીમ અને પ્રેરણા પ્રવાસ યોજનાને વધુ અસરકારક બનાવવાના સૂચનો/ભલામણો જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 999
+            }
+          ]
+        }, 
+        {
+          "name": "FILL_CODE", 
+          "labels": [ { "text": "D. તાલીમ અને પ્રેરણા પ્રવાસ કાર્યક્રમમાં તાલીમાર્થીની પસંદગી પ્રક્રિયાની વિવિધ બાબતો અંગે આપના પ્રતિભાવ જણાવી કોડ લખો" } ], 
+          "recordType": "5", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q_64", 
+              "labels": [ { "text": "એક કુટુંબમાંથી એક જ સભ્યને યોજનાનો લાભ આપવો જોઈએ." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_64_VS1", 
+                  "labels": [ { "text": "એક કુટુંબમાંથી એક જ સભ્યને યોજનાનો લાભ આપવો જોઈએ." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_65", 
+              "labels": [ { "text": "આ યોજનામાં વારસાગત પ્રવૃત્તિ કરતાં કુટુંબને પ્રથમ પ્રાધાન્ય આપવું જોઈએ." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_65_VS1", 
+                  "labels": [ { "text": "આ યોજનામાં વારસાગત પ્રવૃત્તિ કરતાં કુટુંબને પ્રથમ પ્રાધાન્ય આપવું જોઈએ." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_66", 
+              "labels": [ { "text": "૧૮ થી ૪૦ વર્ષની ઉંમરના નાગરિકોને જ આ યોજના માટે પસંદ કરવા જોઈએ." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_66_VS1", 
+                  "labels": [ { "text": "૧૮ થી ૪૦ વર્ષની ઉંમરના નાગરિકોને જ આ યોજના માટે પસંદ કરવા જોઈએ." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_67", 
+              "labels": [ { "text": "આ યોજનામાં પ્રવેશ અંગેની વ્યકિતગત અરજી કરવાની જોગવાઈ ઊભી કરવી જોઈએ..  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_67_VS1", 
+                  "labels": [ { "text": "આ યોજનામાં પ્રવેશ અંગેની વ્યકિતગત અરજી કરવાની જોગવાઈ ઊભી કરવી જોઈએ..  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_68", 
+              "labels": [ { "text": "વ્યકિતગત અરજી માટે પોર્ટલ/ઓનલાઈન માધ્યમની વ્યવસ્થા હોવી જોઈએ.  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_68_VS1", 
+                  "labels": [ { "text": "વ્યકિતગત અરજી માટે પોર્ટલ/ઓનલાઈન માધ્યમની વ્યવસ્થા હોવી જોઈએ.  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_69", 
+              "labels": [ { "text": "યોજનાનો અસરકારક પ્રચાર-પ્રસાર કરવાની જરૂર છે.  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_69_VS1", 
+                  "labels": [ { "text": "યોજનાનો અસરકારક પ્રચાર-પ્રસાર કરવાની જરૂર છે.  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_70", 
+              "labels": [ { "text": "સ્વસહાય જુથ અથવા સહકારી જુથ અથવા દુધ મંડળીના સભ્યો માટે ખાસ તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમો આયોજિત કરવા જોઈએ." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_70_VS1", 
+                  "labels": [ { "text": "સ્વસહાય જુથ અથવા સહકારી જુથ અથવા દુધ મંડળીના સભ્યો માટે ખાસ તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમો આયોજિત કરવા જોઈએ." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_71", 
+              "labels": [ { "text": "સતત તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમો ચાલુ રહે તેવી વ્યવસ્થા હોવી જોઈએ." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_71_VS1", 
+                  "labels": [ { "text": "સતત તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમો ચાલુ રહે તેવી વ્યવસ્થા હોવી જોઈએ." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સહમત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અસહમત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મારો કોઈ અભિપ્રાય નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "COMPLETE_SENTENCE", 
+          "labels": [ { "text": "E. તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમની ઉપયોગિતા અને અસરકારકતા પ્રમાણે નીચે જણાવેલ પૈકી અભિપ્રાય પસંદ કરી વાકય પૂર્ણ કરો" } ], 
+          "recordType": "6", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q_72", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ મેળવ્યા બાદ નવા રોજગાર નિર્માણ થયેલ છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_72_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ મેળવ્યા બાદ નવા રોજગાર નિર્માણ થયેલ છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_73", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ મેળવ્યા બાદ કૌશલ્ય ક્ષમતામાં વધારો થયેલ છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_73_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ મેળવ્યા બાદ કૌશલ્ય ક્ષમતામાં વધારો થયેલ છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_74", 
+              "labels": [ { "text": "સ્થાનિક કક્ષાની જરૂરીયાતની પસંદગી કરી તાલીમ/પ્રેરણા પ્રવાસનું આયોજન કરેલ છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_74_VS1", 
+                  "labels": [ { "text": "સ્થાનિક કક્ષાની જરૂરીયાતની પસંદગી કરી તાલીમ/પ્રેરણા પ્રવાસનું આયોજન કરેલ છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_75", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ અંગેનો પ્રચાર અને પ્રસારની વ્યવસ્થા સ્થાનિક કક્ષાએ કરેલ" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_75_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ અંગેનો પ્રચાર અને પ્રસારની વ્યવસ્થા સ્થાનિક કક્ષાએ કરેલ" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_76", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પસંદ કરેલ વિષયો, સાહિત્ય, થીયરી અને પ્રેકટિકલ યોગ્ય જણાયેલ છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_76_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસમાં પસંદ કરેલ વિષયો, સાહિત્ય, થીયરી અને પ્રેકટિકલ યોગ્ય જણાયેલ છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_77", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ બાબતે સરકારી/બિન-સરકારી સંસ્થાનો સહકાર મળેલ છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_77_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ બાબતે સરકારી/બિન-સરકારી સંસ્થાનો સહકાર મળેલ છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_78", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસના નીતિ-નિયમો, જોગવાઈ, પસંદગીની પ્રક્રિયામાં ફેરફાર કરવા યોગ્ય લાગે છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_78_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસના નીતિ-નિયમો, જોગવાઈ, પસંદગીની પ્રક્રિયામાં ફેરફાર કરવા યોગ્ય લાગે છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_79", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ દ્વારા બેંકમાંથી સહાય મેળવવામાં માર્ગદર્શન મળેલ છે. " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_79_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ દ્વારા બેંકમાંથી સહાય મેળવવામાં માર્ગદર્શન મળેલ છે. " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_80", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ વર્ગ સમયસર અને હવા-ઉજાસ ધરાવતાં સ્થળ પર રાખવામાં આવેલ છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_80_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ વર્ગ સમયસર અને હવા-ઉજાસ ધરાવતાં સ્થળ પર રાખવામાં આવેલ છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_81", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ માટે યોગ્ય સ્થળની પસંદગી થયેલ છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_81_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ માટે યોગ્ય સ્થળની પસંદગી થયેલ છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_82", 
+              "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમમાં સરકારની અન્ય યોજનાઓ વિષે માહિતી મળેલ છે.  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_82_VS1", 
+                  "labels": [ { "text": "તાલીમ/પ્રેરણા પ્રવાસ કાર્યક્રમમાં સરકારની અન્ય યોજનાઓ વિષે માહિતી મળેલ છે.  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q_83", 
+              "labels": [ { "text": "સંસ્થા દ્વારા આપેલ પુસ્તિકા, નોટબુક અને પેનની ગુણવત્તા યોગ્ય છે." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q_83_VS1", 
+                  "labels": [ { "text": "સંસ્થા દ્વારા આપેલ પુસ્તિકા, નોટબુક અને પેનની ગુણવત્તા યોગ્ય છે." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખ્યાલ નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

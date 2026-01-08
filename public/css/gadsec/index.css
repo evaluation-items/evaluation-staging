@@ -1,0 +1,1540 @@
+    .the_show_hide_div {
+    }
+    .the_box {
+        border-radius: 10px;
+        background-color:lightblue;
+        padding: 10px;
+        text-align: center;
+        font-size: 20px;
+        cursor: pointer;
+        /*min-height:80px;*/
+        max-width: 200px;
+        display: block;
+    }
+    .column_box {
+        border-radius: 10px;
+        background-color:lightgrey;
+        padding: 10px;
+        text-align: center;
+        font-size: 20px;
+        cursor: pointer;
+        /*min-height: 80px;*/
+        max-width: 200px;
+        display:block;
+    }
+    #financial_year_label {
+        margin:0px 5px 0px 0px;
+        font-size: 20px;
+    }
+    #financial_year_to_text {
+        font-size: 20px;
+        margin:0px 20px 0px 20px;
+    }
+    #change_date_first_dropdown {
+        font-size: 20px;
+    }
+    #change_date_second_dropdown {
+        font-size: 20px;
+    }
+    #activity_row {
+        margin-top:10px;
+    }
+    #department_row {
+        /*margin-top:15px;*/
+    }
+    #nodatacontainer #department_row div {
+        margin: 0px 10px 10px 0px;
+    }
+    table thead th {
+        vertical-align: middle !important;
+    }
+    #numberofstudies .previousstudies {
+        max-height: auto;background-color:grey;color:white;display: block;padding:10px 5px 0px 5px;text-align:center;
+    }
+    #numberofstudies .new_studies_css, #numberofstudies .total_studies_css {
+        max-height: auto;background-color:grey;color:white;display: block;padding:10px;text-align:center;margin-left: 1px;max-width: 16%;
+    }
+    #numberofstudies .completed_studies_css, #numberofstudies .dropped_studies_css, #numberofstudies .onhand_studies_css {
+        max-height: auto;background-color:grey;color:white;display: block;padding:10px;text-align:center;margin-left: 1px;
+    }
+    .numberofstudies_css_changed {
+        max-height: auto;background-color:grey;color:white;display: block;padding:10px;text-align:center;
+    }
+
+    @media screen and (max-width: 2560px) {
+        #first_container {
+            min-width: 2400px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 30px 0px 30px !important;
+            font-size: 30px !important;
+        }
+        #financial_year_label {
+            font-size: 30px !important;
+            margin-right: 30px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 30px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 30px !important;
+        }
+        #calendar_container {
+            min-width: 2400px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 200px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 35px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 30px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 30px !important;
+        }
+        #next_month_cal {
+            padding: 10px 222px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 35px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 30px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 30px !important;
+        }
+        #numberofstudies {
+            min-width: 2400px !important;
+            font-size: 30px !important;
+        }
+        #main_activity_second_modal .modal-header h5, #main_activity_second_modal .modal-body #main_activity_modal_department, #main_activity_second_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 22px;
+            /*margin: 5px 0px;*/
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4_length {
+            display: none;
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4 tr th, #main_activity_second_modal .modal-body #DataTables_Table_4 tr td {
+            font-size: 22px;
+        }
+        #main_activity_second_modal .modal-header button {
+            font-size: 60px !important;
+        }
+        #main_activity_second_modal .modal-footer button {
+            font-size: 30px !important;
+        }
+
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            width: 2000px !important;
+            margin-left: -600px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 30px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 30px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 30px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 30px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 30px !important;
+        }
+        #main_activity_third_modal .modal-header button {
+            font-size: 60px !important;
+        }
+        #main_activity_third_modal .modal-footer button {
+            font-size: 30px !important;
+        }
+
+        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 30px !important;
+        }
+        #nodatacontainer #department_row .column_box {
+            font-size: 30px;
+            max-width: 20% !important;
+            min-width: 20% !important;
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 10px 0px !important;
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 30px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 30px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 30px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 30px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 30px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 30px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:block;
+        }
+        #get_status_modal .modal-header button {
+            font-size: 60px !important;
+        }
+        #get_status_modal .modal-footer button {
+            font-size: 30px !important;
+        }
+
+        #change_date_first_dropdown, #change_date_second_dropdown {
+            border: 1px solid blue !important;
+        }
+
+        .next_btn_class, .back_btn_class  {
+            font-size: 30px !important;
+            border-radius: 5px !important;
+            box-shadow: 5px 10px grey !important;
+        }
+
+    }
+
+    @media screen and (max-width: 1920px) {
+        #first_container {
+            min-width: 1800px !important;
+            max-width: 1850px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 30px 0px 30px !important;
+            font-size: 30px !important;
+        }
+        #financial_year_label {
+            font-size: 30px !important;
+            margin-right: 30px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 30px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 30px !important;
+        }
+        #calendar_container {
+            min-width: 1800px !important;
+            max-width: 1850px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 75px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 35px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 30px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 30px !important;
+        }
+        #next_month_cal {
+            padding: 10px 100px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 35px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 30px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 30px !important;
+        }
+        #numberofstudies {
+            min-width: 1800px !important;
+            max-width: 1850px !important;
+        }
+        #main_activity_second_modal .modal-header h5, #main_activity_second_modal .modal-body #main_activity_modal_department, #main_activity_second_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 30px;
+            /*margin: 5px 0px;*/
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4_length {
+            display: none;
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4 tr th, #main_activity_second_modal .modal-body #DataTables_Table_4 tr td {
+            font-size: 30px !important;
+        }
+        #main_activity_second_modal .modal-header button {
+            font-size: 50px !important;
+        }
+        #main_activity_second_modal .modal-footer button {
+            font-size: 30px !important;
+        }
+
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            width: 1800px !important;
+            margin-left: -465px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel, #main_activity_third_modal .modal-body table tr th, #main_activity_third_modal .modal-body table tr td {
+            font-size: 25px !important;
+        } 
+        #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 25px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 25px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 25px !important;
+        }
+        #main_activity_third_modal .modal-header button {
+            font-size: 50px !important;
+        }
+        #main_activity_third_modal .modal-footer button {
+            font-size: 30px !important;
+        }
+
+        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 30px !important;
+        }
+        #nodatacontainer #department_row .column_box {
+            font-size: 30px !important;
+            max-width: 20% !important;
+            min-width: 20% !important;
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 10px 0px !important;
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 25px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 25px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 25px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 25px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 25px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 25px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:block;
+        }
+        #get_status_modal .modal-header button {
+            font-size: 50px !important;
+        }
+        #get_status_modal .modal-footer button {
+            font-size: 30px !important;
+        }
+        .next_btn_class, .back_btn_class  {
+            font-size: 30px !important;
+            border-radius: 5px !important;
+            box-shadow: 5px 10px grey !important;
+        }
+    }
+
+    @media screen and (max-width: 1600px) {
+        #first_container {
+            min-width: 1500px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 30px 0px 30px !important;
+            font-size: 20px !important;
+        }
+        #financial_year_label {
+            font-size: 20px !important;
+            margin-right: 30px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 20px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 20px !important;
+        }
+        #calendar_container {
+            min-width: 1500px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 100px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 25px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 20px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 20px !important;
+        }
+        #next_month_cal {
+            padding: 10px 100px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 25px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 20px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 20px !important;
+        }
+        #numberofstudies {
+            min-width: 1500px !important;
+        }
+        #numberofstudies .row span, #numberofstudies .row p {
+            font-size: 20px !important;
+        }
+
+/*         #main_activity_modal .modal-dialog .modal-content {
+            width: 1400px !important;
+            margin-left: -300px !important;
+        } */
+        #main_activity_modal #main_activity_modalLabel {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        #main_activity_modal .modal-dialog table tr th, #main_activity_modal .modal-dialog table tr td {
+            font-size: 20px !important;
+        }
+        #main_activity_modal .modal-dialog .dataTables_filter label, #main_activity_modal .modal-dialog .dataTables_filter input {
+            font-size: 20px !important;
+        }
+        #main_activity_modal .modal-dialog .dataTables_length label, #main_activity_modal .modal-dialog .dataTables_length select {
+            font-size: 20px !important;
+        }
+        #main_activity_modal .paging_simple_numbers, #main_activity_modal .dataTables_info {
+            font-size: 20px !important;
+        }
+        #main_activity_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #main_activity_modal .modal-header button {
+            font-size: 40px !important;
+        }
+        #main_activity_modal .modal-footer button {
+            font-size: 20px !important;
+        }
+
+/*        #main_activity_second_modal .modal-dialog .modal-content {
+            width: 1400px !important;
+            margin-left: -300px !important;
+        }*/
+        #main_activity_second_modal #main_activity_second_modalLabel {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        #main_activity_second_modal .modal-dialog table tr th, #main_activity_second_modal .modal-dialog table tr td {
+            font-size: 20px !important;
+        }
+        #main_activity_second_modal .modal-dialog .dataTables_filter label, #main_activity_second_modal .modal-dialog .dataTables_filter input {
+            font-size: 20px !important;
+        }
+        #main_activity_second_modal .modal-dialog .dataTables_length label, #main_activity_second_modal .modal-dialog .dataTables_length select {
+            font-size: 20px !important;
+        }
+        #main_activity_second_modal .modal-dialog #main_activity_modal_department {
+            font-size:14px !important;
+        }
+        #main_activity_second_modal .modal-dialog #main_activity_modal_team_leader {
+            font-size:14px !important;
+        }
+        #main_activity_second_modal .paging_simple_numbers, #main_activity_second_modal .dataTables_info {
+            font-size: 20px !important;
+        }
+        #main_activity_second_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #main_activity_second_modal .modal-header button {
+            font-size: 40px !important;
+        }
+        #main_activity_second_modal .modal-footer button {
+            font-size: 20px !important;
+        }
+
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            width: 1400px !important;
+            margin-left: -300px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 20px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 20px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 20px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 20px !important;
+        }
+        #main_activity_third_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #main_activity_third_modal .modal-header button {
+            font-size: 40px !important;
+        }
+        #main_activity_third_modal .modal-footer button {
+            font-size: 20px !important;
+        }
+
+        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 20px !important;
+        }
+        #nodatacontainer #department_row .column_box {
+            font-size: 20px !important;
+            max-width: 20% !important;
+            min-width: 20% !important;
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 10px 0px !important;
+        }
+        
+        #get_status_modal #get_status_modalLabel {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 20px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 20px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 20px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 20px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 20px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:block;
+        }
+        #get_status_modal .modal-header button {
+            font-size: 40px !important;
+        }
+        #get_status_modal .modal-footer button {
+            font-size: 20px !important;
+        }
+        .next_btn_class, .back_btn_class  {
+            font-size: 20px !important;
+            border-radius: 5px !important;
+            box-shadow: 5px 10px grey !important;
+        }
+    }
+
+    @media screen and (max-width: 1366px) {
+        #first_container {
+            min-width: 1200px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 30px 0px 30px !important;
+            font-size: 18px !important;
+        }
+        #financial_year_label {
+            font-size: 18px !important;
+            margin-right: 30px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 18px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 18px !important;
+        }
+        #calendar_container {
+            min-width: 1200px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 70px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 20px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 18px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 18px !important;
+        }
+        #next_month_cal {
+            padding: 10px 70px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 20px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 18px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 18px !important;
+        }
+        #numberofstudies {
+            min-width: 1200px !important;
+        }
+        #main_activity_second_modal .modal-header h5, #main_activity_second_modal .modal-body #main_activity_modal_department, #main_activity_second_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 18px;
+            /*margin: 5px 0px;*/
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4_length {
+            display: none;
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4 tr th, #main_activity_second_modal .modal-body #DataTables_Table_4 tr td {
+            font-size: 18px;
+        }
+
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            width: 1200px !important;
+            margin-left: -150px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 18px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 18px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 18px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 18px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 18px !important;
+        }
+        #main_activity_third_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 18px !important;
+        }
+        #nodatacontainer #department_row .column_box {
+            font-size: 18px !important;
+            /*max-width: 20% !important;*/
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 10px 0px !important;
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 18px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 18px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 18px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 18px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 18px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 18px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:block;
+        }
+
+    }
+
+    @media screen and (max-width: 1280px) {
+        #first_container {
+            min-width: 1200px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 30px 0px 30px !important;
+            font-size: 17px !important;
+        }
+        #financial_year_label {
+            font-size: 17px !important;
+            margin-right: 30px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 17px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 17px !important;
+        }
+        #calendar_container {
+            min-width: 1200px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 70px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 20px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 17px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 17px !important;
+        }
+        #next_month_cal {
+            padding: 10px 70px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 20px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 17px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 17px !important;
+        }
+        #numberofstudies {
+            min-width: 1200px !important;
+        }
+        #main_activity_second_modal .modal-header h5, #main_activity_second_modal .modal-body #main_activity_modal_department, #main_activity_second_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 17px;
+            /*margin: 5px 0px;*/
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4_length {
+            display: none;
+        }
+        #main_activity_second_modal .modal-body #DataTables_Table_4 tr th, #main_activity_second_modal .modal-body #DataTables_Table_4 tr td {
+            font-size: 17px;
+        }
+        
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            width: 1100px !important;
+            margin-left: -100px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 17px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 17px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 17px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 17px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 17px !important;
+        }
+        #main_activity_third_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 17px !important;
+        }
+        #nodatacontainer #department_row .column_box {
+            font-size: 17px !important;
+            /*max-width: 20% !important;*/
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 10px 0px !important;
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 17px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 17px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 17px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 17px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 17px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 17px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:block;
+        }
+
+    }
+
+
+    @media screen and (max-width:992px) {
+        #first_container {
+            min-width: 768px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 5px 0px 5px !important;
+            font-size: 16px !important;
+        }
+        #financial_year_label {
+            font-size: 16px !important;
+            margin-right: 10px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 16px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 16px !important;
+        }
+        #calendar_container {
+            min-width: 350px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 50px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 16px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 16px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 16px !important;
+        }
+        #next_month_cal {
+            padding: 10px 50px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 16px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 16px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 16px !important;
+        }
+        #numberofstudies {
+            min-width: 350px !important;
+        }
+
+/*         #main_activity_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        } */
+        #main_activity_modal .modal-header h5, #main_activity_modal .modal-body #main_activity_modal_department, #main_activity_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 14px;
+            margin: 5px 0px;
+        }
+        #main_activity_modal .modal-dialog table tr th, #main_activity_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #main_activity_modal #main_activity_second_modalLabel, #main_activity_modal .modal-dialog .dataTables_filter label, #main_activity_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #main_activity_modal .modal-dialog .dataTables_length label, #main_activity_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #main_activity_modal .paging_simple_numbers, #main_activity_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #main_activity_modal .dataTables_length {
+            display:none;
+        }
+
+/*        #main_activity_second_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_second_modal #main_activity_second_modalLabel {
+            font-size: 16px;
+            font-weight: bolder;
+        }
+        #main_activity_second_modal .modal-dialog table tr th, #main_activity_second_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal #main_activity_second_modalLabel, #main_activity_second_modal .modal-dialog .dataTables_filter label, #main_activity_second_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal .modal-dialog .dataTables_length label, #main_activity_second_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal .paging_simple_numbers, #main_activity_second_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal .dataTables_length {
+            display:none;
+        }
+        
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 16px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal #main_activity_third_modalLabel, #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal .paginate_button {
+            padding: 3px !important;
+        }
+        #main_activity_third_modal .dataTables_length {
+            display:none;
+        }
+
+/*        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 16px !important;
+            height: auto !important;
+        }*/
+        #nodatacontainer #department_row .column_box {
+            font-size: 16px !important;
+/*            max-width: 45% !important;
+            min-width: 45% !important;*/
+            height: auto !important;
+            margin: 5px 5px 5px 10px !important;
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 5px 0px !important;
+            /*margin-top: 0px !important;*/
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 16px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 16px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:block;
+        }
+
+        #numberofstudies .new_studies_css, #numberofstudies .total_studies_css {
+            max-width: 100% !important;
+        }
+
+    }
+
+    @media screen and (max-width:768px) {
+        #first_container {
+            min-width: 350px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 5px 0px 5px !important;
+            font-size: 16px !important;
+        }
+        #financial_year_label {
+            font-size: 16px !important;
+            margin-right: 10px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 16px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 16px !important;
+        }
+        #calendar_container {
+            min-width: 350px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 50px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 16px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 16px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 16px !important;
+        }
+        #next_month_cal {
+            padding: 10px 50px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 16px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 16px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 16px !important;
+        }
+        #numberofstudies {
+            min-width: 350px !important;
+        }
+
+/*         #main_activity_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        } */
+        #main_activity_modal .modal-header h5, #main_activity_modal .modal-body #main_activity_modal_department, #main_activity_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 14px;
+            margin: 5px 0px;
+        }
+        #main_activity_modal .modal-dialog table tr th, #main_activity_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #main_activity_modal #main_activity_second_modalLabel, #main_activity_modal .modal-dialog .dataTables_filter label, #main_activity_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #main_activity_modal .modal-dialog .dataTables_length label, #main_activity_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #main_activity_modal .paging_simple_numbers, #main_activity_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #main_activity_modal .dataTables_length {
+            display:none;
+        }
+
+/*        #main_activity_second_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_second_modal #main_activity_second_modalLabel {
+            font-size: 16px;
+            font-weight: bolder;
+        }
+        #main_activity_second_modal .modal-dialog table tr th, #main_activity_second_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal #main_activity_second_modalLabel, #main_activity_second_modal .modal-dialog .dataTables_filter label, #main_activity_second_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal .modal-dialog .dataTables_length label, #main_activity_second_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal .paging_simple_numbers, #main_activity_second_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #main_activity_second_modal .dataTables_length {
+            display:none;
+        }
+        
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 16px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal #main_activity_third_modalLabel, #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #main_activity_third_modal .paginate_button {
+            padding: 3px !important;
+        }
+        #main_activity_third_modal .dataTables_length {
+            display:none;
+        }
+
+/*        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 16px !important;
+            height: auto !important;
+        }*/
+
+        #nodatacontainer #department_row .column_box {
+            font-size: 16px !important;
+/*            max-width: 45% !important;
+            min-width: 45% !important;*/
+            height: auto !important;
+            margin: 5px 5px 5px 10px !important;
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 5px 0px !important;
+            /*margin-top: 0px !important;*/
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 16px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 16px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 16px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 16px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 16px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 16px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:none;
+        }
+
+        #numberofstudies .new_studies_css, #numberofstudies .total_studies_css {
+            max-width: 100% !important;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        #first_container {
+            min-width: 350px !important;
+        }
+        #financial_year_to_text {
+            margin : 0px 5px 0px 5px !important;
+            font-size: 14px !important;
+        }
+        #financial_year_label {
+            font-size: 14px !important;
+            margin-right: 10px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 14px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 14px !important;
+        }
+        #calendar_container {
+            min-width: 350px !important;
+        }
+        #cur_month_cal {
+            /*margin-left: 180px !important;*/
+            padding: 10px 50px !important;
+        }
+        #cur_month_cal .calendar .month {
+            font-size: 14px !important;
+            background: orange;
+            color: black;
+        }
+        #cur_month_cal .calendar .month .year {
+            font-size: 14px !important;
+        }
+        #cur_month_cal table tr th, #cur_month_cal table tr td {
+            font-size: 14px !important;
+        }
+        #next_month_cal {
+            padding: 10px 50px !important;
+        }
+        #next_month_cal .calendar .month {
+            font-size: 14px !important;
+            background: orange;
+            color: black;
+        }
+        #next_month_cal .calendar .month .year {
+            font-size: 14px !important;
+        }
+        #next_month_cal table tr th, #next_month_cal table tr td {
+            font-size: 14px !important;
+        }
+        #numberofstudies {
+            min-width: 350px !important;
+        }
+
+/*         #main_activity_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        } */
+        #main_activity_modal .modal-header h5, #main_activity_modal .modal-body #main_activity_modal_department, #main_activity_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 12px;
+            margin: 5px 0px;
+        }
+        #main_activity_modal .modal-dialog table tr th, #main_activity_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #main_activity_modal #main_activity_second_modalLabel, #main_activity_modal .modal-dialog .dataTables_filter label, #main_activity_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #main_activity_modal .modal-dialog .dataTables_length label, #main_activity_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #main_activity_modal .paging_simple_numbers, #main_activity_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #main_activity_modal .dataTables_length {
+            display:none;
+        }
+
+/*        #main_activity_second_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_second_modal #main_activity_second_modalLabel {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        #main_activity_second_modal .modal-dialog table tr th, #main_activity_second_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal #main_activity_second_modalLabel, #main_activity_second_modal .modal-dialog .dataTables_filter label, #main_activity_second_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal .modal-dialog .dataTables_length label, #main_activity_second_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal .paging_simple_numbers, #main_activity_second_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal .dataTables_length {
+            display:none;
+        }
+        
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            max-width: 450px !important;
+            min-width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal #main_activity_third_modalLabel, #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal .paginate_button {
+            padding: 3px !important;
+        }
+        #main_activity_third_modal .dataTables_length {
+            display:none;
+        }
+
+        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+            font-size: 14px !important;
+            height: auto !important;
+        }
+        #nodatacontainer #department_row .column_box {
+            font-size: 14px !important;
+            max-width: 45% !important;
+            min-width: 45% !important;
+            height: auto !important;
+            margin: 5px 5px 5px 10px !important;
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 5px 0px !important;
+            margin-top: 0px !important;
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 14px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:none;
+        }
+        #numberofstudies .new_studies_css, #numberofstudies .total_studies_css {
+            max-height: auto;background-color:grey;color:white;display: block;padding:10px;text-align:center;margin-left: 1px;max-width: 100%;
+        }
+
+    }
+
+    @media screen and (max-width: 375px) {
+        #financial_year_to_text {
+            margin : 0px 10px 0px 10px !important;
+            font-size: 12px !important;
+        }
+        #financial_year_label {
+            font-size: 12px !important;
+        }
+        #change_date_first_dropdown {
+            font-size: 12px !important;
+        }
+        #change_date_second_dropdown {
+            font-size: 12px !important;
+        }
+        #cur_month_cal {
+            margin-left: 10px !important;
+        }
+
+        #main_activity_modal .modal-dialog .modal-content {
+            width: 350px !important;
+            margin-left: 10px !important;
+        }
+        #main_activity_modal .modal-header h5, #main_activity_modal .modal-body #main_activity_modal_department, #main_activity_modal .modal-body #main_activity_modal_team_leader {
+            font-size: 12px;
+            margin: 5px 0px;
+        }
+        #main_activity_modal .modal-dialog table tr th, #main_activity_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #main_activity_modal #main_activity_second_modalLabel, #main_activity_modal .modal-dialog .dataTables_filter label, #main_activity_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #main_activity_modal .modal-dialog .dataTables_length label, #main_activity_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #main_activity_modal .paging_simple_numbers, #main_activity_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #main_activity_modal .dataTables_length {
+            display:none;
+        }
+
+/*        #main_activity_second_modal .modal-dialog .modal-content {
+            width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_second_modal #main_activity_second_modalLabel {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        #main_activity_second_modal .modal-dialog table tr th, #main_activity_second_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal #main_activity_second_modalLabel, #main_activity_second_modal .modal-dialog .dataTables_filter label, #main_activity_second_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal .modal-dialog .dataTables_length label, #main_activity_second_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal .paging_simple_numbers, #main_activity_second_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #main_activity_second_modal .dataTables_length {
+            display:none;
+        }
+        
+/*        #main_activity_third_modal .modal-dialog .modal-content {
+            width: 350px !important;
+            margin-left: 10px !important;
+        }*/
+        #main_activity_third_modal #main_activity_third_modalLabel {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        #main_activity_third_modal .modal-dialog table tr th, #main_activity_third_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal #main_activity_third_modalLabel, #main_activity_third_modal .modal-dialog .dataTables_filter label, #main_activity_third_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal .modal-dialog .dataTables_length label, #main_activity_third_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal .paging_simple_numbers, #main_activity_third_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #main_activity_third_modal .paginate_button {
+            padding: 3px !important;
+        }
+        #main_activity_third_modal .dataTables_length {
+            display:none;
+        }
+        
+        #nodatacontainer .card-body .the_box {
+            max-width: 100% !important;
+        }
+        #nodatacontainer #department_row .column_box {
+            font-size: 12px !important;
+            max-width: 45% !important;
+            min-width: 45% !important;
+            height: auto !important;
+            margin: 5px 5px 5px 10px !important;
+        }
+        #nodatacontainer #department_row .column_box div {
+            /*margin-top: 40px;*/
+        }
+        #nodatacontainer .card-body .the_box div {
+            padding: 10px 0px !important;
+        }
+
+        #get_status_modal #get_status_modalLabel {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        #get_status_modal .modal-dialog table tr th, #get_status_modal .modal-dialog table tr td {
+            font-size: 14px !important;
+        }
+        #get_status_modal #get_status_modalLabel, #get_status_modal .modal-dialog .dataTables_filter label, #get_status_modal .modal-dialog .dataTables_filter input {
+            font-size: 14px !important;
+        }
+        #get_status_modal .modal-dialog .dataTables_length label, #get_status_modal .modal-dialog .dataTables_length select {
+            font-size: 14px !important;
+        }
+        #get_status_modal .paging_simple_numbers, #get_status_modal .dataTables_info {
+            font-size: 14px !important;
+        }
+        #get_status_modal .paging_simple_numbers a {
+            padding: 3px !important;
+            font-size: 14px !important;
+        }
+        #get_status_modal .paginate_button {
+            padding: 10px !important;
+        }
+        #get_status_modal .dataTables_length {
+            display:none;
+        }
+
+        #numberofstudies .new_studies_css, #numberofstudies .total_studies_css {
+            max-height: auto;background-color:grey;color:white;display: block;padding:10px;text-align:center;margin-left: 1px;max-width: 100%;
+        }
+
+    }

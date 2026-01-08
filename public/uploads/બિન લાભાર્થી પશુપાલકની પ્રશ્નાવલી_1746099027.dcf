@@ -1,0 +1,776 @@
+{
+  "software": "CSPro", 
+  "version": 8.0, 
+  "fileType": "dictionary", 
+  "name": "NAME_DICT", 
+  "labels": [ { "text": "બિન લાભાર્થી પશુપાલકની પ્રશ્નાવલી" } ], 
+  "security": {
+    "allowDataViewerModifications": true, 
+    "allowExport": true, 
+    "cachedPasswordMinutes": 0, 
+    "settings": "a76cccf18de6865e9bd78c5653b25dda88c0d51551df099f6bf326d59d23d52d"
+  }, 
+  "readOptimization": true, 
+  "recordType": {
+    "start": 1, 
+    "length": 1
+  }, 
+  "defaults": {
+    "decimalMark": true, 
+    "zeroFill": false
+  }, 
+  "relativePositions": true, 
+  "levels": [
+    {
+      "name": "NAME_LEVEL", 
+      "labels": [ { "text": "બિન લાભાર્થી પશુપાલકની પ્રશ્નાવલી Level" } ], 
+      "ids": {
+        "items": [
+          {
+            "name": "ID_NO", 
+            "labels": [ { "text": "PERSON ID" } ], 
+            "contentType": "numeric", 
+            "start": 2, 
+            "length": 2, 
+            "zeroFill": false
+          }, 
+          {
+            "name": "FORM_NO", 
+            "labels": [ { "text": "FORM NO" } ], 
+            "contentType": "numeric", 
+            "start": 4, 
+            "length": 3, 
+            "zeroFill": false
+          }
+        ]
+      }, 
+      "records": [
+        {
+          "name": "NAME_REC", 
+          "labels": [ { "text": "બિન લાભાર્થીની સામાન્ય માહિતી" } ], 
+          "recordType": "1", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q1_1", 
+              "labels": [ { "text": "બિન લાભાર્થીનુ નામ" } ], 
+              "contentType": "alpha", 
+              "length": 200
+            }, 
+            {
+              "name": "Q1_2", 
+              "labels": [ { "text": "જવાબ આપનાર " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_2_VS1", 
+                  "labels": [ { "text": "જવાબ આપનાર " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પુત્ર/પુત્રી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પત્ની/પિતા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કુટુંબના અન્ય સભ્ય " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_3", 
+              "labels": [ { "text": "પરા/સોસાયટી/ફળીયાનું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 150
+            }, 
+            {
+              "name": "Q1_4", 
+              "labels": [ { "text": "ગામ/ઝોનનું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q1_5", 
+              "labels": [ { "text": "તાલુકા/નગરપાલિકાનું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q1_6", 
+              "labels": [ { "text": "જિલ્લા/મ.ન.પા.નું નામ " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q1_7", 
+              "labels": [ { "text": "વિસ્તાર" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_7_VS1", 
+                  "labels": [ { "text": "વિસ્તાર" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "શહેરી વિસ્તાર " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગ્રામ્ય વિસ્તાર " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_8", 
+              "labels": [ { "text": "જાતિ" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_8_VS1", 
+                  "labels": [ { "text": "જાતિ" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પુરુષ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્ત્રી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_9", 
+              "labels": [ { "text": "બિન લાભાર્થીની ઉંમર જણાવો. (મોજણી સમયની ઉંમર પુરા વર્ષમાં લખવી)" } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }, 
+            {
+              "name": "Q1_10", 
+              "labels": [ { "text": "મોબાઈલ નંબર " } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_11", 
+              "labels": [ { "text": "કુટુંબનો સામાજિક વર્ગ" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_11_VS1", 
+                  "labels": [ { "text": "કુટુંબનો સામાજિક વર્ગ" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "અનુસૂચિત જાતિ " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનુસૂચિત જનજાતિ " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાજિક અને શૈક્ષણિક રીતે પછાત " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાન્ય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_12", 
+              "labels": [ { "text": "બિન લાભાર્થીની શૈક્ષણિક લાયકાત " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_12_VS1", 
+                  "labels": [ { "text": "બિન લાભાર્થીની શૈક્ષણિક લાયકાત " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "અશિક્ષિત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પ્રાથમિક શિક્ષણ " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "માધ્યમિક શિક્ષણ " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઉચ્ચતર માધ્યમિક શિક્ષણ " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્નાતક" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનુસ્નાતક" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ડિપ્લોમા/ટેક્નિકલ કોર્સ " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_13", 
+              "labels": [ { "text": "બિન લાભાર્થીના કુટુંબની સભ્ય સંખ્યા જણાવો.(પુરૂષ)" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_13_1", 
+              "labels": [ { "text": "બિન લાભાર્થીના કુટુંબની સભ્ય સંખ્યા જણાવો.(સ્ત્રી)" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_13_2", 
+              "labels": [ { "text": "બિન લાભાર્થીના કુટુંબની સભ્ય સંખ્યા જણાવો.(બાળકો)" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_13_3", 
+              "labels": [ { "text": "બિન લાભાર્થીના કુટુંબની સભ્ય સંખ્યા જણાવો.(કુલ)" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_14", 
+              "labels": [ { "text": "બિન લાભાર્થીના કુટુંબનો મુખ્ય વ્યવસાય જણાવો" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_14_VS1", 
+                  "labels": [ { "text": "બિન લાભાર્થીના કુટુંબનો મુખ્ય વ્યવસાય જણાવો" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ખેતી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેત મજુરી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "છુટક મજુરી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઘંધો/વેપાર " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી નોકરી " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેતી તથા પશુપાલન પ્રવૃત્તિ " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_14_1", 
+              "labels": [ { "text": "આપની પાસે ખેતીની જમીન છે?  (આગળના પ્રશ્નમાં જવાબ 1, 4 કે 7 હોયતો)" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_14_1_VS1", 
+                  "labels": [ { "text": "આપની પાસે ખેતીની જમીન છે?  (આગળના પ્રશ્નમાં જવાબ 1, 4 કે 7 હોયતો)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાગુ પડતુ નથી" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_14_2", 
+              "labels": [ { "text": "આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો.(ગાયની સંખ્યા લખવી)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_14_3", 
+              "labels": [ { "text": "આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો.(ભેંસની સંખ્યા લખવી)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_14_4", 
+              "labels": [ { "text": "આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો.(ઘેટાની સંખ્યા લખવી)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_14_5", 
+              "labels": [ { "text": "આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો.(બકરાની સંખ્યા લખવી)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_14_6", 
+              "labels": [ { "text": "આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો.(અન્ય કોઇ પશુ હોય તો તેની સંખ્યા લખવી)" } ], 
+              "contentType": "alpha", 
+              "length": 8
+            }, 
+            {
+              "name": "Q1_14_7", 
+              "labels": [ { "text": "આપની પાસેના પુખ્ત પશુઓની સંખ્યાની વિગત આપો.(કુલ)" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_15", 
+              "labels": [ { "text": "આપના દ્વારા દુધ મંડળીમાં દુધ ભરાવવામાં આવે છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_15_VS1", 
+                  "labels": [ { "text": "આપના દ્વારા દુધ મંડળીમાં દુધ ભરાવવામાં આવે છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_15_1", 
+              "labels": [ { "text": "જો “હા” તો દુધમાંથી થતી પખવાડીક(૧૫ દિવસ) આવક જણાવો?(રૂ. માં) " } ], 
+              "contentType": "alpha", 
+              "length": 20
+            }, 
+            {
+              "name": "Q1_16", 
+              "labels": [ { "text": "આપ કોઈ સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય છો?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_16_VS1", 
+                  "labels": [ { "text": "આપ કોઈ સ્વસહાય જુથ અથવા સખીમંડળના સભ્ય છો?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_16_1", 
+              "labels": [ { "text": "જો “હા” તો સ્વસહાય જુથ અથવા સખીમંડળનું નામ જણાવો? " } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }, 
+            {
+              "name": "Q1_17", 
+              "labels": [ { "text": "સ્વસહાય જુથ અથવા સખીમંડળ દ્વારા ચાલતી વેપારની પ્રવૃતિ દ્વારા આપને વ્યકિતગત થતી માસિક આવક જણાવો. (રૂ. માં)  " } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }
+          ]
+        }, 
+        {
+          "name": "YOJANA_INFO", 
+          "labels": [ { "text": "યોજનાકીય સબંધિત માહિતી " } ], 
+          "recordType": "2", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q2_1", 
+              "labels": [ { "text": "આપ આ યોજના વિશે જાણકારી ધરાવો છો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_1_VS1", 
+                  "labels": [ { "text": "આપ આ યોજના વિશે જાણકારી ધરાવો છો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_1_1", 
+              "labels": [ { "text": "જો “હા” તો યોજના અંગેની જાણકારી કયા માધ્યમ દ્વારા મળેલ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_1_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો યોજના અંગેની જાણકારી કયા માધ્યમ દ્વારા મળેલ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "મિત્રો/સગા-સંબંધીઓ " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જાહેરાતના બોર્ડ/હોર્ડીગ્સ દ્વારા" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન કચેરી દ્વારા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ટી.વી. ડોકયુમેન્ટરી કાર્યક્રમ " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગ્રામ પંચાયત દ્વારા " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સોશિયલ મિડીયા દ્વારા " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "તાલીમ કાર્યક્રમ દ્વારા " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાઇવસ્ટોક ઇન્સપેક્ટર દ્વારા " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય દ્વારા(વિગત) " } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2", 
+              "labels": [ { "text": "આપ ધંધા/વ્યવસાયના વિકાસ માટે આપ આ યોજનામાં તાલીમ/પ્રેરણા પ્રવાસમાં જોડાવવાની ઈચ્છા ધરાવો છો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_VS1", 
+                  "labels": [ { "text": "આપ ધંધા/વ્યવસાયના વિકાસ માટે આપ આ યોજનામાં તાલીમ/પ્રેરણા પ્રવાસમાં જોડાવવાની ઈચ્છા ધરાવો છો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_3", 
+              "labels": [ { "text": "આપના દ્વારા આ યોજનામાં જોડાવવા માટે ગામના આગેવાન/સરકારી કચેરીનો સંપર્ક કરેલ? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_3_VS1", 
+                  "labels": [ { "text": "આપના દ્વારા આ યોજનામાં જોડાવવા માટે ગામના આગેવાન/સરકારી કચેરીનો સંપર્ક કરેલ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_3_1", 
+              "labels": [ { "text": "જો “હા” તો આપના દ્વારા કોનો સંપર્ક કરવામાં આવેલ? " } ], 
+              "contentType": "alpha", 
+              "length": 5, 
+              "valueSets": [
+                {
+                  "name": "Q2_3_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો આપના દ્વારા કોનો સંપર્ક કરવામાં આવેલ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પશુપાલન કચેરી " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ગ્રામ પંચાયત " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "લાઇવ સ્ટોક ઇન્સપેક્ટર " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સખી મંડળ" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુ દવાખાના " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "દુધ મંડળી " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્વસહાય જુથ " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત) " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_4", 
+              "labels": [ { "text": "આ યોજના માટે અરજી/પ્રવેશ ફોર્મ મળેલ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_4_VS1", 
+                  "labels": [ { "text": "આ યોજના માટે અરજી/પ્રવેશ ફોર્મ મળેલ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_4_1", 
+              "labels": [ { "text": "જો “હા” તો આપના દ્વારા અરજી/પ્રવેશ ફોર્મ જમા કરવામાં આવેલ છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_4_1_VS1", 
+                  "labels": [ { "text": "જો “હા” તો આપના દ્વારા અરજી/પ્રવેશ ફોર્મ જમા કરવામાં આવેલ છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_5", 
+              "labels": [ { "text": "આપને આ યોજનામાં પ્રવેશ અંગેની જાણ કરવામાં આવેલ છે?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_5_VS1", 
+                  "labels": [ { "text": "આપને આ યોજનામાં પ્રવેશ અંગેની જાણ કરવામાં આવેલ છે?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_6", 
+              "labels": [ { "text": "જો “ના” તો આપને આ યોજનામાં પ્રવેશ ન આપવાનું કારણો જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_7", 
+              "labels": [ { "text": "હાલમાં જે આર્થિક પ્રવૃતિ કરો છો તેની માસિક આવક કેટલી છે? (રૂ. માં)" } ], 
+              "contentType": "alpha", 
+              "length": 6
+            }, 
+            {
+              "name": "Q2_8", 
+              "labels": [ { "text": "આ યોજના લાભ ન મળવાના કારણે આપને થયેલા ગેર ફાયદા જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q2_9", 
+              "labels": [ { "text": "આ યોજનાને વધુ અસરકારક બનાવવાના સૂચનો/ભલામણો જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q2_10", 
+              "labels": [ { "text": "આપની દ્રષ્ટીએ આ યોજનાની અસરકારકતા કેવી છે?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_10_VS1", 
+                  "labels": [ { "text": "આપની દ્રષ્ટીએ આ યોજનાની અસરકારકતા કેવી છે?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘણી સારી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સારી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મધ્યમ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઓછી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નહિવત" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

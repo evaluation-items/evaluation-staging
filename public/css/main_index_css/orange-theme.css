@@ -1,0 +1,33 @@
+body {background: #f69f20; color: #000;}
+a{color: #25189F;}
+a:focus, a:hover {color: #23527c; text-decoration: underline;}
+p{color: #000;}
+header, .main_content_wrap, .tabs_box .nav > li > a, .media-photo{background: #f69f20;}
+header nav{background: #000 !important;}
+.top_links a:hover, .language a:hover{color: #fff;}
+#marqueecontainer{background-color: #f69f20;}
+footer{background: #000;}
+.sitemap .sitemap_content ul li a{color: #000;}
+.inner-info-sec .left_col .box_wrap h2, .inner-info-sec .left_col .box_wrap .rti-content ul li a, .inner-info-sec .left_col .box_wrap .branch-content ul li a, .inner-info-sec .sidebar_col .sub-title h4, .inner-info-sec .sidebar_col .listed a{color: #000;}
+.inner-info-sec .sidebar_col .read-more a, .main_content_wrap .left_sec .read-more a{color: #25189F;}
+.inner-info-sec .breadcrumb a{color: #25189F !important;}
+.inner-info-sec .left_col .tbl-content table thead th, .tbl-content table tbody td, .regional-account-branch table tr td, .news_sec .lstnumrti ul li a, .main_content_wrap .aside_sec .box-wrap span, .main_content_wrap .left_sec .news-sec-wrap .office-details .listed a{color: #000;}
+.regional-account-branch table tr td:last-child a, .main_content_wrap .left_sec .tab-sec-wrap .important-link-sec .table > tbody > tr > td a{color: #25189F;}
+.district-census-handbook table tr td, .administration-branch table tr td, .economic-intelligence-branch table tr td, .irrigation-branch table tr td, .transport-branch table tr td{color: #000;}
+.district-census-handbook table tr td:last-child a, .municipal-year-book-branch table tr td:last-child a, .publication-branch table tr td:last-child a{color: #25189F;}
+.district-census-handbook table tr td:last-child a:hover, .municipal-year-book-branch table tr td:last-child a:hover, .publication-branch table tr td:last-child a:hover, .news_sec .lstnumrti ul li a:hover, .main_content_wrap .left_sec .tab-sec-wrap .important-link-sec .table > tbody > tr > td a:hover{color: #23527c;}
+.box_wrap table tr td > h4, .economic-intelligence-branch .box_wrap table tr td.l-data, .irrigation-branch .box_wrap table tr td.l-data, .housing-branch .box_wrap table tr td.l-data{color: #000;}
+.municipal-year-book-branch table tr td, .co-ordination-branch table tr td, .publication-branch table tr td, .annual-survey-of-industry table tr td, .training-branch table tr td, .environment-branch table tr td, .price-branch table tr td, .state-income-branch1 table tr td, .sea-cmge table tr td, .business-register-branch-dt table tr td, .help table tr td{color: #000;}
+.company_logo {
+    margin-left: 10px;
+    margin-top: 13px;
+  }
+  .company_logo img {
+    width: 200px;
+    height: auto;
+  }
+  header .top_bar {
+    padding: 6px 10px;
+    background-color: #f69f20;
+    border-bottom: 2px solid #000;
+}

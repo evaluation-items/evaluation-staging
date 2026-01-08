@@ -1,0 +1,43 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /Evaluation/public/
+    # Force HTTPS
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    	# Disable OPTIONS method
+	RewriteCond %{REQUEST_METHOD} OPTIONS
+	RewriteRule ^ - [F]
+
+    # Block Dangerous HTTP Methods
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|CONNECT)$ [NC]
+    RewriteRule .* - [F]
+
+    # Protect sensitive files
+    <FilesMatch "^(\.env|\.git|\.svn|\.htaccess|\.htpasswd|composer\.(json|lock)|package\.json|yarn\.lock|webpack\.mix\.js|artisan|phpunit\.xml|server\.php|README\.md)$">
+        Require all denied
+    </FilesMatch>
+
+    RedirectMatch 404 /\.git
+    RedirectMatch 404 /\.svn
+    RedirectMatch 404 /\.idea
+    RedirectMatch 404 /\.vscode
+</IfModule>

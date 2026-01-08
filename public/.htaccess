@@ -1,0 +1,62 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+	RewriteBase /Evaluation/public/
+    
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Block Dangerous HTTP Methods
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|CONNECT)$ [NC]
+    RewriteRule .* - [F]
+
+    # Protect sensitive files
+    <FilesMatch "^(\.env|\.git|\.svn|\.htaccess|\.htpasswd|composer\.(json|lock)|package\.json|yarn\.lock|webpack\.mix\.js|artisan|phpunit\.xml|server\.php|README\.md)$">
+        Require all denied
+    </FilesMatch>
+
+    RedirectMatch 404 /\.git
+    RedirectMatch 404 /\.svn
+    RedirectMatch 404 /\.idea
+    RedirectMatch 404 /\.vscode
+
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Remove Info Leaks
+    Header unset Server
+    Header always unset X-Powered-By
+    Header unset X-CF-Powered-By
+    Header unset X-Mod-Pagespeed
+    Header unset X-Pingback
+
+    # Security Headers
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=(), payment=(self), autoplay=()"
+
+    # Restrictive Content Security Policy (CSP)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'self';"
+
+</IfModule>
+
+# Block specific file
+<Files "switcher.js">
+    Require all denied
+</Files>

@@ -1,0 +1,1917 @@
+{
+  "software": "CSPro", 
+  "version": 8.0, 
+  "fileType": "dictionary", 
+  "name": "NAME_DICT", 
+  "labels": [ { "text": "પ્રધાનમંત્રી માતૃવંદના યોજના" } ], 
+  "security": {
+    "allowDataViewerModifications": true, 
+    "allowExport": true, 
+    "cachedPasswordMinutes": 0, 
+    "settings": "a76cccf18de6865e9bd78c5653b25dda88c0d51551df099f6bf326d59d23d52d"
+  }, 
+  "readOptimization": true, 
+  "recordType": {
+    "start": 1, 
+    "length": 1
+  }, 
+  "defaults": {
+    "decimalMark": true, 
+    "zeroFill": false
+  }, 
+  "relativePositions": true, 
+  "levels": [
+    {
+      "name": "NAME_LEVEL", 
+      "labels": [ { "text": "પ્રધાનમંત્રી માતૃવંદના યોજના Level" } ], 
+      "ids": {
+        "items": [
+          {
+            "name": "PERSON_ID", 
+            "labels": [ { "text": "Person_Id" } ], 
+            "contentType": "numeric", 
+            "start": 2, 
+            "length": 3, 
+            "zeroFill": false
+          }, 
+          {
+            "name": "FORM_NO", 
+            "labels": [ { "text": "Form_No" } ], 
+            "contentType": "numeric", 
+            "start": 5, 
+            "length": 2, 
+            "zeroFill": false
+          }
+        ]
+      }, 
+      "records": [
+        {
+          "name": "GENERAL_INFO", 
+          "labels": [ { "text": "સામાન્ય માહિતી" } ], 
+          "recordType": "1", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q1_1", 
+              "labels": [ { "text": "લાભાર્થીનું નામ" } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }, 
+            {
+              "name": "Q1_2", 
+              "labels": [ { "text": "વૈવાહિક સ્થિતિ" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_2_VS1", 
+                  "labels": [ { "text": "વૈવાહિક સ્થિતિ" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પરણિત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અપરણિત" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "વિધવા" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ત્યકતા " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_3", 
+              "labels": [ { "text": "ઉંમર (વર્ષમાં) " } ], 
+              "contentType": "numeric", 
+              "length": 4, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_4", 
+              "labels": [ { "text": "ધર્મ" } ], 
+              "contentType": "alpha", 
+              "length": 10
+            }, 
+            {
+              "name": "Q1_5", 
+              "labels": [ { "text": "લાભાર્થીનું સરનામું (ગામ, તાલુકો, જિલ્લો )" } ], 
+              "contentType": "alpha", 
+              "length": 150
+            }, 
+            {
+              "name": "Q1_9", 
+              "labels": [ { "text": "સામાજિક વર્ગ" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_9_VS1", 
+                  "labels": [ { "text": "સામાજિક વર્ગ" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "અનુસૂચિત જનજાતિ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનુસૂચિત જાતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાજિક અને શૈક્ષણિક પછાત" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાન્ય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_10", 
+              "labels": [ { "text": "રહેણાંકનો વિસ્તાર" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q1_10_VS1", 
+                  "labels": [ { "text": "રહેણાંકનો વિસ્તાર" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ગ્રામ્ય" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "શહેરી" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_11", 
+              "labels": [ { "text": "શૈક્ષણિક લાયકાત" } ], 
+              "contentType": "alpha", 
+              "length": 7, 
+              "valueSets": [
+                {
+                  "name": "Q1_11_VS1", 
+                  "labels": [ { "text": "શૈક્ષણિક લાયકાત" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "અશિક્ષિત" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનૌપચારિક શિક્ષણ " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પ્રાથમિક શિક્ષણ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મા./ઉ.મા. શિક્ષણ" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ડિપ્લોમા/સર્ટિફિકેટ કોર્સ " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સ્નાતક" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અનુસ્નાતક કે વધુ" } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_12", 
+              "labels": [ { "text": "કુટુંબનો મુખ્ય વ્યવસાય" } ], 
+              "contentType": "alpha", 
+              "length": 8, 
+              "valueSets": [
+                {
+                  "name": "Q1_12_VS1", 
+                  "labels": [ { "text": "કુટુંબનો મુખ્ય વ્યવસાય" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ખેતી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેત મજૂરી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેતી અને પશુપાલન" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ધંધો " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નોકરી " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "છૂટક મજૂરી " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q1_13", 
+              "labels": [ { "text": "કુટુંબની વાર્ષિક આવક (રૂપિયામાં)" } ], 
+              "contentType": "numeric", 
+              "length": 15, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_14", 
+              "labels": [ { "text": "આપને કેટલી દિકરીઓ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_15", 
+              "labels": [ { "text": "આપને કેટલા દીકરા  છે?" } ], 
+              "contentType": "numeric", 
+              "length": 2, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q1_16", 
+              "labels": [ { "text": "આપને કુલ કેટલા બાળકો છે?" } ], 
+              "contentType": "numeric", 
+              "length": 3, 
+              "zeroFill": false
+            }
+          ]
+        }, 
+        {
+          "name": "TEST1", 
+          "labels": [ { "text": "યોજના સંબંધિત માહિતી" } ], 
+          "recordType": "2", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q2_1", 
+              "labels": [ { "text": "આપ પ્રધાનમંત્રી માતૃ વંદના યોજનાની જાણકારી ધરાવો છો ? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_1_VS1", 
+                  "labels": [ { "text": "આપ પ્રધાનમંત્રી માતૃ વંદના યોજનાની જાણકારી ધરાવો છો ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_2", 
+              "labels": [ { "text": "જો હા તો યોજનાની જાણકારી ક્યાંથી મળેલ? (જાણકારીના સ્ત્રોત) " } ], 
+              "contentType": "alpha", 
+              "length": 9, 
+              "valueSets": [
+                {
+                  "name": "Q2_2_VS1", 
+                  "labels": [ { "text": "જો હા તો યોજનાની જાણકારી ક્યાંથી મળેલ? (જાણકારીના સ્ત્રોત) " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સગા-સંબંધી " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સમાચાર પત્ર " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ટી.વી.-‌રેડિયો " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સરકારી કચેરી " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આંગણવાડી કાર્યકર " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આશાવર્કર " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "FHW વર્કર " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સોશિયલ મીડિયા " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_3", 
+              "labels": [ { "text": "શું તમે પ્રથમ બાળક વખતે PMMVY યોજનાનો લાભ લીધો હતો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_3_VS1", 
+                  "labels": [ { "text": "શું તમે પ્રથમ બાળક વખતે PMMVY યોજનાનો લાભ લીધો હતો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_4", 
+              "labels": [ { "text": "જો હા તો PMMVY યોજનાનો લાભ ક્યા વર્ષમાં લીધેલ હતો? વર્ષ:" } ], 
+              "contentType": "numeric", 
+              "length": 4, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_5", 
+              "labels": [ { "text": "આ યોજનાનો લાભ મેળવવા અરજી કરવામાં કોણે મદદ કરેલ હતી?" } ], 
+              "contentType": "alpha", 
+              "length": 8, 
+              "valueSets": [
+                {
+                  "name": "Q2_5_VS1", 
+                  "labels": [ { "text": "આ યોજનાનો લાભ મેળવવા અરજી કરવામાં કોણે મદદ કરેલ હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સગા-સંબંધી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જાતે " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સામાજિક કાર્યકર" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સરકારી કર્મચારી/અધિકારી  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આંગણવાડી કાર્યકર  " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આશાવર્કર" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "FHW" } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત) " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_6", 
+              "labels": [ { "text": "2.3 અરજી સાથે કયા દસ્તાવેજો બિડેલ હતા? " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_7", 
+              "labels": [ { "text": "જ્યારે તમે PMMVY હેઠળ નોંધણી કરાવી ત્યારે બેંક ખાતાની સ્થિતિ શું હતી?" } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q2_7_VS1", 
+                  "labels": [ { "text": "જ્યારે તમે PMMVY હેઠળ નોંધણી કરાવી ત્યારે બેંક ખાતાની સ્થિતિ શું હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "નોંધણી સમયે સક્રિય" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નોંધણી સમયે આધાર લિન્કેજ સહિત ફરી સક્રિય" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નવું બેંક ખાતું ખોલાવ્યું   " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)    " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_8", 
+              "labels": [ { "text": "જો તમે PMMVY હેઠળ નોંધણી કરાવી ત્યારે બેંક ખાતા માં ૨ કે ૩ તો આ પ્રક્રિયામાં કોણે મદદ કરી?" } ], 
+              "contentType": "alpha", 
+              "length": 7, 
+              "valueSets": [
+                {
+                  "name": "Q2_8_VS1", 
+                  "labels": [ { "text": "જો તમે PMMVY હેઠળ નોંધણી કરાવી ત્યારે બેંક ખાતા માં ૨ કે ૩ તો આ પ્રક્રિયામાં કોણે મદદ કરી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પતિ/કુંટુંબના સભ્ય" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જાતે" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": " સામાજિક કાર્યકર" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "FHW " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આંગણવાડી કાર્યકર" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આશાવર્કર" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_9", 
+              "labels": [ { "text": "પ્રથમ ગર્ભાવસ્થાના કેટલા મહિના પછી તમને પ્રથમ હપ્તાના પૈસા મળ્યા? (સમય ગાળો)" } ], 
+              "contentType": "alpha", 
+              "length": 15
+            }, 
+            {
+              "name": "Q2_10", 
+              "labels": [ { "text": "પ્રથમ ગર્ભાવસ્થાના કેટલા મહિના પછી તમને બીજા હપ્તાના પૈસા મળ્યા? (સમય ગાળો)" } ], 
+              "contentType": "alpha", 
+              "length": 30
+            }, 
+            {
+              "name": "Q2_11", 
+              "labels": [ { "text": "પ્રથમ ગર્ભાવસ્થા દરમિયાન ડૉક્ટરની ફી માટે તમે ખિસ્સામાંથી કેટલો ખર્ચ કર્યો? (રૂપિયામાં) " } ], 
+              "contentType": "numeric", 
+              "length": 15, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_12", 
+              "labels": [ { "text": "પ્રથમ ગર્ભાવસ્થા દરમિયાન તમે સમયાંતરે કરવામાં આવતા તબીબી તપાસ માટે તમારી પોતાની પાસેથી કેટલો ખર્ચ કર્યો? (રૂપિયામાં) " } ], 
+              "contentType": "numeric", 
+              "length": 15, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_13", 
+              "labels": [ { "text": "પ્રથમ ગર્ભાવસ્થા દરમિયાન તમે દવાઓ માટે તમારી પોતાની પાસેથી કેટલો ખર્ચ કર્યો? " } ], 
+              "contentType": "numeric", 
+              "length": 15, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_14", 
+              "labels": [ { "text": "પ્રથમ ગર્ભાવસ્થા દરમિયાન તમે પરિવહનમાં તમારી પોતાની પાસેથી કેટલો ખર્ચ કર્યો? " } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_15", 
+              "labels": [ { "text": "યોજનાનો લાભ મેળવવા માટે કુલ કેટલો ખર્ચ થયેલ હતો? (રૂપિયામાં) " } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_16", 
+              "labels": [ { "text": "પ્રથમ બાળકને ક્યાં જન્મ આપ્યો?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_16_VS1", 
+                  "labels": [ { "text": "પ્રથમ બાળકને ક્યાં જન્મ આપ્યો?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "વર્તમાન ઘર" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "માતાનું ઘર  " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સરકારી આરોગ્ય સંભાળ સુવિધા  " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી આરોગ્ય " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_17", 
+              "labels": [ { "text": "આપની પ્રથમ પ્રસૂતિનો પ્રકાર જણાવો." } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_17_VS1", 
+                  "labels": [ { "text": "આપની પ્રથમ પ્રસૂતિનો પ્રકાર જણાવો." } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "સામાન્ય પ્રસૂતિ " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઓપરેશન" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કસુવાવડ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_18", 
+              "labels": [ { "text": "શું તમે બીજા બાળક વખતે PMMVY યોજના સંબંધિત માહિતી નો લાભ લીધો હતો?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_18_VS1", 
+                  "labels": [ { "text": "શું તમે બીજા બાળક વખતે PMMVY યોજના સંબંધિત માહિતી નો લાભ લીધો હતો?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_19", 
+              "labels": [ { "text": "PMMVY યોજના સંબંધિત માહિતી નો લાભ ક્યા વર્ષમાં લીધેલ હતો? વર્ષ  લખવું " } ], 
+              "contentType": "numeric", 
+              "length": 4, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_20", 
+              "labels": [ { "text": "PMMVY યોજના સંબંધિત માહિતી નો લાભ લેવા માટે અરજી સાથે કયા દસ્તાવેજો બિડેલ હતા? (દસ્તાવેજના પ્રકાર) " } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q2_21", 
+              "labels": [ { "text": "બીજી ગર્ભાવસ્થા માટે FHW/ASHA દ્વારા નોંધણી (ANC) ક્યારે કરવામાં આવી હતી? " } ], 
+              "contentType": "alpha", 
+              "length": 3, 
+              "valueSets": [
+                {
+                  "name": "Q2_21_VS1", 
+                  "labels": [ { "text": "બીજી ગર્ભાવસ્થા માટે FHW/ASHA દ્વારા નોંધણી (ANC) ક્યારે કરવામાં આવી હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "૦-૧૨ અઠવાડિયા (પ્રથમ ત્રિમાસિક)  " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "૧૩-૨૪ અઠવાડિયા (બીજા ત્રિમાસિક)" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "૨૫-૪૦ અઠવાડિયા (3જા ત્રિમાસિક))" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_22", 
+              "labels": [ { "text": "તમને આ નોંધણી કરાવવામાં કોણે મદદ કરી? " } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q2_22_VS1", 
+                  "labels": [ { "text": "તમને આ નોંધણી કરાવવામાં કોણે મદદ કરી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "FHW" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આશા" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "AWW" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_23", 
+              "labels": [ { "text": "નોંધણી પછી શું તમને માતા અને બાળ સુરક્ષા કાર્ડ (MCP) મળ્યું હતું? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_23_VS1", 
+                  "labels": [ { "text": "નોંધણી પછી શું તમને માતા અને બાળ સુરક્ષા કાર્ડ (MCP) મળ્યું હતું? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_24", 
+              "labels": [ { "text": "બીજી ગર્ભાવસ્થા દરમિયાન તમે કેટલી વાર પ્રસૂતિ પહેલાની સંભાળ મેળવી હતી?( સંખ્યા)  " } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_25", 
+              "labels": [ { "text": "બીજી ગર્ભાવસ્થા દરમિયાન આંગણવાડી કેન્દ્રમાંથી તમને પૂરક પોષણ મળ્યું હતું? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_25_VS1", 
+                  "labels": [ { "text": "બીજી ગર્ભાવસ્થા દરમિયાન આંગણવાડી કેન્દ્રમાંથી તમને પૂરક પોષણ મળ્યું હતું? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_26", 
+              "labels": [ { "text": "જો હા તો તમને કયું પૂરક પોષણ મળ્યું? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_26_VS1", 
+                  "labels": [ { "text": "જો હા તો તમને કયું પૂરક પોષણ મળ્યું? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ઘરે લઈ જવા માટેનું રાશન (THR)" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પૂર્વ-રાંધેલું ભોજન" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_27", 
+              "labels": [ { "text": "તમે  બીજા બાળકને ક્યાં જન્મ આપ્યો?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_27_VS1", 
+                  "labels": [ { "text": "તમે  બીજા બાળકને ક્યાં જન્મ આપ્યો?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "વર્તમાન ઘર                     " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "માતાનું ઘર      " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સરકારી આરોગ્ય સંભાળ સુવિધા  " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખાનગી આરોગ્ય સંભાળ સુવિધા  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "NGO/ચેરિટેબલ હોસ્પિટલ" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_28", 
+              "labels": [ { "text": "બીજી ગર્ભાવસ્થા દરમિયાન ડૉક્ટરની ફી માટે તમે તમારી પોતાની પાસેથી કેટલો ખર્ચ કર્યો? " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_29", 
+              "labels": [ { "text": "બીજી ગર્ભાવસ્થા દરમિયાન તમે ડાયગ્નોસ્ટિક્સમાં તમારી પોતાની પાસેથી કેટલો ખર્ચ કર્યો? (રૂપિયામાં) " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_30", 
+              "labels": [ { "text": "બીજી ગર્ભાવસ્થા દરમિયાન તમે દવાઓ માટે તમારી પોતાની પાસેથી કેટલો ખર્ચ કર્યો? " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_31", 
+              "labels": [ { "text": "બીજી ગર્ભાવસ્થા દરમિયાન તમે પરિવહનમાં તમારી પોતાની પાસેથી કેટલો ખર્ચ કર્યો? " } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_32", 
+              "labels": [ { "text": "યોજનાનો લાભ મેળવવા માટે કુલ કેટલો ખર્ચ થયેલ હતો? (રૂપિયામાં)" } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_33", 
+              "labels": [ { "text": "પ્રસૂતિના કેટલા મહિના પછી તમને PMMVY યોજના સંબંધિત માહિતી નો લાભ મળેલ હતો? " } ], 
+              "contentType": "alpha", 
+              "length": 100, 
+              "valueSets": [
+                {
+                  "name": "Q2_33_VS1", 
+                  "labels": [ { "text": "પ્રસૂતિના કેટલા મહિના પછી તમને PMMVY યોજના સંબંધિત માહિતી નો લાભ મળેલ હતો? " } ], 
+                  "values": []
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_34", 
+              "labels": [ { "text": "તમારા મતે PMMVY યોજના સંબંધિત માહિતી નો લાભ તમને સમયમર્યાદામાં (જન્મેલ બાળકી ચૌદ અઠવાડિયાની ઉંમર થાય ત્યાં સુધી તમામ નિયત રસીઓ અપાવ્યા બાદ) મળેલ હતો?  " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_34_VS1", 
+                  "labels": [ { "text": "તમારા મતે PMMVY યોજના સંબંધિત માહિતી નો લાભ તમને સમયમર્યાદામાં (જન્મેલ બાળકી ચૌદ અઠવાડિયાની ઉંમર થાય ત્યાં સુધી તમામ નિયત રસીઓ અપાવ્યા બાદ) મળેલ હતો?  " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_35", 
+              "labels": [ { "text": "જો ના તો આ બાબતે તમે ફરિયાદ કરી હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_35_VS1", 
+                  "labels": [ { "text": "જો ના તો આ બાબતે તમે ફરિયાદ કરી હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_36", 
+              "labels": [ { "text": "જો હા તો આ બાબતે તમે પહેલા કોને ફરિયાદ કરી હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_36_VS1", 
+                  "labels": [ { "text": "જો હા તો આ બાબતે તમે પહેલા કોને ફરિયાદ કરી હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "FHW" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આશા" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "AWW" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "મેડીકલ ઓફીસર" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય (વિગત)" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_37", 
+              "labels": [ { "text": "તમે ફરિયાદ કરવા ગયેલા ત્યારે તે વ્યક્તિએ તમને કેવો પ્રતિભાવ આપ્યો હતો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_37_VS1", 
+                  "labels": [ { "text": "તમે ફરિયાદ કરવા ગયેલા ત્યારે તે વ્યક્તિએ તમને કેવો પ્રતિભાવ આપ્યો હતો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "તેઓએ સમસ્યા ઉકેલવામાં મદદ કરી હતી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "તેઓએ મદદ કરી ન હતી " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ફરિયાદ માટે તેઓ એ દુર્વ્યવહાર કર્યો હતો" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય (વિગત)" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_38", 
+              "labels": [ { "text": "શું તમે તેમના પ્રતિભાવથી સંતુષ્ટ છો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_38_VS1", 
+                  "labels": [ { "text": "શું તમે તેમના પ્રતિભાવથી સંતુષ્ટ છો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_39", 
+              "labels": [ { "text": "PMMVY યોજના સંબંધિત માહિતી હેઠળ કુલ કેટલી નાણાકીય સહાય મળેલ હતી? (રૂપિયામાં) " } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_40", 
+              "labels": [ { "text": "આ સહાય તમને કઇ રીતે પ્રાપ્ત થયેલ હતી?" } ], 
+              "contentType": "alpha", 
+              "length": 100
+            }, 
+            {
+              "name": "Q2_41", 
+              "labels": [ { "text": "શું તમને રોકડ ટ્રાન્સફર સિવાય અન્ય કોઈ લાભ મળેલ હતો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_41_VS1", 
+                  "labels": [ { "text": "શું તમને રોકડ ટ્રાન્સફર સિવાય અન્ય કોઈ લાભ મળેલ હતો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_42", 
+              "labels": [ { "text": "જો હા તો વિગત" } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q2_43", 
+              "labels": [ { "text": "PMMVY યોજના સંબંધિત માહિતી માંથી મળેલી લાભની રકમનો ઉપયોગ કેવી રીતે કરવામાં આવેલ?" } ], 
+              "contentType": "alpha", 
+              "length": 7, 
+              "valueSets": [
+                {
+                  "name": "Q2_43_VS1", 
+                  "labels": [ { "text": "PMMVY યોજના સંબંધિત માહિતી માંથી મળેલી લાભની રકમનો ઉપયોગ કેવી રીતે કરવામાં આવેલ?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતાનો/નવજાતનો ખોરાક" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પોતાની/નવજાતની દવા/વિટામીન માઇક્રો સપ્લીમેન્ટ્સ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઘરગથ્થુ વપરાશ" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "બિન-ખાદ્ય વપરાશ (ઘર બનાવવું, કપડાં ખરીદવું)" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ચેક-અપ માટે પરિવહન     " } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી" } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_44", 
+              "labels": [ { "text": "શું તેનાથી તમને મળતા ખોરાકની ગુણવત્તા/પ્રમાણમાં વધારો થયો હતો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_44_VS1", 
+                  "labels": [ { "text": "શું તેનાથી તમને મળતા ખોરાકની ગુણવત્તા/પ્રમાણમાં વધારો થયો હતો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_45", 
+              "labels": [ { "text": "રોકડ લાભને કારણે ગર્ભાવસ્થા દરમિયાન/પછી તમારા આહારમાં કઈ નવી વસ્તુઓ ઉમેરવામાં આવી હતી?" } ], 
+              "contentType": "alpha", 
+              "length": 9, 
+              "valueSets": [
+                {
+                  "name": "Q2_45_VS1", 
+                  "labels": [ { "text": "રોકડ લાભને કારણે ગર્ભાવસ્થા દરમિયાન/પછી તમારા આહારમાં કઈ નવી વસ્તુઓ ઉમેરવામાં આવી હતી?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "દૂધ" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ઇંડા" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ફળો" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "શાકભાજી" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ચોખા" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "રોટલી/ઘઉં" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "માછલી/માંસ  " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "કઠોળ" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "9" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_46", 
+              "labels": [ { "text": "PMMVY યોજના  સંબંધિત માહિતી હેઠળ પ્રાપ્ત થયેલ રૂ. ૬,000 ગર્ભાવસ્થાના સમયગાળા દરમિયાન તમારા વેતનની ખોટની ભરપાઈ કરવા માટે પૂરતા છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_46_VS1", 
+                  "labels": [ { "text": "PMMVY યોજના  સંબંધિત માહિતી હેઠળ પ્રાપ્ત થયેલ રૂ. ૬,000 ગર્ભાવસ્થાના સમયગાળા દરમિયાન તમારા વેતનની ખોટની ભરપાઈ કરવા માટે પૂરતા છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_47", 
+              "labels": [ { "text": "જો ના તો  PMMVY  યોજના સંબંધિત માહિતી હેઠળ તમારા વેતનની ખોટની ભરપાઈ કરવા કેટલી નાણાકીય સહાય હોવી જોઇએ? (રૂપિયામાં)" } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_48", 
+              "labels": [ { "text": "તમારા મતે PMMVY યોજના સંબંધિત માહિતી હેઠળ પ્રાપ્ત થયેલ રૂ. ૬,000 રોકડ પ્રસૂતિ પૂર્વે અને પ્રસૂતિ બાદ પુરતા પ્રમાણમાં આરામ અને પોતાના સ્વાસ્થ્યની કાળજી લેવા માટે પૂરતા છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_48_VS1", 
+                  "labels": [ { "text": "તમારા મતે PMMVY યોજના સંબંધિત માહિતી હેઠળ પ્રાપ્ત થયેલ રૂ. ૬,000 રોકડ પ્રસૂતિ પૂર્વે અને પ્રસૂતિ બાદ પુરતા પ્રમાણમાં આરામ અને પોતાના સ્વાસ્થ્યની કાળજી લેવા માટે પૂરતા છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_49", 
+              "labels": [ { "text": "જો ના તો PMMVY ૨.૦ યોજના હેઠળ સદર હેતુ માટે કેટલી નાણાકીય સહાય હોવી જોઇએ? (રૂપિયામાં)" } ], 
+              "contentType": "numeric", 
+              "length": 10, 
+              "zeroFill": false
+            }, 
+            {
+              "name": "Q2_50", 
+              "labels": [ { "text": "તમારા મતે, સરકારે આ યોજના કયા મુખ્ય હેતુ માટે બનાવી છે? (એક કરતાં વધારે વિકલ્પ હોઇ શકે) " } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q2_50_VS1", 
+                  "labels": [ { "text": "તમારા મતે, સરકારે આ યોજના કયા મુખ્ય હેતુ માટે બનાવી છે? (એક કરતાં વધારે વિકલ્પ હોઇ શકે) " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "વેતન નુકશાન માટે આંશિક વળતર પ્રદાન કરવા " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પ્રસૂતિ પહેલા અને પછી મહિલાઓ પૂરતો આરામ કરી શકે છે " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સગર્ભા સ્ત્રીઓ અને સ્તનપાન કરાવતી માતાઓના સ્વાસ્થ્યમાં સુધારો/પૌષ્ટિક ખોરાક પ્રદાન કરવા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q2_51", 
+              "labels": [ { "text": "પ્રસૂતિના કેટલા દિવસ પછી પ્રથમ મેડિકલ ચેક-અપ થયું? (દિવસો) " } ], 
+              "contentType": "alpha", 
+              "length": 150
+            }, 
+            {
+              "name": "Q2_52", 
+              "labels": [ { "text": "લાભાર્થીને જનની સુરક્ષા યોજના હેઠળ નાણાકીય લાભ મળેલ હતો ? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q2_52_VS1", 
+                  "labels": [ { "text": "લાભાર્થીને જનની સુરક્ષા યોજના હેઠળ નાણાકીય લાભ મળેલ હતો ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "BENIFICIYARI", 
+          "labels": [ { "text": "લાભાર્થીના આરોગ્ય અને પોષણ સંબંધિત" } ], 
+          "recordType": "3", 
+          "occurrences": {
+            "required": true, 
+            "maximum": 1
+          }, 
+          "items": [
+            {
+              "name": "Q3_1", 
+              "labels": [ { "text": "શું તમે તમારા નવજાત બાળકનું જન્મ પ્રમાણપત્ર મેળવ્યું છે? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_1_VS1", 
+                  "labels": [ { "text": "શું તમે તમારા નવજાત બાળકનું જન્મ પ્રમાણપત્ર મેળવ્યું છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_2", 
+              "labels": [ { "text": "શું પ્રસૂતિ પછી બાળકનું જન્મ પ્રમાણપત્ર મેળવવામાં કોઈ સમસ્યા ઉદ્ભવેલ હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_2_VS1", 
+                  "labels": [ { "text": "શું પ્રસૂતિ પછી બાળકનું જન્મ પ્રમાણપત્ર મેળવવામાં કોઈ સમસ્યા ઉદ્ભવેલ હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_3", 
+              "labels": [ { "text": "શું તમે તમારા નવજાત બાળક માટે રસીકરણ/ઇમ્યુનાઇઝેશન કાર્ડ મેળવેલ છે?" } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_3_VS1", 
+                  "labels": [ { "text": "શું તમે તમારા નવજાત બાળક માટે રસીકરણ/ઇમ્યુનાઇઝેશન કાર્ડ મેળવેલ છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_4", 
+              "labels": [ { "text": "જો હા તો તમને બાળક માટે રસીકરણ/ઇમ્યુનાઇઝેશન કાર્ડ મેળવવામાં કોઇ સમસ્યાનો સામનો કરવો પડેલ હતો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_4_VS1", 
+                  "labels": [ { "text": "જો હા તો તમને બાળક માટે રસીકરણ/ઇમ્યુનાઇઝેશન કાર્ડ મેળવવામાં કોઇ સમસ્યાનો સામનો કરવો પડેલ હતો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_5", 
+              "labels": [ { "text": "બાળકનો જન્મ થયા પછી રસી આપેલ હતી ? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_5_VS1", 
+                  "labels": [ { "text": "બાળકનો જન્મ થયા પછી રસી આપેલ હતી ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_6", 
+              "labels": [ { "text": "જો હા તો કઇ કઇ રસીઓ આપવામાં આવી હતી ? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_6_VS1", 
+                  "labels": [ { "text": "જો હા તો કઇ કઇ રસીઓ આપવામાં આવી હતી ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "BCG" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "DPT(Pentavalent)" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "OPV" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "Hepatitis-B  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખબર નથી" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_7", 
+              "labels": [ { "text": "શું તમે હાલમાં કામ કરો છો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_7_VS1", 
+                  "labels": [ { "text": "શું તમે હાલમાં કામ કરો છો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_8", 
+              "labels": [ { "text": "જો હા, તો તમારો વ્યવસાય શું છે? " } ], 
+              "contentType": "alpha", 
+              "length": 8, 
+              "valueSets": [
+                {
+                  "name": "Q3_8_VS1", 
+                  "labels": [ { "text": "જો હા, તો તમારો વ્યવસાય શું છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ખેતી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેત મજૂરી  " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેતી અને પશુપાલન  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ધંધો" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નોકરી" } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "છૂટક મજૂરી  " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત) " } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_9", 
+              "labels": [ { "text": "શું તમે ગર્ભાવસ્થા પહેલા કામ કરતા હતા? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_9_VS1", 
+                  "labels": [ { "text": "શું તમે ગર્ભાવસ્થા પહેલા કામ કરતા હતા? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_10", 
+              "labels": [ { "text": "જો હા, તો તમારો વ્યવસાય શું હતો ? " } ], 
+              "contentType": "alpha", 
+              "length": 8, 
+              "valueSets": [
+                {
+                  "name": "Q3_10_VS1", 
+                  "labels": [ { "text": "જો હા, તો તમારો વ્યવસાય શું હતો ? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "ખેતી" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેત મજૂરી  " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પશુપાલન" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ખેતી અને પશુપાલન  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ધંધો" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "નોકરી       " } ], 
+                      "pairs": [ { "value": "6" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "છૂટક મજૂરી  " } ], 
+                      "pairs": [ { "value": "7" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "અન્ય(વિગત)" } ], 
+                      "pairs": [ { "value": "8" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_11", 
+              "labels": [ { "text": "તમારી પ્રસૂતિના કેટલા દિવસ પહેલા તમે તમારી નોકરી/કામ છોડી દીધેલ હતું?" } ], 
+              "contentType": "alpha", 
+              "length": 150
+            }, 
+            {
+              "name": "Q3_12", 
+              "labels": [ { "text": "જો તમે ગર્ભાવસ્થા પહેલા કામ કરતા ના હોય તો શું તમે હવે કામ કરવાની યોજના ઘડી રહ્યા છો? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_12_VS1", 
+                  "labels": [ { "text": "જો તમે ગર્ભાવસ્થા પહેલા કામ કરતા ના હોય તો શું તમે હવે કામ કરવાની યોજના ઘડી રહ્યા છો? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_13", 
+              "labels": [ { "text": "જો હા, તો તમે કેટલા સમયમાં કામમાં જોડાવાનું આયોજન કરો છો?(દિવસો)" } ], 
+              "contentType": "alpha", 
+              "length": 150
+            }, 
+            {
+              "name": "Q3_14", 
+              "labels": [ { "text": "તમારી કમાણીના પૈસા કેવી રીતે ખર્ચવા તે કોણ નક્કી કરે છે? " } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q3_14_VS1", 
+                  "labels": [ { "text": "તમારી કમાણીના પૈસા કેવી રીતે ખર્ચવા તે કોણ નક્કી કરે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સાસુ સસરા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંયુક્ત નિર્ણય " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_15", 
+              "labels": [ { "text": "તમારી આરોગ્ય સંભાળ વિશે કોણ નિર્ણય લે છે? (ગર્ભાવસ્થા સિવાય)" } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q3_15_VS1", 
+                  "labels": [ { "text": "તમારી આરોગ્ય સંભાળ વિશે કોણ નિર્ણય લે છે? (ગર્ભાવસ્થા સિવાય)" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સાસુ સસરા" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંયુક્ત નિર્ણય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_16", 
+              "labels": [ { "text": "ગર્ભાવસ્થા દરમ્યાન તમારા આરોગ્ય સંભાળને લગતા નિર્ણયો કોણે લીધેલ હતા?" } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q3_16_VS1", 
+                  "labels": [ { "text": "ગર્ભાવસ્થા દરમ્યાન તમારા આરોગ્ય સંભાળને લગતા નિર્ણયો કોણે લીધેલ હતા?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સાસુ સસરા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંયુક્ત નિર્ણય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_17", 
+              "labels": [ { "text": "જ્યારે તમે બીમાર પડો ત્યારે આરોગ્ય સુવિધાની મુલાકાત લેવાનો નિર્ણય કોણ લે છે? " } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q3_17_VS1", 
+                  "labels": [ { "text": "જ્યારે તમે બીમાર પડો ત્યારે આરોગ્ય સુવિધાની મુલાકાત લેવાનો નિર્ણય કોણ લે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સાસુ સસરા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંયુક્ત નિર્ણય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_18", 
+              "labels": [ { "text": "જ્યારે બાળકો બીમાર પડે ત્યારે આરોગ્ય સુવિધાની મુલાકાત લેવાનો નિર્ણય કોણ લે છે?" } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q3_18_VS1", 
+                  "labels": [ { "text": "જ્યારે બાળકો બીમાર પડે ત્યારે આરોગ્ય સુવિધાની મુલાકાત લેવાનો નિર્ણય કોણ લે છે?" } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સાસુ સસરા" } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંયુક્ત નિર્ણય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_19", 
+              "labels": [ { "text": "તમને મળેલી PMMVY યોજનાના લાભના પૈસા કેવી રીતે ખર્ચવામાં આવશે તે કોણ નક્કી કરે છે? " } ], 
+              "contentType": "alpha", 
+              "length": 4, 
+              "valueSets": [
+                {
+                  "name": "Q3_19_VS1", 
+                  "labels": [ { "text": "તમને મળેલી PMMVY યોજનાના લાભના પૈસા કેવી રીતે ખર્ચવામાં આવશે તે કોણ નક્કી કરે છે? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "પોતે" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "પતિ" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સાસુ સસરા " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સંયુક્ત નિર્ણય" } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_20", 
+              "labels": [ { "text": "ગર્ભાવસ્થા દરમિયાન ક્યારે ક્યારે ચેક અપ કરાવવુ એ અંગે જાણકારી આપવામાં આવતી હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_20_VS1", 
+                  "labels": [ { "text": "ગર્ભાવસ્થા દરમિયાન ક્યારે ક્યારે ચેક અપ કરાવવુ એ અંગે જાણકારી આપવામાં આવતી હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "હા" } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ના" } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_21", 
+              "labels": [ { "text": "જો હા તો કોના દ્વારા જાણકારી આપવામાં આવતી હતી? " } ], 
+              "contentType": "numeric", 
+              "length": 1, 
+              "zeroFill": false, 
+              "valueSets": [
+                {
+                  "name": "Q3_21_VS1", 
+                  "labels": [ { "text": "જો હા તો કોના દ્વારા જાણકારી આપવામાં આવતી હતી? " } ], 
+                  "values": [
+                    {
+                      "labels": [ { "text": "આંગણવાડી કાર્યકર " } ], 
+                      "pairs": [ { "value": "1" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "આશા વર્કર " } ], 
+                      "pairs": [ { "value": "2" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "ફિમેલ હેલ્થ વર્કર " } ], 
+                      "pairs": [ { "value": "3" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "સગા સંબંધી  " } ], 
+                      "pairs": [ { "value": "4" } ]
+                    }, 
+                    {
+                      "labels": [ { "text": "જાતે" } ], 
+                      "pairs": [ { "value": "5" } ]
+                    }
+                  ]
+                }
+              ]
+            }, 
+            {
+              "name": "Q3_22", 
+              "labels": [ { "text": "આપનુ તથા આપના બાળકનું સ્વાસ્થય જળવાય તે માટે સરકારશ્રીની અન્ય કઇ-કઇ યોજનાઓનો લાભ આપના દ્વારા મેળવવામાં આવેલ હતો તેની વિગત જણાવો." } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q3_23", 
+              "labels": [ { "text": "પ્રધાનમંત્રી માતૃવંદના યોજના ૨.૦ થી થયેલ ફાયદાઓ જણાવો. " } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q3_24", 
+              "labels": [ { "text": "પ્રધાનમંત્રી માતૃવંદના યોજના ૨.૦ સંબધિત કોઇ મુશ્કેલી હોય તો તે જણાવો. " } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }, 
+            {
+              "name": "Q3_25", 
+              "labels": [ { "text": "પ્રધાનમંત્રી માતૃવંદના યોજના ૨.૦ વિશે આપના સૂચનો/સુધારા જણાવો. " } ], 
+              "contentType": "alpha", 
+              "length": 300
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
