@@ -66,16 +66,14 @@
     /* ✅ Checkbox style inside select2 */
 
 /* ✅ Make Select2 box full width */ .select2-container { width: 100% !important; } /* ✅ Selected item text size */ .select2-selection__rendered { font-size: 14px !important; line-height: 28px !important; } /* ✅ Font size in dropdown options */ .select2-results__option { font-size: 14px !important; padding: 8px 12px !important; } /* ✅ Increase checkbox spacing */ .select2-results__option:before { font-size: 14px !important; content: "☐"; position: absolute; left: 8px; } .select2-results__option { padding-left: 30px !important; position: relative; } .select2-results__option[aria-selected=true]:before { content: "☑"; } .select2-container--default .select2-selection--multiple .select2-selection__choice { background-color: #007bff !important; border: 1px solid #000 !important; } .select2-container--default .select2-selection--multiple .select2-selection__choice__remove { color: #fff !important; margin-right: 5px !important; } /* ✅ Selected item background (dropdown list) */ .select2-results__option--selected { background-color: #007bff !important; /* Blue */ color: #fff !important; font-weight: 500; } /* ✅ Remove default purple highlight when active */ .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable { background-color: #0056b3 !important; /* Darker Blue on hover */ color: #fff !important; } /* ✅ Hover effect */ .select2-results__option--highlighted.select2-results__option--selectable { background-color: #0056b3 !important; color: #fff !important; } /* ✅ Checkbox alignment */ .select2-results__option .select2-checkbox { margin-right: 10px; vertical-align: middle; } /* ✅ Tags on top when selected */ .select2-selection__choice { background-color: #007bff !important; color: #fff !important; border-radius: 4px !important; border: none !important; font-size: 14px !important; padding: 3px 6px !important; } /* ✅ Increase selection box height */ .select2-selection--multiple { min-height: 42px !important; padding: 6px !important; border: 1px solid #ced4da !important; } /* ✅ Placeholder style */ .select2-selection__placeholder { font-size: 14px !important; } /* ✅ When dropdown opens - increase area width visually */ .select2-dropdown { min-width: 400px !important; }
-.content-wrapper{
-  background-color:#e0eaed !important;
-}
+
 </style>
 @section('content')
 @php
   use Illuminate\Support\Facades\Crypt;
 @endphp
 <!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content" style="">
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content" style="background-color:#e0eaed;">
             <!--begin::Subheader-->
             <div class="subheader py-2 py-lg-6  subheader-solid " id="kt_subheader">
               <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -101,8 +99,8 @@
                 <div class="container">
 
                     <div class="step-container mb-4">
-                        <div class="step-box active" id="step1tab">Step No - 1 : Details of Implementing Offices</div>
-                        <div class="step-box" id="step2tab">Step No - 2 : Directorate of Evaluation (DOE) – Yojana-related</div>
+                        <div class="step-box active" id="step1tab">સ્ટેપ નં - 1 : Department Information</div>
+                        <div class="step-box" id="step2tab">સ્ટેપ નં - 2 : Directorate of Evaluation (DOE) – Yojana-related</div>
                     </div>
                       <!--begin: Wizard-->
                       <div>
@@ -149,7 +147,6 @@
                                 <div>
                                     @php
                                         $currentSlide = $val->save_last_item ?? 1; // default to 1 if null
-                                        
                                     @endphp
                                     <div class="first_slide col-xl-12 {{ ($currentSlide  == 1) ? 'active-slide' : '' }}  otherslides" style="{{  ($currentSlide  == 1) ? 'display:block;' : 'display:none;' }}">
                                           {{-- <form method="post" id="fourteenth_slide_form" enctype="multipart/form-data"> --}}
@@ -164,12 +161,12 @@
                                                     <div></div>
                                                     <div class="radio-inline">
                                                       <label class="radio radio-rounded">
-                                                          <input type="radio" name="is_evaluation" id="is_evaluation_yes" value="Y" class="is_evaluation" onclick="fn_show_if_eval(this.value)" {{ old('is_evaluation', $val->is_evaluation) === 'Y' ? 'checked' : '' }}  />
+                                                          <input type="radio" name="is_evaluation" id="is_evaluation_yes" value="Y" class="is_evaluation" onclick="fn_show_if_eval(this.value)" @if($val->is_evaluation == 'Y') checked @endif />
                                                           <span></span>
                                                           Yes (હા)
                                                       </label>
                                                       <label class="radio radio-rounded">
-                                                          <input type="radio" name="is_evaluation" id="is_evaluation_no" value="N" class="is_evaluation" onclick="fn_show_if_eval(this.value)" {{ old('is_evaluation', $val->is_evaluation) === 'N' ? 'checked' : '' }} />
+                                                          <input type="radio" name="is_evaluation" id="is_evaluation_no" value="N" class="is_evaluation" onclick="fn_show_if_eval(this.value)" @if($val->is_evaluation == 'N') checked @endif />
                                                           <span></span>
                                                           No (ના)
                                                       </label>
@@ -181,37 +178,37 @@
                                               <div class="row" id="if_eval_yes_div" style="{{ $val->is_evaluation == 'Y' ? 'display:block;' : 'display:none;' }}">
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
-                                                        <label>By Whom? (કોના દ્વારા?) <span class="required_filed"> * </span> :</label>
-                                                      <input type="text" name="eval_scheme_bywhom" id="eval_by_whom" class="form-control pattern" value="{{ old('eval_scheme_bywhom', $val->eval_scheme_bywhom) }}">
+                                                        <label>By Whom? (કોના દ્વારા?)</label>
+                                                        <input type="text" name="eval_by_whom" id="eval_by_whom" class="form-control pattern" value="{{$val->eval_scheme_bywhom}}">
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
-                                                        <label>When? (ક્યારે?) <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" id="eval_when" name="eval_scheme_when" class="form-control datepicker" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ old('eval_scheme_when', $val->eval_scheme_when) }}">
+                                                        <label>When? (ક્યારે?)</label>
+                                                        <input type="date" name="eval_when" id="eval_when" class="form-control" value="{{ $val->eval_scheme_when }}">
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
-                                                        <label>Geographical coverage of Beneficiaries (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર) <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" name="eval_scheme_geo_cov_bene" class="form-control pattern" id="eval_geographical_coverage_beneficiaries" value="{{ old('eval_scheme_geo_cov_bene', $val->eval_scheme_geo_cov_bene) }}">
+                                                        <label>Geographical coverage of Beneficiaries (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર) </label>
+                                                        <input type="text" name="eval_geographical_coverage_beneficiaries" class="form-control pattern" id="eval_geographical_coverage_beneficiaries" value="{{ $val->eval_scheme_geo_cov_bene }}">
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
-                                                        <label>No. of beneficiaries in sample (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા) <small>( greater than 10 )</small> <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" name="eval_scheme_no_of_bene" class="form-control numberonly pattern" id="eval_number_of_beneficiaries" maxlength="90" value="{{ old('eval_scheme_no_of_bene', $val->eval_scheme_no_of_bene) }}">
+                                                        <label>No. of beneficiaries in sample (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા) <small>( greater than 10 )</small> </label>
+                                                        <input type="text" name="eval_number_of_beneficiaries" class="form-control numberonly pattern" id="eval_number_of_beneficiaries" maxlength="90" value="{{ $val->eval_scheme_no_of_bene }}">
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
-                                                        <label>Major recommendations (મુખ્ય ભલામણો.) <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" name="eval_scheme_major_recommendation" class="form-control pattern" id="eval_major_recommendation" value="{{ old('eval_scheme_major_recommendation', $val->eval_scheme_major_recommendation) }}">
+                                                        <label>Major recommendations (મુખ્ય ભલામણો.)</label>
+                                                        <input type="text" name="eval_major_recommendation" class="form-control pattern" id="eval_major_recommendation" value="{{ $val->eval_scheme_major_recommendation }}">
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
-                                                        <label>Upload report (અહેવાલ અપલોડ કરવો.) <span class="required_filed"> * </span> :</label>
+                                                        <label>Upload report (અહેવાલ અપલોડ કરવો.) </label>
                                                         <div></div>
                                                           <div class="custom-file">
                                                               <input type="file" class="custom-file-input file_type_name" name="eval_upload_report" id="eval_if_yes_upload_file" accept=".pdf,.xlsx,.docx">
@@ -250,8 +247,8 @@
                                               <div class="col-xl-12">
                                                   <div class="form-group">
                                                     <label>Name of the Department (વિભાગનું નામ) <span class="required_filed"> * </span> : </label>
-                                                    <input type="text" id="next_dept_name" value="{{department_name($val->dept_id)}}" name="dept_name" readonly class="form-control pattern @error('dept_id') is-invalid @enderror">
-                                                      <input type="hidden" class="form-control" id="next_dept_id" name="dept_id" value="{{ $val->dept_id }}" />
+                                                    <input type="text" id="next_dept_name" value="{{$dept[0]->dept_name}}" name="dept_name" readonly class="form-control pattern @error('dept_id') is-invalid @enderror">
+                                                      <input type="hidden" class="form-control" id="next_dept_id" name="dept_id" value="{{ $dept[0]->dept_id }}" />
                                                       @error('dept_id')
                                                           <div class="alert alert-danger">{{ $message }}</div>
                                                       @enderror
@@ -274,9 +271,9 @@
                                                   <label>Designation of the Nodal Officer <br>(નોડલ અધિકારી નો હોદ્દો) <span class="required_filed"> * </span> :</label>
                                                    <select class="form-control" id="convener_designation" name="convener_designation">
                                                     <option value="">Select Designation</option>
-                                                    <option value="as" {{ $val->convener_designation == 'as' ? 'selected' : '' }}>Additional Secretary</option>
-                                                    <option value="ds" {{ $val->convener_designation == 'ds' ? 'selected' : '' }}>Deputy Secretary</option>
-                                                    <option value="js" {{ $val->convener_designation == 'js' ? 'selected' : '' }}>Joint Secretary</option>
+                                                    <option value="as" {{ $val->convener_designation == 'as' ? 'selected' : '' }}>AS</option>
+                                                    <option value="ds" {{ $val->convener_designation == 'ds' ? 'selected' : '' }}>DS</option>
+                                                    <option value="js" {{ $val->convener_designation == 'js' ? 'selected' : '' }}>JS</option>
                                                   </select>
                                                   {{-- <input type="text" name="convener_designation" class="form-control pattern @error('convener_designation') is-invalid @enderror" maxlength="100" id="convener_designation" value="{{ $val->convener_designation }}"> --}}
                                                       @error('convener_designation')
@@ -287,7 +284,7 @@
                                               <div class="col-xl-4">
                                                 <div class="form-group">
                                                   <label style="font-size: 15.8px;">Contact Number of the Nodal Officer <br>(નોડલ અધિકારીના સંપર્ક નંબર) <span class="required_filed"> * </span> :</label>
-                                                  <input type="text" name="convener_phone" class="landline form-control @error('convener_phone') is-invalid @enderror" maxlength="11" id="convener_phone" value="{{ $val->convener_phone }}">
+                                                  <input type="text" name="convener_phone" class="form-control phoneNumber @error('convener_phone') is-invalid @enderror" maxlength="100" id="convener_phone" value="{{ $val->convener_phone }}">
                                                       @error('convener_phone')
                                                           <div class="text-danger">* {{ $message }}</div>
                                                       @enderror
@@ -298,7 +295,7 @@
                                               <div class="col-xl-6">
                                                   <div class="form-group">
                                                       <label>Mobile Number of the Nodal Officer <br> (નોડલ અધિકારીના મોબાઇલ નંબર) <span class="required_filed"> * </span> :</label>
-                                                      <input type="text" id="convener_mobile" class="form-control mobile_number  pattern @error('convener_mobile') is-invalid @enderror" name="convener_mobile"  value="{{ $val->convener_mobile }}" maxlength="10"  />
+                                                      <input type="text" id="convener_mobile" class="form-control pattern @error('convener_mobile') is-invalid @enderror" name="convener_mobile"  value="{{ $val->convener_mobile }}" />
                                                       @error('convener_mobile')
                                                         <div class="text-danger">* {{ $message }}</div>
                                                       @enderror
@@ -307,7 +304,7 @@
                                                 <div class="col-xl-6">
                                                   <div class="form-group">
                                                       <label>Email Address of the Nodal Officer <br> (નોડલ અધિકારીનું ઇમેઇલ સરનામું) <span class="required_filed"> * </span> :</label>
-                                                      <input type="email" id="convener_email" class="form-control email-input pattern @error('convener_email') is-invalid @enderror" name="convener_email"  value="{{ $val->convener_email }}" />
+                                                      <input type="email" id="convener_email" class="form-control pattern @error('convener_email') is-invalid @enderror" name="convener_email"  value="{{ $val->convener_email }}" />
                                                       @error('convener_email')
                                                         <div class="text-danger">* {{ $message }}</div>
                                                       @enderror
@@ -357,7 +354,7 @@
                                                   <div class="col-xl-4">
                                                     <div class="form-group">
                                                       <label>Contact Number of the Financial Adviser <br>(નાણાકીય સલાહકાર ના સંપર્ક નંબર) <span class="required_filed"> * </span> :</label>
-                                                      <input type="text" name="financial_adviser_phone" class="form-control landline" value="{{$val->financial_adviser_phone}}" id="financial_adviser_phone" maxlength="11">
+                                                      <input type="text" name="financial_adviser_phone" class="form-control phoneNumber" value="{{$val->financial_adviser_phone}}" id="financial_adviser_phone">
                                                     </div>
                                                   </div>
                                               </div>
@@ -365,7 +362,7 @@
                                                   <div class="col-xl-6">
                                                       <div class="form-group">
                                                           <label>Mobile Number of the Financial Adviser <br>(નાણાકીય સલાહકાર ના મોબાઇલ નંબર) <span class="required_filed"> * </span> :</label>
-                                                          <input type="text" id="financial_adviser_mobile" class="form-control mobile_number pattern @error('financial_adviser_mobile') is-invalid @enderror" name="financial_adviser_mobile"  value="{{$val->financial_adviser_mobile}}" maxlength="10" />
+                                                          <input type="text" id="financial_adviser_mobile" class="form-control pattern @error('financial_adviser_mobile') is-invalid @enderror" name="financial_adviser_mobile"  value="{{$val->financial_adviser_mobile}}" />
                                                           @error('financial_adviser_mobile')
                                                             <div class="text-danger">* {{ $message }}</div>
                                                           @enderror
@@ -374,7 +371,7 @@
                                                   <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Email Address of the Financial Adviser <br>(નાણાકીય સલાહકારનું ઇમેઇલ સરનામું) <span class="required_filed"> * </span> :</label>
-                                                        <input type="email" id="financial_adviser_email" class="form-control email-input pattern @error('financial_adviser_email') is-invalid @enderror" name="financial_adviser_email"  value="{{$val->financial_adviser_email}}" />
+                                                        <input type="email" id="financial_adviser_email" class="form-control pattern @error('financial_adviser_email') is-invalid @enderror" name="financial_adviser_email"  value="{{$val->financial_adviser_email}}" />
                                                         @error('financial_adviser_email')
                                                           <div class="text-danger">* {{ $message }}</div>
                                                         @enderror
@@ -427,8 +424,9 @@
                                                 @if(!is_null($val->major_objective) && $val->major_objective != '')
                                                   <div class="room_fields_0">
                                                     <!-- <label>Objective 1: </label> -->
-                                                    <textarea class="form-control next_major_objectives @error('major_objective') is-invalid @enderror" id="next_major_objective_textarea" name="major_objective" rows="2">{{  $val->major_objective }}</textarea>
-                                                    @error('major_objective')
+                                                    <textarea class="form-control next_major_objectives @error('major_objective.0.major_objective') is-invalid @enderror" id="next_major_objective_textarea" name="major_objective[0][major_objective]" rows="2">{{  $val->major_objective }}</textarea>
+
+                                                    @error('major_objective.0.major_objective')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                     <br>
@@ -476,8 +474,9 @@
                                               @if(!is_null($val->major_indicator) && $val->major_indicator != '')
                                                 <div class="indicator_fields_0">
                                                     <!-- <label>Indicator: 1 </label> -->
-                                                    <textarea class="form-control next_major_indicators @error('major_indicator') is-invalid @enderror" id="next_major_indicator_textarea" name="major_indicator" rows="2">{{ $val->major_indicator }}</textarea>
-                                                    @error('major_indicator')
+                                                    <textarea class="form-control next_major_indicators @error('major_indicator.0.major_indicator') is-invalid @enderror" id="next_major_indicator_textarea" name="major_indicator[0][major_indicator]" rows="2">{{ $val->major_indicator }}</textarea>
+
+                                                    @error('major_indicator.0.major_indicator')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                     <br>
@@ -528,16 +527,16 @@
                                   <div class="fifth_slide  {{  ($currentSlide  == 5) ? 'active-slide' : '' }} otherslides" style="{{  ($currentSlide  == 5) ? 'display:block;' : 'display:none;' }}">
                                     <!--begin: Wizard Step 2-->
                                     {{-- <div class="pb-0" data-wizard-type="step-content"> --}}
-                                     
+                                   
                                       <div class="row ">
                                         <div class="col-xl-12">
                                           <div class="form-group" style="margin-top: 32px;">
                                             <label>Name of the HOD/ Branch. (કચેરીનું નામ)<span class="required_filed"> * </span> :</label>
                                             <select name="implementing_office[]" class="form-control implementing_office" id="implementing_office" multiple="multiple">
                                               <option value="">Select HOD</option>
-                                                @foreach (department_hod_name(Auth::user()->dept_id) as $key => $item)
-                                                    <option value="{{ $item->id }}" {{ in_array($item->id, explode(',', $val->implementing_office)) ? 'selected' : '' }}>
-                                                        {{ $item->name }}
+                                                @foreach (department_hod_name(Auth::user()->dept_id) as $item)
+                                                    <option value="{{ $item }}" {{ in_array($item, explode(',', $val->implementing_office)) ? 'selected' : '' }}>
+                                                        {{ $item }}
                                                     </option>
                                                 @endforeach
                                               <option value="other">Other</option>
@@ -564,7 +563,7 @@
                                                <table class="table table-bordered mt-3 table-responsive" id="hodTable" style="{{ $val->hod_officer_name ? 'display:block;' : 'display:none;' }}">
                                                   <thead class="bg-light">
                                                       <tr>
-                                                          <th>SR No</th>
+                                                          <th>HOD / Office</th>
                                                           <th>Name</th>
                                                           <th>Email</th>
                                                           <th>Contact No</th>
@@ -575,9 +574,9 @@
                                                   <tbody>
                                                       @foreach (explode(',', $val->implementing_office) as $index => $office)
                                                           <tr>
-                                                              <td><input type="text" class="form-control" value="{{ $index + 1 }}" disabled></td>
+                                                              <td><input type="text" class="form-control" value="{{ $office }}" disabled></td>
                                                               <td><input type="text" class="form-control hod_officer_name" name="hod_officer_name[]" value="{{ explode(',', $val->hod_officer_name)[$index] ?? '' }}"></td>
-                                                              <td><input type="email" class="form-control email-input hod_email" name="hod_email[]" value="{{ explode(',', $val->hod_email)[$index] ?? '' }}"></td>
+                                                              <td><input type="email" class="form-control hod_email" name="hod_email[]" value="{{ explode(',', $val->hod_email)[$index] ?? '' }}"></td>
                                                               <td><input type="text" class="form-control implementing_office_contact" name="implementing_office_contact[]" value="{{ explode(',', $val->implementing_office_contact)[$index] ?? '' }}"></td>
                                                               <td><input type="text" class="form-control hod_mobile" name="hod_mobile[]" value="{{ explode(',', $val->hod_mobile)[$index] ?? '' }}"></td>
                                                               <td><button type="button" class="btn btn-danger btn-sm removeRow">X</button></td>
@@ -606,13 +605,13 @@
                                         <div class="col-xl-3">
                                             <div class="form-group">
                                               <label>Contact Number of the Nodal Officer (HOD) (નોડલ અધિકારી ના સંપર્ક નંબર)<span class="required_filed"> * </span> :</label>
-                                              <input type="text" name="nodal_officer_contact" class="form-control pattern landline" maxlength="11" id="nodal_contact" value="{{$val->nodal_officer_contact}}">
+                                              <input type="text" name="nodal_officer_contact" class="form-control pattern" maxlength="100" id="nodal_contact" value="{{$val->nodal_officer_contact}}">
                                             </div>
                                         </div>
                                           <div class="col-xl-3">
                                             <div class="form-group">
                                               <label>Mobile Number of the Nodal Officer (HOD) (નોડલ અધિકારી ના મોબાઇલ નંબર)<span class="required_filed"> * </span> :</label>
-                                              <input type="text" name="nodal_officer_mobile" class="form-control mobile_number pattern" maxlength="10" id="nodal_mobile" value="{{$val->nodal_officer_mobile}}">
+                                              <input type="text" name="nodal_officer_mobile" class="form-control pattern" maxlength="100" id="nodal_mobile" value="{{$val->nodal_officer_mobile}}">
                                             </div>
                                         </div>
                                         <div class="col-xl-6" style="margin-top: 4%;">
@@ -649,7 +648,7 @@
                                       
                                         <div class="col-xl-6" style="margin-top: -2%;">
                                            <label>Other:</label>
-                                            <textarea name="both_ration" class="form-control pattern" placeholder="Remarks" id="both_ration">{{$val->both_ration}}</textarea>
+                                            <textarea name="both_ratio" class="form-control pattern" placeholder="Remarks" id="both_ration">{{$val->both_ration}}</textarea>
                                                       {{-- <input type="text" name="both_ratio" class="form-control" placeholder="Remarks" id="both_ration" value="{{$val->both_ration}}"> --}}
                                           {{-- <label>Name of Implementing office (અમલીકરણ ઓફિસ નું નામ)<span class="required_filed"> * </span> :</label>
                                           <input type="text" name="hod_name" class="form-control pattern" id="hod_name" value="{{ $val->hod_name }}"> --}}
@@ -800,9 +799,9 @@
                                                     <div class="col-xl-4">
                                                         <div class="form-group form-check">
                                                             @if(!empty($issdg) and in_array($g->goal_id,$issdg))
-                                                                <input type="checkbox" checked name="is_sdg[]" class="form-check-input" id="goal1" value="{{ $g->goal_id }}">
+                                                                <input type="checkbox" checked name="sustainable_goals[]" class="form-check-input" id="goal1" value="{{ $g->goal_id }}">
                                                             @else
-                                                                <input type="checkbox" name="is_sdg[]" class="form-check-input" id="goal1" value="{{ $g->goal_id }}">
+                                                                <input type="checkbox" name="sustainable_goals[]" class="form-check-input" id="goal1" value="{{ $g->goal_id }}">
                                                             @endif
                                                             <label class="form-check-label" for="goal1">{{ $g->goal_name }}</label>
                                                         </div>
@@ -1865,61 +1864,46 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
         });
           // ✅ Show text field when "Other" is selected
            $('#implementing_office').on('change', function () {
-            let selected = $(this).val() || [];
+              let selected = $(this).val() || [];
 
-            // Show / Hide "Other"
-            if (selected.includes("other")) {
-                $('.other_val').show();
-            } else {
-                $('.other_val').hide();
-                $('input[name="name"]').val('');
-            }
+              // ✅ Show / Hide "Other" input
+              if (selected.includes("other")) {
+                  $('.other_val').show();
+              } else {
+                  $('.other_val').hide();
+                  $('input[name="name"]').val('');
+              }
 
-            // Show/Hide Table
-            if (selected.length > 0 && !(selected.length === 1 && selected.includes("other"))) {
-                $('#hodTable').show();
-            } else {
-                $('#hodTable').hide();
-                $('#hodTable tbody').empty();
-                return;
-            }
+              // ✅ Show/Hide Table
+              if (selected.length > 0 && !(selected.length === 1 && selected.includes("other"))) {
+                  $('#hodTable').show();
+              } else {
+                  $('#hodTable').hide();
+                  $('#hodTable tbody').empty(); // ✅ Clear rows if nothing selected
+                  return;
+              }
 
-            // Clear previous rows
-            $('#hodTable tbody').empty();
+              // ✅ Remove all rows to prevent duplication
+              $('#hodTable tbody').empty();
 
-            let srNo = 1; // 🔑 Sr No counter
+              // ✅ Add rows for each selected value except "other"
+              selected.forEach(function (val) {
+                  if (val !== "other") {
+                      let row_id = "row_" + val.replace(/\s+/g, '_');
 
-            selected.forEach(function (val) {
-                if (val !== "other") {
-                    let row_id = "row_" + val.replace(/\s+/g, '_');
-
-                    $('#hodTable tbody').append(`
-                        <tr id="${row_id}">
-                            <td>
-                                <input type="text" class="form-control text-center" value="${srNo}" readonly>
-                            </td>
-                            <td>
-                                <input type="text" name="hod_officer_name[]" class="form-control hod_officer_name" required>
-                            </td>
-                            <td>
-                                <input type="email" name="hod_email[]" class="form-control email-input hod_email" required>
-                            </td>
-                            <td>
-                                <input type="text" name="implementing_office_contact[]" class="form-control implementing_office_contact" maxlength="12" required>
-                            </td>
-                            <td>
-                                <input type="text" name="hod_mobile[]" class="form-control hod_mobile" maxlength="10" required>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm removeRow">X</button>
-                            </td>
-                        </tr>
-                    `);
-
-                    srNo++; // 🔼 increment
-                }
-            });
-        });
+                      $('#hodTable tbody').append(`
+                          <tr id="${row_id}">
+                              <td><input type="text" class="form-control" value="${val}" disabled></td>
+                              <td><input type="text" name="hod_officer_name[]" class="form-control hod_officer_name" required></td>
+                              <td><input type="email" name="hod_email[]" class="form-control hod_email" required></td>
+                              <td><input type="text" name="implementing_office_contact[]" class="form-control implementing_office_contact" maxlength="7" required></td>
+                              <td><input type="text" name="hod_mobile[]" class="form-control hod_mobile" maxlength="10" required></td>
+                              <td><button type="button" class="btn btn-danger btn-sm removeRow">X</button></td>
+                          </tr>
+                      `);
+                  }
+              });
+          });
 
   $('.add_hod').on('click',function(e){
     e.preventDefault();
@@ -2208,7 +2192,22 @@ $(document).ready(function(){
   //  var item = 'item';
     var nextrownumberzero = 0; //rownumber + 1;
 
-  
+    $(document).ready(function(){
+        $('.allowonly2decimal').keypress(function (e) {
+            var character = String.fromCharCode(e.keyCode)
+            var newValue = this.value + character;
+            if (isNaN(newValue) || hasDecimalPlace(newValue, 3)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+
+    function hasDecimalPlace(value, x) {
+        var pointIndex = value.indexOf('.');
+        return  pointIndex >= 0 && pointIndex < value.length - x;
+    }
+
     var count_thisistbody_tr = $("#thisistbody tr").length - 1;
     var entered_finyear = $('#thisistbody .next_financial_progress_year').eq(count_thisistbody_tr).val();
     // var entered_units = $('#thisistbody .next_financial_progress_units').eq(count_thisistbody_tr).val();
@@ -2225,10 +2224,10 @@ $(document).ready(function(){
     var add_two = Number(split_finyear[1]) + 1;
     var entered_finyear = add_one+'-'+add_two;
     if(rownumber >= 1) {
-      var addtr = '<tr class="finprogresstr_'+rownumber+'"><td class="finprogresstd_'+rownumber+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+rownumber+'" name="financial_progress['+rownumber+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}" @if('+entered_finyear+' == $year) selected @endif>{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+rownumber+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+rownumber+'" id="next_fin_selection_'+rownumber+'" name="financial_progress['+rownumber+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}" @if($unit_item->id == '+entered_finyear+') selected @endif>{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_'+rownumber+'" name="financial_progress['+rownumber+']['+target+']" value="" /></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+rownumber+'" name="financial_progress['+rownumber+']['+achivement+']" value="" /></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+rownumber+'" name="financial_progress['+rownumber+']['+allocation+']" value="" /></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+rownumber+'" name="financial_progress['+rownumber+']['+expenditure+']" value="" /></td><td class="finprogresstd_'+rownumber+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="'+rownumber+'" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
+      var addtr = '<tr class="finprogresstr_'+rownumber+'"><td class="finprogresstd_'+rownumber+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+rownumber+'" name="financial_progress['+rownumber+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}" @if('+entered_finyear+' == $year) selected @endif>{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+rownumber+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+rownumber+'" id="next_fin_selection_'+rownumber+'" name="financial_progress['+rownumber+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}" @if($unit_item->id == '+entered_finyear+') selected @endif>{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_'+rownumber+'" name="financial_progress['+rownumber+']['+target+']" value="'+entered_target+'" /></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+rownumber+'" name="financial_progress['+rownumber+']['+achivement+']" value="'+entered_achievement+'" /></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+rownumber+'" name="financial_progress['+rownumber+']['+allocation+']" value="'+entered_fund+'" /></td><td class="finprogresstd_'+rownumber+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+rownumber+'" name="financial_progress['+rownumber+']['+expenditure+']" value="'+entered_expenditure+'" /></td><td class="finprogresstd_'+rownumber+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="'+rownumber+'" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
       $("#thisistbody tr:last").after(addtr);
     } else {
-    var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}" @if('+entered_finyear+' == $year) selected @endif>{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}" @if($unit_item->id == '+entered_selection+') selected @endif>{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_progress_year_'+nextrownumberzero+' next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="'+nextrownumberzero+'" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
+    var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}" @if('+entered_finyear+' == $year) selected @endif>{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}" @if($unit_item->id == '+entered_selection+') selected @endif>{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_progress_year_'+nextrownumberzero+' next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']"  value="'+entered_target+'"/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']"  value="'+entered_achievement+'"/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']"  value="'+entered_fund+'"/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value="'+entered_expenditure+'"/></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="'+nextrownumberzero+'" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
       $("#thisistbody tr:last").after(addtr);
     }
 
@@ -2236,7 +2235,6 @@ $(document).ready(function(){
     $(".content-wrapper").css('min-height',ktcontent);
 
   });
-
 });
 
 function remove_financial_year(row) {
@@ -2609,69 +2607,40 @@ function DistItem(){
     });
 }
 $(document).on('change', '.custom-file-input', function () {
-    const $input = $(this);
-    const files  = this.files;
-    if (!files || !files.length) return;
+ const $input = $(this);
+        const files  = this.files;
+        if (!files.length) return;
 
-    // ===== CONFIG =====
-    const isGR   = $input.attr('name') === 'gr[]';
-    const maxMB  = isGR ? 30 : Number($input.data('max')) || 5;
-    const allowedExt = ($input.data('ext') || 'pdf,doc,docx')
-        .replace(/\s+/g, '')
-        .toLowerCase()
-        .split(',');
+        const isGR = $input.attr('name') === 'gr[]';
+        const maxMB = isGR ? 30 : Number($input.data('max')) || 5;
+        const allowedExt = ($input.data('ext') || 'pdf,doc,docx')
+                              .replace(/\s+/g, '')
+                              .toLowerCase()
+                              .split(',');
 
-    const badFiles = [];
+        const badFiles = [];
+        [...files].forEach(f => {
+            const tooBig  = f.size > maxMB * 1024 * 1024;
+            const parts   = f.name.split('.');
+            const ext     = parts.pop().toLowerCase();
+            const singleDot = parts.length === 1;
+            const bad = tooBig || !singleDot || !allowedExt.includes(ext);
+            if (bad) badFiles.push(f.name);
+        });
 
-    // ===== VALIDATION =====
-    Array.from(files).forEach(file => {
-
-        const tooBig = file.size > maxMB * 1024 * 1024;
-
-        const lastDot = file.name.lastIndexOf('.');
-        const ext = lastDot > -1
-            ? file.name.substring(lastDot + 1).toLowerCase()
-            : '';
-
-        const singleDot = lastDot > 0 && file.name.indexOf('.') === lastDot;
-
-        if (tooBig || !singleDot || !allowedExt.includes(ext)) {
-            badFiles.push(file.name);
+        if (badFiles.length) {
+            alert(`Please choose a ${allowedExt.join(', ')} file (≤ ${maxMB} MB).\n\nInvalid selection:\n` + badFiles.join('\n'));
+            $input.val('');
+            $input.next('.custom-file-label').text('Choose file');
+            return;
         }
-    });
 
-    if (badFiles.length) {
-        alert(
-            `Please choose a valid file (${allowedExt.join(', ')}) up to ${maxMB} MB.\n\nInvalid file(s):\n` +
-            badFiles.join('\n')
-        );
-        $input.val('');
-        $input.next('.custom-file-label').text('Choose file');
-        return;
-    }
-
-    // ===== DISPLAY ORIGINAL NAME (Gujarati safe) =====
-    let labelText;
-    if (files.length === 1) {
-        const originalName = files[0].name;
-
-        // truncate only for UI
-        const maxLen = 40;
-        labelText = originalName.length > maxLen
-            ? originalName.substring(0, 37) + '...'
-            : originalName;
-
-        $input.next('.custom-file-label')
-            .text(labelText)
-            .attr('title', originalName); // full name on hover
-    } else {
-        labelText = `${files.length} files selected`;
-        $input.next('.custom-file-label').text(labelText);
-    }
+        const label = files.length === 1 ? files[0].name : `${files.length} files`;
+        $input.next('.custom-file-label').text(label);
   });
 
     $(document).ready(function(){
-        $('.allowonly2decimal__test').keypress(function (e) {
+        $('.allowonly2decimal').keypress(function (e) {
             var character = String.fromCharCode(e.keyCode)
             var newValue = this.value + character;
             if (isNaN(newValue) || hasDecimalPlace(newValue, 3)) {
@@ -2681,12 +2650,14 @@ $(document).on('change', '.custom-file-input', function () {
         });
 
         //
-        $(document).on('change', '.file_type_name', function () {
-          if (this.files && this.files.length > 0) {
-              const fileName = this.files[0].name; // ORIGINAL filename
-              $(this).next('.custom-file-label').text(fileName);
-          }
-      });
+        $('.file_type_name').on('change', function () {
+          // Get the selected file name
+
+          var fileName = $(this).val().split('\\').pop();
+          console.log(fileName);
+          // Update the custom file label with the selected file name
+          $(this).next('.custom-file-label').html(fileName);
+        });
     });
 
     function hasDecimalPlace(value, x) {
@@ -3154,13 +3125,13 @@ $(document).on('change', '.custom-file-input', function () {
         } else if(slideid == 6) {
             var commencement_year = $('#commencement_year').val();
             var scheme_status = $("input[name='scheme_status']").val();
-            var is_sdg = $('input[name="is_sdg[]"]:checked').length;
+            var is_sdg = $('input[name="sustainable_goals[]"]:checked').length;
             if(commencement_year != '' && scheme_status != '' && is_sdg > 0) {
               countIncrease(slideid);
                 $("#the_error_html").remove();
                 var checked_scheme_status = [];
                 var i=0;
-                $('input[name="is_sdg[]"]:checked').each(function() {
+                $('input[name="sustainable_goals[]"]:checked').each(function() {
                     checked_scheme_status[i] = this.value;
                     i++;
                 });
@@ -3418,8 +3389,12 @@ $(document).on('change', '.custom-file-input', function () {
                 }
             }
 
-          
-           // if(next_benefit_to != '') {
+            // console.log(convergence_dept_ids+" = convergence_dept_ids");
+            // console.log(JSON.stringify(all_convergence)+" = all_convergence");
+            // return false;
+            // var next_convergence_dept_id = $("#next_convergence_dept_id").val();
+            // var next_convergence_text = $("#next_convergence_text").val();
+            if(next_benefit_to != '') {
               countIncrease(slideid);
               $("#the_error_html").remove();
 
@@ -3442,11 +3417,11 @@ $(document).on('change', '.custom-file-input', function () {
                     }
                 });
 
-            // } else {
-            //     $("#the_error_html").remove();
-            //     var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
-            //     $(".eleventh_slide").append(the_html);
-            // }
+            } else {
+                $("#the_error_html").remove();
+                var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
+                $(".eleventh_slide").append(the_html);
+            }
         } else if(slideid == 12) {
               var existing_gr_files = {{ $gr_files->count() ?? 0 }};
               var existing_notification_files = {{ $notifications->count() ?? 0 }};
@@ -3458,7 +3433,11 @@ $(document).on('change', '.custom-file-input', function () {
               var next_otherdetailscenterstate = $(".next_otherdetailscenterstate")[0]?.files.length || 0;
 
               // Validation: require at least GR or Notification file (new or existing)
-              if ( (next_gr_files > 0) || (existing_gr_files > 0 && next_gr_files === 0) ) {
+              if (
+                  (next_gr_files > 0 || next_notification_files > 0) ||
+                  (existing_gr_files > 0 && next_gr_files === 0) ||
+                  (existing_notification_files > 0 && next_notification_files === 0)
+              ) {
                   $("#the_error_html").remove();
                   countIncrease(slideid);
 
@@ -3539,12 +3518,12 @@ $(document).on('change', '.custom-file-input', function () {
               } else {
                   // Validation error for missing GR/Notification
                   $("#the_error_html").remove();
-                  var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* GR  documents are required</div></div>';
+                  var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* GR or Notification documents are required</div></div>';
                   $(".twelth_slide").append(the_html);
               }
         } else if(slideid == 13) {
              var indicator_values = $(".getindicator_hod").val();
-          //  if(indicator_values != '') {
+            if(indicator_values != '') {
               countIncrease(slideid);
               $("#the_error_html").remove();
 
@@ -3566,13 +3545,13 @@ $(document).on('change', '.custom-file-input', function () {
                     }
                 });
 
-            // } else {
+            } else {
                 
-            //         $("#the_error_html").remove();
-            //         var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Indicator 1 and indicator 2 are required</div></div>';
-            //         $(".thirteenth_slide").append(the_html);
+                    $("#the_error_html").remove();
+                    var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Indicator 1 and indicator 2 are required</div></div>';
+                    $(".thirteenth_slide").append(the_html);
                 
-            // }
+            }
         } else if(slideid == 14) {
             var next_financial_progress_year = $(".next_financial_progress_year").val();
           //  var next_financial_progress_units = $(".next_financial_progress_units").val();
@@ -3622,18 +3601,18 @@ $(document).on('change', '.custom-file-input', function () {
                             url:"{{ route('schemes.update_scheme') }}",
                             data:{'_token':"{{ csrf_token() }}", 'slide':'fourteenth','draft_id':draft_id,'scheme_id':scheme_id,'tr_array':tr_array, 'financial_progress_remarks':financial_progress_remarks},
                             success:function(response) {
-
-
-                              $(".otherslides").hide();
-                               // $("#next_btn").val(14).show();
-                                $("#next_btn").hide();
+                                $(".otherslides").hide();
+                               // $(".fourteenth_slide").show();
+                                $("#previous_btn").val(14).show();
+                                // $("#next_btn").val(14).show();
+                                // $("#next_btn").hide();
                                 $('.last_btn').show();
 
+                                // var isevaluation = $("input[name='is_evaluation']:checked").attr('id');
+                                // $("#"+isevaluation).click();
+
                                 var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
-
                                 $("#div_next_btn").html(the_html_btn);
-
-                               
                             },
                             error:function() {
                                  console.log('update_scheme ajax error');
@@ -3653,6 +3632,7 @@ $(document).on('change', '.custom-file-input', function () {
    function getPrevSlide(prevslide) {
       countPrevious(prevslide);
         if(prevslide == 2) {
+          console.log('prevslide 2');
           $('.second_slide').removeClass("active-slide");
           $('.first_slide').addClass("active-slide");
           $("#step2tab").removeClass("active");
@@ -3662,6 +3642,7 @@ $(document).on('change', '.custom-file-input', function () {
           $("#previous_btn").val(1).hide();
           $("#next_btn").val(1).show();
         } else if(prevslide == 3) {
+            console.log('prevslide 3');
             $('.third_slide').removeClass("active-slide");
             $('.second_slide').addClass("active-slide");
             $("#step3tab").removeClass("active");
@@ -3671,6 +3652,7 @@ $(document).on('change', '.custom-file-input', function () {
             $("#previous_btn").val(2).show();
             $("#next_btn").val(2).show();
         } else if(prevslide == 4) {
+            console.log('prevslide 4');
             $('.fourth_slide').removeClass("active-slide");
             $('.third_slide').addClass("active-slide"); 
           
@@ -3679,6 +3661,7 @@ $(document).on('change', '.custom-file-input', function () {
             $("#previous_btn").val(3).show();
             $("#next_btn").val(3).show();
         } else if(prevslide == 5) {
+            console.log('prevslide 5');
             $('.fifth_slide').removeClass("active-slide");
             $('.fourth_slide').addClass("active-slide"); 
             $(".otherslides").hide();
@@ -3686,6 +3669,7 @@ $(document).on('change', '.custom-file-input', function () {
             $("#previous_btn").val(4).show();
             $("#next_btn").val(4).show();
         } else if(prevslide == 6) {
+            console.log('prevslide 6');
              $('.sixth_slide').removeClass("active-slide");
             $('.fifth_slide').addClass("active-slide"); 
             $(".otherslides").hide();
@@ -3700,6 +3684,7 @@ $(document).on('change', '.custom-file-input', function () {
           $("#previous_btn").val(6).show();
           $("#next_btn").val(6).show();
       } else if(prevslide == 8) {
+          console.log('prevslide 8');
           $('.eighth_slide').removeClass("active-slide");
           $('.seventh_slide').addClass("active-slide"); 
           $(".otherslides").hide();
@@ -3728,6 +3713,7 @@ $(document).on('change', '.custom-file-input', function () {
           $("#previous_btn").val(10).show();
           $("#next_btn").val(10).show();
       } else if(prevslide == 12) {
+          console.log('prevslide 12');
           $('.twelth_slide').removeClass("active-slide");
           $('.eleventh_slide').addClass("active-slide");
           $(".otherslides").hide();
@@ -3735,6 +3721,7 @@ $(document).on('change', '.custom-file-input', function () {
           $("#previous_btn").val(11).show();
           $("#next_btn").val(11).show();
       } else if(prevslide == 13) {
+          console.log('prevslide 13');
           $('.thirteenth_slide').removeClass("active-slide");
           $('.twelth_slide').addClass("active-slide");
           $(".otherslides").hide();
@@ -3742,6 +3729,7 @@ $(document).on('change', '.custom-file-input', function () {
           $("#previous_btn").val(12).show();
           $("#next_btn").val(12).show();
       } else if(prevslide == 14) {
+          console.log('prevslide 14');
           $('.fourteenth_slide').removeClass("active-slide");
           $('.thirteenth_slide').addClass("active-slide");
           $(".otherslides").hide();
@@ -3755,24 +3743,9 @@ $(document).on('change', '.custom-file-input', function () {
     }
 
     function finishSlides() {
-        Swal.fire({
-          title: "Update Completed!",
-          text: "Your Proposal has been completely updated.",
-          icon: "success"
-        }).then(okay => {
-            if (okay) {
-              var get_url = "{{ route('proposals', ['param' => 'new']) }}";
-              window.location.href = get_url;
-            }
-        });
+         var get_url = "{{ route('proposals', ['param' => 'new']) }}";
+          window.location.href = get_url;
     }
-    function showError(msg) {
-    var the_html = `
-        <div class="row" id="the_error_html">
-            <div class="col-xl-12" style="color:red;font-size:20px">${msg}</div>
-        </div>`;
-    $(".active-slide").append(the_html);
-}
   //  function fn_show_if_eval(value_val) {
   //       if(value_val == 'Y') {
   //           $("#if_eval_yes_div").show();
@@ -3929,47 +3902,9 @@ $(document).ready(function(){
             }
         });
     });
-     $( ".datepicker" ).datepicker({
-          format: 'dd/mm/yyyy', 
-          changeMonth: true,
-          changeYear: true,
-        //  maxDate: new Date(),
-          yearRange: "-100:+0",
-          autoclose: true
-      });
 });
-document.addEventListener('DOMContentLoaded', function () {
-    const emailInputs = document.querySelectorAll('.email-input');
 
-    emailInputs.forEach(function (input) {
-        input.addEventListener('input', function () {
-            this.value = this.value.toLowerCase();
-        });
 
-        input.addEventListener('paste', function () {
-            setTimeout(() => {
-                this.value = this.value.toLowerCase();
-            }, 0);
-        });
-    });
-});
-$(document).on('input', '.mobile_number', function () {
-    // remove non-digits
-    this.value = this.value.replace(/[^0-9]/g, '');
-
-    // enforce max length 10
-    if (this.value.length > 10) {
-        this.value = this.value.slice(0, 10);
-    }
-});
-$(document).on('input', '.landline', function () {
-    this.value = this.value.replace(/[^0-9]/g, '');
-
-    // max length (STD + number)
-    if (this.value.length > 11) {
-        this.value = this.value.slice(0, 11);
-    }
-});
 </script>
 
 

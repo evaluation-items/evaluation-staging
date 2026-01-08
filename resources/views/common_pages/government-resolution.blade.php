@@ -57,7 +57,7 @@
                         <th>GR/Circular No.</th>
                         <th valign="top" align="left">Subject/Title</th>
                         <th width="80" valign="top" align="left" class="lastTh">Download</th>
-                        <th>Document Type</th>
+                        {{-- <th>Document Type</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -71,7 +71,7 @@
                             <img title="1987 Resolution" alt="1987 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Circular</td>
+                    {{-- <td>Circular</td> --}}
                 </tr>
                 
                 <tr>
@@ -84,7 +84,7 @@
                             <img title="2008 Resolution" alt="2008 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Circular</td>
+                    {{-- <td>Circular</td> --}}
                 </tr>
                 <tr>
                     <td>3</td>
@@ -96,7 +96,7 @@
                             <img title="2008-1 Resolution" alt="2008-1 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Circular</td>
+                    {{-- <td>Circular</td> --}}
                 </tr>
                 <tr>
                     <td>4</td>
@@ -108,7 +108,7 @@
                             <img title="2013 Resolution" alt="2013 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Resolution</td>
+                    {{-- <td>Resolution</td> --}}
                 </tr>
                 <tr>
                     <td>5</td>
@@ -120,7 +120,7 @@
                             <img title="Resolution" alt="Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Resolution</td>
+                    {{-- <td>Resolution</td> --}}
                 </tr>
             </tbody>
         </table>

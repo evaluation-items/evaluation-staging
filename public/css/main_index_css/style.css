@@ -2694,32 +2694,32 @@ hr.hrstyle1 {
     position: relative;
 }
 
-.breadcrumb a {
-    float: left;
-    /*width: 70px;*/
-    padding-right: 15px;
-    color: var(--text-color);
-    /* color:      #084a84; */
-    position: relative;
-}
-
-.breadcrumb ol li a::before {
-    content: '';
-    top: 50%;
-    right: -8px;
-    width: 13px;
-    height: 12px;
-    background: url(https://gujecostat.gujarat.gov.in/frontend/web/images/list-arrow.png) no-repeat;
-    position: absolute;
-    transform: translate(-50%, -50%);
-}
-
-.breadcrumb li {
+.breadcrumb ol li {
     float: left;
     margin-left: 10px;
     font-size: 14px;
     display: inline-block;
+    position: relative;
+    padding-right: 20px;
 }
+
+/* arrow for all except last item */
+.breadcrumb ol li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    width: 13px;
+    height: 12px;
+    background: url(https://gujecostat.gujarat.gov.in/frontend/web/images/list-arrow.png) no-repeat;
+    transform: translateY(-50%);
+}
+
+.breadcrumb a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
 
 .welcom_txt_content h2 {
     margin: 10px 0 30px;

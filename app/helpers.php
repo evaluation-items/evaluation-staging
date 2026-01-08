@@ -173,7 +173,7 @@ if (!function_exists('is_gujarati')) {
     function department_hod_name($id)
     {
       if(!is_null($id)){
-        $hod_list = App\Models\DepartmentHod::where('dept_id',$id)->pluck('name')->toArray();
+        $hod_list = App\Models\DepartmentHod::where('dept_id',$id)->select('id','name')->get();
         if(!is_null($hod_list)){
           return $hod_list;
         }else{
