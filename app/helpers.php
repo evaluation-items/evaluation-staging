@@ -161,14 +161,30 @@ if (!function_exists('is_gujarati')) {
     }
     function hod_name($draft_id)
     {
-      if(!is_null($draft_id)){
-        $hod_name = App\Models\Proposal::where('draft_id',$draft_id)->value('hod_name');
-        if(!is_null($hod_name)){
-          return $hod_name;
-        }else{
-            return '-';
-        }
-      }
+         $value = App\Models\Proposal::where('draft_id',$draft_id)->value('implementing_office');
+
+            if (!$value) {
+                return '';
+            }
+            $list = array_map('trim', explode(',', $value));
+
+            if (is_numeric($list[0])) {
+                $names = App\Models\DepartmentHod::whereIn('id', $list)
+                    ->pluck('name')
+                    ->toArray();
+            } else {
+                $names = $list;
+            }
+            // ✅ Convert array to string
+            return implode(', ', $names);
+    //   if(!is_null($draft_id)){
+    //     $hod_name = App\Models\Proposal::where('draft_id',$draft_id)->value('hod_name');
+    //     if(!is_null($hod_name)){
+    //       return $hod_name;
+    //     }else{
+    //         return '-';
+    //     }
+    //   }
     }
     function department_hod_name($id)
     {

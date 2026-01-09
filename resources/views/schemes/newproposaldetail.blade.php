@@ -321,7 +321,6 @@
                           @else
                             @php  
                               $extension = pathinfo($pval->next_scheme_overview_file, PATHINFO_EXTENSION);
-                             
                             @endphp
                             @if($extension == 'pdf')
                                 <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->next_scheme_overview_file]) }}" target="_blank" title="{{ $pval->next_scheme_overview_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
@@ -512,7 +511,7 @@
                     <tr>
                       <th>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી)</th>
                       <td>
-                        @if($trainingfile == '')
+                        @if($trainingfile == 'no data')
                           No File
                         @else
                         @php
@@ -541,7 +540,7 @@
                     <tr>
                       <th>IEC activities (પ્રચાર પ્રસારની કામગીરી)</th>
                       <td>
-                        @if($iecfile == '')
+                        @if($iecfile == 'no data')
                           No File
                         @else
                         @php
@@ -586,7 +585,7 @@
                         <tr>
                           <th>GR (ઠરાવો)</th>
                           <td>
-                            @if($gr_files == '')
+                            @if($gr_files == 'no data')
                               No File
                             @else
                             @if($pval->gr_file->count() > 0)
@@ -613,7 +612,7 @@
                         <tr>
                           <th>Notification (જાહેરનામાં)</th>
                           <td>
-                            @if($notification_files == '')
+                            @if($notification_files == 'no data')
                               No File
                             @else
                             @if ($pval->notification_files->count() > 0)
@@ -640,7 +639,7 @@
                         <tr>
                           <th>Brochure (બ્રોશર)</th>
                           <td>
-                            @if($brochure_files == '')
+                            @if($brochure_files == 'no data')
                               No File
                             @else
                             @if($pval->brochure_files->count() > 0)
@@ -667,7 +666,7 @@
                         <tr>
                           <th>Pamphlets (પેમ્ફલેટ્સ)</th>
                           <td>
-                            @if($pamphlets_files == '')
+                            @if($pamphlets_files == 'no data')
                               No File
                             @else
                               @if($pval->pamphlets_files->count() > 0)
@@ -694,7 +693,7 @@
                         <tr>
                           <th>Other Details of the Scheme (યોજનાને લાગતું અન્ય સાહિત્ય) ( Central–State Separate )</th>
                           <td>
-                            @if($otherdetailscenterstate_files == '')
+                            @if($otherdetailscenterstate_files == 'no data')
                               No File
                             @else
                               @if($pval->otherdetailscenterstate_files->count() > 0)
@@ -794,7 +793,7 @@
     </div>
   </div>
 </div>
-<script src="{{asset('js/jquery.min.js')}}"></script>
+{{-- <script src="{{asset('js/jquery.min.js')}}"></script>
 <script type="text/javascript">
  $(document).ready(function () {
 
@@ -869,5 +868,5 @@
     }
 });
 
-</script>
+</script> --}}
 @endsection

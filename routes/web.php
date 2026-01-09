@@ -138,6 +138,8 @@ Route::middleware(['auth'])->group(function () {
    // Route::post('downloadpdf',[SchemeController::class,'downloadpdf'])->name('downloadpdf');
     Route::get('proposal_detail/{id}/{sendid}',[SchemeController::class,'proposaldetail'])->name('schemes.proposal_detail');
     Route::get('newproposal_detail/{id}',[SchemeController::class,'newproposaldetail'])->name('schemes.newproposal_detail');
+    Route::get('beneficiaries-detail',[SchemeController::class,'beneficiariesDetails'])->name('schemes.beneficiariesDetail');
+
 
     //Profile
     Route::get('profile',[ImplementationController::class,'profile'])->name('profile');

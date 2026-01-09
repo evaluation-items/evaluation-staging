@@ -424,7 +424,7 @@
                                           <div class="col-xl-12">
                                               <div class="form-group major_objective_parent_div">
                                                 <label> Major Objective of the Evaluation study (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ) <span class="required_filed"> * </span> :</label><br>
-                                                @if(!is_null($val->major_objective) && $val->major_objective != '')
+                                               
                                                   <div class="room_fields_0">
                                                     <!-- <label>Objective 1: </label> -->
                                                     <textarea class="form-control next_major_objectives @error('major_objective') is-invalid @enderror" id="next_major_objective_textarea" name="major_objective" rows="2">{{  $val->major_objective }}</textarea>
@@ -433,8 +433,6 @@
                                                     @enderror
                                                     <br>
                                                 </div>
-                                                  @endif
-                                                 
                                               </div>
                                           </div>
                                           <div class="col-xl-12">
@@ -473,7 +471,7 @@
                                         <div class="col-xl-12">
                                             <div class="form-group major_indicator_parent_div">
                                               <label>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો) <span class="required_filed"> * </span>:</label><br>
-                                              @if(!is_null($val->major_indicator) && $val->major_indicator != '')
+                                              
                                                 <div class="indicator_fields_0">
                                                     <!-- <label>Indicator: 1 </label> -->
                                                     <textarea class="form-control next_major_indicators @error('major_indicator') is-invalid @enderror" id="next_major_indicator_textarea" name="major_indicator" rows="2">{{ $val->major_indicator }}</textarea>
@@ -482,7 +480,7 @@
                                                     @enderror
                                                     <br>
                                                 </div>
-                                                @endif
+                                               
                                             </div>
                                             {{-- <button type="button" class="btn btn-primary" id="btn_add_indicator">
                                                 <span class="svg-icon svg-icon-2">
@@ -1803,17 +1801,17 @@ $(document).ready(function() {
         }
   });
  $('#add_gr_file').click(function () {
-      let newFileInput = `
-          <div class="gr-row d-flex align-items-center mb-2">
-              <div class="custom-file">
-                  <input type="file" class="file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" data-max="30" data-ext="pdf,doc,docx" />
-                  <label class="custom-file-label">Choose file</label>
-              </div>
-              <button type="button" class="btn btn-danger btn-sm remove_gr_file ml-2">Remove</button>
-          </div>
-      `;
-      $('#gr_file_wrap').append(newFileInput);
-  });
+    let newFileInput = `
+        <div class="gr-row d-flex align-items-center mb-2">
+            <div class="custom-file" style="flex: 1;">
+                <input type="file" class="custom-file-input file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" />
+                <label class="custom-file-label">Choose file</label>
+            </div>
+            <button type="button" class="btn btn-danger btn-sm remove_gr_file ml-2">Remove</button>
+        </div>
+    `;
+    $('#gr_file_wrap').append(newFileInput);
+});
 
   // Remove file input row
   $(document).on('click', '.remove_gr_file', function () {
@@ -2690,7 +2688,8 @@ $(document).on('change', '.custom-file-input', function () {
               const fileName = this.files[0].name; // ORIGINAL filename
               $(this).next('.custom-file-label').text(fileName);
           }
-      });
+        });
+   
     });
 
     function hasDecimalPlace(value, x) {
@@ -2759,7 +2758,8 @@ $(document).on('change', '.custom-file-input', function () {
           var draft_id = $("#next_draft_id").val();
           var scheme_id = $("#next_scheme_id").val();
             if (slideid == 1) {
-              countIncrease(slideid);
+              let nextSlide = countIncrease(slideid);
+              updateStepTitle(nextSlide); 
               // 🔹 Slide 1 fields
               var is_evaluation = $("input[name='is_evaluation']:checked").val();
               var eval_by_whom = $("#eval_by_whom").val();
@@ -2795,7 +2795,8 @@ $(document).on('change', '.custom-file-input', function () {
               $("#step2tab").addClass("active");
             
           } else if(slideid == 2){
-             countIncrease(slideid);
+             let nextSlide = countIncrease(slideid);
+            updateStepTitle(nextSlide); 
             // 🔹 Slide 1 fields (again for combined submission)
             var is_evaluation = $("input[name='is_evaluation']:checked").val();
             var eval_by_whom = $("#eval_by_whom").val();
@@ -2899,7 +2900,8 @@ $(document).on('change', '.custom-file-input', function () {
             // var financial_adviser_designation = $("#financial_adviser_designation").val();
             // var financial_adviser_phone = $('#financial_adviser_phone').val();
             // if(next_dept_id != '' && the_convener != '' && form_scheme_name != '' && next_reference_year != '' && financial_adviser_name != "" && financial_adviser_designation != "" && financial_adviser_phone != '') {
-            //   countIncrease(slideid);
+            //   let nextSlide = countIncrease(slideid);
+
             //     $("#the_error_html").remove();
             //     $.ajax({
             //         type:'post',
@@ -2923,50 +2925,12 @@ $(document).on('change', '.custom-file-input', function () {
             //     var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
             //     $(".first_slide").append(the_html);
             // }
-          }
-
-        // if(slideid == 1) {
-        //     var next_dept_id = $("#next_dept_id").val();
-        //     var the_convener = $("#con_id").val();
-        //     var convener_designation = $('#convener_designation').val();
-        //     var convener_phone =  $('#convener_phone').val();
-        //     var form_scheme_name = $("#form_scheme_name").val();
-        //     var next_reference_year = $('#next_reference_year').val();
-        //     var next_reference_year2 = $('#next_reference_year2').val();
-        //     var financial_adviser_name = $("#financial_adviser_name").val();
-        //     var financial_adviser_designation = $("#financial_adviser_designation").val();
-        //     var financial_adviser_phone = $('#financial_adviser_phone').val();
-        //     if(next_dept_id != '' && the_convener != '' && form_scheme_name != '' && next_reference_year != '' && financial_adviser_name != "" && financial_adviser_designation != "" && financial_adviser_phone != '') {
-        //       countIncrease(slideid);
-        //         $("#the_error_html").remove();
-        //         $.ajax({
-        //             type:'post',
-        //             dataType:'json',
-        //             url:"{{ route('schemes.update_scheme') }}",
-        //             data:{'_token':"{{ csrf_token() }}",'slide':'first','convener_designation':convener_designation,'convener_phone':convener_phone,'financial_adviser_name':financial_adviser_name,'financial_adviser_designation':financial_adviser_designation,'financial_adviser_phone' : financial_adviser_phone,'draft_id':draft_id,'scheme_id':scheme_id,'dept_id':next_dept_id,'convener_name':the_convener,'scheme_name':form_scheme_name,'reference_year':next_reference_year,'reference_year2':next_reference_year2},
-        //             success:function(response) {
-        //                 console.log(response);
-        //                 $(".otherslides").hide();
-        //                 $(".second_slide").show();
-        //                 $("#previous_btn").val(2).show();
-        //                 $("#next_btn").val(2).show();
-        //             },
-        //             error:function() {
-        //                  console.log('update_scheme ajax error');
-        //             }
-        //         });
-
-        //     } else {
-        //         $("#the_error_html").remove();
-        //         var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
-        //         $(".first_slide").append(the_html);
-        //     }
-        // } 
-        else if(slideid == 3) {
+          }else if(slideid == 3) {
             var next_major_objective = $('#next_major_objective_textarea').val();
             var major_objective_file = $("#major_objective_file")[0].files[0]; // get file object
             if(next_major_objective != '' ) {
-              countIncrease(slideid);
+              let nextSlide = countIncrease(slideid);
+              updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
                 
                   // Create FormData object
@@ -3012,7 +2976,8 @@ $(document).on('change', '.custom-file-input', function () {
               var major_indicator_file = $("#major_indicator_file")[0]?.files[0]; // optional file input
 
               if (next_major_indicator != '') {
-                  countIncrease(slideid);
+                  let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide); 
                   $("#the_error_html").remove();
 
                   // Create FormData object
@@ -3110,7 +3075,8 @@ $(document).on('change', '.custom-file-input', function () {
                         `);
                         return false;
                     }
-              countIncrease(slideid);
+              let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide); 
               if (state_perValue > 100) {
                   $("#the_error_html").remove();
                   $(".fifth_slide").append(`
@@ -3182,7 +3148,8 @@ $(document).on('change', '.custom-file-input', function () {
             var scheme_status = $("input[name='scheme_status']").val();
             var is_sdg = $('input[name="is_sdg[]"]:checked').length;
             if(commencement_year != '' && scheme_status != '' && is_sdg > 0) {
-              countIncrease(slideid);
+              let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
                 var checked_scheme_status = [];
                 var i=0;
@@ -3225,7 +3192,8 @@ $(document).on('change', '.custom-file-input', function () {
             var beneficiaryFile = $('#beneficiary_selection_criteria_file')[0].files[0];
             var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").val();
             if(beneficiaries != '') {
-                countIncrease(slideid);
+                let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide); 
               $("#the_error_html").remove();
                 var next_beneficiary_selection_criterias = $(".next_beneficiary_selection_criterias").length;
                 // var beneficiaries = [];
@@ -3276,7 +3244,8 @@ $(document).on('change', '.custom-file-input', function () {
         } else if(slideid == 8) {
            var major_text = $(".major_benefit_textareas").val();
             if(major_text != '') {
-               countIncrease(slideid); 
+               let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide);  
               
               $("#the_error_html").remove();
 
@@ -3341,7 +3310,8 @@ $(document).on('change', '.custom-file-input', function () {
           var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
 
           if (next_scheme_implementing_procedure !== '' && beneficiariesGeoLocal !== '') {
-              countIncrease(slideid);
+              let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
 
                 $.ajax({
@@ -3383,7 +3353,8 @@ $(document).on('change', '.custom-file-input', function () {
             var next_iec_activities_remarks = $("#next_iec_activities_remarks").val();
             var next_iec = $("#iec")[0].files.length;
             if(next_coverage_beneficiaries_remarks != '' && next_training_capacity_remarks != '' && next_iec_activities_remarks != '') {
-              countIncrease(slideid);  
+              let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide);   
               $("#the_error_html").remove();
                   var formDataNineth = new FormData();
                     formDataNineth.append('_token', "{{ csrf_token() }}");
@@ -3432,6 +3403,7 @@ $(document).on('change', '.custom-file-input', function () {
             }
         } else if(slideid == 11) {
             var next_benefit_to = $("#next_benefit_to").val();
+            console.log('next_benefit_to', next_benefit_to);
             var countallconvergence = $(".countallconvergence").length;
             // var convergence_dept_ids = [];
             // var convergence_text = [];
@@ -3446,7 +3418,8 @@ $(document).on('change', '.custom-file-input', function () {
 
           
            // if(next_benefit_to != '') {
-              countIncrease(slideid);
+              let nextSlide = countIncrease(slideid);
+              updateStepTitle(nextSlide); 
               $("#the_error_html").remove();
 
                 $.ajax({
@@ -3477,16 +3450,20 @@ $(document).on('change', '.custom-file-input', function () {
               var existing_gr_files = {{ $gr_files->count() ?? 0 }};
               var existing_notification_files = {{ $notifications->count() ?? 0 }};
 
-              var next_gr_files = $(".next_gr_files")[0]?.files.length || 0;
+              var next_gr_files = 0;
+                $('input[name="gr[]"]').each(function() {
+                    next_gr_files += this.files.length;
+                });
               var next_notification_files = $('.next_notification_files')[0]?.files.length || 0;
               var next_brochure_files = $(".next_brochure_files")[0]?.files.length || 0;
               var next_pamphlets_files = $('.next_pamphlets_files')[0]?.files.length || 0;
               var next_otherdetailscenterstate = $(".next_otherdetailscenterstate")[0]?.files.length || 0;
 
               // Validation: require at least GR or Notification file (new or existing)
-              if ( (next_gr_files > 0) || (existing_gr_files > 0 && next_gr_files === 0) ) {
+              if ((next_gr_files > 0) || (existing_gr_files > 0)) {
                   $("#the_error_html").remove();
-                  countIncrease(slideid);
+                  let nextSlide = countIncrease(slideid);
+                  updateStepTitle(nextSlide); 
 
                   // --- Prepare FormData for upload ---
                   var tokenis = $("meta[name='csrf-token']").attr('content');
@@ -3571,7 +3548,8 @@ $(document).on('change', '.custom-file-input', function () {
         } else if(slideid == 13) {
              var indicator_values = $(".getindicator_hod").val();
           //  if(indicator_values != '') {
-              countIncrease(slideid);
+              let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide); 
               $("#the_error_html").remove();
 
                 $.ajax({
@@ -3612,7 +3590,8 @@ $(document).on('change', '.custom-file-input', function () {
 
             var count_tr = $("#thisistbody tr").length;
             if(next_financial_progress_selection != "" && next_financial_progress_year != ''  && next_financial_progress_target != '' && next_financial_progress_achivement != '' && next_financial_progress_allocation != '' && next_financial_progress_expenditure != '') {
-             // countIncrease(slideid);
+             // let nextSlide = countIncrease(slideid);
+updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
                 var tr_array = [];
                 var count_blank_fields = 0;

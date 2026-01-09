@@ -1273,7 +1273,7 @@ $(document).ready(function() {
       let newFileInput = `
           <div class="gr-row d-flex align-items-center mb-2">
               <div class="custom-file">
-                  <input type="file" class="file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" data-max="30" data-ext="pdf,doc,docx" />
+                  <input type="file" class="file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" />
                   <label class="custom-file-label">Choose file</label>
               </div>
               <button type="button" class="btn btn-danger btn-sm remove_gr_file ml-2">Remove</button>
@@ -2094,14 +2094,14 @@ function countIncrease(slideid){
             }
         });
       } else if (slideid == 3){
-        $('#step2tab').html(slideid+' '+'Major Objectives Details');
+
               var next_major_objective = $('#next_major_objective_textarea').val();
               var major_objective_file = $("#major_objective_file")[0].files[0]; // get file object
 
               if (next_major_objective != '') {
                  let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide);
+                  updateStepTitle(nextSlide);
                   
                   $("#the_error_html").remove();
 
@@ -2114,7 +2114,7 @@ updateStepTitle(nextSlide);
                   }
 
                   // Important: Add CSRF token if using Laravel
-                  formData.append(';_token', "{{ csrf_token() }}");
+                  formData.append('_token', "{{ csrf_token() }}");
 
                   $.ajax({
                       url: "{{ route('schemes.add_scheme') }}",
@@ -2149,7 +2149,7 @@ updateStepTitle(nextSlide);
               if (next_major_indicator != '') {
                  let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide);
+                  updateStepTitle(nextSlide);
                   $("#the_error_html").remove();
 
                   // Create FormData object
@@ -2589,6 +2589,7 @@ updateStepTitle(nextSlide);
       }else if(slideid == 11){
     
         var next_benefit_to = $("#next_benefit_to").val();
+        console.log(next_benefit_to);
         var countallconvergence = $(".countallconvergence").length;
 
         var all_convergence = [];
@@ -2605,17 +2606,17 @@ updateStepTitle(nextSlide);
       //  if (next_benefit_to != '') {
         let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide);  
+        updateStepTitle(nextSlide);  
             $("#the_error_html").remove();
 
             $.ajax({
                 type: 'POST',
                 url: "{{ route('schemes.add_scheme') }}",
                 data: {
-                    _token: "{{ csrf_token() }}",
-                    slide: 'eleventh',
-                    benefit_to: next_benefit_to,
-                    all_convergence: all_convergence
+                    '_token': "{{ csrf_token() }}",
+                    'slide': 'eleventh',
+                    'benefit_to':next_benefit_to,
+                    'all_convergence': all_convergence
                 },
                 dataType: 'json',
                 success: function (response) {
