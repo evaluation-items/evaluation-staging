@@ -920,9 +920,11 @@ class SchemeController extends Controller {
             Proposal::where('draft_id',$draft_id)->update($arr);
             return response()->json('added successfully');
         } else if($slide == 'eleventh') {
+            
             $benefit_to = $request->input('benefit_to');
             $all_convergence = $request->input('all_convergence');
-            $arr = array('benefit_to'=>$benefit_to,'all_convergence'=>json_decode($all_convergence));
+
+            $arr = array('benefit_to'=>$benefit_to,'all_convergence'=>$all_convergence);
             $scheme_id = Session::get('scheme_id');
             Scheme::where('scheme_id',$scheme_id)->update($arr);
             $draft_id = Session::get('draft_id');
@@ -934,6 +936,7 @@ class SchemeController extends Controller {
             unset($data['_token']);
             unset($data['slide']);
             $scheme_id = Session::get('scheme_id');
+             $draft_id = Session::get('draft_id');
             $documents = $request->file();
             $extended = new Couchdb();
             $extended->InitConnection();
@@ -1109,12 +1112,12 @@ class SchemeController extends Controller {
                 }
 
                 // ✅ Merge into $arr update data
-                $arr['beneficiary_filling_form_type'] = $beneficiaryType;
-                $arr['beneficiary_filling_form'] = $beneficiaryFileName;
+               // $arr['beneficiary_filling_form_type'] = $beneficiaryType;
+               // $arr['beneficiary_filling_form'] = $beneficiaryFileName;
 
                 // ✅ Finally, update your main tables
-                Scheme::where('scheme_id', $scheme_id)->update($arr);
-                Proposal::where('draft_id', $draft_id)->update($arr);
+                Scheme::where('scheme_id', $scheme_id)->update(['beneficiary_filling_form_type' => $beneficiaryType, 'beneficiary_filling_form' => $beneficiaryFileName ]);
+                Proposal::where('draft_id', $draft_id)->update(['beneficiary_filling_form_type' => $beneficiaryType, 'beneficiary_filling_form' => $beneficiaryFileName ]);
             return response()->json('added successfully');
         } else if($slide == 'thirteenth') {
            
@@ -2222,12 +2225,12 @@ class SchemeController extends Controller {
                 }
 
                 // ✅ Merge into $arr update data
-                $arr['beneficiary_filling_form_type'] = $beneficiaryType;
-                $arr['beneficiary_filling_form'] = $beneficiaryFileName;
+              //  $arr['beneficiary_filling_form_type'] = $beneficiaryType;
+               // $arr['beneficiary_filling_form'] = $beneficiaryFileName;
 
                 // ✅ Finally, update your main tables
-                Scheme::where('scheme_id', $scheme_id)->update($arr);
-                Proposal::where('draft_id', $draft_id)->update($arr);
+                Scheme::where('scheme_id', $scheme_id)->update(['beneficiary_filling_form_type' => $beneficiaryType, 'beneficiary_filling_form' => $beneficiaryFileName ]);
+                Proposal::where('draft_id', $draft_id)->update(['beneficiary_filling_form_type' => $beneficiaryType, 'beneficiary_filling_form' => $beneficiaryFileName ]);
             return response()->json('updated successfully');
         } else if($slide == 'thirteenth') {
             $data = $request->all();

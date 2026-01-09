@@ -52,8 +52,8 @@
                               <th>{{ __('message.no') }}</th>
                               <th>{{ __('message.scheme_name') }}</th>
                               <th>{{ __('message.hod_name') }}</th>
-                              <th>{{ __('message.returned_date') }}</th>
-                              <th>{{ __('message.branch_name') }}</th>
+                              <!-- <th>{{ __('message.returned_date') }}</th> -->
+                              <!-- <th>{{ __('message.branch_name') }}</th> -->
                               <th>{{ __('message.current_stage') }}</th>
                               <th>{{ __('message.actions') }}</th>
                             </tr>
@@ -66,8 +66,8 @@
                               <td>{{ $i++ }} </td>
                               <td>{{ SchemeName($prop->scheme_id) }}</td> 
                               <td>{{ hod_name($prop->draft_id) }}</td>
-                              <td>{{ !empty($prop->created_at) ?  date('M d Y',strtotime($prop->created_at)) : '-'}}</td>
-                              <td>{{ isset($prop->schemeSend->team_member_dd) ? branch_list($prop->schemeSend->team_member_dd) : '-' }}</td>
+                              <!-- <td>{{ !empty($prop->created_at) ?  date('M d Y',strtotime($prop->created_at)) : '-'}}</td>
+                              <td>{{ isset($prop->schemeSend->team_member_dd) ? branch_list($prop->schemeSend->team_member_dd) : '-' }}</td> -->
                               <td>{{current_stages($prop->id)}}</td> 
                               <td width="23%" class="text-center">
                                 {{-- <a href="{{ route('schemes.proposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View Scheme</a> --}}

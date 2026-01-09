@@ -171,7 +171,7 @@ return [
 
     //Concern Department Forward Proposal page
     'forward_proposal_desc' => 'Proposals of Evaluation study Forwarded to GAD',
-    'proposal_sent_to_gad' => 'Proposal sent to GAD',
+    'proposal_sent_to_gad' => 'Proposal sent from GAD',
     'remarks' => 'Remarks',
 
     //Concern Department Return Proposal Page

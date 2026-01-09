@@ -1931,24 +1931,33 @@ function remove_financial_year(row) {
 var count = 0;
 function countIncrease(slideid){
   let nextSlide = parseInt(slideid) + 1;
-
   count = $('.page_no div').html(nextSlide);
   $('.save_item').attr('data-slide-item',nextSlide);
       return nextSlide;
 }
-function updateStepTitle(slideNo) {
-    let titles = {
-        3: 'Major Objectives Details',
-        4: 'Major Indicator Details',
-        5: 'Hod Details'
-    };
+  function updateStepTitle(slideNo) {
+      let titles = {
+          3: 'Major Objectives Details',
+          4: 'Major Indicator Details',
+          5: 'HOD / Branch Details',
+          6: 'Commencement of the Scheme Details',
+          7: 'Beneficiary / Community Criteria Details',
+          8: 'Major Benefits Derived From the Scheme',
+          9: 'Implementation Procedures of the Scheme',
+          10: 'Scheme Coverage Details',
+          11: 'Asset / Service Creation Details',
+          12: 'Relevant Literature Details',
+          13: 'Major Monitoring Indicators at HOD Level',
+          14: 'Financial and Physical Progress of Last Five Years'
+      };
 
-    if (titles[slideNo]) {
-        $('#step2tab').html(slideNo + ' ' + titles[slideNo]);
-    }else {
-        $('#step2tab').html('Directorate of Evaluation (DOE) – Scheme-related');
-    }
-}
+      if (titles[slideNo]) {
+          // This will result in: "3. Major Objectives Details"
+          $('#step2tab').html(slideNo + '. ' + titles[slideNo]);
+      } else {
+          $('#step2tab').html('Directorate of Evaluation (DOE) – Scheme-related');
+      }
+  }
 
     function getNextSlide(slideid) {
       var draft_id = $("#next_draft_id").val();
@@ -2827,11 +2836,9 @@ function showError(msg) {
 var preCount = 0;
 function countPrevious(prevslide){
   let previousSlide = parseInt(prevslide) - 1;
-
   preCount = $('.page_no div').html(previousSlide);
   $('.save_item').attr('data-slide-item',previousSlide);
       return previousSlide;
-
 }
 function finishSlides() {
           Swal.fire({
@@ -2984,21 +2991,7 @@ function finishSlides() {
           autoclose: true
       });
 });
-document.addEventListener('DOMContentLoaded', function () {
-    const emailInputs = document.querySelectorAll('.email-input');
 
-    emailInputs.forEach(function (input) {
-        input.addEventListener('input', function () {
-            this.value = this.value.toLowerCase();
-        });
-
-        input.addEventListener('paste', function () {
-            setTimeout(() => {
-                this.value = this.value.toLowerCase();
-            }, 0);
-        });
-    });
-});
 function toggleNextButton() {
     if ($('.is-invalid').length > 0) {
         $('#next_btn').prop('disabled', true);
@@ -3063,7 +3056,21 @@ $(document).on('input', '.email-input', function () {
 
     toggleNextButton(); // 👈 ADD THIS
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const emailInputs = document.querySelectorAll('.email-input');
 
+    emailInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            this.value = this.value.toLowerCase();
+        });
+
+        input.addEventListener('paste', function () {
+            setTimeout(() => {
+                this.value = this.value.toLowerCase();
+            }, 0);
+        });
+    });
+});
 
 </script>
 

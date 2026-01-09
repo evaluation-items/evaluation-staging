@@ -306,7 +306,7 @@
             categoryPercentage: 0.8, // Adjust the value as needed (0.8 means 80% of available space)
             scaleLabel: {
               display: true,
-              labelString: '<-- Stage wise Status of Evaluation Studies -->',
+              labelString: '<-- Department Action for Evaluation Study -->',
               fontColor: 'green', 
                 fontFamily:"monospace",
                 fontSize: 17,
@@ -332,15 +332,15 @@
           yAxes: [{
             ticks: {
                 min: 0,
-                max: 500,
-                stepSize: 50,
+                max: 450,
+                stepSize: 30,
                 fontColor: 'black',
                 fontSize: 16,
                 fontFamily: "monospace",
             },
             scaleLabel: {
               display: true,
-              labelString: '<-- Stages Day AS Per SOP -->',
+              labelString: '<-- No. of Days -->',
               fontColor: 'green',  // Set color for Y-axis title
                 fontFamily:"monospace", 
                 fontSize: 17,

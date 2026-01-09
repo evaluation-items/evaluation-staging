@@ -101,8 +101,8 @@
                 <div class="container">
 
                     <div class="step-container mb-4">
-                        <div class="step-box active" id="step1tab">Step No - 1 : Details of Implementing Offices</div>
-                        <div class="step-box" id="step2tab">Step No - 2 : Directorate of Evaluation (DOE) – Yojana-related</div>
+                        <div class="step-box active" id="step1tab">Details of Implementing Offices</div>
+                        <div class="step-box" id="step2tab">Directorate of Evaluation (DOE) – Scheme-related</div>
                     </div>
                       <!--begin: Wizard-->
                       <div>
@@ -1753,14 +1753,18 @@ var major_benefit = 0;
 
 var count = 0;
 function countIncrease(slideid){
-  count = $('.page_no div').html(parseInt(slideid) + 1);
-  $('.save_item').attr('data-slide-item',parseInt(slideid) + 1);
+  let nextSlide = parseInt(slideid) + 1;
+  count = $('.page_no div').html(nextSlide);
+  $('.save_item').attr('data-slide-item',nextSlide);
+      return nextSlide;
 }
 
 var preCount = 0;
 function countPrevious(prevslide){
-  preCount = $('.page_no div').html(parseInt(prevslide) - 1);
-  $('.save_item').attr('data-slide-item',parseInt(prevslide) - 1);
+  let previousSlide = parseInt(prevslide) - 1;
+  preCount = $('.page_no div').html(previousSlide);
+  $('.save_item').attr('data-slide-item',previousSlide);
+      return previousSlide;
 }
 </script>
 
@@ -2728,7 +2732,29 @@ $(document).on('change', '.custom-file-input', function () {
 
     });
     // }
+ function updateStepTitle(slideNo) {
+      let titles = {
+          3: 'Major Objectives Details',
+          4: 'Major Indicator Details',
+          5: 'HOD / Branch Details',
+          6: 'Commencement of the Scheme Details',
+          7: 'Beneficiary / Community Criteria Details',
+          8: 'Major Benefits Derived From the Scheme',
+          9: 'Implementation Procedures of the Scheme',
+          10: 'Scheme Coverage Details',
+          11: 'Asset / Service Creation Details',
+          12: 'Relevant Literature Details',
+          13: 'Major Monitoring Indicators at HOD Level',
+          14: 'Financial and Physical Progress of Last Five Years'
+      };
 
+      if (titles[slideNo]) {
+          // This will result in: "3. Major Objectives Details"
+          $('#step2tab').html(slideNo + '. ' + titles[slideNo]);
+      } else {
+          $('#step2tab').html('Directorate of Evaluation (DOE) – Scheme-related');
+      }
+  }
     function getNextSlide(slideid) {
           var draft_id = $("#next_draft_id").val();
           var scheme_id = $("#next_scheme_id").val();
@@ -3651,7 +3677,8 @@ $(document).on('change', '.custom-file-input', function () {
     }
 
    function getPrevSlide(prevslide) {
-      countPrevious(prevslide);
+      let prevSlide = countPrevious(prevslide);
+      updateStepTitle(prevSlide);
         if(prevslide == 2) {
           $('.second_slide').removeClass("active-slide");
           $('.first_slide').addClass("active-slide");
@@ -3773,148 +3800,7 @@ $(document).on('change', '.custom-file-input', function () {
         </div>`;
     $(".active-slide").append(the_html);
 }
-  //  function fn_show_if_eval(value_val) {
-  //       if(value_val == 'Y') {
-  //           $("#if_eval_yes_div").show();
-  //           var eval_yes_div_length = $("#fourteenth_slide_form #if_eval_yes_div").length;
-  //           if(eval_yes_div_length == 0) {
-  //              // $("#fourteenth_slide_form .form_eval_yes_div").html('');
-  //               var eval_yes_data = $("#send_eval_yes_div").html();
-  //               $("#fourteenth_slide_form .form_eval_yes_div").append(eval_yes_data);
-  //           }
-  //           var ktcontent = $("#kt_content").height();
-  //           $(".content-wrapper").css('min-height',ktcontent);
-  //       } else {
-  //           $("#if_eval_yes_div").hide();
-  //           $("#send_eval_yes_div").html('');
-  //           var eval_yes_div = $(".form_eval_yes_div").html();
-  //           $("#send_eval_yes_div").html(eval_yes_div).hide();
-  //           $("#fourteenth_slide_form .form_eval_yes_div").html('');
-  //           var ktcontent = $("#kt_content").height();
-  //           $(".content-wrapper").css('min-height',ktcontent);
-  //       }
-  //   }
-    // $(document).ready(function(){
-      
 
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': "{{ csrf_token() }}"
-    //         }
-    //     });
-
-    //     $("#seventh_slide_form").submit(function(e){
-    //         event.preventDefault();
-    //         let formData = new FormData(this);
-    //         $.ajax({
-    //             type:'post',
-    //             dataType:'json',
-    //             url:"{{ route('schemes.update_scheme') }}",
-    //             data:formData,
-    //             contentType:false,
-    //             processData:false,
-    //             success:function(response) {
-    //                 $(".otherslides").hide();
-    //                 $(".eighth_slide").show();
-    //                 $("#previous_btn").val(8).show();
-    //                 $("#next_btn").val(8).show();
-    //             },
-    //             error:function() {
-    //                  console.log('update_scheme ajax error');
-    //             }
-    //         });
-    //     });
-
-    //     $("#eighth_slide_form").submit(function(e){
-    //         e.preventDefault();
-    //         let formDataEighth = new FormData(this);
-    //         $.ajax({
-    //             type:'post',
-    //             dataType:'json',
-    //             url:"{{ route('schemes.update_scheme') }}",
-    //             data:formDataEighth,
-    //             contentType:false,
-    //             processData:false,
-    //             success:function(response) {
-    //                 // slideid_seventh_data_submit(response);
-    //                 $(".otherslides").hide();
-    //                 $(".nineth_slide").show();
-    //                 $("#previous_btn").val(9).show();
-    //                 $("#next_btn").val(9).show();
-    //             },
-    //             error:function() {
-    //                  console.log('update_scheme ajax error');
-    //                 // slideid_seventh_data_submit('error');
-    //             }
-    //         });
-    //     });
-
-    //     $("#nineth_slide_form").submit(function(e) {
-    //         e.preventDefault();
-    //         let formDataNineth = new FormData(this);
-    //         $.ajax({
-    //             type:'post',
-    //             dataType:'json',
-    //             url:"{{ route('schemes.update_scheme') }}",
-    //             data:formDataNineth,
-    //             contentType:false,
-    //             processData:false,
-    //             success:function(response) {
-    //                 $(".otherslides").hide();
-    //                 $(".tenth_slide").show();
-    //                 $("#previous_btn").val(10).show();
-    //                 $("#next_btn").val(10).show();
-    //             },
-    //             error:function() {
-    //                  console.log('update_scheme ajax error');
-    //             }
-    //         });
-    //     });
-
-    //     $("#eleventh_slide_form").submit(function(e) {
-    //         e.preventDefault();
-    //         let formDataEleventh = new FormData(this);
-    //         $.ajax({
-    //             type:'post',
-    //             dataType:'json',
-    //             url:"{{ route('schemes.update_scheme') }}",
-    //             data:formDataEleventh,
-    //             contentType:false,
-    //             processData:false,
-    //             success:function(response) {
-    //                 $(".otherslides").hide();
-    //                 $(".twelth_slide").show();
-    //                 $("#previous_btn").val(12).show();
-    //                 $("#next_btn").val(12).show();
-    //             },
-    //             error:function() {
-    //                  console.log('update_scheme ajax error');
-    //             }
-    //         });
-    //     });
-
-    //     $("#fourteenth_slide_form").submit(function(e) {
-    //         e.preventDefault();
-    //         let formDataFourteenth = new FormData(this);
-    //         $.ajax({
-    //             type:'post',
-    //             dataType:'json',
-    //             url:"{{ route('schemes.update_scheme') }}",
-    //             data:formDataFourteenth,
-    //             contentType:false,
-    //             processData:false,
-    //             success:function(response) {
-    //                var get_url = "{{ route('proposals', ['param' => 'new']) }}";
-    //                 window.location.href = get_url;
-    //             },
-    //             error:function() {
-    //                  console.log('update_scheme ajax error');
-    //             }
-    //         });
-    //     });
-
-    // });
-    // }
 $(document).ready(function(){
       $('#next_reference_year').change(function(){
         var selectedValue = $(this).val();        
@@ -3953,22 +3839,66 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-$(document).on('input', '.mobile_number', function () {
-    // remove non-digits
-    this.value = this.value.replace(/[^0-9]/g, '');
-
-    // enforce max length 10
-    if (this.value.length > 10) {
-        this.value = this.value.slice(0, 10);
+function toggleNextButton() {
+    if ($('.is-invalid').length > 0) {
+        $('#next_btn').prop('disabled', true);
+    } else {
+        $('#next_btn').prop('disabled', false);
     }
+}
+
+$(document).on('input', '.mobile_number', function () {
+    let value = this.value.replace(/[^0-9]/g, '');
+    this.value = value.slice(0, 10);
+
+    let $this = $(this);
+    let $group = $this.closest('.form-group');
+    $group.find('.mobile-error').remove();
+
+    if (value.length > 0 && value.length < 10) {
+        $this.addClass('is-invalid');
+        $this.after('<div class="text-danger mobile-error">Please enter 10 digit mobile number</div>');
+    } else {
+        $this.removeClass('is-invalid');
+    }
+
+    toggleNextButton(); // 👈 ADD THIS
 });
 $(document).on('input', '.landline', function () {
-    this.value = this.value.replace(/[^0-9]/g, '');
+    let value = this.value.replace(/[^0-9]/g, '');
+    this.value = value.slice(0, 11);
 
-    // max length (STD + number)
-    if (this.value.length > 11) {
-        this.value = this.value.slice(0, 11);
+    let $this = $(this);
+    let $group = $this.closest('.form-group');
+    $group.find('.landline-error').remove();
+
+    if (value.length > 0 && value.length < 11) {
+        $this.addClass('is-invalid');
+        $this.after('<div class="text-danger landline-error">Please enter valid landline number</div>');
+    } else {
+        $this.removeClass('is-invalid');
     }
+
+    toggleNextButton(); // 👈 ADD THIS
+});
+
+$(document).on('input', '.email-input', function () {
+    let value = this.value.trim();
+    let $this = $(this);
+    let $group = $this.closest('.form-group');
+
+    $group.find('.email-error').remove();
+
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    if (value.length > 0 && !emailRegex.test(value)) {
+        $this.addClass('is-invalid');
+        $this.after('<div class="text-danger email-error">Please enter a valid email address</div>');
+    } else {
+        $this.removeClass('is-invalid');
+    }
+
+    toggleNextButton(); // 👈 ADD THIS
 });
 </script>
 
