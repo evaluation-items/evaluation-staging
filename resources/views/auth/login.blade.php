@@ -72,7 +72,7 @@
 					<div class="form-group">
 						<label for="captcha" style="margin-top:2%;">{{ __('message.captcha')}} <span class="required_filed"> * </span></label>
 						<div class="captcha">
-							<span class="captcha-img">{!! captcha_img('flat') !!}</span>
+							<span class="captcha-img">{!! captcha_img('clean') !!}</span>
 							<button type="button" class="btn btn-refresh" style="margin-top: -10%;"><i class="fa fa-refresh" style="font-size:22px;"></i>												</button>
 						</div>
 						<input id="captcha" name="captcha" type="text" class="form-control" placeholder="Enter Captcha" required >

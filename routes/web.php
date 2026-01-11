@@ -125,8 +125,15 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['web',SessionTimeoutMiddleware::class, Referrer::class ])->group(function () {
 
     Route::get('dashboard',[ProposalController::class, 'dashboard'])->name('dashboard');
-
+Route::post('/welcome-popup/seen', function () {
+            Auth::user()->update(['welcome_popup' => false]);
+            return response()->json(['status' => true]);
+        })->name('welcome.popup.seen');
     Route::resource('schemes', SchemeController::class);
+    Route::get('/proposal/{scheme_id}/final-report-pdf',
+        [SchemeController::class, 'downloadFinalReportPdf']
+    )->name('proposal.final-report.pdf');
+
     Route::post('districts',[SchemeController::class,'getdistricts'])->name('districts');
     Route::post('get_taluka',[SchemeController::class,'gettaluka'])->name('get_taluka');
     
@@ -194,9 +201,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['isAdmin'::class,'auth',PreventBackHistory::class])->prefix('admin')->group(function(){
     Route::middleware(['web',SessionTimeoutMiddleware::class, Referrer::class ])->group(function () {
-
-
         Route::get('dashboard',[ProposalController::class, 'dashboard'])->name('dashboard');
+        
         Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
         Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
         // Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');

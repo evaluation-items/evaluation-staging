@@ -2,9 +2,9 @@
 @section('title','Ongoing Proposals')
 @section('content')
 <style>
-  .content-wrapper{
+  /* .content-wrapper{
     background: #7bc2eb;
-  }
+  } */
 </style>
  <!--begin::Content-->
  <div class="content  d-flex flex-column flex-column-fluid">
@@ -52,7 +52,7 @@
                               <th>{{ __('message.no') }}</th>
                               <th>{{ __('message.scheme_name') }}</th>
                               <th>{{ __('message.hod_name') }}</th>
-                              <!-- <th>{{ __('message.returned_date') }}</th> -->
+                              <!-- <th>{{ __('message.proposal_sent_to_gad') }}</th> -->
                               <!-- <th>{{ __('message.branch_name') }}</th> -->
                               <th>{{ __('message.current_stage') }}</th>
                               <th>{{ __('message.actions') }}</th>

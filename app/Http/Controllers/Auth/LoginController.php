@@ -110,6 +110,6 @@ class LoginController extends Controller {
     }
     public function refreshCaptcha()
     {
-        return response()->json(['captcha'=> captcha_img('flat')]);
+        return response()->json(['captcha'=> captcha_img('clean')]);
     }
 }

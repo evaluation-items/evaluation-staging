@@ -22,7 +22,7 @@
                                                 <div class="item">
                                                     <a href="Https://ceo.gujarat.gov.in/Information-For-Voters"
                                                         target="_blank"><img alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/Sponsersoi99Cm54sMzjlcZw-Gk0SAgu2wgMpZhU.jpg') }}"
+                                                            src="{{ asset('css/main_index_css/dmeo-logo.jpg') }}"
                                                             class="cat_article_img img-responsive img-thumbnail"></a>
                                                 </div>
                                             </div>

@@ -43,6 +43,7 @@ use App\Models\Eval_activity_status;
 use App\Models\Eval_activity_log;
 use App\Models\State;
 use Illuminate\Support\Facades\Crypt;
+use Mpdf\Mpdf;
 
 class SchemeController extends Controller {
     public $envirment;
@@ -2427,15 +2428,98 @@ class SchemeController extends Controller {
         return response()->json('success');
     }
 
+    public function newproposaldetail_09_01_26($draft_id, Request $request)
+{
+    $draft_id = Crypt::decrypt($draft_id);
+
+    $proposal_list = Proposal::with([
+        'gr_file',
+        'notification_files',
+        'brochure_files',
+        'pamphlets_files',
+        'otherdetailscenterstate_files',
+        'department:id,dept_id,dept_name',
+        'implementation',
+        'financialProgress'
+    ])
+    ->where('draft_id', $draft_id)
+    ->get();
+
+    if ($proposal_list->isEmpty()) {
+        abort(404);
+    }
+
+    $proposal = $proposal_list->first();
+    $scheme_id = $proposal->scheme_id;
+
+    /* ---------- SDG ---------- */
+    $goals = Sdggoals::where('status',1)->get()->keyBy('goal_id');
+    $entered_goals = json_decode($proposal->is_sdg ?? '[]', true);
+
+    /* ---------- Districts & Talukas ---------- */
+    $district_ids = json_decode($proposal->districts ?? '[]', true);
+    $taluka_ids   = json_decode($proposal->talukas ?? '[]', true);
+
+    $district_names = Districts::whereIn('dcode', $district_ids)->pluck('name_e')->toArray();
+    $taluka_names   = Taluka::whereIn('tcode', $taluka_ids)->pluck('tname_e')->toArray();
+
+    /* ---------- Convergence ---------- */
+    $the_convergence = [];
+    if ($proposal->all_convergence) {
+        $conv = json_decode($proposal->all_convergence);
+        $dept_ids = collect($conv)->pluck('dept_id')->unique();
+        $dept_map = Department::whereIn('dept_id', $dept_ids)->pluck('dept_name','dept_id');
+
+        foreach ($conv as $c) {
+            $the_convergence[] = [
+                'dept_name' => $dept_map[$c->dept_id] ?? 'No Department',
+                'remarks'   => $c->dept_remarks
+            ];
+        }
+    }
+
+    /* ---------- File counts (ONLY ONCE) ---------- */
+    $files = [
+        'bencovfile' => $this->getthefilecount($scheme_id,'_beneficiaries_coverage'),
+        'trainingfile' => $this->getthefilecount($scheme_id,'_training'),
+        'iecfile' => $this->getthefilecount($scheme_id,'_iec'),
+        'eval_report' => $this->getthefilecount($scheme_id,'_eval_report_'),
+        'gr_files' => $this->getthefilecount($scheme_id,'_gr_'),
+        'notification_files' => $this->getthefilecount($scheme_id,'_notification'),
+        'brochure_files' => $this->getthefilecount($scheme_id,'_brochure'),
+        'pamphlets_files' => $this->getthefilecount($scheme_id,'_pamphlets'),
+        'otherdetailscenterstate_files' => $this->getthefilecount($scheme_id,'_otherdetailscenterstate'),
+    ];
+
+    Activitylog::create([
+        'userid' => Auth::id(),
+        'ip' => $request->ip(),
+        'activity' => 'Scheme Detail Page',
+        'officecode' => Auth::user()->dept_id,
+        'pagereferred' => $request->url()
+    ]);
+
+    return view('schemes.newproposaldetail', compact(
+        'proposal',
+        'proposal_list',
+        'district_names',
+        'taluka_names',
+        'goals',
+        'entered_goals',
+        'the_convergence',
+        'files'
+    ));
+}
+
     public function newproposaldetail($draft_id,Request $request) {
         $goals = Sdggoals::where('status','1')->orderBy('goal_id','desc')->get();
         $proposal_list = Proposal::with(['gr_file','notification_files','brochure_files','pamphlets_files','otherdetailscenterstate_files'])->where('draft_id',Crypt::decrypt($draft_id))->get();
       
         $replace_url = URL::to('/');
         $dept_name = '';
-        $major_objectives = array();
+       // $major_objectives = array();
         $imdept = array();
-        $major_indicator_hod = array();
+       // $major_indicator_hod = array();
         $financial_progress = array();
         $beneficiariesGeoLocal = beneficiariesGeoLocal();
         $district_ids = array();
@@ -3503,6 +3587,106 @@ class SchemeController extends Controller {
         //     return response()->json($districts);
         // } 
     }
-    
+  
+public function downloadFinalReportPdf($scheme_id)
+{
+     $scheme_id = Crypt::decrypt($scheme_id);
+
+    $proposal = Proposal::with([
+        'gr_file',
+        'notification_files',
+        'brochure_files',
+        'pamphlets_files',
+        'otherdetailscenterstate_files'
+    ])->where('scheme_id', $scheme_id)->firstOrFail();
+dd([
+    'gr_file' => $proposal->gr_file->pluck('id')->all(),
+    'notification_files' => $proposal->notification_files->pluck('id')->all(),
+    'brochure_files' => $proposal->brochure_files->pluck('id')->all(),
+    'pamphlets_files' => $proposal->pamphlets_files->pluck('id')->all(),
+    'otherdetailscenterstate_files' => $proposal->otherdetailscenterstate_files->pluck('id')->all(),
+]);
+//   $financial_progress = FinancialProgress::where('scheme_id', $scheme_id)
+//     ->get()
+//     ->keyBy('id'); // or 'im_id' if you are using im_id
+
+
+    $dept_name = 'Agriculture & Co-Operation Department';
+
+    $html = view('pdf.final-report', compact(
+        'proposal',
+        'dept_name',
+       
+    ))->render();
+
+    $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => storage_path('app/mpdf'),
+        'autoScriptToLang' => true,
+        'autoLangToFont' => true,
+        'default_font' => 'notosansgujarati'
+    ]);
+
+    $mpdf->WriteHTML($html);
+
+    return response(
+        $mpdf->Output($proposal->scheme_name . '.pdf', 'D')
+    )->header('Content-Type', 'application/pdf');
+
+}
+
+
+public function downloadFinalReportPdf1($scheme_id)
+{
+    $scheme_id = Crypt::decrypt($scheme_id);
+
+    // 1️⃣ Fetch SAME DATA as your view page
+    $proposal_list = Proposal::with([
+        'gr_file',
+        'notification_files',
+        'brochure_files',
+        'pamphlets_files',
+        'otherdetailscenterstate_files'
+    ])->where('scheme_id', $scheme_id)->get();
+
+    $dept_name = 'Agriculture & Co-Operation Department';
+    //dd($dept_name);
+    $goals = Sdggoals::where('status', 1)->get();
+    $financial_progress = FinancialProgress::where('scheme_id', $scheme_id)->get();
+    // 2️⃣ Render PDF-specific blade
+    $html = view(
+        'pdf.final-report',
+        compact(
+            'proposal_list',
+            'dept_name',
+            'goals',
+            'financial_progress'
+        )
+    )->render();
+
+    // 3️⃣ mPDF
+    $mpdf = new Mpdf([
+        'mode' => 'utf-8',
+        'tempDir' => storage_path('app/mpdf'),
+        'autoScriptToLang' => true,
+        'autoLangToFont' => true,
+        'default_font' => 'notosansgujarati',
+    ]);
+
+    $mpdf->WriteHTML($html);
+
+    // Gujarati filename
+    $schemeName = optional($proposal_list->first())->scheme_name ?? 'Final_Report';
+    $filename = $schemeName . '.pdf';
+
+    // 4️⃣ Correct UTF-8 filename download
+    $pdfContent = $mpdf->Output('', 'S');
+
+    return response($pdfContent, 200, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' =>
+            "attachment; filename*=UTF-8''" . rawurlencode($filename)
+    ]);
+}
+
 }
 ?>

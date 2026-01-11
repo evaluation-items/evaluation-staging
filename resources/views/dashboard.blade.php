@@ -79,6 +79,7 @@
 @php 
   $user_dept_id = Auth::user()->dept_id; 
   $dept_name =  department_name($user_dept_id);
+  $user = Auth::user();
 @endphp
 <div class="content-header">
     <div class="container-fluid">
@@ -97,7 +98,7 @@
 </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="row col-md-9" style=" margin-bottom: 0;float:left;"> 
+            <div class="row col-md-12" style="margin-bottom: 0;float:left;"> 
                 <div class="col-12 col-sm-6 col-md-4 mb-3">
                     <div class="info-box">
                         <span class="info-box-icon bg-lightblue elevation-1"><i class="fab fa-wpforms"></i></span>
@@ -232,25 +233,25 @@
                     </div>
                   </div>
                 </div>
-        </div>    
+              </div>
     </section>
     <div id="welcome-user" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content welcome-box">
             <div class="modal-header bb-0">
             <span class="ribbon top-left ribbon-primary">
-                <small>{{ __('message.hello')}}</small>
+                <small>Hello!</small>
             </span> 
-              <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+              <button type="button btnClose" class="close" data-bs-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body welcome-box-body">
-                <h4 class="modal-title text-center" style="line-height:0px !important;">{{ __('message.welcome')}}</h4>
-                <h4 class="modal-title text-center" style="font-size:24px !important;">{{ __('message.the_directorate_of_evaluation_portal')}}</h4>
-                <p class="text-center">{{ __('message.start_your_journey_with_our_dashboard_by_exploring_its_functionalities')}}</p>
+                <h4 class="modal-title text-center" style="line-height:0px !important;">Welcome</h4>
+                <h4 class="modal-title text-center" style="font-size:24px !important;">The Directorate Of Evaluation Portal</h4>
+                <p class="text-center">Start your journey with our dashboard by exploring its functionalities.</p>
             </div>
           </div>
         </div>
-      </div>
+    </div>
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 <Script>
@@ -330,25 +331,37 @@
             // Other X-axis configurations
           }],
           yAxes: [{
-            ticks: {
-                min: 0,
-                max: 450,
-                stepSize: 30,
-                fontColor: 'black',
-                fontSize: 16,
-                fontFamily: "monospace",
-            },
-            scaleLabel: {
-              display: true,
-              labelString: '<-- No. of Days -->',
-              fontColor: 'green',  // Set color for Y-axis title
-                fontFamily:"monospace", 
-                fontSize: 17,
-                padding: {
-                  left: 20, 
-                  right: 20
-                }
-            },
+              ticks: {
+                  min: 0,
+                  max: 300,
+                  stepSize: 30,          // 🔒 compulsory
+                  padding: 15,           // 🔴 creates gap between labels
+                  fontColor: 'black',
+                  fontSize: 16,
+                  fontFamily: "monospace",
+                  beginAtZero: true
+              },
+              gridLines: {
+                  drawBorder: true,
+                  lineWidth: 1,
+                  color: 'rgba(0,0,0,0.1)',
+                  zeroLineColor: 'rgba(0,0,0,0.25)',
+                  tickMarkLength: 10     // 🔴 extra vertical space
+              },
+              scaleLabel: {
+                  display: true,
+                  labelString: '<-- No. of Days -->',
+                  fontColor: 'green',
+                  fontFamily: "monospace",
+                  fontSize: 17,
+                  padding: {
+                      top: 10,
+                      bottom: 10
+                  }
+              },
+              afterFit: function (scale) {
+                  scale.height += 25;    // 🔴 FORCE extra Y-axis space
+              }
           }]
         }
       };
@@ -484,4 +497,29 @@ $('#scheme_list').on('change', function () {
         }
        });
 </script>
+@if($user->welcome_popup)
+<script>
+ $(document).ready(function() {
+
+    let modal = $('#welcome-user');
+
+    modal.modal('show');
+
+    setTimeout(function () {
+
+        modal.modal('hide');
+
+        // ✅ Update DB after popup closes
+        $.ajax({
+            url: "{{ route('welcome.popup.seen') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}"
+            }
+        });
+
+    }, 3000); // 3 seconds
+});
+</script>
+@endif
 @endsection

@@ -36,7 +36,7 @@ class User extends Authenticatable {
         'phone',
         'picture',
         'password',
-        'dept_id','role_manage','login_user'
+        'dept_id','role_manage','login_user','welcome_popup'
     ];
 
     /**

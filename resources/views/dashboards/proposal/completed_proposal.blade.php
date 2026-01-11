@@ -53,19 +53,19 @@
                               @endforeach
                           </select>
                         </div>
-                        <div class="col-md-4 department_items">
+                        <div class="col-md-6 department_items">
                           <select id="department_select" class="form-control" aria-label="Default select example">
                             @php
-                              $department = App\Models\Department::get();
+                              $department = App\Models\DepartmentHod::where('dept_id',Auth::user()->dept_id)->get();
                             @endphp
-                            <option value="">{{ __('message.select_department') }}</option>
+                            <option value="">{{ __('message.select_department') }} HOD</option>
                             @foreach ($department as $department_items)
-                                <option value="{{$department_items->dept_id}}">{{$department_items->dept_name}}</option>
+                                <option value="{{$department_items->id}}">{{$department_items->name}}</option>
                             @endforeach
                             
                           </select>
                         </div>
-                        <div class="col-md-2 dd_user_items">
+                        {{-- <div class="col-md-2 dd_user_items">
                           @php 
                               $branch_list = App\Models\Branch::with('roles')->orderBy('name','Asc')->get();
                           @endphp
@@ -80,31 +80,47 @@
                                   @endif
                               @endforeach
                           </select>
-                        </div> 
+                        </div>  --}}
                       </div>
                       <!--begin: Datatable-->
                       <table class="table table-bordered table-striped dataTable dtr-inline custom_complete_table" id="example1">
                         <thead>
                           <tr>
                             <th>{{ __('message.no') }}</th>
+                            <th>Financial Year</th>
                             <th>{{ __('message.scheme_name') }}</th>
-                            <th>{{ __('message.department_name') }}</th>
-                            {{-- <th>Name of HOD</th> --}}
+                            {{-- <th>{{ __('message.department_name') }}</th> --}}
+                            <th>{{ __('message.hod_name') }}</th>
                             <th>{{ __('message.report_published_date') }}</th>
                             <th>{{ __('message.actions') }}</th>
                           </tr>
                         </thead>
                         <tbody>
-                        @php $i=1; @endphp
+                        @php $i=1; 
+                       // dd($complted_proposal);
+                        @endphp
                         @foreach($complted_proposal as $complete)
                           <tr>
                             <td>{{ $i++ }}</td>
+                            <td>{{ completedStudy($complete->final_report) }}</td>
                             <td>{{ SchemeName($complete->scheme_id) }}</td> 
-                            <td>{{ department_name($complete->dept_id) }}</td>
-                            {{-- <td>{{ hod_name($complete->draft_id) }}</td> --}}
+                            {{-- <td>{{ department_name($complete->dept_id) }}</td> --}}
+                            <td>{{ hod_name($complete->draft_id) }}</td>
                             <td>{{date('d-M-y',strtotime($complete->final_report))}}</td>
                             <td width="23%">
-                              <a href="{{route('stages.downalod',$complete->id)}}" class="btn btn-xs btn-info" style="display: inline-block">{{ __('message.stage_report_download') }}</a>
+                              @if($complete->document)
+                                    @php
+                                        $extension = pathinfo($complete->document, PATHINFO_EXTENSION);
+                                    @endphp
+                                    @if($extension == 'pdf')
+                                        <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($complete->scheme_id), $complete->document]) }}" target="_blank" title="{{ $complete->document }}" class="btn btn-xs btn-info" >{{ __('message.final_report')}}</a>
+                                       
+                                    @endif
+                                </div>
+                                @else
+                                <a href="{{route('stages.downalod',$complete->id)}}" class="btn btn-xs btn-info" style="display: inline-block">{{ __('message.stage_report_download') }}</a>
+                              @endif
+                              
                             </td>
                           </tr>
                           @endforeach

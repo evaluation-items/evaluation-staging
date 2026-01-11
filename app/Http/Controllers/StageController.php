@@ -21,7 +21,7 @@ use App\Models\Scheme;
 use App\Models\SurveySchedule;
 use App\Couchdb\Couchdb;
 use Carbon\Carbon;
-use Barryvdh\DomPDF\Facade\Pdf;
+#use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Response;
 use function App\Helpers\PdfHelper\getPdfContent;
 use Illuminate\Support\Facades\View;
@@ -29,6 +29,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\SummaryReport;
 use App\Exports\ExcelReport;
 use Illuminate\Support\Facades\Crypt;
+use PDF;
 
 
 class StageController extends Controller
@@ -80,90 +81,127 @@ class StageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-       // dd('store');
-        $input = $request->all();
-       
-        $input['user_id'] = Auth::user()->id;
-        $input['scheme_id'] = $request->scheme_id;
-        $input['dept_id'] = $request->dept_id;
-        $input['draft_id'] = $request->draft_id;
-        $input['proposal_date'] = (!empty($request->proposal_date)) ?  Carbon::parse($request->proposal_date)->format('Y-m-d') : null;
-        $input['requisition'] =  (!empty($request->requisition)) ? Carbon::parse($request->requisition)->format('Y-m-d') : null;
-        $input['scheme_hod_date'] = (!empty($request->scheme_hod_date)) ? Carbon::parse($request->scheme_hod_date)->format('Y-m-d') : null;
-        $input['study_design_date'] = (!empty($request->study_design_date)) ? Carbon::parse($request->study_design_date)->format('Y-m-d') : null;
-        $input['study_design_hod_date'] = (!empty($request->study_design_hod_date)) ? Carbon::parse($request->study_design_hod_date)->format('Y-m-d') : null;
-        $input['study_design_receive_hod_date'] = (!empty($request->study_design_receive_hod_date)) ? Carbon::parse($request->study_design_receive_hod_date)->format('Y-m-d') : null;
-        $input['polot_study_date'] = (!empty($request->polot_study_date)) ? Carbon::parse($request->polot_study_date)->format('Y-m-d') : null;
-        $input['field_survey_startdate'] = (!empty($request->field_survey_startdate)) ? Carbon::parse($request->field_survey_startdate)->format('Y-m-d') : null;
-        $input['field_survey_enddate'] = (!empty($request->field_survey_enddate)) ? Carbon::parse($request->field_survey_enddate)->format('Y-m-d') : null;
-        $input['data_statistical_startdate'] = (!empty($request->data_statistical_startdate)) ? Carbon::parse($request->data_statistical_startdate)->format('Y-m-d') : null;
-        $input['data_statistical_enddate'] = (!empty($request->data_statistical_enddate)) ? Carbon::parse($request->data_statistical_enddate)->format('Y-m-d') : null;
-        $input['report_startdate'] = (!empty($request->report_startdate)) ? Carbon::parse($request->report_startdate)->format('Y-m-d') : null;
-        $input['report_enddate'] = (!empty($request->report_enddate)) ? Carbon::parse($request->report_enddate)->format('Y-m-d') : null;
-        $input['report_sent_hod_date'] = (!empty($request->report_sent_hod_date)) ? Carbon::parse($request->report_sent_hod_date)->format('Y-m-d') : null;
-        $input['report_sent_text'] = (!empty($request->report_sent_text)) ? $request->report_sent_text : null;       
-        $input['report_draft_hod_date'] = (!empty($request->report_draft_hod_date)) ? Carbon::parse($request->report_draft_hod_date)->format('Y-m-d') : null;
-        $input['report_draft_hod_text'] = (!empty($request->report_draft_hod_text)) ? $request->report_draft_hod_text : null;
-        $input['report_draft_sent_hod_date'] = (!empty($request->report_draft_sent_hod_date)) ? Carbon::parse($request->report_draft_sent_hod_date)->format('Y-m-d') : null;
-        $input['report_draft_sent_hod_text'] = (!empty($request->report_draft_sent_hod_text)) ? $request->report_draft_sent_hod_text : null;
-        $input['dept_eval_committee_datetime'] = (!empty($request->dept_eval_committee_datetime)) ? Carbon::parse($request->dept_eval_committee_datetime)->format('Y-m-d H:i:s') : null;
-        $input['draft_sent_eval_committee_date'] = (!empty($request->draft_sent_eval_committee_date)) ? Carbon::parse($request->draft_sent_eval_committee_date)->format('Y-m-d') : null;
-        $input['survey_review'] = (!empty($request->field_survey_startdate)) ? 1 : 0;
-        $input['eval_cor_date'] = (!empty($request->eval_cor_date)) ?   Carbon::parse($request->eval_cor_date)->format('Y-m-d H:i:s') : null;
-        $input['final_report'] = (!empty($request->final_report)) ? Carbon::parse($request->final_report)->format('Y-m-d') : null;
-        $input['dropped'] = (!empty($request->dropped)) ? Carbon::parse($request->dropped)->format('Y-m-d') : null;
+    public function store(Request $request){
+           $input = []; 
 
-        $input['data_entry_level_start'] = (!empty($request->data_entry_level_start)) ? Carbon::parse($request->data_entry_level_start)->format('Y-m-d') : null;
-        $input['data_entry_level_start_text'] = (!empty($request->data_entry_level_start_text)) ? $request->data_entry_level_start_text : null;
-       
-        $input['data_entry_level_end'] = (!empty($request->data_entry_level_end)) ? Carbon::parse($request->data_entry_level_end)->format('Y-m-d') : null;
-        $input['data_entry_level_end_text'] = (!empty($request->data_entry_level_end_text)) ? $request->data_entry_level_end_text : null;
+            // Step 2: Add essential non-nullable fields (e.g., user_id)
+            // This fixes the 'user_id' NOT NULL violation
+            $input['user_id'] = Auth::user()->id;
+            $input['scheme_id'] = $request->scheme_id;
+            $input['dept_id'] = $request->dept_id;
+            $input['draft_id'] = $request->draft_id;
 
-        if($request->hasFile('document')) {
-            $document = $request->file('document');
-            $rev = Attachment::where('scheme_id',$stages->scheme_id)->value('couch_rev_id');
-            $doc_id = "scheme_".$stages->scheme_id;
-            $docid = 'document'; 
-            $path['id'] = $docid;
-            $extended = new Couchdb();
-            $extended->InitConnection();
-            $status = $extended->isRunning();
-            $path['tmp_name'] = $document->getRealPath();
-            $path['extension']  = $document->getClientOriginalExtension();
-            $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
-            if(is_null($rev)){
-                $dummy_data = array(
-                    'scheme_id' => $doc_id
-                );
-                $out = $extended->createDocument($dummy_data, $this->envirment['database'],$doc_id);
-                $array = json_decode($out, true);
-                $id = $array['id'];
-                $rev = $array['rev'];
-                $data['scheme_id'] = $stages->scheme_id;
-                $data['couch_doc_id'] = $id;
-                $data['couch_rev_id'] = $rev;
-                $attachment = Attachment::create($data);
+            // Step 3: Define fields and process them safely
+
+            $dateFields = [
+                'requisition', 'scheme_hod_date', 'study_design_date', 'study_design_hod_date', 
+                'study_design_receive_hod_date', 'polot_study_date', 'field_survey_startdate', 
+                'field_survey_enddate', 'data_statistical_startdate', 'data_statistical_enddate', 
+                'report_startdate', 'report_enddate', 'report_sent_hod_date', 'report_draft_hod_date', 
+                'report_draft_sent_hod_date', 'draft_sent_eval_committee_date', 'final_report', 
+                'dropped', 'data_entry_level_start', 'data_entry_level_end',
+                'study_entrusted', 'requistion_sent_hod', 'information_received_from_io','report_sent_press'
+            ];
+            $dateTimeFields = [
+                'dept_eval_committee_datetime', 'eval_cor_date', 
+                'minutes_meeting_dec', 'minutes_meeting_eval',
+            ];
+            $textFields = [
+                // All Text Fields
+                'requisition_text', 'scheme_hod_text', 'study_design_text', 'study_design_hod_text', 'study_design_receive_hod_text', 'polot_study_text', 'field_survey_text', 'field_survey_end_text', 'data_statistical_text', 'data_statistical_end_text', 'report_text', 'report_end_text', 'report_sent_text', 'report_draft_hod_text', 'report_draft_sent_hod_text', 'dept_eval_committee_text', 'draft_sent_eval_committee_text', 'eval_cor_text', 'dropped_text', 'data_entry_level_start_text', 'data_entry_level_end_text',
+                'study_entrusted_text', 'requistion_sent_hod_text', 'information_received_from_io_text', 'minutes_meeting_dec_text', 'minutes_meeting_eval_text','report_sent_press_text'
+                
+            ];
+        $fileInputFields = [
+            // Existing files
+            'document', 'scheme_hod_date_file', 'study_design_date_file', 'study_design_hod_date_file', 
+            'study_design_receive_hod_date_file', 'polot_study_date_file', 'field_survey_startdate_file', 
+            'field_survey_enddate_file', 'data_statistical_startdate_file', 'data_statistical_enddate_file', 
+            'report_startdate_file', 'report_enddate_file', 'report_sent_hod_date_file', 
+            'report_draft_hod_date_file', 'report_draft_sent_hod_date_file', 'dept_eval_committee_datetime_file', 
+            'draft_sent_eval_committee_date_file', 'eval_cor_date_file', 'final_report_file', 
+            'dropped_file', 'data_entry_level_start_file', 'data_entry_level_end_file', 'requisition_file',
+            
+            // New files from your schema updates
+            'study_entrusted_file', 'requistion_sent_hod_file', 'information_received_from_io_file', 
+            'minutes_meeting_dec_file', 'minutes_meeting_eval_file','report_sent_press_file'
+        ];
+        foreach (array_merge($dateFields, $dateTimeFields, $textFields) as $field) {
+    
+            // Check if the field is present, AND handle content/emptiness
+            $value = $request->$field; // Retrieve value (it will be null if not present, or '' if empty)
+            
+            if (in_array($field, $dateFields) && !empty($value)) {
+                 $input[$field] = $this->normalizeDate($value, 'date');
+            } elseif (in_array($field, $dateTimeFields) && !empty($value)) {
+                $input[$field] = $this->normalizeDate($value, 'datetime');
+            } elseif (!empty($value)) {
+                // Text field with content
+                $input[$field] = $value;
+            } else {
+                // Field is empty or not submitted. Set explicitly to NULL.
+                // This is safe because your database fields are designed to be nullable (except the IDs above).
+                $input[$field] = null;
             }
-            $out = $extended->createAttachmentDocument( $this->envirment['database'],$doc_id,$rev,$path);
-            $array = json_decode($out, true);
-            $rev = $array['rev'];
-            if(isset($rev)) {
-                $result = Attachment::where('scheme_id',$request->scheme_id)->update(['couch_rev_id'=>$rev]);
-            }                    
-            $input['document'] = $path['name'];
         }
 
-        Stage::create($input);
-        $act['userid'] = Auth::user()->id;
-        $act['ip'] = $request->ip();
-        $act['activity'] = 'Stage Stored';
-        $act['officecode'] = Auth::user()->dept_id;
-        $act['pagereferred'] = $request->url();
-        Activitylog::insert($act);
-        return redirect()->back()->withSuccess('Stage created successfully.');
+        $stages = Stage::create($input); 
+        $file_update_input = [];
+        // --- 4. Loop Through and Process File Uploads (CouchDB Logic) ---
+             foreach ($fileInputFields as $fieldName) {
+                    
+                    if ($request->hasFile($fieldName)) {
+                        
+                        $document = $request->file($fieldName);
+                        
+                        $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
+                        $extended = new Couchdb();
+                        $extended->InitConnection();
+                        $status = $extended->isRunning();
+                        $doc_id = "stages_document_" . $stages->scheme_id;
+                        $path['id'] = $fieldName;
+                        $path['tmp_name'] = $document->getRealPath();
+                        $path['extension']  = $document->getClientOriginalExtension();
+                        $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
+                        if(is_null($rev)){
+                            $dummy_data = array(
+                                'scheme_id' => $stages->scheme_id
+                            );
+                            $out = $extended->createDocument($dummy_data,$this->envirment['database'],$doc_id);
+                            $array = json_decode($out, true);
+                            $id = $array['id'];
+                            $rev = $array['rev'];
+                            $data['scheme_id'] = $scheme_id;
+                            $data['couch_doc_id'] = $id;
+                            $data['couch_rev_id'] = $rev;
+                            $attachment = Attachment::create($data);
+                        }
+                        $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+                        $array = json_decode($out, true);
+                        $rev = $array['rev'] ?? null;
+                        if(isset($rev)) {
+                            $result = Attachment::where('scheme_id',$scheme_id)->update(['couch_rev_id'=>$rev]);
+                        }                    
+           
+                        // 7. Set the filename in the $input array for your main table update
+                        $input[$fieldName] = $path['name'];
+                    }
+                }
+
+            // --- 5. Update the Record with File Names ---
+            if (!empty($file_update_input)) {
+                $stages->update($file_update_input);
+            }
+            // --- 6. Activity Log and Redirect ---
+            $act['userid'] = Auth::user()->id;
+            $act['ip'] = $request->ip();
+            $act['activity'] = 'Stage Stored';
+            $act['officecode'] = Auth::user()->dept_id;
+            $act['pagereferred'] = $request->url();
+            Activitylog::insert($act);
+            return redirect()->back()->withSuccess('Stage created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -222,216 +260,136 @@ class StageController extends Controller
      * @param  \App\Models\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $stages = Stage::find($id);
-      
-        $input = $request->all();
-        $input['user_id'] = Auth::user()->id;
-        $input['scheme_id'] = $request->scheme_id;
-        $input['dept_id'] = $request->dept_id;
-        $input['draft_id'] = $request->draft_id;
+    // Step 1: Initialize the $input array manually
+            $input = []; 
 
-      
-        if (isset($request->proposal_date) && $request->has('proposal_date')) {
-            $input['proposal_date'] = Carbon::parse($request->proposal_date)->format('Y-m-d');
-        }
-        
-        if (isset($request->requisition) && $request->has('requisition')) {
-            $input['requisition'] = Carbon::parse($request->requisition)->format('Y-m-d');
-        }
-        
-        if (isset($request->scheme_hod_date) && $request->has('scheme_hod_date')) {
-            $input['scheme_hod_date'] = Carbon::parse($request->scheme_hod_date)->format('Y-m-d');
-        }
-        
-        if (isset($request->study_design_date) && $request->has('study_design_date')) {
-            $input['study_design_date'] = Carbon::parse($request->study_design_date)->format('Y-m-d');
-        }
-        
-        if (isset($request->study_design_hod_date) && $request->has('study_design_hod_date')) {
-            $input['study_design_hod_date'] = Carbon::parse($request->study_design_hod_date)->format('Y-m-d');
-        }
-        
-        if (isset($request->study_design_receive_hod_date) && $request->has('study_design_receive_hod_date')) {
-            $input['study_design_receive_hod_date'] = Carbon::parse($request->study_design_receive_hod_date)->format('Y-m-d');
-        }
+            // Step 2: Add essential non-nullable fields (e.g., user_id)
+            // This fixes the 'user_id' NOT NULL violation
+            $input['user_id'] = Auth::user()->id;
+            $input['scheme_id'] = $request->scheme_id;
+            $input['dept_id'] = $request->dept_id;
+            $input['draft_id'] = $request->draft_id;
 
-        if (isset($request->polot_study_date) && $request->has('polot_study_date')) {
-            $input['polot_study_date'] = Carbon::parse($request->polot_study_date)->format('Y-m-d');
-        }
+            // Step 3: Define fields and process them safely
 
-        if (isset($request->field_survey_startdate) && $request->has('field_survey_startdate')) {
-            $input['field_survey_startdate'] = Carbon::parse($request->field_survey_startdate)->format('Y-m-d');
-            // $input['survey_review'] = 1 ;
-        }
-
-        if (isset($request->field_survey_enddate) && $request->has('field_survey_enddate')) {
-            $input['field_survey_enddate'] = Carbon::parse($request->field_survey_enddate)->format('Y-m-d');
-        }
-
-        if (isset($request->data_statistical_startdate) && $request->has('data_statistical_startdate')) {
-            $input['data_statistical_startdate'] = Carbon::parse($request->data_statistical_startdate)->format('Y-m-d');
-        }
-
-        if (isset($request->data_statistical_enddate) && $request->has('data_statistical_enddate')) {
-            $input['data_statistical_enddate'] = Carbon::parse($request->data_statistical_enddate)->format('Y-m-d');
-        }
-       
-        if (isset($request->report_startdate) && $request->has('report_startdate')) {
-            $input['report_startdate'] = Carbon::parse($request->report_startdate)->format('Y-m-d');
-        }
-       
-        if (isset($request->report_enddate) && $request->has('report_enddate')) {
-            $input['report_enddate'] = Carbon::parse($request->report_enddate)->format('Y-m-d');
-        }
-
-        if (isset($request->report_sent_hod_date) && $request->has('report_sent_hod_date')) {
-            $input['report_sent_hod_date'] = Carbon::parse($request->report_sent_hod_date)->format('Y-m-d');
-        }
-
-        if (isset($request->report_sent_text) && $request->has('report_sent_text')) {
-            $input['report_sent_text'] = $request->report_sent_text;
-        }
-
-        if (isset($request->report_draft_hod_date) && $request->has('report_draft_hod_date')) {
-            $input['report_draft_hod_date'] = Carbon::parse($request->report_draft_hod_date)->format('Y-m-d');
-        }
-
-        if (isset($request->report_draft_hod_text) && $request->has('report_draft_hod_text')) {
-            $input['report_draft_hod_text'] = $request->report_draft_hod_text;
-        }
-
-        if (isset($request->report_draft_hod_text) && $request->has('report_draft_hod_text')) {
-            $input['report_draft_hod_text'] = $request->report_draft_hod_text;
-        }
-
-        if (isset($request->report_draft_sent_hod_date) && $request->has('report_draft_sent_hod_date')) {
-            $input['report_draft_sent_hod_date'] = Carbon::parse($request->report_draft_sent_hod_date)->format('Y-m-d');
-        }
-
-        if (isset($request->report_draft_sent_hod_text) && $request->has('report_draft_sent_hod_text')) {
-            $input['report_draft_sent_hod_text'] = $request->report_draft_sent_hod_text;
-        }
-
-        if (isset($request->dept_eval_committee_datetime) && $request->has('dept_eval_committee_datetime')) {
-            $input['dept_eval_committee_datetime'] = Carbon::parse($request->dept_eval_committee_datetime)->format('Y-m-d');
-        }
-
-        if (isset($request->draft_sent_eval_committee_date) && $request->has('draft_sent_eval_committee_date')) {
-            $input['draft_sent_eval_committee_date'] = Carbon::parse($request->draft_sent_eval_committee_date)->format('Y-m-d');
-        }
-
-        if (isset($request->eval_cor_date) && $request->has('eval_cor_date')) {
-            $input['eval_cor_date'] = Carbon::parse($request->eval_cor_date)->format('Y-m-d');
-        }
-
-        if (isset($request->final_report) && $request->has('final_report')) {
-            $input['final_report'] = Carbon::parse($request->final_report)->format('Y-m-d');
-        }
-
-        if (isset($request->dropped) && $request->has('dropped')) {
-            $input['dropped'] = Carbon::parse($request->dropped)->format('Y-m-d');
-        }
-
-        if (isset($request->data_entry_level_start) && $request->has('data_entry_level_start')) {
-            $input['data_entry_level_start'] = Carbon::parse($request->data_entry_level_start)->format('Y-m-d');
-        }
-
-        if (isset($request->data_entry_level_start_text) && $request->has('data_entry_level_start_text')) {
-            $input['data_entry_level_start_text'] = $request->data_entry_level_start_text;
-        }
-
-        if (isset($request->data_entry_level_end) && $request->has('data_entry_level_end')) {
-            $input['data_entry_level_end'] = Carbon::parse($request->data_entry_level_end)->format('Y-m-d');
-        }
-
-        if (isset($request->data_entry_level_end_text) && $request->has('data_entry_level_end_text')) {
-            $input['data_entry_level_end_text'] = $request->data_entry_level_end_text;
-        }
-
-        
-
-        // $document_file_name = '';
-        // if($request->has('document')) {
-        //     $beneficiaries_coverage = $request->file('document');
-        //     $rev = Attachment::where('scheme_id',$stages->scheme_id)->value('couch_rev_id');
-           
-        //     $extended = new Couchdb();
-        //     $extended->InitConnection();
-        //     $status = $extended->isRunning();
-        //     $doc_id = "scheme_".$stages->scheme_id;
-        //     $docid = 'document'; 
-        //     $path['id'] = $docid;
-        //     $path['tmp_name'] = $beneficiaries_coverage->getRealPath();
-        //     $path['extension']  = $beneficiaries_coverage->getClientOriginalExtension();
-        //     $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
-        //     if(is_null($rev)){
-        //         $dummy_data = array(
-        //             'scheme_id' => $doc_id
-        //         );
-        //         $out = $extended->createDocument($dummy_data, $this->envirment['database'],$doc_id);
-        //         $array = json_decode($out, true);
-        //         $id = $array['id'];
-        //         $rev = $array['rev'];
-        //         $data['scheme_id'] = $stages->scheme_id;
-        //         $data['couch_doc_id'] = $id;
-        //         $data['couch_rev_id'] = $rev;
-        //         $attachment = Attachment::create($data);
-        //     }
-        //     $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
-        //     $array = json_decode($out, true);
-        //     //$rev = $array['rev'];
-        //     if(isset($rev)) {
-        //         $result = Attachment::where('scheme_id',$stages->scheme_id)->update(['couch_rev_id'=>$rev]);
-        //     }                    
-        //     $input['document'] = $path['name'];
-        // }
-
-        if($request->hasFile('document')) {
-            $document = $request->file('document');
-            $rev = Attachment::where('scheme_id',$stages->scheme_id)->value('couch_rev_id');
-            $doc_id = "scheme_".$stages->scheme_id;
-            $docid = 'document'; 
-            $path['id'] = $docid;
-            $path['tmp_name'] = $document->getRealPath();
-            $path['extension']  = $document->getClientOriginalExtension();
-            $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
-            $extended = new Couchdb();
-            $extended->InitConnection();
-            $status = $extended->isRunning();
-            if(is_null($rev)){
-                $dummy_data = array(
-                    'scheme_id' => $doc_id
-                );
-                $out = $extended->createDocument($dummy_data, $this->envirment['database'],$doc_id);
-                $array = json_decode($out, true);
-                $id = $array['id'];
-                $rev = $array['rev'];
-                $data['scheme_id'] = $stages->scheme_id;
-                $data['couch_doc_id'] = $id;
-                $data['couch_rev_id'] = $rev;
-                $attachment = Attachment::create($data);
+            $dateFields = [
+                'requisition', 'scheme_hod_date', 'study_design_date', 'study_design_hod_date', 
+                'study_design_receive_hod_date', 'polot_study_date', 'field_survey_startdate', 
+                'field_survey_enddate', 'data_statistical_startdate', 'data_statistical_enddate', 
+                'report_startdate', 'report_enddate', 'report_sent_hod_date', 'report_draft_hod_date', 
+                'report_draft_sent_hod_date', 'draft_sent_eval_committee_date', 'final_report', 
+                'dropped', 'data_entry_level_start', 'data_entry_level_end',
+                'study_entrusted', 'requistion_sent_hod', 'information_received_from_io','report_sent_press'
+            ];
+            $dateTimeFields = [
+                'dept_eval_committee_datetime', 'eval_cor_date', 
+                'minutes_meeting_dec', 'minutes_meeting_eval',
+            ];
+            $textFields = [
+                // All Text Fields
+                'requisition_text', 'scheme_hod_text', 'study_design_text', 'study_design_hod_text', 'study_design_receive_hod_text', 'polot_study_text', 'field_survey_text', 'field_survey_end_text', 'data_statistical_text', 'data_statistical_end_text', 'report_text', 'report_end_text', 'report_sent_text', 'report_draft_hod_text', 'report_draft_sent_hod_text', 'dept_eval_committee_text', 'draft_sent_eval_committee_text', 'eval_cor_text', 'dropped_text', 'data_entry_level_start_text', 'data_entry_level_end_text',
+                'study_entrusted_text', 'requistion_sent_hod_text', 'information_received_from_io_text', 'minutes_meeting_dec_text', 'minutes_meeting_eval_text','report_sent_press_text'
+                
+            ];
+        $fileInputFields = [
+            // Existing files
+            'document', 'scheme_hod_date_file', 'study_design_date_file', 'study_design_hod_date_file', 
+            'study_design_receive_hod_date_file', 'polot_study_date_file', 'field_survey_startdate_file', 
+            'field_survey_enddate_file', 'data_statistical_startdate_file', 'data_statistical_enddate_file', 
+            'report_startdate_file', 'report_enddate_file', 'report_sent_hod_date_file', 
+            'report_draft_hod_date_file', 'report_draft_sent_hod_date_file', 'dept_eval_committee_datetime_file', 
+            'draft_sent_eval_committee_date_file', 'eval_cor_date_file', 'final_report_file', 
+            'dropped_file', 'data_entry_level_start_file', 'data_entry_level_end_file', 'requisition_file',
+            
+            // New files from your schema updates
+            'study_entrusted_file', 'requistion_sent_hod_file', 'information_received_from_io_file', 
+            'minutes_meeting_dec_file', 'minutes_meeting_eval_file','report_sent_press_file'
+        ];
+            // Loop through all fields to process
+           foreach (array_merge($dateFields, $dateTimeFields, $textFields) as $field) {
+    
+            // Check if the field is present, AND handle content/emptiness
+            $value = $request->$field; // Retrieve value (it will be null if not present, or '' if empty)
+            
+            if (in_array($field, $dateFields) && !empty($value)) {
+                 $input[$field] = $this->normalizeDate($value, 'date');
+            } elseif (in_array($field, $dateTimeFields) && !empty($value)) {
+                $input[$field] = $this->normalizeDate($value, 'datetime');
+            } elseif (!empty($value)) {
+                // Text field with content
+                $input[$field] = $value;
+            } else {
+                // Field is empty or not submitted. Set explicitly to NULL.
+                // This is safe because your database fields are designed to be nullable (except the IDs above).
+                $input[$field] = null;
             }
-            $out = $extended->createAttachmentDocument( $this->envirment['database'],$doc_id,$rev,$path);
-            $array = json_decode($out, true);
-            $rev = $array['rev'];
-            if(isset($rev)) {
-                $result = Attachment::where('scheme_id',$request->scheme_id)->update(['couch_rev_id'=>$rev]);
-            }                    
-            $input['document'] = $path['name'];
         }
-       // dd($input);
-        $stages->update($input);
-        Stage::create($input);
-        $act['userid'] = Auth::user()->id;
-        $act['ip'] = $request->ip();
-        $act['activity'] = 'Stage Updated';
-        $act['officecode'] = Auth::user()->dept_id;
-        $act['pagereferred'] = $request->url();
-        Activitylog::insert($act);
-        return redirect()->back()->withSuccess('Stage update successfully.');
+
+            $scheme_id = $request->scheme_id;
+            // Special case logic
+            if ($request->has('field_survey_startdate')) {
+                $input['survey_review'] = (!empty($request->field_survey_startdate)) ? 1 : 0;
+            } else {
+                // Preserve existing value if 'field_survey_startdate' was not submitted.
+                $input['survey_review'] = $stages->survey_review; 
+            }
+                // Assuming $stages (the model instance) is available and $input is your data array
+                // and Couchdb/Attachment classes are imported.
+
+                foreach ($fileInputFields as $fieldName) {
+                    
+                    if ($request->hasFile($fieldName)) {
+                        
+                        $document = $request->file($fieldName);
+                        
+                        $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
+                        $extended = new Couchdb();
+                        $extended->InitConnection();
+                        $status = $extended->isRunning();
+                        $doc_id = "stages_document_" . $stages->scheme_id;
+                        $path['id'] = $fieldName;
+                        $path['tmp_name'] = $document->getRealPath();
+                        $path['extension']  = $document->getClientOriginalExtension();
+                        $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
+                        if(is_null($rev)){
+                            $dummy_data = array(
+                                'scheme_id' => $stages->scheme_id
+                            );
+                            $out = $extended->createDocument($dummy_data,$this->envirment['database'],$doc_id);
+                            $array = json_decode($out, true);
+                            $id = $array['id'];
+                            $rev = $array['rev'];
+                            $data['scheme_id'] = $scheme_id;
+                            $data['couch_doc_id'] = $id;
+                            $data['couch_rev_id'] = $rev;
+                            $attachment = Attachment::create($data);
+                        }
+                        $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+                        $array = json_decode($out, true);
+                        $rev = $array['rev'] ?? null;
+                        if(isset($rev)) {
+                            $result = Attachment::where('scheme_id',$scheme_id)->update(['couch_rev_id'=>$rev]);
+                        }                    
+           
+                        // 7. Set the filename in the $input array for your main table update
+                        $input[$fieldName] = $path['name'];
+                    }
+                }
+        
+
+            // Final Model Update
+            $stages->update($input);
+            $act['userid'] = Auth::user()->id;
+            $act['ip'] = $request->ip();
+            $act['activity'] = 'Stage Updated';
+            $act['officecode'] = Auth::user()->dept_id;
+            $act['pagereferred'] = $request->url();
+            Activitylog::insert($act);
+            return redirect()->back()->withSuccess('Stage update successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -443,12 +401,194 @@ class StageController extends Controller
     {
         //
     }
-    public function downloadPdf($id){
-        $data = Stage::findOrFail($id); 
-        $scheme_data = SchemeName($data['scheme_id']);
-        $pdf = PDF::loadView('dashboards.stage.pdf.view', compact('data','scheme_data'))->setPaper('a4', 'landscape'); // Pass data to the view
-        return $pdf->download($scheme_data.'.pdf'); // Download the PDF file
+    public function downloadPdf($id)
+    {
+        try {
+            $data = Stage::findOrFail($id);
+            $depament_hod_name = hod_name($data->draft_id);
+            $deptName = department_name($data['dept_id']);
+            $schemeName = SchemeName($data->scheme_id);
+
+       // $finalReportDate = !empty($data['final_report']) ? Carbon::parse($data['final_report'])->format('d-m-Y') : '';
+
+       // $proposalDate = !empty($data['proposal_date']) ? Carbon::parse($data['proposal_date'])->format('d-m-Y') : '';
+
+        $html = '
+            <style>
+            body {
+              
+                font-size: 12px;
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .label {
+                font-weight: bold;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                border: 1px solid #000;
+                padding: 6px;
+                vertical-align: top;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                text-align: left;
+            }
+
+           
+        </style>
+
+        <h1>Final Report</h1>
+
+        <table>
+            <tr>
+                <th>Scheme Name</th>
+                <td class="gujarati">'.$schemeName.'</td>
+            </tr>
+            <tr>
+                <th width="30%">Department Name</th>
+                <td width="70%">'.$deptName.'</td>
+            </tr>
+
+            <tr>
+                <th>Department Name of HOD/Implementing Office</th>
+                <td>'.$depament_hod_name.'</td>
+            </tr>
+
+        </table>
+
+        <br>
+
+        <table>
+            <tr>
+                <th width="50%">Stage</th>
+                <th width="25%">Date</th>
+                <th width="25%">Remarks</th>
+            </tr>
+
+            <tr>
+                <td>Proposal Date</td>
+                <td>'.(!empty($data['proposal_date']) ? Carbon::parse($data['proposal_date'])->format('d-m-Y') : '').'</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Additional information / data of the scheme is sought to Implementing Office (HOD)</td>
+                <td>'.(!empty($data['scheme_hod_date']) ? Carbon::parse($data['scheme_hod_date'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['scheme_hod_text'].'</td>
+            </tr>
+            <tr>
+                <td>Requisition</td>
+                <td>'.(!empty($data['requisition']) ? Carbon::parse($data['requisition'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['requisition_text'].'</td>
+            </tr>
+            <tr>
+                <td>Study Design and Schedule Preparation</td>
+                <td>'.(!empty($data['study_design_date']) ? Carbon::parse($data['study_design_date'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['study_design_text'].'</td>
+            </tr>
+             <tr>
+                <td>Inputs on Study Design and Survey Forms received from Implementing Office (HOD)</td>
+                <td>'.(!empty($data['study_design_receive_hod_date']) ? Carbon::parse($data['study_design_receive_hod_date'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['study_design_receive_hod_text'].'</td>
+            </tr>
+            <tr>
+                <td>Pilot study and Digitization of Survey Forms Completed</td>
+                <td>'.(!empty($data['polot_study_date']) ? Carbon::parse($data['polot_study_date'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['polot_study_text'].'</td>
+            </tr>
+            <tr>
+                <td>Field Survey</td>
+                <td>'.(!empty($data['field_survey_startdate']) ? Carbon::parse($data['field_survey_startdate'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['field_survey_text'].'</td>
+            </tr>
+            <tr>
+                <td>Data cleaning and Statistical Analysis</td>
+                <td>'.(!empty($data['data_statistical_startdate']) ? Carbon::parse($data['data_statistical_startdate'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['data_statistical_text'].'</td>
+            </tr>
+            <tr>
+                <td>Data Entry Level</td>
+                <td>'.(!empty($data['data_entry_level_start']) ? Carbon::parse($data['data_entry_level_start'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['data_entry_level_start_text'].'</td>
+            </tr>
+            <tr>
+                <td>Report Writing</td>
+                <td>'.(!empty($data['report_startdate']) ? Carbon::parse($data['report_startdate'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['report_text'].'</td>
+            </tr>
+            <tr>
+                <td>Inputs on Draft Report received from Implementing Office (HOD)</td>
+                <td>'.(!empty($data['report_draft_hod_date']) ? Carbon::parse($data['report_draft_hod_date'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['report_draft_hod_text'].'</td>
+            </tr>
+            <tr>
+                <td>Departmental Evaluation Committee (DEC)</td>
+                <td>'.(!empty($data['dept_eval_committee_datetime']) ? Carbon::parse($data['dept_eval_committee_datetime'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['dept_eval_committee_text'].'</td>
+            </tr>
+            <tr>
+                <td>Evaluation Coordination Committee (ECC)</td>
+                <td>'.(!empty($data['eval_cor_date']) ? Carbon::parse($data['eval_cor_date'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['eval_cor_text'].'</td>
+            </tr>
+            <tr>
+                <td>Final Report</td>
+                <td>'.(!empty($data['final_report']) ? Carbon::parse($data['final_report'])->format('d-m-Y') : '').'</td>
+                <td> <a href="'.url('document/'.$data['scheme_id'].'/'.$data['document']).'">'.$data['document'].'</a></td>
+            </tr>
+            <tr>
+                <td>Dropped</td>
+                <td>'.(!empty($data['dropped']) ? Carbon::parse($data['dropped'])->format('d-m-Y') : '').'</td>
+                <td>'.$data['dropped_text'].'</td>
+            </tr>
+        </table>
+        ';
+        $mpdf = new \Mpdf\Mpdf([
+            'tempDir' => sys_get_temp_dir(),
+            'mode' => 'utf-8',
+            'autoScriptToLang' => true,
+            'autoLangToFont' => true,
+           // 'default_font' => 'notosansgujarati',
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+      // Gujarati filename
+       $filename = trim($schemeName) . '.pdf';
+
+        // Get PDF as string
+        $pdfContent = $mpdf->Output('', 'S');
+
+        // Return response with UTF-8 filename header
+        return response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' =>
+                "attachment; filename*=UTF-8''" . rawurlencode($filename)
+        ]);
+        
+    } catch (\Exception $e) {
+        // This will help you see if there is a font path error
+        return "PDF Error: " . $e->getMessage();
     }
+
+}
+
+    // public function downloadPdf($id){
+    //     $data = Stage::findOrFail($id); 
+    //     $scheme_data = SchemeName($data['scheme_id']);
+    //     $pdf = PDF::loadView('dashboards.stage.pdf.view', compact('data','scheme_data'))->setPaper('a4', 'landscape'); // Pass data to the view
+    //     return $pdf->download($scheme_data.'.pdf'); // Download the PDF file
+    // }
     
     public function downloadExcel($id){
         if ($id) {
@@ -760,9 +900,11 @@ class StageController extends Controller
         $proposal_list = SchemeSend::where('draft_id',$draft_id)->whereIn('scheme_send.status_id', [25])
                                 ->where('scheme_send.forward_btn_show', 1)
                                 ->where('scheme_send.forward_id', 1)
+                                //->whereNull('team_member_dd')
                                 ->orderByDesc('scheme_send.id')
                                 ->distinct()
                                 ->get();
+        
                                
         $stages_item = Stage::where('draft_id', $draft_id)->first();
     
@@ -770,39 +912,39 @@ class StageController extends Controller
             
             $get_count = [
                 'requisition' => 0, //1
-                'requisition_delay' => 0,
+            //    'requisition_delay' => 0,
                 'study_design_date' => 0, //2
-                'study_design_date_delay' => 0,
+            //    'study_design_date_delay' => 0,
                 'study_design_receive_hod_date' => 0, //3
-                'study_design_receive_hod_date_delay' => 0,
+            //    'study_design_receive_hod_date_delay' => 0,
                 'polot_study_date' => 0, //4
-                'polot_study_date_delay' => 0,
+             //   'polot_study_date_delay' => 0,
                 'field_survey_startdate' => 0, //5
-                'field_survey_startdate_delay' => 0,
+            //    'field_survey_startdate_delay' => 0,
                 'data_entry_level_start' => 0, //6
-                'data_entry_level_start_delay' => 0,
+             //   'data_entry_level_start_delay' => 0,
                 'report_startdate' => 0, //7
-                'report_startdate_delay' => 0,
+             //   'report_startdate_delay' => 0,
                 'report_draft_hod_date' => 0, //8
-                'report_draft_hod_date_delay' => 0,
+            //    'report_draft_hod_date_delay' => 0,
                 'dept_eval_committee_datetime' => 0, //9
-                'dept_eval_committee_datetime_delay' => 0,
+             //   'dept_eval_committee_datetime_delay' => 0,
                 'eval_cor_date' => 0, //10
-                'eval_cor_date_delay' => 0,
+             //   'eval_cor_date_delay' => 0,
                 'final_report'=> 0, //11
-                'final_report_delay' => 0,
+             //   'final_report_delay' => 0,
                 'dropped' => 0, //12
-                'dropped_delay' => 0
+             //   'dropped_delay' => 0
 
             ];
             foreach ($proposal_list as $key => $proposal_data) {
-
+            $req_check_date = (!is_null($proposal_data->evaluation_sent_date)) ? $proposal_data->evaluation_sent_date : $proposal_data->created_at;
                     //Requisition
-                    $endDate = Carbon::parse($proposal_data->created_at)->addMonths(1);
+                    $endDate = Carbon::parse($req_check_date)->addMonths(1);
 
                     $diffInDays = Stage::where('draft_id', $proposal_data->draft_id)
                                         ->whereNotNull('requisition')
-                                        ->whereBetween('requisition', [$proposal_data->created_at, $endDate])
+                                        ->whereBetween('requisition', [$req_check_date, $endDate])
                                         ->get()
                                         ->sum(function ($stage) use ($endDate) {
                                             return Carbon::parse($stage->requisition)->diffInDays($endDate);
@@ -1118,7 +1260,41 @@ class StageController extends Controller
     }else{
         dd('select the scheme');
     }
-    
- 
    }
+    public function normalizeDate($value, $type = 'date')
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        try {
+            if ($type === 'datetime') {
+
+                if (preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/', $value)) {
+                    return \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $value)
+                        ->format('Y-m-d H:i:s');
+                }
+
+                if (preg_match('/^\d{2}\/\d{2}\/\d{4}\s\d{2}:\d{2}$/', $value)) {
+                    return \Carbon\Carbon::createFromFormat('d/m/Y H:i', $value)
+                        ->format('Y-m-d H:i:s');
+                }
+
+            } else {
+
+                if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+                    return $value;
+                }
+
+                if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $value)) {
+                    return \Carbon\Carbon::createFromFormat('d/m/Y', $value)
+                        ->format('Y-m-d');
+                }
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        return null;
+    }
 }

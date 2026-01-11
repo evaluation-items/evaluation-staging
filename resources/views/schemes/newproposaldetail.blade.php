@@ -36,6 +36,7 @@
     </div>
   </div>
   <!--end::Subheader-->
+  
   <!--begin::Entry-->
   <div class="d-flex flex-column-fluid">
   <!--begin::Container-->
@@ -43,6 +44,16 @@
       {{-- <div class="card card-custom card-transparent">
           <div class="card-body p-0"> --}}
           <!--begin: Wizard-->
+        {{-- <div class="d-flex justify-content-end mb-3">
+            <a
+                href="{{ route('proposal.final-report.pdf', Crypt::encrypt($proposal_list[0]->draft_id)) }}"
+                class="btn btn-danger"
+                target="_blank"
+            >
+                <i class="fas fa-file-pdf"></i>
+                Download Final Report (PDF)
+            </a>
+        </div> --}}
 
           <div class="wizard wizard-4" id="kt_wizard_v4" data-wizard-state="step-first" data-wizard-clickable="true">
             <div class="card card-custom card-shadowless rounded-top-0">
@@ -344,16 +355,11 @@
                          @if($pval->scheme_objective_file == '')
                             No File
                           @else
-                            @php  
-                              $extension = pathinfo($pval->scheme_objective_file, PATHINFO_EXTENSION);
-                            @endphp
-                            @if($extension == 'pdf')
-                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_objective_file]) }}" target="_blank" title="{{ $pval->scheme_objective_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                              @elseif($extension == 'doc')
-                              <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_objective_file]) }}" download="{{ $pval->scheme_objective_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                @else
-                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_objective_file]) }}" download="{{ $pval->scheme_objective_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                            @endif
+                            <x-file-link
+                              :file="$pval->scheme_objective_file"
+                              :scheme-id="$pval->scheme_id"
+                          />
+
                          @endif
                       </td>
                     </tr>
@@ -793,7 +799,7 @@
     </div>
   </div>
 </div>
-{{-- <script src="{{asset('js/jquery.min.js')}}"></script>
+ <script src="{{asset('js/jquery.min.js')}}"></script>
 <script type="text/javascript">
  $(document).ready(function () {
 
@@ -868,5 +874,5 @@
     }
 });
 
-</script> --}}
+</script> 
 @endsection

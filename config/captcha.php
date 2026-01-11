@@ -53,4 +53,32 @@ return [
     'format' => 'png', // Can be 'jpeg' or 'png'
     'mime' => 'image/png', // Matches the format
 ],
+'clean' => [
+    'length' => 4,
+    'width' => 130,
+    'height' => 40,
+    'quality' => 100,
+
+    // Solid background
+    'bgImage' => false,
+    'bgColor' => '#f4f6f9',
+
+    // Plain text only
+    'fontColors' => ['#000000'],
+    'fontSize' => 22,
+
+    // 🚫 Disable ALL noise sources
+    'drawLines' => false,
+    'drawCurves' => false,
+
+    // 🔥 THESE TWO ARE CRITICAL
+    'lines' => 0,
+    'curves' => 0,
+
+    // 🚫 Disable distortion
+    'angle' => 0,
+    'contrast' => 0,
+    'sharpen' => 0,
+    'blur' => 0,
+],
 ];

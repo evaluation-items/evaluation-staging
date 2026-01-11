@@ -62,13 +62,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <ul class="navbar-nav ml-auto">
     <li class="nav-item d-none d-sm-inline-block">
       <select class="language-select form-control">
-        <option value="en" selected>English</option>
-        <option value="gu">ગુજરાતી</option>
+        <option value="en" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
+            <option value="gu" {{ App::getLocale() == 'gu' ? 'selected' : '' }}>ગુજરાતી</option>
       </select>
     </li>
   </ul>
-
-
   </nav>
   <!-- /.navbar -->
 

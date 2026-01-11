@@ -38,25 +38,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item">
-          <select class="language-select form-control">
-            <option value="en" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
-            <option value="gu" {{ App::getLocale() == 'gu' ? 'selected' : '' }}>ગુજરાતી</option>
-          </select>
-          {{-- <div class="language">
-              <a href="{{ url('lang/en') }}" class="{{(App::getLocale() == 'en') ? 'slected_lanug' : ''}}">English</a>
-              <a href="{{ url('lang/gu') }}" class="{{(App::getLocale() == 'gu') ? 'slected_lanug' : ''}}" >ગુજરાતી</a>
-          </div> --}}
-       </li>
-      <li class="nav-item d-none d-sm-inline-block ml-auto">
-        <a class="nav-link" style="cursor:pointer;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-            {{ __('message.logout') }}
-        </a>
-
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
+        <img src="{{ asset('img/emblem.png') }}" alt="Government Emblem" style="height: 56px;">
+        <div class="logo-text" style="left: 14%;position: relative;margin-top: -19%;"><h1 class="mb-1 fw-bold text-dark" style="font-weight:bold; font-size:1.25rem;">{{ __('message.director_of_evaluation') }}</h1> Directorate of Evaluation  </div>
+      </li>
+        <li class="nav-item d-none d-sm-inline-block ml-auto">
+          
+          <a class="nav-link" style="cursor:pointer;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            {{ __('message.logout') }} 
+            <i class="nav-icon fas fa-power-off text-danger"></i>
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+    <li class="nav-item d-none d-sm-inline-block">
+      <select class="language-select form-control">
+       <option value="en" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
+        <option value="gu" {{ App::getLocale() == 'gu' ? 'selected' : '' }}>ગુજરાતી</option>
+      </select>
+    </li>
+  </ul>
 
 
   </nav>
@@ -71,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> -->
-        <div class="info">
+        <div class="info" style="text-wrap:auto;">
         
            <p><a href="{{ route('dashboard') }}" class="d-block">{{ department_name(Auth::user()->dept_id)}}</a></p> 
         </div>
@@ -97,21 +100,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('proposals', ['param' => 'new']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'new' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-align-justify"></i>
                         <p>  {{ __('message.new_proposals')}}</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('proposals', ['param' => 'forward']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'forward' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.forwarded_proposals')}}</p></a>
+                    <a href="{{ route('proposals', ['param' => 'forward']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'forward' ? 'active' : '' }}"><i class="nav-icon fas fa-fast-forward"></i><p>{{ __('message.forwarded_proposals')}}</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('proposals', ['param' => 'return']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'return' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.proposal_returned_from_gad')}}</p></a>
+                    <a href="{{ route('proposals', ['param' => 'return']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'return' ? 'active' : '' }}"><i class="nav-icon fas fa-fast-backward"></i><p>{{ __('message.proposal_returned_from_gad')}}</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('proposals', ['param' => 'on_going']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'on_going' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.ongoing_evaluation_studies')}}</p></a>
+                    <a href="{{ route('proposals', ['param' => 'on_going']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'on_going' ? 'active' : '' }}"><i class="nav-icon fas fa-tasks"></i><p>{{ __('message.ongoing_evaluation_studies')}}</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{  route('proposals', ['param' => 'completed']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'completed' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.completed_evaluation_studies')}}</p></a>
+                    <a href="{{  route('proposals', ['param' => 'completed']) }}" class="nav-link {{ Route::currentRouteName() == 'proposals' && request()->param == 'completed' ? 'active' : '' }}"><i class="nav-icon fas fa-list"></i><p>{{ __('message.completed_evaluation_studies')}}</p></a>
                 </li>
                 <li class="nav-item">
                     <a href="{{  route('department_hod.index') }}" class="nav-link {{ Route::currentRouteName() == 'department_hod.index' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.hod')}}</p></a>
@@ -172,6 +175,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('js/select2.min.js')}}"></script>
 <!-- REQUIRED SCRIPTS -->
+
+@if(Illuminate\Support\Facades\Route::is('dashboard'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    $('[data-widget="pushmenu"]').PushMenu('toggle');
+});
+</script>
+@endif
 <script>
     $.ajaxSetup({
      headers:{
@@ -182,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $(document).ready(function() {
       $('.dataTable').DataTable();
       $('.content-wrapper').removeAttr('style');
-      $('#welcome-user').modal('show');
+    //  $('#welcome-user').modal('show');
   });
 
   $(document).ready(function () {

@@ -575,7 +575,7 @@
                                                           <tr>
                                                               <td><input type="text" class="form-control" value="{{ $index + 1 }}" disabled></td>
                                                               <td><input type="text" class="form-control hod_officer_name" name="hod_officer_name[]" value="{{ explode(',', $val->hod_officer_name)[$index] ?? '' }}"></td>
-                                                              <td><input type="email" class="form-control email-input hod_email" name="hod_email[]" value="{{ explode(',', $val->hod_email)[$index] ?? '' }}"></td>
+                                                              <td><input type="email" class="form-control email-input-td hod_email" name="hod_email[]" value="{{ explode(',', $val->hod_email)[$index] ?? '' }}"></td>
                                                               <td><input type="text" class="form-control implementing_office_contact" name="implementing_office_contact[]" value="{{ explode(',', $val->implementing_office_contact)[$index] ?? '' }}"></td>
                                                               <td><input type="text" class="form-control hod_mobile" name="hod_mobile[]" value="{{ explode(',', $val->hod_mobile)[$index] ?? '' }}"></td>
                                                               <td><button type="button" class="btn btn-danger btn-sm removeRow">X</button></td>
@@ -1904,7 +1904,7 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
                                 <input type="text" name="hod_officer_name[]" class="form-control hod_officer_name" required>
                             </td>
                             <td>
-                                <input type="email" name="hod_email[]" class="form-control email-input hod_email" required>
+                                <input type="email" name="hod_email[]" class="form-control email-input-td hod_email" required>
                             </td>
                             <td>
                                 <input type="text" name="implementing_office_contact[]" class="form-control implementing_office_contact" maxlength="12" required>
@@ -3879,6 +3879,29 @@ $(document).on('input', '.email-input', function () {
 
     toggleNextButton(); // 👈 ADD THIS
 });
+$(document).on('blur', '.email-input-td', function () {
+    let value = this.value.trim();
+    let $this = $(this);
+    let $td = $this.closest('td');
+
+    // remove old error
+    $td.find('.email-error').remove();
+
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    if (value !== '' && !emailRegex.test(value)) {
+        $this.addClass('is-invalid');
+
+        $this.after(
+            '<div class="text-danger email-error">Please enter a valid email address</div>'
+        );
+    } else {
+        $this.removeClass('is-invalid');
+    }
+
+    toggleNextButton();
+});
+
 </script>
 
 

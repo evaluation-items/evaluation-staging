@@ -1571,7 +1571,7 @@ class GadsecController extends Controller {
             $data['created_by'] = Auth::user()->name;
             $data['dept_id'] = $dept_id;
             $data['remarks'] = $request->remarks;
-            $data['evaluation_sent_date'] = date('Y-m-d h:i:s');
+            $data['evaluation_sent_date'] = date('Y-m-d');
             $data['forward_btn_show'] = 1;
             $data['forward_id'] = 1;
             $approved_by = '1';
@@ -1587,14 +1587,14 @@ class GadsecController extends Controller {
                 SchemeSend::where('draft_id',$d_id)->update(['forward_btn_show'=>1]);
             
             } else {
-                return redirect()->back()->withError('Sending Proposal is failed');
+                return redirect()->back()->withError('Sending Proposal is failed something went wrong!');
             }
             if($update){
                 $update->update($data);
             }else{
                 SchemeSend::insert($data);
             }
-            return redirect()->back()->withSuccess('Proposal sent successfully to Evalution Diector');
+            return redirect()->back()->withSuccess('Proposal sent successfully to Evalution Department.');
 
        }
     }
@@ -1654,7 +1654,7 @@ class GadsecController extends Controller {
             $data['dept_id'] = $dept_id;
             $data['forward_id'] = 1;
             $data['forward_btn_show'] = 1;
-            $data['evaluation_sent_date'] = date('Y-m-d H:i:s');
+            $data['evaluation_sent_date'] = date('Y-m-d');
             $data['remarks'] = $request->remarks;
             $s_id = '28';
             unset($data['_token']);
