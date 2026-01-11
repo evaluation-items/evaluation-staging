@@ -29,30 +29,33 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-       <li class="nav-item">
-          <select class="language-select form-control">
-            <option value="en" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
-            <option value="gu" {{ App::getLocale() == 'gu' ? 'selected' : '' }}>ગુજરાતી</option>
-          </select>
-       </li>
-      <li class="nav-item d-sm-inline-block ml-auto">
-        <!-- <a class="nav-link" style="cursor:pointer;" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> -->
-        <!-- <a class="nav-link" style="cursor:pointer;" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> -->
-            <!-- {{ __('message.logout') }} -->
-        <!-- </a> -->
-
-        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-          {{ __('message.logout') }}
-        </a>        
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
+      <li class="nav-item">
+        <img src="{{ asset('img/emblem.png') }}" alt="Government Emblem" style="height: 56px;">
+        <div class="logo-text" style="left: 14%;position: relative;margin-top: -19%;"><h1 class="mb-1 fw-bold text-dark" style="font-weight:bold; font-size:1.25rem;">{{ __('message.director_of_evaluation') }}</h1> Directorate of Evaluation  </div>
+      </li>
+        <li class="nav-item d-none d-sm-inline-block ml-auto">
+          
+          <a class="nav-link" style="cursor:pointer;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            {{ __('message.logout') }} 
+            <i class="nav-icon fas fa-power-off text-danger"></i>
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+    <li class="nav-item d-none d-sm-inline-block">
+      <select class="language-select form-control">
+        <option value="en" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
+            <option value="gu" {{ App::getLocale() == 'gu' ? 'selected' : '' }}>ગુજરાતી</option>
+      </select>
+    </li>
+  </ul>
 
   </nav>
   <!-- /.navbar -->

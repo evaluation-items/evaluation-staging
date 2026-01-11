@@ -9,10 +9,46 @@
   $dept_name =  department_name($user_dept_id);
 @endphp
 <style>
-    .info-box{
+/* Dashboard Info Box FIX */
+.info-box {
+    min-height: 120px !important;
+    display: flex !important;
+    align-items: stretch !important;
+    background-color: bisque;
+}
+
+.info-box-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.info-box-content {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.info-box-text {
+    white-space: normal !important;
+    word-break: break-word !important;
+    line-height: 1.3 !important;
+    font-size: 15px !important;
+    max-height: 42px !important;
+    overflow: hidden !important;
+}
+
+.info-box-number {
+    margin-top: 6px !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+
+    /* .info-box{
         background-color: bisque;
         font-size: 18px;
-    }
+    } */
     .content-wrapper{
       background-image: url("{{asset('img/2.jpg')}}");
     }
@@ -34,7 +70,7 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-info elevation-1"><i class="fas fa-align-justify"></i></span>
                     <div class="info-box-content">
-                        <a href="{{ route('gadsec.proposal', ['param' => 'new']) }}" > <span class="info-box-text" style="text-wrap: auto;">{{ __('message.no_of_new_proposals')}} Receive from Concern Department</span></a>
+                        <a href="{{ route('gadsec.proposal', ['param' => 'new']) }}" > <span class="info-box-text">{{ __('message.no_of_new_proposals')}} Receive from Concern Department</span></a>
                         <span class="info-box-number">
                             {{$new_count}}
                         </span>
@@ -61,7 +97,7 @@
                 <div class="info-box mb-3">
                     <span class="info-box-icon bg-orange elevation-1"><i class="fas fa-fast-backward"></i></span>
                     <div class="info-box-content">
-                        <a href="{{ route('gadsec.proposal', ['param' => 'return']) }}" > <span class="info-box-text" style="text-wrap: auto;">{{ __('message.no_of_returned_proposals')}} to Concern Department</span></a>
+                        <a href="{{ route('gadsec.proposal', ['param' => 'return']) }}" > <span class="info-box-text" >{{ __('message.no_of_returned_proposals')}} to Concern Department</span></a>
                         <span class="info-box-number">{{$return_count}}</span>
                     </div>
                 </div>
@@ -131,7 +167,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </section>
 
 {{-- <section class="content">

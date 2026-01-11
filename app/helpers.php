@@ -295,7 +295,7 @@ if (!function_exists('is_gujarati')) {
       if (!is_null($stage_id)) {
         $stage = App\Models\Stage::find($stage_id);
     
-        $fields = [
+         $fields = [
             'requisition' => 'Requisition',
             'scheme_hod_date' => 'Additional information / data of the scheme is sought to Implementing Office (HOD)',
             'study_design_date' => 'Study Design and Schedule Preparation',
@@ -311,9 +311,9 @@ if (!function_exists('is_gujarati')) {
             'report_sent_hod_date' => 'Draft Report sent to Implementing Office (HOD) for inputs',
             'report_draft_hod_date' => 'Inputs on Draft Report received from Implementing Office (HOD)',
             'report_draft_sent_hod_date' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
-            'dept_eval_committee_datetime' => 'Date of Departmental Evaluation Committee (DEC)',
+            'dept_eval_committee_datetime' => 'Departmental Evaluation Committee (DEC)',
             'draft_sent_eval_committee_date' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
-            'eval_cor_date' => 'Date of Evaluation Coordination Committee (ECC)',
+            'eval_cor_date' => 'Evaluation Coordination Committee (ECC)',
             'final_report' => 'Published',
             'dropped' => 'Dropped'
         ];
@@ -352,9 +352,9 @@ if (!function_exists('is_gujarati')) {
         'report_sent_hod_date' => 'Draft Report sent to Implementing Office (HOD) for inputs',
         'report_draft_hod_date' => 'Inputs on Draft Report received from Implementing Office (HOD)',
         'report_draft_sent_hod_date' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
-        'dept_eval_committee_datetime' => 'Date of Departmental Evaluation Committee (DEC)',
+        'dept_eval_committee_datetime' => 'Departmental Evaluation Committee (DEC)',
         'draft_sent_eval_committee_date' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
-        'eval_cor_date' => 'Date of Evaluation Coordination Committee (ECC)',
+        'eval_cor_date' => 'Evaluation Coordination Committee (ECC)',
         'final_report' => 'Published',
         'dropped' => 'Dropped'
     ];
@@ -807,5 +807,42 @@ function current_stage_key($stage_id) {
     }
     return $count;
    }
-   
+   function implementingOfc($scheme_id)
+    {
+     
+          $value = App\Models\Scheme::where('scheme_id', $scheme_id)
+        ->value('implementing_office');
+
+            if (!$value) {
+                return '';
+            }
+
+            $list = array_map('trim', explode(',', $value));
+
+            if (is_numeric($list[0])) {
+                $names = App\Models\DepartmentHod::whereIn('id', $list)
+                    ->pluck('name')
+                    ->toArray();
+            } else {
+                $names = $list;
+            }
+
+            // ✅ Convert array to string
+            return implode(', ', $names);
+    }
+    function completedStudy($date) {
+
+        $date = \Carbon\Carbon::parse($date);
+
+        // If date is before April → previous FY completed
+        if ($date->month < 4) {
+            $startYear = $date->year - 2;
+            $endYear   = $date->year - 1;
+        } else {
+            $startYear = $date->year - 1;
+            $endYear   = $date->year;
+        }
+
+        return $startYear . '-' . substr($endYear, -2);
+    }
 ?>
