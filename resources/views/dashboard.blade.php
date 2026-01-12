@@ -277,17 +277,17 @@
           pointHighlightStroke: 'rgba(60,141,188,1)',
         //  data                : [28, 48, 40, 19, 86, 27, 90]
         },
-        {
-          label               : earlyLabel, //grey
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
+       // {
+        //   label               : earlyLabel, //grey
+        //   backgroundColor     : 'rgba(210, 214, 222, 1)',
+        //   borderColor         : 'rgba(210, 214, 222, 1)',
+        //   pointRadius         : false,
+        //   pointColor          : 'rgba(210, 214, 222, 1)',
+        //   pointStrokeColor    : '#c1c7d1',
+        //   pointHighlightFill  : '#fff',
+        //   pointHighlightStroke: 'rgba(220,220,220,1)',
        //   data                : [65, 59, 80, 81, 56, 55, 40]
-        },
+        //},
       ]
     }
    
@@ -412,20 +412,20 @@ function withoutOnchange(){
                         data['dropped_delay']
                     ];
 
-                    barChart.data.datasets[1].data = [
-                        data['requisition'],
-                        data['study_design_date'],
-                        data['study_design_receive_hod_date'],
-                        data['polot_study_date'],
-                        data['field_survey_startdate'],
-                        data['data_entry_level_start'],
-                        data['report_startdate'],
-                        data['report_draft_hod_date'],
-                        data['dept_eval_committee_datetime'],
-                        data['eval_cor_date'],
-                        data['final_report'],
-                        data['dropped']
-                    ];
+                    // barChart.data.datasets[1].data = [
+                    //     data['requisition'],
+                    //     data['study_design_date'],
+                    //     data['study_design_receive_hod_date'],
+                    //     data['polot_study_date'],
+                    //     data['field_survey_startdate'],
+                    //     data['data_entry_level_start'],
+                    //     data['report_startdate'],
+                    //     data['report_draft_hod_date'],
+                    //     data['dept_eval_committee_datetime'],
+                    //     data['eval_cor_date'],
+                    //     data['final_report'],
+                    //     data['dropped']
+                    // ];
 
                     // Update the chart
                     barChart.update();
@@ -469,20 +469,20 @@ $('#scheme_list').on('change', function () {
                         data['dropped_delay']
                     ];
 
-                    barChart.data.datasets[1].data = [
-                        data['requisition'],
-                        data['study_design_date'],
-                        data['study_design_receive_hod_date'],
-                        data['polot_study_date'],
-                        data['field_survey_startdate'],
-                        data['data_entry_level_start'],
-                        data['report_startdate'],
-                        data['report_draft_hod_date'],
-                        data['dept_eval_committee_datetime'],
-                        data['eval_cor_date'],
-                        data['final_report'],
-                        data['dropped']
-                    ];
+                    // barChart.data.datasets[1].data = [
+                    //     data['requisition'],
+                    //     data['study_design_date'],
+                    //     data['study_design_receive_hod_date'],
+                    //     data['polot_study_date'],
+                    //     data['field_survey_startdate'],
+                    //     data['data_entry_level_start'],
+                    //     data['report_startdate'],
+                    //     data['report_draft_hod_date'],
+                    //     data['dept_eval_committee_datetime'],
+                    //     data['eval_cor_date'],
+                    //     data['final_report'],
+                    //     data['dropped']
+                    // ];
 
                     // Update the chart
                     barChart.update();

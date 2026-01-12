@@ -913,13 +913,13 @@ class StageController extends Controller
             $get_count = [
                 'requisition' => 0, //1
             //    'requisition_delay' => 0,
-                'study_design_date' => 0, //2
+               // 'study_design_date' => 0, //2
             //    'study_design_date_delay' => 0,
                 'study_design_receive_hod_date' => 0, //3
             //    'study_design_receive_hod_date_delay' => 0,
-                'polot_study_date' => 0, //4
+             //   'polot_study_date' => 0, //4
              //   'polot_study_date_delay' => 0,
-                'field_survey_startdate' => 0, //5
+             //   'field_survey_startdate' => 0, //5
             //    'field_survey_startdate_delay' => 0,
                 'data_entry_level_start' => 0, //6
              //   'data_entry_level_start_delay' => 0,
@@ -927,13 +927,13 @@ class StageController extends Controller
              //   'report_startdate_delay' => 0,
                 'report_draft_hod_date' => 0, //8
             //    'report_draft_hod_date_delay' => 0,
-                'dept_eval_committee_datetime' => 0, //9
+              //  'dept_eval_committee_datetime' => 0, //9
              //   'dept_eval_committee_datetime_delay' => 0,
-                'eval_cor_date' => 0, //10
+             //   'eval_cor_date' => 0, //10
              //   'eval_cor_date_delay' => 0,
-                'final_report'=> 0, //11
+             //   'final_report'=> 0, //11
              //   'final_report_delay' => 0,
-                'dropped' => 0, //12
+           //     'dropped' => 0, //12
              //   'dropped_delay' => 0
 
             ];
@@ -951,16 +951,16 @@ class StageController extends Controller
                                         });
                     $get_count['requisition'] += round($diffInDays);
                     
-                    $delayCount = Stage::where('draft_id', $proposal_data->draft_id)
-                                ->whereNotNull('requisition')
-                                ->where('requisition', '>', $endDate)
-                                ->get()
-                                ->sum(function ($stage) use ($endDate) {
-                                    $diff = Carbon::parse($stage->requisition)->diffInDays($endDate);
-                                    return max(0, $diff); 
-                                });
+                    // $delayCount = Stage::where('draft_id', $proposal_data->draft_id)
+                    //             ->whereNotNull('requisition')
+                    //             ->where('requisition', '>', $endDate)
+                    //             ->get()
+                    //             ->sum(function ($stage) use ($endDate) {
+                    //                 $diff = Carbon::parse($stage->requisition)->diffInDays($endDate);
+                    //                 return max(0, $diff); 
+                    //             });
                     
-                    $get_count['requisition_delay'] += round($delayCount);
+                   // $get_count['requisition_delay'] += round($delayCount);
 
                     //Study Design Date --> Preparation of study design and questioner
                     $StudyendDate = Carbon::parse($stages_item->requisition)->addMonths(1);
@@ -975,15 +975,15 @@ class StageController extends Controller
                    
                     $get_count['study_design_date'] += round($diffInDays1);
                     
-                    $delayCount1 = Stage::where('draft_id', $proposal_data->draft_id)
-                        ->whereNotNull('study_design_date')
-                        ->where('study_design_date', '>', $StudyendDate)
-                        ->get()
-                        ->sum(function ($stage) use ($StudyendDate) {
-                            return max(0, Carbon::parse($stage->study_design_date)->diffInDays($StudyendDate));
-                        });
+                    // $delayCount1 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //     ->whereNotNull('study_design_date')
+                    //     ->where('study_design_date', '>', $StudyendDate)
+                    //     ->get()
+                    //     ->sum(function ($stage) use ($StudyendDate) {
+                    //         return max(0, Carbon::parse($stage->study_design_date)->diffInDays($StudyendDate));
+                    //     });
                     
-                    $get_count['study_design_date_delay'] += round($delayCount1);
+                    // $get_count['study_design_date_delay'] += round($delayCount1);
 
                      //Approval from concern department -->Inputs on Study Design and Survey Forms received from Implementing Office (HOD)
                      $StudyrecendDate = Carbon::parse($stages_item->study_design_date)->addMonths(1);
@@ -998,15 +998,15 @@ class StageController extends Controller
                      
                      $get_count['study_design_receive_hod_date'] += round($diffInDays2);
                      
-                     $delayCount2 = Stage::where('draft_id', $proposal_data->draft_id)
-                         ->whereNotNull('study_design_receive_hod_date')
-                         ->where('study_design_receive_hod_date', '>', $StudyrecendDate)
-                         ->get()
-                         ->sum(function ($stage) use ($StudyrecendDate) {
-                             return max(0, Carbon::parse($stage->study_design_receive_hod_date)->diffInDays($StudyrecendDate));
-                         });
+                    // $delayCount2 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //      ->whereNotNull('study_design_receive_hod_date')
+                    //      ->where('study_design_receive_hod_date', '>', $StudyrecendDate)
+                    //      ->get()
+                    //      ->sum(function ($stage) use ($StudyrecendDate) {
+                    //          return max(0, Carbon::parse($stage->study_design_receive_hod_date)->diffInDays($StudyrecendDate));
+                    //      });
                      
-                     $get_count['study_design_receive_hod_date_delay'] += round($delayCount2);
+                    //  $get_count['study_design_receive_hod_date_delay'] += round($delayCount2);
 
                     //Pilot Study Date --> Pilot study and Digitization of Survey Forms Completed
                     $endDate4 = Carbon::parse($stages_item->study_design_receive_hod_date)->addDays(10);
@@ -1022,16 +1022,16 @@ class StageController extends Controller
                     
                     $get_count['polot_study_date'] += round($diffInDays3);
                     
-                    $delayCount3 = Stage::where('draft_id', $proposal_data->draft_id)
-                            ->whereNotNull('polot_study_date')
-                            ->where('polot_study_date', '>', $endDate4)
-                            ->get()
-                            ->sum(function ($stage) use ($endDate4) {
-                                $diff = Carbon::parse($stage->polot_study_date)->diffInDays($endDate4);
-                                return max(0, $diff); // Return 0 if the difference is negative
-                            });
+                    // $delayCount3 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //         ->whereNotNull('polot_study_date')
+                    //         ->where('polot_study_date', '>', $endDate4)
+                    //         ->get()
+                    //         ->sum(function ($stage) use ($endDate4) {
+                    //             $diff = Carbon::parse($stage->polot_study_date)->diffInDays($endDate4);
+                    //             return max(0, $diff); // Return 0 if the difference is negative
+                    //         });
                     
-                    $get_count['polot_study_date_delay'] += round($delayCount3);
+                    // $get_count['polot_study_date_delay'] += round($delayCount3);
 
                     //Filed Work --> Field Survey starts
                     $endDate3 = Carbon::parse($stages_item->polot_study_date)->addMonths(2);
@@ -1047,16 +1047,16 @@ class StageController extends Controller
                 
                     $get_count['field_survey_startdate'] += round($diffInDays4);
                     
-                    $delayCount4 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('field_survey_startdate')
-                                        ->where('field_survey_startdate', '>', $endDate3)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate3) {
-                                            $diff = Carbon::parse($stage->field_survey_startdate)->diffInDays($endDate3);
-                                            return max(0, $diff); // Return 0 if the difference is negative
-                                        });
+                    // $delayCount4 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('field_survey_startdate')
+                    //                     ->where('field_survey_startdate', '>', $endDate3)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate3) {
+                    //                         $diff = Carbon::parse($stage->field_survey_startdate)->diffInDays($endDate3);
+                    //                         return max(0, $diff); // Return 0 if the difference is negative
+                    //                     });
                     
-                    $get_count['field_survey_startdate_delay'] += round($delayCount4);
+                    // $get_count['field_survey_startdate_delay'] += round($delayCount4);
                     
                     //Data scrutiny, entry/Validation --> Data Entry Level Start
                     $endDate5 = Carbon::parse($stages_item->field_survey_startdate)->addDays(45);
@@ -1072,16 +1072,16 @@ class StageController extends Controller
                 
                     $get_count['data_entry_level_start'] += round($diffInDays5);
                     
-                    $delayCount5 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('data_entry_level_start')
-                                        ->where('data_entry_level_start', '>', $endDate5)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate5) {
-                                            $diff = Carbon::parse($stage->data_entry_level_start)->diffInDays($endDate5);
-                                            return max(0, $diff); // Return 0 if the difference is negative
-                                        });
+                    // $delayCount5 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('data_entry_level_start')
+                    //                     ->where('data_entry_level_start', '>', $endDate5)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate5) {
+                    //                         $diff = Carbon::parse($stage->data_entry_level_start)->diffInDays($endDate5);
+                    //                         return max(0, $diff); // Return 0 if the difference is negative
+                    //                     });
                     
-                    $get_count['data_entry_level_start_delay'] += round($delayCount5);
+                    // $get_count['data_entry_level_start_delay'] += round($delayCount5);
 
                    //Report writing --> Report writing starts
                     $endDate6 = Carbon::parse($stages_item->data_entry_level_start)->addDays(25);
@@ -1097,16 +1097,16 @@ class StageController extends Controller
                 
                     $get_count['report_startdate'] += round($diffInDays6);
                     
-                    $delayCount6 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('report_startdate')
-                                        ->where('report_startdate', '>', $endDate6)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate6) {
-                                            $diff = Carbon::parse($stage->report_startdate)->diffInDays($endDate6);
-                                            return max(0, $diff); // Return 0 if the difference is negative
-                                        });
+                    // $delayCount6 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('report_startdate')
+                    //                     ->where('report_startdate', '>', $endDate6)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate6) {
+                    //                         $diff = Carbon::parse($stage->report_startdate)->diffInDays($endDate6);
+                    //                         return max(0, $diff); // Return 0 if the difference is negative
+                    //                     });
                     
-                    $get_count['report_startdate_delay'] += round($delayCount6);
+                    // $get_count['report_startdate_delay'] += round($delayCount6);
 
                     //Suggestion of concern department on report --> Inputs on Draft Report received from Implementing Office (HOD)
                     $endDate7 = Carbon::parse($stages_item->report_startdate)->addDays(15);
@@ -1122,16 +1122,16 @@ class StageController extends Controller
                 
                     $get_count['report_draft_hod_date'] += round($diffInDays7);
                     
-                    $delayCount7 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('report_draft_hod_date')
-                                        ->where('report_draft_hod_date', '>', $endDate7)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate7) {
-                                            $diff = Carbon::parse($stage->report_draft_hod_date)->diffInDays($endDate7);
-                                            return max(0, $diff); // Return 0 if the difference is negative
-                                        });
+                    // $delayCount7 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('report_draft_hod_date')
+                    //                     ->where('report_draft_hod_date', '>', $endDate7)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate7) {
+                    //                         $diff = Carbon::parse($stage->report_draft_hod_date)->diffInDays($endDate7);
+                    //                         return max(0, $diff); // Return 0 if the difference is negative
+                    //                     });
                     
-                    $get_count['report_draft_hod_date_delay'] += round($delayCount7);
+                    // $get_count['report_draft_hod_date_delay'] += round($delayCount7);
 
                     //DEC meeting level
                     $endDate8 = Carbon::parse($stages_item->report_draft_hod_date)->addMonth(1);
@@ -1146,16 +1146,16 @@ class StageController extends Controller
 
                     $get_count['dept_eval_committee_datetime'] += round($diffInDays8);
                         
-                    $delayCount8 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('dept_eval_committee_datetime')
-                                        ->where('dept_eval_committee_datetime', '>', $endDate8)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate8) {
-                                            $diff = Carbon::parse($stage->dept_eval_committee_datetime)->diffInDays($endDate8);
-                                            return max(0, $diff); // Return 0 if the difference is negative
-                                        });
+                    // $delayCount8 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('dept_eval_committee_datetime')
+                    //                     ->where('dept_eval_committee_datetime', '>', $endDate8)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate8) {
+                    //                         $diff = Carbon::parse($stage->dept_eval_committee_datetime)->diffInDays($endDate8);
+                    //                         return max(0, $diff); // Return 0 if the difference is negative
+                    //                     });
                     
-                    $get_count['dept_eval_committee_datetime_delay'] += round($delayCount8);
+                    // $get_count['dept_eval_committee_datetime_delay'] += round($delayCount8);
                    
                      //ECC meeting level
                      $endDate9 = Carbon::parse($stages_item->dept_eval_committee_datetime)->addMonth(1);
@@ -1170,16 +1170,16 @@ class StageController extends Controller
      
                      $get_count['eval_cor_date'] += round($diffInDays9);
                     
-                    $delayCount9 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('eval_cor_date')
-                                        ->where('eval_cor_date', '>', $endDate9)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate9) {
-                                            $diff = Carbon::parse($stage->eval_cor_date)->diffInDays($endDate9);
-                                            return max(0, $diff); 
-                                        });
+                    // $delayCount9 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('eval_cor_date')
+                    //                     ->where('eval_cor_date', '>', $endDate9)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate9) {
+                    //                         $diff = Carbon::parse($stage->eval_cor_date)->diffInDays($endDate9);
+                    //                         return max(0, $diff); 
+                    //                     });
                     
-                    $get_count['eval_cor_date_delay'] += round($delayCount9);
+                    // $get_count['eval_cor_date_delay'] += round($delayCount9);
 
                      //Published
                      $endDate10 = Carbon::parse($stages_item->eval_cor_date)->addMonth(1);
@@ -1194,16 +1194,16 @@ class StageController extends Controller
     
                     $get_count['final_report'] += round($diffInDays10);
                     
-                    $delayCount10 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('final_report')
-                                        ->where('final_report', '>', $endDate10)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate10) {
-                                            $diff = Carbon::parse($stage->final_report)->diffInDays($endDate10);
-                                            return max(0, $diff); 
-                                        });
+                    // $delayCount10 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('final_report')
+                    //                     ->where('final_report', '>', $endDate10)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate10) {
+                    //                         $diff = Carbon::parse($stage->final_report)->diffInDays($endDate10);
+                    //                         return max(0, $diff); 
+                    //                     });
                     
-                    $get_count['final_report_delay'] += round($delayCount10);
+                    // $get_count['final_report_delay'] += round($delayCount10);
 
                     //Dropped
                     $endDate11 = Carbon::parse($stages_item->final_report)->addMonth(1);
@@ -1218,16 +1218,16 @@ class StageController extends Controller
 
                     $get_count['dropped'] += round($diffInDays11);
                     
-                    $delayCount11 = Stage::where('draft_id', $proposal_data->draft_id)
-                                        ->whereNotNull('dropped')
-                                        ->where('dropped', '>', $endDate11)
-                                        ->get()
-                                        ->sum(function ($stage) use ($endDate11) {
-                                            $diff = Carbon::parse($stage->dropped)->diffInDays($endDate11);
-                                            return max(0, $diff); 
-                                        });
+                    // $delayCount11 = Stage::where('draft_id', $proposal_data->draft_id)
+                    //                     ->whereNotNull('dropped')
+                    //                     ->where('dropped', '>', $endDate11)
+                    //                     ->get()
+                    //                     ->sum(function ($stage) use ($endDate11) {
+                    //                         $diff = Carbon::parse($stage->dropped)->diffInDays($endDate11);
+                    //                         return max(0, $diff); 
+                    //                     });
                     
-                    $get_count['dropped_delay'] += round($delayCount11);
+                    // $get_count['dropped_delay'] += round($delayCount11);
             
             }
             return response()->json($get_count);

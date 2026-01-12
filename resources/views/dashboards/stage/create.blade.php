@@ -188,59 +188,59 @@
                                     <div class="col-xl-1 hide_span">
                                             <input type="text"  class="btn show-all-rows btn-info pattern" value="Add" style="width: 55%; height: 50%;margin-top: 7px;">
                                     </div>
-                                </div>
-
-                                <div class="row auto-increment" id="text_item_">
-                                    <div class="col-xl-4 col-md-4">
-                                        <label class="custom-label-name col-form-label">{{ __('message.study_entrusted') }}:</label>
+                            </div>
+                            <div class="row auto-increment" id="text_item_">
+                                <div class="col-xl-4 col-md-4">
+                                    <div class="form-group">
+                                       <label class="custom-label-name col-form-label"> {{ __('message.requistion_sent_hod')}}:</label>
                                     </div>
-
-                                    <div class="col-xl-8 col-md-8">
-                                        <div class="row">
-                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                                                <div class="form-group">
-                                                    <input type="text" id="study_entrusted" value="{{ old('study_entrusted', (isset($stages) && !empty($stages->study_entrusted)) ? Carbon::Parse($stages->study_entrusted)->format('Y-m-d') : "" ) }}" name="study_entrusted" class="form-control datepicker checkVal disbleTxt pattern" placeholder="Date">
-                                                </div>
+                                </div>
+                                <div class="col-xl-8 col-md-8">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                                            <div class="form-group"> 
+                                                <input type="text" id="requistion_sent_hod" value="{{ old('requistion_sent_hod', (isset($stages) && !empty($stages->requistion_sent_hod)) 
+                                                    ? Carbon::parse($stages->requistion_sent_hod)->format('Y-m-d') 
+                                                    : "" ) }}" name="requistion_sent_hod" class="form-control datepicker checkVal disbleTxt pattern">
                                             </div>
-
-                                            <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
-                                                <div class="form-group">
-                                                    <textarea id="study_entrusted_text" name="study_entrusted_text" class="pattern form-control checkVal disbleTxt text-area-item" maxlength="250" placeholder="Details">{{ (isset($stages) ? $stages->study_entrusted_text : "" ) }}</textarea>
-                                                </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
+                                            <div class="form-group">
+                                                <textarea id="requistion_sent_hod_text" name="requistion_sent_hod_text"  class="form-control checkVal disbleTxt pattern text-area-item" maxlength="250">{{ (isset($stages) ? $stages->requistion_sent_hod_text : "" ) }}</textarea>
                                             </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="file-input-group form-group">
+                                                <div class="custom-file">
+                                                    <input type="file" id="requistion_sent_hod_file" name="requistion_sent_hod_file" class="custom-file-input checkVal disbleTxt pattern">
+                                                    <label class="custom-file-label" for="requistion_sent_hod_file">Choose file</label>
 
-                                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="file-input-group form-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" id="study_entrusted_file" name="study_entrusted_file" class="custom-file-input checkVal disbleTxt pattern">
-                                                        <label class="custom-file-label" for="study_entrusted_file">Choose file</label>
-                                                            @if($stages->study_entrusted_file)
-                                                                    <div class="form-group">
-                                                                        {{-- <a href="{{ $replace_url }}/get_the_file/{{ $data->scheme_id }}/_beneficiaries_coverage" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
-                                                                        @php
-                                                                            $extension = pathinfo($stages->study_entrusted_file, PATHINFO_EXTENSION);
-                                                                        @endphp
-                                                                        @if($extension == 'pdf')
-                                                                            <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->study_entrusted_file]) }}" target="_blank" title="{{ $stages->study_entrusted_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                                            @elseif ($extension == 'doc')
-                                                                            <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->study_entrusted_file]) }}" download="{{ $stages->study_entrusted_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+                                                    @if($stages->requistion_sent_hod_file)
+                                                        <div class="form-group">
+                                        
+                                                            @php
+                                                                $extension = pathinfo($stages->requistion_sent_hod_file, PATHINFO_EXTENSION);
+                                                            @endphp
+                                                            @if($extension == 'pdf')
+                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->requistion_sent_hod_file]) }}" target="_blank" title="{{ $stages->requistion_sent_hod_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
+                                                                @elseif ($extension == 'doc')
+                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->requistion_sent_hod_file]) }}" download="{{ $stages->requistion_sent_hod_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
 
-                                                                            @else
-                                                                            <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->study_entrusted_file]) }}" download="{{ $stages->study_entrusted_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                                        @endif
-                                                                    </div>
+                                                                @else
+                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->requistion_sent_hod_file]) }}" download="{{ $stages->requistion_sent_hod_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                                                             @endif
-                                                    </div>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                            <div class="row auto-increment" id="text_item_">
+                            </div>
+                             <div class="row auto-increment" id="text_item_">
                                 <div class="col-xl-4 col-md-4">
                                     <div class="form-group">
-                                       <label class="custom-label-name col-form-label">{{ trans('message.chart_labels')[0] }}:</label>
+                                       <label class="custom-label-name col-form-label">{{ __('message.requistion_date')}}:</label>
                                     </div>
                                 </div>
                                  <div class="col-xl-8 col-md-8">
@@ -283,54 +283,8 @@
                                     </div>
                                  </div>
                             </div>
-
-                            <div class="row auto-increment" id="text_item_">
-                                <div class="col-xl-4 col-md-4">
-                                    <div class="form-group">
-                                       <label class="custom-label-name col-form-label"> {{ __('message.requistion_sent_hod')}}:</label>
-                                    </div>
-                                </div>
-                                <div class="col-xl-8 col-md-8">
-                                    <div class="row">
-                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                                            <div class="form-group"> 
-                                                <input type="text" id="requistion_sent_hod" value="{{ old('requistion_sent_hod', (isset($stages) && !empty($stages->requistion_sent_hod)) ? Carbon::Parse($stages->requistion_sent_hod)->format('Y-m-d'): "" ) }}" name="requistion_sent_hod" class="form-control datepicker checkVal disbleTxt pattern">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
-                                            <div class="form-group">
-                                                <textarea id="requistion_sent_hod_text" name="requistion_sent_hod_text"  class="form-control checkVal disbleTxt pattern text-area-item" maxlength="250">{{ (isset($stages) ? $stages->requistion_sent_hod_text : "" ) }}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                            <div class="file-input-group form-group">
-                                                <div class="custom-file">
-                                                    <input type="file" id="requistion_sent_hod_file" name="requistion_sent_hod_file" class="custom-file-input checkVal disbleTxt pattern">
-                                                    <label class="custom-file-label" for="requistion_sent_hod_file">Choose file</label>
-
-                                                    @if($stages->requistion_sent_hod_file)
-                                                        <div class="form-group">
-                                        
-                                                            @php
-                                                                $extension = pathinfo($stages->requistion_sent_hod_file, PATHINFO_EXTENSION);
-                                                            @endphp
-                                                            @if($extension == 'pdf')
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->requistion_sent_hod_file]) }}" target="_blank" title="{{ $stages->requistion_sent_hod_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                                @elseif ($extension == 'doc')
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->requistion_sent_hod_file]) }}" download="{{ $stages->requistion_sent_hod_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-
-                                                                @else
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->requistion_sent_hod_file]) }}" download="{{ $stages->requistion_sent_hod_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                            @endif
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            
+                           
                             <div class="row auto-increment" id="text_item_">
                                 <div class="col-xl-4 col-md-4">
                                     <div class="form-group">
@@ -469,6 +423,52 @@
                                 </div>
                             </div>
 
+                            <div class="row auto-increment" id="text_item_">
+                                    <div class="col-xl-4 col-md-4">
+                                        <label class="custom-label-name col-form-label">{{ __('message.study_design_sent_concern_department') }}:</label>
+                                    </div>
+
+                                    <div class="col-xl-8 col-md-8">
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" id="study_entrusted" value="{{ old('study_entrusted', (isset($stages) && !empty($stages->study_entrusted)) ? Carbon::Parse($stages->study_entrusted)->format('Y-m-d') : "" ) }}" name="study_entrusted" class="form-control datepicker checkVal disbleTxt pattern" placeholder="Date">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
+                                                <div class="form-group">
+                                                    <textarea id="study_entrusted_text" name="study_entrusted_text" class="pattern form-control checkVal disbleTxt text-area-item" maxlength="250" placeholder="Details">{{ (isset($stages) ? $stages->study_entrusted_text : "" ) }}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                                                <div class="file-input-group form-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" id="study_entrusted_file" name="study_entrusted_file" class="custom-file-input checkVal disbleTxt pattern">
+                                                        <label class="custom-file-label" for="study_entrusted_file">Choose file</label>
+                                                            @if($stages->study_entrusted_file)
+                                                                    <div class="form-group">
+                                                                        {{-- <a href="{{ $replace_url }}/get_the_file/{{ $data->scheme_id }}/_beneficiaries_coverage" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
+                                                                        @php
+                                                                            $extension = pathinfo($stages->study_entrusted_file, PATHINFO_EXTENSION);
+                                                                        @endphp
+                                                                        @if($extension == 'pdf')
+                                                                            <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->study_entrusted_file]) }}" target="_blank" title="{{ $stages->study_entrusted_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
+                                                                            @elseif ($extension == 'doc')
+                                                                            <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->study_entrusted_file]) }}" download="{{ $stages->study_entrusted_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+
+                                                                            @else
+                                                                            <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->study_entrusted_file]) }}" download="{{ $stages->study_entrusted_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                                                                        @endif
+                                                                    </div>
+                                                            @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
                             <div class="row auto-increment" id="text_item_">
                                 <div class="col-xl-4 col-md-4">
                                     <div class="form-group">
