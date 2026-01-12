@@ -466,7 +466,7 @@ return [
     'report_end' => 'Report writing end',
     'draft_report' => 'Draft Report sent to Implementing Office (HOD) for inputs ',
     'input_draft_report' => 'Inputs on Draft Report received from Implementing Office (HOD)',
-    'draft_report_send' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
+    'draft_report_send' => 'Draft Report sent for Department of Evaluation Committee (DEC)',
     'minutes_meeting_dec' => 'Minutes of Meeting from DEC Received',
     'date_department' => 'Departmental Evaluation Committee (DEC) ',
     'draft_report_send_eval' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',

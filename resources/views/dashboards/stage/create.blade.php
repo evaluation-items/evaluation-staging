@@ -13,11 +13,7 @@
 /* Optional CSS for better alignment and styling, 
     especially to make the file input look like a 'Choose' button.
 */
-.custom-label-name {
-    /* Ensures the label is aligned nicely with the other labels on the page */
-    text-align: right; 
-    padding-right: 15px;
-}
+
 
 .file-input-group {
     /* Makes the file input container responsive within its column */
@@ -240,7 +236,7 @@
                              <div class="row auto-increment" id="text_item_">
                                 <div class="col-xl-4 col-md-4">
                                     <div class="form-group">
-                                       <label class="custom-label-name col-form-label">{{ __('message.requistion_date')}}:</label>
+                                       <label class="custom-label-name col-form-label">{{ __('message.requistion_received_date')}}:</label>
                                     </div>
                                 </div>
                                  <div class="col-xl-8 col-md-8">
@@ -1148,8 +1144,8 @@
                                     <div class="row">
                                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                                             <div class="form-group">
-                                                <input type="datetime-local" id="minutes_meeting_eval" name="minutes_meeting_eval" class="form-control checkVal disbleTxt" 
-                                                value="{{ old('minutes_meeting_eval', (isset($stages) && !empty($stages->minutes_meeting_eval)) ? Carbon::Parse($stages->minutes_meeting_eval)->format('Y-m-d\TH:i') : '') }}">
+                                                <input type="text" id="minutes_meeting_eval" name="minutes_meeting_eval" class="form-control datepicker checkVal disbleTxt" 
+                                                value="{{ old('minutes_meeting_eval', (isset($stages) && !empty($stages->minutes_meeting_eval)) ? Carbon::Parse($stages->minutes_meeting_eval)->format('Y-m-d') : '') }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
@@ -1193,8 +1189,8 @@
                                     <div class="row">
                                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                                             <div class="form-group">
-                                                <input type="datetime-local" id="eval_cor_date" name="eval_cor_date" class="form-control checkVal disbleTxt" 
-                                                value="{{ old('eval_cor_date', (isset($stages) && !empty($stages->eval_cor_date)) ? Carbon::Parse($stages->eval_cor_date)->format('Y-m-d\TH:i') : '') }}">
+                                                <input type="text" id="eval_cor_date" name="eval_cor_date" class="form-control datepicker checkVal disbleTxt" 
+                                                value="{{ old('eval_cor_date', (isset($stages) && !empty($stages->eval_cor_date)) ? Carbon::Parse($stages->eval_cor_date)->format('Y-m-d') : '') }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
@@ -1261,51 +1257,6 @@
                                                                 <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->document]) }}" download="{{ $stages->document }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
                                                                 @else
                                                                 <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->document]) }}" download="{{ $stages->document }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                            @endif
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                             <div class="row auto-increment" id="text_item_">
-                                <div class="col-xl-4 col-md-4">
-                                    <div class="form-group">
-                                       <label class="custom-label-name col-form-label"> {{ __('message.committee')}} :</label>
-                                    </div>
-                                </div>
-                                <div class="col-xl-8 col-md-8">
-                                    <div class="row">
-                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                                            <div class="form-group">
-                                                <input type="datetime-local" id="report_sent_press" name="report_sent_press" class="form-control checkVal disbleTxt" 
-                                                value="{{ old('eval_cor_date', (isset($stages) && !empty($stages->report_sent_press)) ? Carbon::Parse($stages->report_sent_press)->format('Y-m-d\TH:i') : '') }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
-                                            <div class="form-group">
-                                                <textarea  id="report_sent_press_text"  name="report_sent_press_text"  class="pattern form-control checkVal disbleTxt text-area-item" maxlength="250">{{ isset($stages) ? $stages->report_sent_press_text : ""  }}</textarea>
-                                            </div>
-                                        </div>
-                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                            <div class="file-input-group form-group">
-                                                <div class="custom-file">
-                                                    <input type="file" id="report_sent_press_file" name="report_sent_press_file" class="custom-file-input checkVal disbleTxt pattern">
-                                                    <label class="custom-file-label" for="report_sent_press_file">Choose file</label>
-                                                    @if($stages->report_sent_press_file)
-                                                        <div class="form-group">
-                                                            @php
-                                                                $extension = pathinfo($stages->report_sent_press_file, PATHINFO_EXTENSION);
-                                                            @endphp
-                                                            @if($extension == 'pdf')
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->report_sent_press_file]) }}" target="_blank" title="{{ $stages->report_sent_press_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                                @elseif ($extension == 'doc')
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->report_sent_press_file]) }}" download="{{ $stages->report_sent_press_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                                @else
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->report_sent_press_file]) }}" download="{{ $stages->report_sent_press_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                                                             @endif
                                                         </div>
                                                     @endif

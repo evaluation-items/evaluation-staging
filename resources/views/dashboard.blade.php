@@ -397,36 +397,14 @@ function withoutOnchange(){
                     },
                     success: function (data) {
                           // Update the chart data
-                    barChart.data.datasets[0].data = [
-                        data['requisition_delay'],
-                        data['study_design_date_delay'],
-                        data['study_design_receive_hod_date_delay'],
-                        data['polot_study_date_delay'],
-                        data['field_survey_startdate_delay'],
-                        data['data_entry_level_start_delay'],
-                        data['report_startdate_delay'],
-                        data['report_draft_hod_date_delay'],
-                        data['dept_eval_committee_datetime_delay'],
-                        data['eval_cor_date_delay'],
-                        data['final_report_delay'],
-                        data['dropped_delay']
+                   barChart.data.datasets[0].data = [
+                        data['requistion_sent_hod'],
+                        data['study_entrusted'],
+                        data['draft_report'],
+                        data['draft_report_send'],
                     ];
 
-                    // barChart.data.datasets[1].data = [
-                    //     data['requisition'],
-                    //     data['study_design_date'],
-                    //     data['study_design_receive_hod_date'],
-                    //     data['polot_study_date'],
-                    //     data['field_survey_startdate'],
-                    //     data['data_entry_level_start'],
-                    //     data['report_startdate'],
-                    //     data['report_draft_hod_date'],
-                    //     data['dept_eval_committee_datetime'],
-                    //     data['eval_cor_date'],
-                    //     data['final_report'],
-                    //     data['dropped']
-                    // ];
-
+                    
                     // Update the chart
                     barChart.update();
                         $('.chartItems').css('display','block');
@@ -455,34 +433,13 @@ $('#scheme_list').on('change', function () {
                     success: function (data) {
                           // Update the chart data
                     barChart.data.datasets[0].data = [
-                        data['requisition_delay'],
-                        data['study_design_date_delay'],
-                        data['study_design_receive_hod_date_delay'],
-                        data['polot_study_date_delay'],
-                        data['field_survey_startdate_delay'],
-                        data['data_entry_level_start_delay'],
-                        data['report_startdate_delay'],
-                        data['report_draft_hod_date_delay'],
-                        data['dept_eval_committee_datetime_delay'],
-                        data['eval_cor_date_delay'],
-                        data['final_report_delay'],
-                        data['dropped_delay']
+                        data['requistion_sent_hod'],
+                        data['study_entrusted'],
+                        data['draft_report'],
+                        data['draft_report_send'],
                     ];
 
-                    // barChart.data.datasets[1].data = [
-                    //     data['requisition'],
-                    //     data['study_design_date'],
-                    //     data['study_design_receive_hod_date'],
-                    //     data['polot_study_date'],
-                    //     data['field_survey_startdate'],
-                    //     data['data_entry_level_start'],
-                    //     data['report_startdate'],
-                    //     data['report_draft_hod_date'],
-                    //     data['dept_eval_committee_datetime'],
-                    //     data['eval_cor_date'],
-                    //     data['final_report'],
-                    //     data['dropped']
-                    // ];
+                  
 
                     // Update the chart
                     barChart.update();
