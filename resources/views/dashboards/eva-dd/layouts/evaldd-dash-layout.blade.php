@@ -80,7 +80,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('evaldd.proposal', ['param' => 'new']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldd.proposal' && request()->param == 'new' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-align-justify"></i>
                         <p>{{ __('message.new_study_work')}}</p>
                     </a>
                 </li>
@@ -89,7 +89,7 @@
                 </li> --}}
                 
                 <li class="nav-item">
-                    <a href="{{ route('evaldd.proposal', ['param' => 'on_going']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldd.proposal' && request()->param == 'on_going' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.ongoing_proposals')}}</p></a>
+                    <a href="{{ route('evaldd.proposal', ['param' => 'on_going']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldd.proposal' && request()->param == 'on_going' ? 'active' : '' }}"><i class="nav-icon fas fa-tasks"></i><p>{{ __('message.ongoing_proposals')}}</p></a>
                 </li>
 
                 <li class="nav-item">
@@ -105,7 +105,7 @@
                   <a href="{{  route('detail_report') }}" class="nav-link {{ Route::currentRouteName() == 'detail_report'  ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.detail_reports')}}</p></a>
                 </li> 
                 <li class="nav-item">
-                  <a href="{{  route('project_list.index') }}" class="nav-link {{ Route::currentRouteName() == 'project_list.index'  ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.evaluation_reports')}}</p></a>
+                  <a href="{{  route('project_list.index') }}" class="nav-link {{ Route::currentRouteName() == 'project_list.index'  ? 'active' : '' }}"><i class="nav-icon fas fa-file-pdf"></i><p>{{ __('message.evaluation_reports')}}</p></a>
                 </li> 
                
                {{-- @endif --}}

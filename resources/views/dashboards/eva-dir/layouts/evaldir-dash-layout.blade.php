@@ -96,7 +96,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('evaldir.proposal', ['param' => 'new']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'new' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-align-justify"></i>
                         <p>{{ __('message.new_proposals')}}</p>
                     </a>
                   </li>
@@ -104,14 +104,14 @@
                     <a href="{{ route('evaldir.proposal', ['param' => 'forward']) }}" class="nav-link"><i class="nav-icon fas fa-book"></i><p>Forwarded Proposals</p></a>
                 </li> --}}
                 <li class="nav-item">
-                    <a href="{{ route('evaldir.proposal', ['param' => 'return']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'return' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.proposals_returned_to_gad')}}</p></a>
+                    <a href="{{ route('evaldir.proposal', ['param' => 'return']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'return' ? 'active' : '' }}"><i class="nav-icon fas fa-fast-backward"></i><p>{{ __('message.proposals_returned_to_gad')}}</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('evaldir.proposal', ['param' => 'on_going']) }} " class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'on_going' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.ongoing_proposals')}}</p></a>
+                    <a href="{{ route('evaldir.proposal', ['param' => 'on_going']) }} " class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'on_going' ? 'active' : '' }}"><i class="nav-icon fas fa-tasks"></i><p>{{ __('message.ongoing_proposals')}}</p></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{  route('evaldir.proposal', ['param' => 'completed']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'completed' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.completed_evaluation_studies')}}</p></a>
+                    <a href="{{  route('evaldir.proposal', ['param' => 'completed']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'completed' ? 'active' : '' }}"><i class="nav-icon fas fa-list"></i><p>{{ __('message.completed_evaluation_studies')}}</p></a>
                 </li>
                 {{-- <li class="nav-item">
                     <a href="{{  route('evaldir.proposal', ['param' => 'tranfered']) }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.proposal' && request()->param == 'tranfered' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>Transfred Proposals</p></a>
@@ -126,13 +126,13 @@
                 <a href="{{  route('evaldir.cspro.index') }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.cspro.index'  ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>Csentry Details</p></a>
               </li>  --}}
               <li class="nav-item">
-                <a href="{{  route('evaldir.cspro-item') }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.cspro-item'  ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.upload_cspro')}}</p></a>
+                <a href="{{  route('evaldir.cspro-item') }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.cspro-item'  ? 'active' : '' }}"><i class="nav-icon fas fa-file"></i><p>{{ __('message.upload_cspro')}}</p></a>
               </li> 
               <li class="nav-item">
-                <a href="{{  route('evaldir.cspro-detail-report') }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.cspro-detail-report'  ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.cspro_detail_report')}}</p></a>
+                <a href="{{  route('evaldir.cspro-detail-report') }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.cspro-detail-report'  ? 'active' : '' }}"><i class="nav-icon fas fa-file"></i><p>{{ __('message.cspro_detail_report')}}</p></a>
               </li> 
               <li class="nav-item">
-                <a href="{{  route('evaldir.cspro-graph-detail-report') }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.cspro-graph-detail-report'  ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>{{ __('message.cspro_graph_detail_report')}}</p></a>
+                <a href="{{  route('evaldir.cspro-graph-detail-report') }}" class="nav-link {{ Route::currentRouteName() == 'evaldir.cspro-graph-detail-report'  ? 'active' : '' }}"><i class="nav-icon fas fa-chart-bar"></i><p>{{ __('message.cspro_graph_detail_report')}}</p></a>
               </li> 
         </ul>
       </nav>

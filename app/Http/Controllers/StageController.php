@@ -100,12 +100,13 @@ class StageController extends Controller
                 'report_startdate', 'report_enddate', 'report_sent_hod_date', 'report_draft_hod_date', 
                 'report_draft_sent_hod_date', 'draft_sent_eval_committee_date', 'final_report', 
                 'dropped', 'data_entry_level_start', 'data_entry_level_end',
-                'study_entrusted', 'requistion_sent_hod', 'information_received_from_io','report_sent_press'
+                'study_entrusted', 'requistion_sent_hod', 'information_received_from_io','report_sent_press','dept_eval_committee_datetime', 'eval_cor_date', 
+                'minutes_meeting_dec', 'minutes_meeting_eval'
             ];
-            $dateTimeFields = [
-                'dept_eval_committee_datetime', 'eval_cor_date', 
-                'minutes_meeting_dec', 'minutes_meeting_eval',
-            ];
+            // $dateTimeFields = [
+            //     'dept_eval_committee_datetime', 'eval_cor_date', 
+            //     'minutes_meeting_dec', 'minutes_meeting_eval',
+            // ];
             $textFields = [
                 // All Text Fields
                 'requisition_text', 'scheme_hod_text', 'study_design_text', 'study_design_hod_text', 'study_design_receive_hod_text', 'polot_study_text', 'field_survey_text', 'field_survey_end_text', 'data_statistical_text', 'data_statistical_end_text', 'report_text', 'report_end_text', 'report_sent_text', 'report_draft_hod_text', 'report_draft_sent_hod_text', 'dept_eval_committee_text', 'draft_sent_eval_committee_text', 'eval_cor_text', 'dropped_text', 'data_entry_level_start_text', 'data_entry_level_end_text',
@@ -133,8 +134,6 @@ class StageController extends Controller
             
             if (in_array($field, $dateFields) && !empty($value)) {
                  $input[$field] = $this->normalizeDate($value, 'date');
-            } elseif (in_array($field, $dateTimeFields) && !empty($value)) {
-                $input[$field] = $this->normalizeDate($value, 'datetime');
             } elseif (!empty($value)) {
                 // Text field with content
                 $input[$field] = $value;
@@ -143,8 +142,11 @@ class StageController extends Controller
                 // This is safe because your database fields are designed to be nullable (except the IDs above).
                 $input[$field] = null;
             }
-        }
 
+        }
+ // elseif (in_array($field, $dateTimeFields) && !empty($value)) {
+            //     $input[$field] = $this->normalizeDate($value, 'datetime');
+            // } elseif ($value === '') {}
         $stages = Stage::create($input); 
         $file_update_input = [];
         // --- 4. Loop Through and Process File Uploads (CouchDB Logic) ---
@@ -280,12 +282,13 @@ class StageController extends Controller
                 'report_startdate', 'report_enddate', 'report_sent_hod_date', 'report_draft_hod_date', 
                 'report_draft_sent_hod_date', 'draft_sent_eval_committee_date', 'final_report', 
                 'dropped', 'data_entry_level_start', 'data_entry_level_end',
-                'study_entrusted', 'requistion_sent_hod', 'information_received_from_io','report_sent_press'
+                'study_entrusted', 'requistion_sent_hod', 'information_received_from_io','report_sent_press', 'dept_eval_committee_datetime', 'eval_cor_date', 
+                'minutes_meeting_dec', 'minutes_meeting_eval'
             ];
-            $dateTimeFields = [
-                'dept_eval_committee_datetime', 'eval_cor_date', 
-                'minutes_meeting_dec', 'minutes_meeting_eval',
-            ];
+            // $dateTimeFields = [
+            //     'dept_eval_committee_datetime', 'eval_cor_date', 
+            //     'minutes_meeting_dec', 'minutes_meeting_eval',
+            // ];
             $textFields = [
                 // All Text Fields
                 'requisition_text', 'scheme_hod_text', 'study_design_text', 'study_design_hod_text', 'study_design_receive_hod_text', 'polot_study_text', 'field_survey_text', 'field_survey_end_text', 'data_statistical_text', 'data_statistical_end_text', 'report_text', 'report_end_text', 'report_sent_text', 'report_draft_hod_text', 'report_draft_sent_hod_text', 'dept_eval_committee_text', 'draft_sent_eval_committee_text', 'eval_cor_text', 'dropped_text', 'data_entry_level_start_text', 'data_entry_level_end_text',
@@ -318,9 +321,9 @@ class StageController extends Controller
                     if (in_array($field, $dateFields) && !empty($value)) {
                         $input[$field] = $this->normalizeDate($value, 'date');
                     }
-                    elseif (in_array($field, $dateTimeFields) && !empty($value)) {
-                        $input[$field] = $this->normalizeDate($value, 'datetime');
-                    }
+                    // elseif (in_array($field, $dateTimeFields) && !empty($value)) {
+                    //     $input[$field] = $this->normalizeDate($value, 'datetime');
+                    // }
                     elseif ($value === '') {
                         // User explicitly cleared the field
                         $input[$field] = null;
@@ -917,20 +920,19 @@ class StageController extends Controller
 
             'study_entrusted' => $this->countDays(
                 $stage->study_entrusted,
-                $stage->study_design_survey
+                $stage->study_design_hod_date
             ),
 
             'draft_report' => $this->countDays(
-                $stage->draft_report,
-                $stage->input_draft_report
+                $stage->report_sent_hod_date,
+                $stage->report_draft_hod_date
             ),
 
             'draft_report_send' => $this->countDays(
-                $stage->draft_report_send,
+                $stage->report_draft_sent_hod_date,
                 $stage->minutes_meeting_dec
             ),
         ];
-
         return response()->json($get_count);
         
    }
@@ -958,8 +960,6 @@ private function countDays($start, $end)
         } catch (DecryptException $e) {
             return response()->json(['error' => 'Invalid encrypted data'], 400);
         }
-    }else{
-        dd('select the scheme');
     }
    }
     public function normalizeDate($value, $type = 'date')

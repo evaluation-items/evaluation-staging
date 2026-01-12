@@ -256,7 +256,7 @@
 <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 <Script>
   
-    Chart.defaults.global.datasets.bar.categoryPercentage = 0.95;
+Chart.defaults.global.datasets.bar.categoryPercentage = 0.95;
   var barChart;
   function donutChart(){
 
