@@ -491,6 +491,23 @@ $(function(){
     
 });
 $(document).ready(function () {
+    // COncern Department Completed Proposal DataTable
+var con_datatable =  $('.custom_concern_dept_complete_table').DataTable({
+      columns: [
+        { data: 'DT_RowIndex' },
+        { data: 'final_report' },
+        { data: 'scheme_name' },
+        { data: 'hod_name' },
+        { data: 'report_published_date' },
+        { data: 'actions' }
+        ],
+        columnDefs: [
+            { type: 'date', targets: 4 } 
+        ]
+    });
+    $('#year_select, #department_select').change(function() {
+      concerndeptUpdateTable();
+   });
 
     var datatable =  $('.custom_complete_table').DataTable({
       columns: [
@@ -506,7 +523,7 @@ $(document).ready(function () {
     });
     $('#year_select, #department_select, #deputyDirector_select').change(function() {
       updateTable();
-  });
+   });
 
   
 function updateTable() {
@@ -551,7 +568,7 @@ var selectedDeputyDirector = $('.dd_user_items select').val();
 
 // Initial table update
 updateTable();
-
+concerndeptUpdateTable();
 
 $(document).on('click', '.report_data', function() {
     $('#open_modal').modal('show');
@@ -581,4 +598,42 @@ $('#pdfDownload, #excelDownload').on('click', function() {
         location.reload();
     }, 4000);
 });
+function concerndeptUpdateTable() {
+  // Get selected values
+var selectedYear = $('.year_items select').val();
+var selectedDepartment = $('.department_select select').val();
+
+    // Make an AJAX request to fetch updated data
+        if (typeof config !== 'undefined' && config.routes.con_dept_zone) {
+
+            $.ajax({
+                url: config.routes.con_dept_zone,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                data: {
+                    year: selectedYear,
+                    department_hod_name: selectedDepartment,
+                    // deputyDirector: selectedDeputyDirector,
+                },
+                success: function(response) {
+                    // Clear existing rows in the table
+                    con_datatable.clear();
+
+                    // Add new rows to the table
+                    con_datatable.rows.add(response.data);
+
+                    // Redraw the table
+                    con_datatable.draw();
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+} else {
+    console.log("Config is not defined or config.routes.zone is not set");
+}
+}
 });

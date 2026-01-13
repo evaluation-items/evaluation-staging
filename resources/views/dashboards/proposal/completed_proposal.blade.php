@@ -1,14 +1,6 @@
 @extends('dashboards.proposal.layouts.sidebar')
 @section('title','Completed Proposals')
-
 @section('content')
-<style>
-  .content-wrapper{
-    background: #4f80db;
-
-  }
-</style>
-
     <!--begin::Content-->
     <div class="content  d-flex flex-column flex-column-fluid" id="">
             <!--begin::Subheader-->
@@ -29,9 +21,9 @@
             </div>
             <!--end::Subheader-->
             <!--begin::Entry-->
-            <div class="d-flex flex-column-fluid">
+            <div class="row justify-content-center">
               <!--begin::Container-->
-              <div class="container">
+              <div class="col-md-10">
                   <!--begin::Card-->
                   <div class="card card-custom gutter-b" style="border: 1px solid #000;">
                     <div class="card-header flex-wrap py-3">
@@ -53,7 +45,7 @@
                               @endforeach
                           </select>
                         </div>
-                        <div class="col-md-6 department_items">
+                        <div class="col-md-6 department_select">
                           <select id="department_select" class="form-control" aria-label="Default select example">
                             @php
                               $department = App\Models\DepartmentHod::where('dept_id',Auth::user()->dept_id)->get();
@@ -83,7 +75,7 @@
                         </div>  --}}
                       </div>
                       <!--begin: Datatable-->
-                      <table class="table table-bordered table-striped dataTable dtr-inline custom_complete_table" id="example1">
+                      <table class="table table-bordered table-striped dataTable dtr-inline custom_concern_dept_complete_table" id="example1">
                         <thead>
                           <tr>
                             <th>{{ __('message.no') }}</th>
@@ -107,7 +99,7 @@
                             {{-- <td>{{ department_name($complete->dept_id) }}</td> --}}
                             <td>{{ hod_name($complete->draft_id) }}</td>
                             <td>{{date('d-M-y',strtotime($complete->final_report))}}</td>
-                            <td width="23%">
+                            <td width="32%">
                               @if($complete->document)
                                     @php
                                         $extension = pathinfo($complete->document, PATHINFO_EXTENSION);
@@ -141,7 +133,7 @@
 <script>
   var config = {
        routes: {
-           zone: "{{route('custom_filter_items')}}"
+           con_dept_zone: "{{route('custom_filter_condept_items')}}"
        }
    }; 
 </script>

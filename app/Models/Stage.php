@@ -19,7 +19,7 @@ class Stage extends Model
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'dept_id');
+        return $this->belongsTo(Department::class, 'dept_id', 'dept_id');
     }
 
     public function users()

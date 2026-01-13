@@ -1,16 +1,10 @@
    
-   @extends('dashboards.proposal.layouts.sidebar')
-   @section('title','Forwarded Proposals')
-   
-   @section('content')
-   <style>
-    .content-wrapper{
-      background: #baffc9;
-    }
-   </style>
-   @php
-   use Illuminate\Support\Facades\Crypt;
- @endphp
+@extends('dashboards.proposal.layouts.sidebar')
+@section('title','Forwarded Proposals')
+@section('content')
+@php
+use Illuminate\Support\Facades\Crypt;
+@endphp
     <!--begin::Content-->
     <div class="content  d-flex flex-column flex-column-fluid">
                <!--begin::Subheader-->
@@ -31,9 +25,9 @@
                </div>
                <!--end::Subheader-->
                <!--begin::Entry-->
-               <div class="d-flex flex-column-fluid">
+               <div class="row justify-content-center">
                  <!--begin::Container-->
-                 <div class=" container ">
+                 <div class="col-md-10">
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b" style="border: 1px solid #000;">
                       <div class="card-header flex-wrap py-3">

@@ -180,6 +180,7 @@ Route::post('/welcome-popup/seen', function () {
 
     //Custom Filter
     Route::post('/custom_filter_items',[SchemeController::class,'customItems'])->name('custom_filter_items');
+    Route::post('/custom_filter_condept_items',[SchemeController::class,'customdeptItems'])->name('custom_filter_condept_items');
     Route::get('proposals/{param?}',[ProposalController::class, 'proposalItems'])->name('proposals');
     Route::post('forwardtodept',[ProposalController::class,'forwardtodept'])->name('proposals.forwardtodept');
 

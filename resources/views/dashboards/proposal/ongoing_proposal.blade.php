@@ -26,11 +26,10 @@
             </div>
             <!--end::Subheader-->
             <!--begin::Entry-->
-            <div class="d-flex flex-column-fluid">
+            <div class="row justify-content-center">
               <!--begin::Container-->
-              <div class="container">
+              <div class="col-md-10">
                   <!--begin::Card-->
-
                   <div class="card card-custom gutter-b" style="border: 1px solid #000;">
                       <div class="card-header flex-wrap py-3">
                         <div class="card-toolbar">

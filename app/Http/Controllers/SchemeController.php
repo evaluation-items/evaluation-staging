@@ -3411,6 +3411,128 @@ class SchemeController extends Controller {
 
       
     }
+    public function customdeptItems(Request $request)
+    {
+
+        try {
+            $currentYear = date('Y');
+            if(date('m') > 3){
+                $finyear = date('Y') ;
+            }else{
+                $finyear = date('Y') - 1;
+            }
+            $year = $request->year;
+            $department_hod_name = $request->department_hod_name;
+          
+           
+            $query = Stage::query();
+        
+              /* =======================
+                Financial Year Filter
+                ======================= */
+                if (!is_null($year) && $year != 1) {
+
+                    $startedYear = explode('-', $year);
+
+                    $startDate = $startedYear[0] . '-04-01';
+                    $endDate   = ($startedYear[0] + 1) . '-03-31';
+
+                    $query->whereBetween('final_report', [$startDate, $endDate]);
+                }
+
+                /* =======================
+                Department HOD Filter
+                ======================= */
+                if (!is_null($department_hod_name)) {
+
+                    $query->whereHas('department.hods', function ($q) use ($department_hod_name) {
+                        $q->where('name', $department_hod_name);
+                       // ->where('status', 1); // optional
+                    });
+                }
+
+                // Set the start date to March 31st of the current year
+                $startFDate = $finyear . '-04-01';
+                // Set the end date to April 1st of the next year
+                $endFDate = ($finyear + 1). '-03-31';
+                
+                if(!is_null($year) && $year != 1){
+                    if(Auth::user()->login_user == 1){
+                        $query->whereNotNull('document')->where('dept_id',Auth::user()->dept_id);
+                    }else{
+                        $query->whereNotNull('document');
+                    }
+                }else{
+                    if(Auth::user()->login_user == 1){
+                        $query->whereBetween('final_report', [$startFDate, $endFDate])->whereNotNull('document')->where('dept_id',Auth::user()->dept_id);
+                    }else{
+                        $query->whereBetween('final_report', [$startFDate, $endFDate])->whereNotNull('document');
+                    }
+                }
+           
+        
+            $completedProposals = $query->with(['department.hods'])->get();
+         
+            $data = $completedProposals->map(function ($item, $key) {
+                $action = '';
+
+                    if (!empty($item->document)) {
+
+                        $extension = pathinfo($item->document, PATHINFO_EXTENSION);
+
+                        // Always show download button
+                        $action .= '<button class="btn btn-xs btn-info report_data"
+                                        data-url-excel="' . route('stages.download_excel', $item->id) . '"
+                                        data-url-pdf="' . route('stages.downalod', $item->id) . '"
+                                        style="display: inline-block">'
+                                        . __('message.stage_report_download') .
+                                    '</button>';
+
+                        // Show view button ONLY if PDF
+                        if (strtolower($extension) === 'pdf') {
+                            $action .= ' <a class="btn btn-xs btn-info"
+                                            href="' . route('stages.get_the_file', [
+                                                Crypt::encrypt($item->scheme_id),
+                                                $item->document
+                                            ]) . '"
+                                            target="_blank"
+                                            title="' . e($item->document) . '">'
+                                            . __('message.final_report') .
+                                        '</a>';
+                        }
+
+                    } else {
+
+                        // No document → only download
+                        $action .= '<button class="btn btn-xs btn-info report_data"
+                                        data-url-excel="' . route('stages.download_excel', $item->id) . '"
+                                        data-url-pdf="' . route('stages.downalod', $item->id) . '"
+                                        style="display: inline-block">'
+                                        . __('message.stage_report_download') .
+                                    '</button>';
+                    }
+
+
+                return [
+                    'DT_RowIndex' => $key + 1,
+                    'final_report' => completedStudy($item->final_report),
+                    'scheme_name' => SchemeName($item->scheme_id),
+                    'hod_name' => hod_name($item->draft_id),
+                    'report_published_date' => date('d-M-y',strtotime($item->final_report)),
+                    'actions' => $action
+                ];
+            });
+        
+            return response()->json(['data' => $data]);
+        
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+        
+
+      
+    }
     public function destory(Request $request,$draft_id)
     {
         try {
