@@ -16,7 +16,7 @@
         </h4>
 
         <div class="org-chart-wrapper">
-           <img src="{{ asset('img/evaluation_chart.png') }}" alt="Organization Chart" class="org-chart-svg">
+           <img src="{{ asset('img/evaluation_chart_new.png') }}" alt="Organization Chart" class="org-chart-svg">
         </div>
     </div>
 

@@ -289,14 +289,14 @@
                 <div class="box_wrap">
                     <div class="office-content">
                         <ul class="listed">
-                            <li style="margin-left:75px;"><a href="https://planning.gujarat.gov.in/">General Administration
-                                    Department</a>
+                            <li>
+                                <a href="https://planning.gujarat.gov.in/">General Administration Department(Planning)</a>
                             </li>
-                            <li style="margin-left:75px;"><a
-                                    href="{{ Config::get('custom_url.url') }}">{{ __('message.directorate_economics') }}</a>
+                            <li>
+                                <a href="{{ Config::get('custom_url.url') }}">{{ __('message.directorate_economics') }}</a>
                             </li>
-                            <li style="margin-left:75px;"><a
-                                    href="{{ Config::get('custom_url.url') }}gujarat-social-infrastructure-development-society">{{ __('message.gujarat_social_infra') }}</a>
+                            <li>
+                                <a href="https://gujhd.gujarat.gov.in/">{{ __('message.gujarat_social_infra') }}</a>
                             </li>
                         </ul>
                     </div>

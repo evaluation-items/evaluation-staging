@@ -112,8 +112,8 @@
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>15 July 2015</td>
-                    <td>MLV/102015/347966/TH</td>
+                    <td>૧૫/૦૭/૨૦૧૫</td>
+                    <td>મલવ-૧૦૨૦૧૫/૩૪૭૯૬૬/ઠ</td>
                     <td>Reconstitution of Steering committee to prepare the draft of State Evaluation Policy.</td>
                     <td>
                         <a title="Resolution" target="_blank" href="{{asset('GR/resolution.pdf')}}">

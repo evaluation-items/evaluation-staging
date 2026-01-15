@@ -89,7 +89,7 @@
             <thead>
                 <tr>
                     <th style="width: 10%">{{ __('message.sr_no') }}</th>
-                    <th colspan="2">Department of Evaluation Coordination Committee (DEC)</th>
+                    <th colspan="2">Departmental Evaluation Committee (DEC)</th>
                 </tr>
             </thead>
             <tbody>
@@ -105,7 +105,7 @@
                 </tr>
                 <tr>
                     <td class="text-center">3</td>
-                    <td>Director, Department of Evaluation</td>
+                    <td>Director, Directorate of Evaluation</td>
                     <td class="text-center">{{ __('message.member') }}</td>
                 </tr>
                 <tr>

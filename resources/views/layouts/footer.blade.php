@@ -1,5 +1,5 @@
 
-        <div class="media-photo" style="margin-top:4%;">
+        {{-- <div class="media-photo" style="margin-top:4%;">
             <div class="container">
                 <div class="row">
                     <div id="footer_logos">
@@ -9,19 +9,44 @@
                                     <div class="owl-stage-outer">
                                         <div class="owl-stage"
                                             style="transform: translate3d(0px, 0px, 0px); transition: all; width: 1952px;">
-                                            {{-- <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
+                                             <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
                                                 <div class="item">
-                                                    <a href="https://pmcares.gov.in/en" target="_blank">
+                                                    <a href="https://www.mospi.gov.in/" target="_blank">
                                                         <img alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/SponsersmFASpK1tyn0_rxDKhAieArkhe2FqH3yc.png') }}"
+                                                            src="{{ asset('img/grit.jpeg') }}"
                                                             class="cat_article_img img-responsive img-thumbnail">
                                                     </a>
                                                 </div>
-                                            </div> --}}
+                                            </div> 
+                                        </div>
+                                            <div class="owl-stage"
+                                            style="transform: translate3d(0px, 0px, 0px); transition: all; width: 1952px;">
+                                             <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
+                                                <div class="item">
+                                                    <a href="https://www.mospi.gov.in/" target="_blank">
+                                                        <img alt="Sponser Image MSME"
+                                                            src="{{ asset('img/niti_ayog.png') }}"
+                                                            class="cat_article_img img-responsive img-thumbnail">
+                                                    </a>
+                                                </div>
+                                            </div> 
+
+
+                                        <div class="owl-stage"
+                                            style="transform: translate3d(0px, 0px, 0px); transition: all; width: 1952px;">
+                                             <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
+                                                <div class="item">
+                                                    <a href="https://www.mospi.gov.in/" target="_blank">
+                                                        <img alt="Sponser Image MSME"
+                                                            src="{{ asset('img/mospi.jpeg') }}"
+                                                            class="cat_article_img img-responsive img-thumbnail">
+                                                    </a>
+                                                </div>
+                                            </div> 
+                                        </div>
                                             <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
                                                 <div class="item">
-                                                    <a href="Https://ceo.gujarat.gov.in/Information-For-Voters"
-                                                        target="_blank"><img alt="Sponser Image MSME"
+                                                    <a href="https://dmeo.gov.in/" target="_blank"><img alt="Sponser Image MSME"
                                                             src="{{ asset('css/main_index_css/dmeo-logo.jpg') }}"
                                                             class="cat_article_img img-responsive img-thumbnail"></a>
                                                 </div>
@@ -79,7 +104,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
    
 
 <footer>  

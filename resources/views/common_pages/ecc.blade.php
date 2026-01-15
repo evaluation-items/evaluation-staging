@@ -81,7 +81,7 @@
                     <tr>
                         <th style="width:10%">{{ __('message.sr_no') }}</th>
                         <th colspan="2">
-                            Department of Evaluation Co-ordination Committee (ECC)
+                            Evaluation Co-ordination Committee (ECC)
                         </th>
                     </tr>
                 </thead>
@@ -103,7 +103,7 @@
                     </tr>
                     <tr>
                         <td class="text-center">4</td>
-                        <td>Director, Department of Evaluation</td>
+                        <td>Director, Directorate of Evaluation</td>
                         <td class="text-center">{{ __('message.member') }}</td>
                     </tr>
                     <tr>
@@ -116,7 +116,7 @@
                     <tr>
                         <td class="text-center">6</td>
                         <td>{{ __('message.paregraph-15') }}</td>
-                        <td class="text-center">{{ __('message.invitee') }}</td>
+                        <td class="text-center">{{ __('message.member_secretary') }}</td>
                     </tr>
                 </tbody>
             </table>

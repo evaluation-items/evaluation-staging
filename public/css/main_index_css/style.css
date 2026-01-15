@@ -10,18 +10,6 @@
     --breadcrumb-color: #f5f5f5;
     --form-group-text-color: #333;
 }
-
-
-@font-face {
-    font-family: 'aparaj';
-}
-
-@font-face {
-    font-family: 'NotoSansGujarati';
-    font-weight: normal;
-    font-style: normal;
-}
-
 html,
 body,
 div,
