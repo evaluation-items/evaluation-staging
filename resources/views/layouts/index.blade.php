@@ -279,13 +279,11 @@
             </ol> --}}
             <p>&nbsp;</p>
         </div>
-
         <div class="col-lg-4 col-md-5 col-sm-12 sidebar_col">
             <div class="link-sec">
                 <div class="sub-title">
                     <h4>{{ __('message.other_offices') }}</h4>
                 </div>
-
                 <div class="box_wrap">
                     <div class="office-content">
                         <ul class="listed">
@@ -301,7 +299,6 @@
                         </ul>
                     </div>
                 </div>
-
                 {{-- <div class="read-more">
                     <a href="{{ Config::get('custom_url.url') }}other-offices">{{ __('message.more') }}</a>
                 </div> --}}

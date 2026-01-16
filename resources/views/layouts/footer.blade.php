@@ -1,112 +1,108 @@
+<style>
+.customer-logos .owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
 
-        {{-- <div class="media-photo" style="margin-top:4%;">
-            <div class="container">
-                <div class="row">
-                    <div id="footer_logos">
-                        <div class="container">
-                            <div class="col-md-12 customer-logos">
-                                <div class="logo-container owl-carousel owl-theme owl-loaded owl-drag">
-                                    <div class="owl-stage-outer">
-                                        <div class="owl-stage"
-                                            style="transform: translate3d(0px, 0px, 0px); transition: all; width: 1952px;">
-                                             <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://www.mospi.gov.in/" target="_blank">
-                                                        <img alt="Sponser Image MSME"
-                                                            src="{{ asset('img/grit.jpeg') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail">
-                                                    </a>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                            <div class="owl-stage"
-                                            style="transform: translate3d(0px, 0px, 0px); transition: all; width: 1952px;">
-                                             <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://www.mospi.gov.in/" target="_blank">
-                                                        <img alt="Sponser Image MSME"
-                                                            src="{{ asset('img/niti_ayog.png') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail">
-                                                    </a>
-                                                </div>
-                                            </div> 
+.customer-logos .owl-nav button {
+    position: absolute;
+    background: transparent !important;
+    border: none !important;
+    font-size: 26px;
+    color: #333 !important;
+    pointer-events: all;
+}
 
+.customer-logos .owl-prev {
+    left: -35px;   /* adjust if needed */
+}
 
-                                        <div class="owl-stage"
-                                            style="transform: translate3d(0px, 0px, 0px); transition: all; width: 1952px;">
-                                             <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://www.mospi.gov.in/" target="_blank">
-                                                        <img alt="Sponser Image MSME"
-                                                            src="{{ asset('img/mospi.jpeg') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail">
-                                                    </a>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                            <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://dmeo.gov.in/" target="_blank"><img alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/dmeo-logo.jpg') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail"></a>
-                                                </div>
-                                            </div>
-                                            <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://digilocker.gov.in/" target="_blank"><img
-                                                            alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/Sponsers38JyAsNgwhEKXVZcEyrdw69P3BNMrnBu.jpg') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail"></a>
-                                                </div>
-                                            </div>
-                                            <div class="owl-item active" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://gujaratindia.gov.in/" target="_blank"><img
-                                                            alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/SponsersgmPixRRy-_TiLtt_3sqNUbETDRBYBLFL.jpg') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail"></a>
-                                                </div>
-                                            </div>
-                                            <div class="owl-item" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://gswan.gujarat.gov.in/" target="_blank"><img
-                                                            alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/Sponsersi_pzy_jmPI4sT8qPOszNOAxDWI1GnYUe.jpg') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail"></a>
-                                                </div>
-                                            </div>
-                                            <div class="owl-item" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://www.india.gov.in/" target="_blank"><img
-                                                            alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/SponsersSZw8qMUVHA7_dFHXpd8hzBqPv8-axvHo.png') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail"></a>
-                                                </div>
-                                            </div>
-                                            <div class="owl-item" style="width: 273.75px; margin-right: 5px;">
-                                                <div class="item">
-                                                    <a href="https://dst.gujarat.gov.in/" target="_blank"><img
-                                                            alt="Sponser Image MSME"
-                                                            src="{{ asset('css/main_index_css/SponserseatoNGTlC0c4Cy4fGFKHDoc99qb7vTgo.jpg') }}"
-                                                            class="cat_article_img img-responsive img-thumbnail"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-nav"><button type="button" role="presentation"
-                                            class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button
-                                            type="button" role="presentation" class="owl-next"><span
-                                                aria-label="Next">›</span></button></div>
-                                    <div class="owl-dots disabled"></div>
-                                </div>
-                            </div>
+.customer-logos .owl-next {
+    right: -35px;  /* adjust if needed */
+}
+
+.customer-logos .owl-nav button:hover {
+    color: #000 !important;
+}
+</style>
+<div class="media-photo">
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="footer_logos">
+                    <div class="customer-logos owl-carousel owl-theme">
+                        <div class="item">
+                            <a href="https://www.mospi.gov.in/" target="_blank">
+                                <img alt="Sponser Image MSME"
+                                    src="{{ asset('img/grit.jpeg') }}"
+                                    class="cat_article_img img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://www.niti.gov.in/" target="_blank">
+                                <img alt="Sponser Image MSME"
+                                    src="{{ asset('img/niti_ayog.png') }}"
+                                    class="cat_article_img img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                         <div class="item">
+                            <a href="https://www.mospi.gov.in/" target="_blank">
+                                <img alt="Sponser Image MSME"
+                                    src="{{ asset('img/mospi.jpeg') }}"
+                                    class="cat_article_img img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://dmeo.gov.in/" target="_blank">
+                                <img src="{{ asset('css/main_index_css/dmeo-logo.jpg') }}"
+                                     alt="DMEO Logo"
+                                     class="img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://digilocker.gov.in/" target="_blank">
+                                <img src="{{ asset('css/main_index_css/Sponsers38JyAsNgwhEKXVZcEyrdw69P3BNMrnBu.jpg') }}"
+                                     alt="DigiLocker Logo"
+                                     class="img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://gujaratindia.gov.in/" target="_blank">
+                                <img src="{{ asset('css/main_index_css/SponsersgmPixRRy-_TiLtt_3sqNUbETDRBYBLFL.jpg') }}"
+                                     alt="Gujarat India Logo"
+                                     class="img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://gswan.gujarat.gov.in/" target="_blank">
+                                <img src="{{ asset('css/main_index_css/Sponsersi_pzy_jmPI4sT8qPOszNOAxDWI1GnYUe.jpg') }}"
+                                     alt="GSWAN Logo"
+                                     class="img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://www.india.gov.in/" target="_blank">
+                                <img src="{{ asset('css/main_index_css/SponsersSZw8qMUVHA7_dFHXpd8hzBqPv8-axvHo.png') }}"
+                                     alt="India Gov Logo"
+                                     class="img-responsive img-thumbnail">
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://dst.gujarat.gov.in/" target="_blank">
+                                <img src="{{ asset('css/main_index_css/SponserseatoNGTlC0c4Cy4fGFKHDoc99qb7vTgo.jpg') }}"
+                                     alt="DST Gujarat Logo"
+                                     class="img-responsive img-thumbnail">
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
-   
-
+        </div>
+    </div>
+</div>
 <footer>  
     <div class="container">      
         <div class="row">
@@ -122,7 +118,6 @@
                         <li><a href="{{route('terms-condition')}}">Terms &amp; Condition</a></li>
                     </ul>
                 </div>
-            
                 <div class="row">
                     <div class="social-icons">
                         <ul class="footer-social">
@@ -240,6 +235,22 @@ function openMain() {
 <script>
       
    $(document).ready(function(){
+
+    $('.customer-logos').owlCarousel({
+        loop: true,
+        margin: 15,
+        autoplay: true,
+        autoplayTimeout: 3000,
+       // nav: true,
+       // dots: false,
+       // navText: ['&#8249;', '&#8250;'], // ‹ ›
+        responsive: {
+            0: { items: 1 },
+            600: { items: 3 },
+            1000: { items: 5 }
+        }
+    });
+
 
     $('#uw-widget-custom-trigger2').on('click', function() {
 		openMain();  

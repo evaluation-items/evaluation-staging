@@ -1000,51 +1000,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row auto-increment" id="text_item_">
-                                <div class="col-xl-4 col-md-4">
-                                    <div class="form-group">
-                                       <label class="custom-label-name col-form-label"> {{ __('message.minutes_meeting_dec')}} :</label>
-                                    </div>
-                                </div>
-                                <div class="col-xl-8 col-md-8">
-                                    <div class="row">
-                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                                            <div class="form-group">
-                                                <input type="text" id="minutes_meeting_dec" value="{{ old('minutes_meeting_dec', (isset($stages) && !empty($stages->minutes_meeting_dec)) ? Carbon::Parse($stages->minutes_meeting_dec)->format('Y-m-d') : "" ) }}" name="minutes_meeting_dec"  class="form-control datepicker checkVal disbleTxt">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
-                                            <div class="form-group">
-                                                <textarea  id="minutes_meeting_dec_text"  name="minutes_meeting_dec_text"  class="form-control checkVal disbleTxt pattern text-area-item" maxlength="250">{{ isset($stages) ? $stages->minutes_meeting_dec_text : ""  }}</textarea>
-                                            </div>
-                                        </div>
-                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                            <div class="file-input-group form-group">
-                                                <div class="custom-file">
-                                                    <input type="file" id="minutes_meeting_dec_file" name="minutes_meeting_dec_file" class="custom-file-input checkVal disbleTxt pattern">
-                                                    <label class="custom-file-label" for="minutes_meeting_dec_file">Choose file</label>
-                                                    @if($stages->minutes_meeting_dec_file)
-                                                        <div class="form-group">
-                                                            @php
-                                                                $extension = pathinfo($stages->minutes_meeting_dec_file, PATHINFO_EXTENSION);
-                                                            @endphp
-                                                            @if($extension == 'pdf')
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->minutes_meeting_dec_file]) }}" target="_blank" title="{{ $stages->minutes_meeting_dec_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                                @elseif ($extension == 'doc')
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->minutes_meeting_dec_file]) }}" download="{{ $stages->minutes_meeting_dec_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                                @else
-                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->minutes_meeting_dec_file]) }}" download="{{ $stages->minutes_meeting_dec_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                            @endif
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-            
                             <div class="row auto-increment" id="text_item_">
                                 <div class="col-xl-4 col-md-4">
                                     <div class="form-group">
@@ -1089,6 +1044,51 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row auto-increment" id="text_item_">
+                                <div class="col-xl-4 col-md-4">
+                                    <div class="form-group">
+                                       <label class="custom-label-name col-form-label"> {{ __('message.minutes_meeting_dec')}} :</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-8 col-md-8">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" id="minutes_meeting_dec" value="{{ old('minutes_meeting_dec', (isset($stages) && !empty($stages->minutes_meeting_dec)) ? Carbon::Parse($stages->minutes_meeting_dec)->format('Y-m-d') : "" ) }}" name="minutes_meeting_dec"  class="form-control datepicker checkVal disbleTxt">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-lg-5 col-md-4 col-sm-6">
+                                            <div class="form-group">
+                                                <textarea  id="minutes_meeting_dec_text"  name="minutes_meeting_dec_text"  class="form-control checkVal disbleTxt pattern text-area-item" maxlength="250">{{ isset($stages) ? $stages->minutes_meeting_dec_text : ""  }}</textarea>
+                                            </div>
+                                        </div>
+                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="file-input-group form-group">
+                                                <div class="custom-file">
+                                                    <input type="file" id="minutes_meeting_dec_file" name="minutes_meeting_dec_file" class="custom-file-input checkVal disbleTxt pattern">
+                                                    <label class="custom-file-label" for="minutes_meeting_dec_file">Choose file</label>
+                                                    @if($stages->minutes_meeting_dec_file)
+                                                        <div class="form-group">
+                                                            @php
+                                                                $extension = pathinfo($stages->minutes_meeting_dec_file, PATHINFO_EXTENSION);
+                                                            @endphp
+                                                            @if($extension == 'pdf')
+                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->minutes_meeting_dec_file]) }}" target="_blank" title="{{ $stages->minutes_meeting_dec_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
+                                                                @elseif ($extension == 'doc')
+                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->minutes_meeting_dec_file]) }}" download="{{ $stages->minutes_meeting_dec_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+                                                                @else
+                                                                <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($data->scheme_id), $stages->minutes_meeting_dec_file]) }}" download="{{ $stages->minutes_meeting_dec_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+            
+                            
 
                             <div class="row auto-increment" id="text_item_">
                                 <div class="col-xl-4 col-md-4">

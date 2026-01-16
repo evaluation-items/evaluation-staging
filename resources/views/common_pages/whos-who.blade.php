@@ -68,7 +68,7 @@
                         <td>1</td>
                         <td>Dr. Rakesh R. Pandya</td>
                         <td>Director</td>
-                        <td>54353</td>
+                        <td>52861</td>
                         {{-- <td>9377298620</td> --}}
                         <td>direvl@gujarat.gov.in</td>
                     </tr>

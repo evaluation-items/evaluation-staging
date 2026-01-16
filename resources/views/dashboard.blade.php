@@ -179,61 +179,97 @@
                     @endif
                   </div>
               </div> --}}
-            
-            <div class="row col-md-12"> 
-                <div id="accordion" class="col-md-12">
-                  <div class="card">
-                    <div class="card-header bg-info text-center" id="headingTwo">
-                      <h5 class="mb-0">
-                        <button class="btn collapsed text-white" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            {{ __('message.detail_reports')}}
-                        </button>
-                        @php
-                          $draft_id_str = implode(',', $draft_id);
-                          $draft_id_str =  Crypt::encryptString($draft_id_str)  ?? '';
-                        @endphp
-                        <a href="{{route('summary_export',['draft_id' => $draft_id_str])}}" class="btn btn-success float-left">{{ __('message.export_report')}}</a>
-                      </h5>
-                    </div>
-                   
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                      <div class="card-body">
-                        <div class="form-group">
-                            <label for="scheme_list">{{ __('message.select_scheme')}} <span class="required_filed"> * </span> : </label>
-                            <select class="form-control scheme_list" name="scheme" id="scheme_list">
-                              {{-- <option>Select Scheme </option> --}}
-                              @foreach ($scheme_list as $key => $scheme_item)
-                                  <option value="{{ $key}}">{{ $scheme_item}}</option>
-                              @endforeach
-                            </select>
+            <div class="row col-md-12" style="margin-top: 0; float:left;">
+                <div class="col-md-8"> 
+                    <div id="accordion" class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-info text-center" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn collapsed text-white" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                {{ __('message.detail_reports')}}
+                            </button>
+                            @php
+                            $draft_id_str = implode(',', $draft_id);
+                            $draft_id_str =  Crypt::encryptString($draft_id_str)  ?? '';
+                            @endphp
+                            <a href="{{route('summary_export',['draft_id' => $draft_id_str])}}" class="btn btn-success float-left">{{ __('message.export_report')}}</a>
+                        </h5>
                         </div>
-                        <div class="chartItems" style="display: none;">
-                              <div class="card card-success">
-                                  <div class="card-header">
-                                      <h3 class="card-title">{{ __('message.bar_chart')}}</h3>
-                                      <div class="card-tools">
-                                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                          <i class="fas fa-minus"></i>
-                                          </button>
-                                          <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                          <i class="fas fa-times"></i>
-                                          </button>
-                                      </div>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="chart">
-                                        <canvas id="barChart" style="min-height: 500px; height:  500px; max-height:  500px; max-width: 100%;"></canvas>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          
+                    
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="scheme_list">{{ __('message.select_scheme')}} <span class="required_filed"> * </span> : </label>
+                                <select class="form-control scheme_list" name="scheme" id="scheme_list">
+                                {{-- <option>Select Scheme </option> --}}
+                                @foreach ($scheme_list as $key => $scheme_item)
+                                    <option value="{{ $key}}">{{ $scheme_item}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="chartItems" style="display: none;">
+                                <div class="card card-success">
+                                    <div class="card-header">
+                                        <h3 class="card-title">{{ __('message.bar_chart')}}</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="barChart" style="min-height: 500px; height:  500px; max-height:  500px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            </div>
                         </div>
-                      </div>
+                        </div>
                     </div>
-                  </div>
+                    </div>
                 </div>
-              </div>
+                <div class=" col-md-4"> 
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped who-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Sr. No</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Dr. Rakesh R. Pandya</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Shri M. B. Gamit</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Smt. A. G. Prajapati</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Ms. Richa Mher</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Shri S. J. Patel</td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
     </section>
     <div id="welcome-user" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -260,7 +296,7 @@ Chart.defaults.global.datasets.bar.categoryPercentage = 0.95;
   var barChart;
   function donutChart(){
 
-    const chartLabels = @json(__('message.chart_labels'));
+    const chartLabels = @json(__('message.chart_labels_con_dept'));
     const delayLabel = "{{ __('message.delay_stage_sop_count') }}";
     const earlyLabel = "{{ __('message.early_stage_completion_count') }}";
     var areaChartData = {
@@ -402,6 +438,7 @@ function withoutOnchange(){
                         data['study_entrusted'],
                         data['draft_report'],
                         data['draft_report_send'],
+                        data['minutes_of_metting'],
                     ];
 
                     
@@ -437,6 +474,7 @@ $('#scheme_list').on('change', function () {
                         data['study_entrusted'],
                         data['draft_report'],
                         data['draft_report_send'],
+                        data['minutes_of_metting'],
                     ];
 
                   

@@ -109,7 +109,39 @@ return [
     'hello' => 'Hello!',
     'select_scheme' => 'Select Scheme',
     
+
     'chart_labels' => [
+        'Requition',
+        'Study Design',
+        'Approval Study Design',
+        'Pilot Survey',
+        'Field Work',
+        'Data Cleaning',
+        'Report Writing',
+        'Suggestion of I.O. for Draft Report',
+        'Date of Draft Report sent to DEC',
+        'Minutes of Metting From DEC',
+        'ECC',
+        'Publication',
+        'Dropped',
+    ],
+
+    'chart_stage_scores' => [
+        'Requition' => 30,
+        'Study Design' => 30,
+        'Approval Study Design' => 30,
+        'Pilot Survey' => 10,
+        'Field Work' => 60,
+        'Data Cleaning' => 45,
+        'Report Writing' => 25,
+        'Suggestion of I.O. for Draft Report' => 15,
+        'Minutes of Metting From DEC' => 30,
+        'ECC' => 30,
+        'Publication' => 30,
+        'Dropped' => 30,
+    ],
+
+    'chart_labels_con_dept' => [
         'No. of days for Requition',
         //'Study Design',
         'Approval Study Design',
@@ -118,12 +150,13 @@ return [
       //  'Data Cleaning',
       //  'Report Writing',
         'Suggestion of I.O. for Draft Report',
+        'Date of Draft Report sent to DEC',
         'Minutes of Metting From DEC',
        // 'ECC',
        // 'Publication',
        // 'Dropped',
     ],
-    'chart_stage_scores' => [
+    'chart_stage_scores_con_dept' => [
         'No. of days for Requition' => 30,
         //'Study Design' => 30,
         'Approval Study Design' => 30,

@@ -930,6 +930,10 @@ class StageController extends Controller
 
             'draft_report_send' => $this->countDays(
                 $stage->report_draft_sent_hod_date,
+                $stage->dept_eval_committee_datetime
+            ),
+            'minutes_of_metting' => $this->countDays(
+                $stage->dept_eval_committee_datetime,
                 $stage->minutes_meeting_dec
             ),
         ];
