@@ -33,6 +33,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/gadsec/index.css') }}">
+    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet">
 </head>
 <body class="sidebar-mini layout-fixed text-sm sidebar-collapse">
 <div class="wrapper">
@@ -171,9 +173,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('dist/js/adminlte.min.js')}}"></script>
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('plugins/ijaboCropTool/ijaboCropTool.min.js') }}"></script>
+<script src="{{asset('js/jquery-ui.js')}}"></script>
 <script src="{{asset('js/popper.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/common.js')}}"></script>
+
 {{-- <script src="{{asset('js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.validate.min.js')}}"></script>
 <!-- Bootstrap 4 -->
@@ -186,7 +190,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script type="text/javascript" src="{{ asset('plugins/datatables-jquery/jquery.dataTables.min.js')}}"></script>--}}
 <script src="{{asset('js/validate_init.js')}}"></script> 
 <script src="{{asset('js/jquery.inputmask.min.js')}}"></script>
-
+<script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('js/select2.min.js')}}"></script>
 <script type="text/javascript">
   $.ajaxSetup({
      headers:{

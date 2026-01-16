@@ -89,7 +89,7 @@
                         </thead>
                         <tbody>
                         @php $i=1; 
-                       // dd($complted_proposal);
+                        
                         @endphp
                         @foreach($complted_proposal as $complete)
                           <tr>
@@ -100,19 +100,10 @@
                             <td>{{ hod_name($complete->draft_id) }}</td>
                             <td>{{date('d-M-y',strtotime($complete->final_report))}}</td>
                             <td width="32%">
+                              <a href="{{route('stages.downalod',$complete->id)}}" class="btn btn-xs btn-info">{{ __('message.stage_report_download') }}</a>
                               @if($complete->document)
-                                    @php
-                                        $extension = pathinfo($complete->document, PATHINFO_EXTENSION);
-                                    @endphp
-                                    @if($extension == 'pdf')
-                                        <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($complete->scheme_id), $complete->document]) }}" target="_blank" title="{{ $complete->document }}" class="btn btn-xs btn-info" >{{ __('message.final_report')}}</a>
-                                       
-                                    @endif
-                                </div>
-                                @else
-                                <a href="{{route('stages.downalod',$complete->id)}}" class="btn btn-xs btn-info" style="display: inline-block">{{ __('message.stage_report_download') }}</a>
+                                   <a href="{{ route('evaldd.get_the_file', [Crypt::encrypt($complete->scheme_id), $complete->document]) }}" target="_blank" title="{{ $complete->document }}" class="btn btn-xs btn-info" >{{ __('message.final_report')}}</a>
                               @endif
-                              
                             </td>
                           </tr>
                           @endforeach

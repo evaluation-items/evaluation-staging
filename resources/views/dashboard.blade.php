@@ -179,97 +179,74 @@
                     @endif
                   </div>
               </div> --}}
-            <div class="row col-md-12" style="margin-top: 0; float:left;">
-                <div class="col-md-8"> 
-                    <div id="accordion" class="col-md-12">
-                    <div class="card">
-                        <div class="card-header bg-info text-center" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn collapsed text-white" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                {{ __('message.detail_reports')}}
-                            </button>
-                            @php
-                            $draft_id_str = implode(',', $draft_id);
-                            $draft_id_str =  Crypt::encryptString($draft_id_str)  ?? '';
-                            @endphp
-                            <a href="{{route('summary_export',['draft_id' => $draft_id_str])}}" class="btn btn-success float-left">{{ __('message.export_report')}}</a>
-                        </h5>
-                        </div>
-                    
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="scheme_list">{{ __('message.select_scheme')}} <span class="required_filed"> * </span> : </label>
-                                <select class="form-control scheme_list" name="scheme" id="scheme_list">
-                                {{-- <option>Select Scheme </option> --}}
-                                @foreach ($scheme_list as $key => $scheme_item)
-                                    <option value="{{ $key}}">{{ $scheme_item}}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <div class="chartItems" style="display: none;">
-                                <div class="card card-success">
-                                    <div class="card-header">
-                                        <h3 class="card-title">{{ __('message.bar_chart')}}</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+            <div class="row col-md-12">
+                    <div class="col-md-8">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header bg-info text-center" id="headingTwo">
+                                    <h5 class="mb-0"> <button class="btn collapsed text-white" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            {{ __('message.detail_reports') }} </button> @php $draft_id_str =
+                                        implode(',', $draft_id); $draft_id_str = Crypt::encryptString($draft_id_str) ?? ''; @endphp <a
+                                            href="{{ route('summary_export',['draft_id' => $draft_id_str]) }}"
+                                            class="btn btn-success float-left">{{ __('message.export_report') }}</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                     <div class="card-body">
-                                        <div class="chart">
-                                            <canvas id="barChart" style="min-height: 500px; height:  500px; max-height:  500px; max-width: 100%;"></canvas>
+                                        <div class="form-group"> <label
+                                                for="scheme_list">{{ __('message.select_scheme') }} <span
+                                                    class="required_filed"> * </span> : </label> <select
+                                                class="form-control scheme_list" name="scheme" id="scheme_list">
+                                                {{-- <option>Select Scheme </option> --}} @foreach ($scheme_list as $key =>
+                                                $scheme_item) <option value="{{ $key }}">{{ $scheme_item }}</option> @endforeach
+                                            </select> </div>
+                                        <div class="chartItems" style="display: none;">
+                                            <div class="card card-success">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">{{ __('message.bar_chart') }}</h3>
+                                                    <div class="card-tools"> <button type="button" class="btn btn-tool"
+                                                            data-card-widget="collapse"> <i class="fas fa-minus"></i> </button> <button
+                                                            type="button" class="btn btn-tool" data-card-widget="remove"> <i
+                                                                class="fas fa-times"></i> </button> </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="chart"> <canvas id="barChart"
+                                                            style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-custom gutter-b" style="border: 1px solid #000;">
+                        <div class="card-header flex-wrap py-3">
+                            <div class="card-toolbar">
+                            <h5>Display Dates</h5>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class=" col-md-4"> 
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped who-table">
-                            <thead class="table-dark">
+                        <div class="card-body">
+                            <!--begin: Datatable-->
+                            <table class="table table-bordered table-striped dataTable1 dtr-inline" id="example1" style="font-size:16px;">
+                            <thead>
                                 <tr>
-                                    <th>Sr. No</th>
-                                    <th>Name</th>
+                                <th>Concern Department Stages</th>
+                                <th>From DoE Date - To Date Concern/I.O Department</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dr. Rakesh R. Pandya</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Shri M. B. Gamit</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Smt. A. G. Prajapati</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Ms. Richa Mher</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Shri S. J. Patel</td>
-                                </tr>
-                            
+                            <tbody class="tBody_item" id="stageTableBody">
                             </tbody>
-                        </table>
+                            </table> 
+                            <!--end: Datatable-->
+                        </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+        </div>
     </section>
     <div id="welcome-user" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -294,9 +271,8 @@
   
 Chart.defaults.global.datasets.bar.categoryPercentage = 0.95;
   var barChart;
+  var chartLabels = @json(__('message.chart_labels_con_dept'));
   function donutChart(){
-
-    const chartLabels = @json(__('message.chart_labels_con_dept'));
     const delayLabel = "{{ __('message.delay_stage_sop_count') }}";
     const earlyLabel = "{{ __('message.early_stage_completion_count') }}";
     var areaChartData = {
@@ -311,19 +287,7 @@ Chart.defaults.global.datasets.bar.categoryPercentage = 0.95;
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-        //  data                : [28, 48, 40, 19, 86, 27, 90]
         },
-       // {
-        //   label               : earlyLabel, //grey
-        //   backgroundColor     : 'rgba(210, 214, 222, 1)',
-        //   borderColor         : 'rgba(210, 214, 222, 1)',
-        //   pointRadius         : false,
-        //   pointColor          : 'rgba(210, 214, 222, 1)',
-        //   pointStrokeColor    : '#c1c7d1',
-        //   pointHighlightFill  : '#fff',
-        //   pointHighlightStroke: 'rgba(220,220,220,1)',
-       //   data                : [65, 59, 80, 81, 56, 55, 40]
-        //},
       ]
     }
    
@@ -432,18 +396,21 @@ function withoutOnchange(){
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (data) {
-                          // Update the chart data
-                   barChart.data.datasets[0].data = [
-                        data['requistion_sent_hod'],
-                        data['study_entrusted'],
-                        data['draft_report'],
-                        data['draft_report_send'],
-                        data['minutes_of_metting'],
-                    ];
+                        const counts = safeCounts(data);
+                        const dates = safeDates(data);
 
-                    
+                        // Update chart safely
+                        barChart.data.datasets[0].data = [
+                            counts.requistion_sent_hod,
+                            counts.study_entrusted,
+                            counts.draft_report,
+                            counts.draft_report_send,
+                            counts.minutes_of_metting
+                        ];
                     // Update the chart
                     barChart.update();
+                    updateStageTable(data.dates, data.counts);
+
                         $('.chartItems').css('display','block');
                     },
                     error: function (xhr, status, error) {
@@ -469,18 +436,21 @@ $('#scheme_list').on('change', function () {
                     },
                     success: function (data) {
                           // Update the chart data
-                    barChart.data.datasets[0].data = [
-                        data['requistion_sent_hod'],
-                        data['study_entrusted'],
-                        data['draft_report'],
-                        data['draft_report_send'],
-                        data['minutes_of_metting'],
-                    ];
+                         const counts = safeCounts(data);
+                        const dates = safeDates(data);
 
-                  
-
+                        // Update chart safely
+                        barChart.data.datasets[0].data = [
+                            counts.requistion_sent_hod,
+                            counts.study_entrusted,
+                            counts.draft_report,
+                            counts.draft_report_send,
+                            counts.minutes_of_metting
+                        ];
                     // Update the chart
                     barChart.update();
+                    updateStageTable(data.dates, data.counts);
+
                     $('.chartItems').css('display','block');
                     },
                     error: function (xhr, status, error) {
@@ -490,7 +460,74 @@ $('#scheme_list').on('change', function () {
         } else {
              alert('Please select Scheme');
         }
-       });
+});
+
+function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-IN');
+}
+
+function updateStageTable(dates, counts) {
+
+    let tbody = $("#stageTableBody");
+    tbody.empty();
+
+    // 🔒 Safety checks
+    if (!Array.isArray(window.chartLabels)) {
+        console.warn("chartLabels not found or not an array", window.chartLabels);
+        tbody.html(`
+            <tr>
+                <td colspan="2" class="text-center text-muted">
+                    Labels not loaded
+                </td>
+            </tr>
+        `);
+        return;
+    }
+
+    dates = Array.isArray(dates) ? dates : [];
+    counts = counts || {};
+
+    let keys = [
+        'requistion_sent_hod',
+        'study_entrusted',
+        'draft_report',
+        'draft_report_send',
+        'minutes_of_metting'
+    ];
+
+    chartLabels.forEach((label, index) => {
+
+        let row = dates[index] || {};
+        let from = formatDate(row.from);
+        let to = formatDate(row.to);
+        let days = counts[keys[index]] || 0;
+
+        tbody.append(`
+            <tr>
+                <td>${label}</td>
+                <td>
+                    ${from} - ${to} (${days} Days)
+                </td>
+            </tr>
+        `);
+    });
+}
+
+function safeCounts(data) {
+    return data && data.counts ? data.counts : {
+        requistion_sent_hod: 0,
+        study_entrusted: 0,
+        draft_report: 0,
+        draft_report_send: 0,
+        minutes_of_metting: 0
+    };
+}
+
+function safeDates(data) {
+    return data && data.dates ? data.dates : [];
+}
 </script>
 @if($user->welcome_popup)
 <script>

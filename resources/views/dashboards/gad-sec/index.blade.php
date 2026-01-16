@@ -66,6 +66,19 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+                @if(Auth::user()->role == 20 || Auth::user()->role == 21)
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-lightblue elevation-1"><i class="fab fa-wpforms"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">{{ __('message.add_requisition')}}</span>
+                                <a href="{{ route('schemes.create') }}"> <span class="info-box-number">
+                                {{ __('message.add_new_requisition_form')}}
+                                </span></a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box">
                     <span class="info-box-icon bg-info elevation-1"><i class="fas fa-align-justify"></i></span>

@@ -1,5 +1,6 @@
 {{-- @extends('dashboards.implementations.layouts.ia-dash-layout') --}}
-@extends('dashboards.proposal.layouts.sidebar')
+@extends(Auth::user()->role == 20  ? 'dashboards.gad-sec.layouts.gadsec-dash-layout'  : 'dashboards.proposal.layouts.sidebar')
+{{-- @extends('dashboards.proposal.layouts.sidebar') --}}
 @section('title','Create Scheme')
 <style>
   .borderless {

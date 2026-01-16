@@ -30,7 +30,7 @@ use App\Exports\SummaryReport;
 use App\Exports\ExcelReport;
 use Illuminate\Support\Facades\Crypt;
 use PDF;
-
+use Mpdf\Mpdf;
 
 class StageController extends Controller
 {
@@ -560,7 +560,7 @@ class StageController extends Controller
             </tr>
         </table>
         ';
-        $mpdf = new \Mpdf\Mpdf([
+        $mpdf = new Mpdf([
             'tempDir' => sys_get_temp_dir(),
             'mode' => 'utf-8',
             'autoScriptToLang' => true,
@@ -937,7 +937,38 @@ class StageController extends Controller
                 $stage->minutes_meeting_dec
             ),
         ];
-        return response()->json($get_count);
+
+     return response()->json([
+            'counts' => [
+                'requistion_sent_hod' => $get_count['requistion_sent_hod'] ?? 0,
+                'study_entrusted' => $get_count['study_entrusted'] ?? 0,
+                'draft_report' => $get_count['draft_report'] ?? 0,
+                'draft_report_send' => $get_count['draft_report_send'] ?? 0,
+                'minutes_of_metting' => $get_count['minutes_of_metting'] ?? 0,
+            ],
+            'dates' => [
+                [
+                    'from' => $stage->requistion_sent_hod ?? null,
+                    'to'   => $stage->requisition ?? null
+                ],
+                [
+                    'from' => $stage->study_entrusted ?? null,
+                    'to'   => $stage->study_design_hod_date ?? null
+                ],
+                [
+                    'from' => $stage->report_sent_hod_date ?? null,
+                    'to'   => $stage->report_draft_hod_date ?? null
+                ],
+                [
+                    'from' => $stage->report_draft_sent_hod_date ?? null,
+                    'to'   => $stage->dept_eval_committee_datetime ?? null
+                ],
+                [
+                    'from' => $stage->dept_eval_committee_datetime ?? null,
+                    'to'   => $stage->minutes_meeting_dec ?? null
+                ],
+            ]
+        ]);
         
    }
 private function countDays($start, $end)

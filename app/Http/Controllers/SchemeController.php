@@ -3373,24 +3373,15 @@ class SchemeController extends Controller {
             $data = $completedProposals->map(function ($item, $key) {
                 $action = "";
                if (!empty($item->document)) {
-                            $action .= '<button class="btn btn-xs btn-info report_data" 
-                                            data-url-excel="' . route('stages.download_excel', $item->id) . '" 
-                                            data-url-pdf="' . route('stages.downalod', $item->id) . '" 
-                                            style="display: inline-block">'
-                                            . __('message.stage_report_download') .
-                                        '</button>
-                                        <a class="btn btn-xs btn-info" 
+                            $action .= '<a class="btn btn-xs btn-info" 
                                         href="' . route('stages.get_the_file', [Crypt::encrypt($item->scheme_id), $item->document]) . '" 
                                         target="_blank" 
-                                        title="' . e($item->document) . '">'.__('message.view_document').'</a>';
-                        } else {
-                            $action .= '<button class="btn btn-xs btn-info report_data" 
-                                            data-url-excel="' . route('stages.download_excel', $item->id) . '" 
-                                            data-url-pdf="' . route('stages.downalod', $item->id) . '" 
-                                            style="display: inline-block">'
-                                            . __('message.stage_report_download') .
-                                        '</button>';
-                        }
+                                        title="' .e($item->document) .'">'.__('message.view_document').'</a>';
+                        } 
+                        $action .= '<a class="btn btn-xs btn-info" href="'. route('stages.downalod', $item->id) . '" >'
+                                        . __('message.stage_report_download') .
+                                    '</a>';
+                        
 
                 return [
                     'DT_RowIndex' => $key + 1,
@@ -3476,20 +3467,11 @@ class SchemeController extends Controller {
             $data = $completedProposals->map(function ($item, $key) {
                 $action = '';
 
-                    if (!empty($item->document)) {
-
-                        $extension = pathinfo($item->document, PATHINFO_EXTENSION);
-
-                        // Always show download button
-                        $action .= '<button class="btn btn-xs btn-info report_data"
-                                        data-url-excel="' . route('stages.download_excel', $item->id) . '"
-                                        data-url-pdf="' . route('stages.downalod', $item->id) . '"
-                                        style="display: inline-block">'
+                // Always show download button
+                        $action .= '<a class="btn btn-xs btn-info" href="' . route('stages.downalod', $item->id) . '"  style="display: inline-block">'
                                         . __('message.stage_report_download') .
-                                    '</button>';
-
-                        // Show view button ONLY if PDF
-                        if (strtolower($extension) === 'pdf') {
+                                    '</a>';
+                    if (!empty($item->document)) {
                             $action .= ' <a class="btn btn-xs btn-info"
                                             href="' . route('stages.get_the_file', [
                                                 Crypt::encrypt($item->scheme_id),
@@ -3499,17 +3481,6 @@ class SchemeController extends Controller {
                                             title="' . e($item->document) . '">'
                                             . __('message.final_report') .
                                         '</a>';
-                        }
-
-                    } else {
-
-                        // No document → only download
-                        $action .= '<button class="btn btn-xs btn-info report_data"
-                                        data-url-excel="' . route('stages.download_excel', $item->id) . '"
-                                        data-url-pdf="' . route('stages.downalod', $item->id) . '"
-                                        style="display: inline-block">'
-                                        . __('message.stage_report_download') .
-                                    '</button>';
                     }
 
 
