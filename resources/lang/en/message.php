@@ -110,54 +110,53 @@ return [
     'select_scheme' => 'Select Scheme',
     
 
-    'chart_labels' => [
-        'Requition',
+   'chart_labels' => [
+        'Requisition',
         'Study Design',
-        'Approval Study Design',
+        'Approval from concern department',
         'Pilot Survey',
         'Field Work',
         'Data Cleaning',
         'Report Writing',
-        'Suggestion of I.O. for Draft Report',
-        'Date of Draft Report sent to DEC',
-        'Minutes of Metting From DEC',
+        'Suggestion of I.O.',
+        'DEC',
         'ECC',
         'Publication',
         'Dropped',
     ],
-
     'chart_stage_scores' => [
-        'Requition' => 30,
+        'Requisition' => 30,
         'Study Design' => 30,
-        'Approval Study Design' => 30,
+        'Approval from concern department' => 30,
         'Pilot Survey' => 10,
         'Field Work' => 60,
         'Data Cleaning' => 45,
         'Report Writing' => 25,
-        'Suggestion of I.O. for Draft Report' => 15,
-        'Minutes of Metting From DEC' => 30,
+        'Suggestion of I.O.' => 15,
+        'DEC' => 30,
         'ECC' => 30,
         'Publication' => 30,
         'Dropped' => 30,
     ],
 
     'chart_labels_con_dept' => [
-        'No. of days for Requition',
+        'No. of days for Requisition',
         'Approval Study Design',
         'Suggestion of I.O. for Draft Report',
         'Date of Draft Report sent to DEC',
-        'Minutes of Metting From DEC',
+        'Minutes of Meeting From DEC',
     ],
     'chart_stage_scores_con_dept' => [
-        'No. of days for Requition' => 30,
+        'No. of days for Requisition' => 30,
         'Approval Study Design' => 30,
         'Suggestion of I.O. for Draft Report' => 15,
-        'Minutes of Metting From DEC' => 30,
+        'Minutes of Meeting From DEC' => 30,
     ],
 
     'delay_stage_sop_count' => 'Action Taken Report Concern Department',
-   // 'early_stage_completion_count' => 'Early Stage Completion Count',
+    'early_stage_completion_count' => 'Early Stage Completion Count',
 
+    
    //Profile
     'change_picture' => 'Change picture',
     'personal_information' => 'Personal Information',

@@ -211,7 +211,6 @@
         ]
       }
       // Configuring the chart options
-      
           stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d');
           var stackedBarChartData = $.extend(true, {}, areaChartData);
           var stackedBarChartOptions = {

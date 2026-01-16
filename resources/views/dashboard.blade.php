@@ -387,7 +387,7 @@ function withoutOnchange(){
         draft_id =  btoa(draft_id);
                if (draft_id) {
                  donutChart();
-                const url = "{{ route('get-donutchart-count', ':draft_id') }}".replace(':draft_id', draft_id);
+                const url = "{{ route('get-donutchart-count-condept', ':draft_id') }}".replace(':draft_id', draft_id);
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
@@ -426,7 +426,7 @@ $('#scheme_list').on('change', function () {
         draft_id =  btoa(draft_id);
                if (draft_id) {
                  donutChart();
-                const url = "{{ route('get-donutchart-count', ':draft_id') }}".replace(':draft_id', draft_id);
+                const url = "{{ route('get-donutchart-count-condept', ':draft_id') }}".replace(':draft_id', draft_id);
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',

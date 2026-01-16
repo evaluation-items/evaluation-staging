@@ -168,6 +168,7 @@ Route::post('/welcome-popup/seen', function () {
     Route::get('get-scheme-count',[StageController::class,'schemeCount'])->name('get-scheme-count');
     Route::get('get-stage-count',[StageController::class,'stageCount'])->name('get-stage-count');
     Route::post('get-donutchart-count/{draft_id}',[StageController::class,'donutCount'])->name('get-donutchart-count');
+    Route::post('get-donutchart-count-condept/{draft_id}',[StageController::class,'donutCount_con_dept'])->name('get-donutchart-count-condept');
     Route::get('detail-report', [StageController::class,'detailReport'])->name('detail_report');
     Route::get('summary_export/{draft_id?}', [StageController::class,'summaryReport'])->name('summary_export');
     
@@ -346,6 +347,9 @@ Route::middleware([GadsecMiddleware::class,'auth'])->prefix('gadsec')->group(fun
 
         
         Route::post('gadtoeval',[GadsecController::class,'frwdtoeval'])->name('gadsec.gadtoeval');
+
+        Route::post('gad-scheme-to-eval',[GadsecController::class,'gadSchemefrwd'])->name('gadsec.gad-scheme-to-eval');
+
         Route::post('returntodept',[GadsecController::class,'returntodept'])->name('gadsec.returntodept');
         Route::post('forwardtoeval',[GadsecController::class,'forwardtoeval'])->name('gadsec.forwardtoeval');
     });

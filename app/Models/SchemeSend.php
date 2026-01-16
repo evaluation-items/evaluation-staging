@@ -18,7 +18,7 @@ class SchemeSend extends Model
         'user_id',
         'created_by',
         'created_at',
-        'status_id','team_member_dd','remarks','return_eval_date','evaluation_sent_date','viewed','forward_btn_show','forward_id'
+        'status_id','team_member_dd','remarks','return_eval_date','evaluation_sent_date','viewed','forward_btn_show','forward_id','approved'
     ];
     public function users()
     {

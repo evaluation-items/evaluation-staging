@@ -1237,9 +1237,9 @@
             @endsection
 {{-- <script src="{{asset('js/3.2.1.jquery.min.js')}}"></script> --}}
     <script src="{{asset('js/jquery.min.js')}}"></script>
-
-
     <script type="text/javascript">
+    const userRole = {{ Auth::user()->role }};
+    
         window.onload = function() {
           var room = 1;
           var indicator_room = 1;
@@ -2843,17 +2843,68 @@ function countPrevious(prevslide){
       return previousSlide;
 }
 function finishSlides() {
-          Swal.fire({
-          title: "Completed!",
-          text: "Your Proposal has been completed.",
-          icon: "success"
-        }).then(okay => {
-            if (okay) {
-              var get_url = "{{ route('proposals', ['param' => 'new']) }}";
-              window.location.href = get_url;
+
+    let message = "Your Proposal has been completed.";
+    let isRole20 = false;
+
+    if (userRole == 20) {
+        message = "Your Proposal has been completed. This Proposal is sent to Evaluation department";
+        isRole20 = true;
+    }
+
+    Swal.fire({
+        title: "Completed!",
+        text: message,
+        icon: "success",
+        confirmButtonText: "OK"
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            // Role 20 → AJAX forward
+            if (isRole20) {
+                $.ajax({
+                    url: "{{ route('gadsec.gad-scheme-to-eval') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                       // draft_id: draft_id
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Proposal forwarded to Evaluation Department successfully.",
+                            icon: "success"
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+                        Swal.fire("Error", "Something went wrong while forwarding.", "error");
+                    }
+                });
+
+            } 
+            // Other roles → Normal redirect
+            else {
+                var get_url = "{{ route('proposals', ['param' => 'new']) }}";
+                window.location.href = get_url;
             }
-        });
+        }
+    });
 }
+// function finishSlides() {
+//           Swal.fire({
+//           title: "Completed!",
+//           text: "Your Proposal has been completed.",
+//           icon: "success"
+//         }).then(okay => {
+//             if (okay) {
+//               var get_url = "{{ route('proposals', ['param' => 'new']) }}";
+//               window.location.href = get_url;
+//             }
+//         });
+// }
   function getPrevSlide(prevslide) {
      // countPrevious(prevslide);
       let prevSlide = countPrevious(prevslide);

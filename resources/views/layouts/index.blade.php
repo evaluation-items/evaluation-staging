@@ -291,7 +291,7 @@
                                 <a href="https://planning.gujarat.gov.in/">General Administration Department(Planning)</a>
                             </li>
                             <li>
-                                <a href="{{ Config::get('custom_url.url') }}">{{ __('message.directorate_economics') }}</a>
+                                <a href="https://gujecostat.gujarat.gov.in/">{{ __('message.directorate_economics') }}</a>
                             </li>
                             <li>
                                 <a href="https://gujhd.gujarat.gov.in/">{{ __('message.gujarat_social_infra') }}</a>
@@ -358,12 +358,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="adverties" style="border: 1px solid #000;border: 1px solid #000;
-    margin-left: 71%;
-    margin-right: -13%;
-    margin-top: 38%;">
-            
-        </div> --}}
+    
 
         <div class="theme-container closetheme">
             <div class="position-relative">
