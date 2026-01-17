@@ -238,10 +238,10 @@
                     <h1 class="mb-1 fw-bold text-dark" style="font-weight:bold; font-size:1.25rem;">
                         {{ __('message.director_of_evaluation') }}
                     </h1>
-                    <div class="text-secondary" style="font-size: 0.95rem;margin-top: 5px;">
+                    <div class="text-secondary" style="margin-top: 5px;">
                         <strong> Directorate of Evaluation </strong> <br>
                         {{ __('message.general_administration') }}<br>
-                         <strong>{{ __('message.government_of_gujarat') }}</strong>
+                         {{ __('message.government_of_gujarat') }}
                     </div>
                 </div>
             </div>

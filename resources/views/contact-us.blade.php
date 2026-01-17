@@ -43,7 +43,6 @@ p a:hover {
                 <strong>Ph. No.:</strong>
                 <a href="tel:07923252861">079-23252861</a>
             </p>
-
             <p>
                 <strong>E-mail:</strong>
                 <a href="mailto:direvl@gujarat.gov.in">direvl@gujarat.gov.in</a>

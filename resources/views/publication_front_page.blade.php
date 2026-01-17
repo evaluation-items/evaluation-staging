@@ -1,13 +1,37 @@
 @extends('layouts.app')
 @section('content')
 <style>
-.table>thead>tr>th {
-    text-align: center;
+.table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 14px;
-     color: #000;
 }
-thead tr {
-    font-weight: bold;
+
+.table thead th {
+    background-color: #f2f2f2;
+    color: #000;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.table tbody td {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    vertical-align: middle;
+}
+
+.table tbody td:nth-child(1),
+.table tbody td:nth-child(4),
+.table tbody td:nth-child(5) {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.table tbody tr:hover {
+    background-color: #f9f9f9;
 }
 </style>
 <div class="container">
