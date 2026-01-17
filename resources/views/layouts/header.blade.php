@@ -251,7 +251,7 @@
                 <img src="{{ asset('img/nic_logo.jpg') }}" alt="NIC Logo" style="height: 55px;" class="nic-image">
             </div>
         </div>
-    </div>
+    </div> 
     <nav style="margin: 28px 0px 0px 0px !important;">
         <div class="container">
             <div class="row">
@@ -309,7 +309,7 @@
                                 <a aria-label="privacy-guidance" href="javascript:void(0)">Policy guidance</a>
                             </li>
                             <li>
-                                <a aria-label="media-gallery" href="javascript:void(0)">Media gallery</a>
+                                <a aria-label="media-gallery" href="{{route('media-gallery')}}">Media gallery</a>
                             </li>
                             <li>
                                 <a  href="javascript:void(0)">E-Citizen <i class="fa fa-caret-down" aria-hidden="true"></i></a>

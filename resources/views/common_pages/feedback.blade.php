@@ -2,23 +2,68 @@
 @section('content')
 <style>
 
-/* .card-header {
-    background-color: #0d6efd;
-    /* border-radius: 10px 10px 0 0; 
-} */
+.feedback-card {
+    border-radius: 10px;
+    border: none;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #0b3c5d, #0d6efd);
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    /* text-align: center; */
+}
 
 .form-control {
     border-radius: 6px;
+    height: 42px;
+}
+
+textarea.form-control {
+    height: auto;
+}
+
+.form-group label {
+    font-weight: 500;
+    /* color: #333; */
 }
 
 .required_filed {
     color: red;
 }
 
-/* .btn-primary {
+.inner-form-border {
+    padding: 20px;
+}
+
+.btn-primary {
     border-radius: 25px;
+    padding: 10px 40px;
     font-weight: 500;
-} */
+    font-size: 16px;
+}
+
+.captcha-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.captcha-box img {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 5px;
+    background: #f9f9f9;
+}
+
+@media (max-width: 768px) {
+    .btn-primary {
+        width: 100%;
+    }
+}
 </style>
 <div class="row">
     <div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
@@ -34,15 +79,21 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9">
                         <div class="card shadow feedback-card">
-                            <!-- Card Header -->
-                            
+    
+                            <!-- Header -->
+                            <div class="card-header">
+                                Submit Your Feedback
+                            </div>
+
                             <div class="card-body">
+
                                 <!-- Alerts -->
                                 @if(session('success'))
                                     <div class="alert alert-success">
                                         {{ session('success') }}
                                     </div>
                                 @endif
+
                                 @if(session('error'))
                                     <div class="alert alert-danger">
                                         {{ session('error') }}
@@ -50,67 +101,83 @@
                                 @endif
 
                                 <!-- Form -->
-                                <form method="POST" action="{{ route('feedback.submit') }}" autocomplete="off">
+                                <form id="feedbackFrm" method="POST" action="{{ route('feedback.submit') }}" autocomplete="off">
                                     @csrf
+
                                     <div class="inner-form-border">
+
                                         <!-- Row 1 -->
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Name <span class="required_filed">*</span></label>
-                                                <input type="text" class="form-control" name="name">
-                                                @error('name')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Name <span class="required_filed">*</span></label>
+                                                    <input type="text" class="form-control" name="name">
+                                                    @error('name')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label>Contact No</label>
-                                                <input type="text" class="form-control" name="contactno">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Contact No</label>
+                                                    <input type="text" class="form-control" name="contactno">
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Row 2 -->
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Email <span class="required_filed">*</span></label>
-                                                <input type="email" class="form-control" name="email">
-                                                @error('email')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Email <span class="required_filed">*</span></label>
+                                                    <input type="email" class="form-control" name="email">
+                                                    @error('email')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label>Address</label>
-                                                <input type="text" class="form-control" name="address">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Address</label>
+                                                    <input type="text" class="form-control" name="address">
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Row 3 -->
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>City <span class="required_filed">*</span></label>
-                                                <input type="text" class="form-control" name="city">
-                                                @error('city')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>City <span class="required_filed">*</span></label>
+                                                    <input type="text" class="form-control" name="city">
+                                                    @error('city')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label>State</label>
-                                                <input type="text" class="form-control" name="state">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>State</label>
+                                                    <input type="text" class="form-control" name="state">
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Row 4 -->
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Country</label>
-                                                <input type="text" class="form-control" name="country">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Country</label>
+                                                    <input type="text" class="form-control" name="country">
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Message -->
-                                        <div class="form-group">
+                                        <div class="form-group mb-4">
                                             <label>Message <span class="required_filed">*</span></label>
                                             <textarea class="form-control" name="message" rows="5"
                                                 placeholder="Write your feedback here..."></textarea>
@@ -120,41 +187,41 @@
                                         </div>
 
                                         <!-- Captcha -->
-                                        <div class="form-group">
+                                        <div class="form-group mb-4">
                                             <label>Captcha <span class="required_filed">*</span></label>
 
-                                            <div class="row align-items-center">
-                                                <div class="col-md-4 mb-2">
+                                            <div class="captcha-box">
+                                                <span class="captcha-img">
                                                     {!! captcha_img('clean') !!}
-                                                </div>
+                                                </span>
 
-                                                <div class="col-md-2 mb-2">
-                                                    <button type="button" class="btn btn-outline-secondary btn-sm btn-refresh w-100">
-                                                        <i class="fa fa-refresh"></i>
-                                                    </button>
-                                                </div>
+                                                <button type="button" class="btn btn-outline-secondary btn-refresh">
+                                                    <i class="fa fa-refresh"></i>
+                                                </button>
 
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control"
-                                                        name="captcha"
-                                                        placeholder="Enter captcha">
-                                                </div>
+                                                <input type="text" class="form-control"
+                                                    name="captcha"
+                                                    placeholder="Enter captcha"
+                                                    style="max-width: 200px;">
                                             </div>
 
                                             @error('captcha')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
+
                                         <!-- Submit -->
-                                        <div class="text-center mt-5 mb-5">
-                                            <button type="submit" class="btn btn-primary px-5">
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary">
                                                 Submit Feedback
                                             </button>
                                         </div>
+
                                     </div>
                                 </form>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -163,13 +230,13 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-    $(".btn-refresh").click(function(){
+    $(".btn-refresh").on('click',function(){
 	var url = "{{ route('refresh_captcha')}}";
 	$.ajax({
 		type:'GET',
 		url: url,
 		success:function(data){
-			$(".captcha span").html(data.captcha);
+			$(".captcha-box span").html(data.captcha);
 		}
 	});
 });

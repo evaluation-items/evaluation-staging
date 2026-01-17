@@ -116,6 +116,7 @@ Route::get('/whos-who', [App\Http\Controllers\SlugController::class, 'Whos'])->n
 Route::get('/Dec', [App\Http\Controllers\SlugController::class, 'Dec'])->name('dec');
 Route::get('/Ecc', [App\Http\Controllers\SlugController::class, 'Ecc'])->name('ecc');
 Route::get('/government-resolution', [App\Http\Controllers\SlugController::class, 'governmentResolution'])->name('government-resolution');
+Route::get('/media-gallery', [App\Http\Controllers\SlugController::class, 'mediaGallery'])->name('media-gallery');
 
 Route::get('/menu-item/{slug}', [App\Http\Controllers\SlugController::class, 'menuItem'])->name('slug');
 

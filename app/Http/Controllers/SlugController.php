@@ -82,4 +82,7 @@ class SlugController extends Controller
         public function righttoInfo(){
             return view('common_pages.righttoinfo');
         }
+        public function mediaGallery(){
+            return view('common_pages.media-gallery');
+        }
 }

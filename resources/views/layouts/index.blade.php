@@ -166,18 +166,15 @@
             gap: 0px !important;
         }
     </style>
-    <section>
         <div id="slider1">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}
-            <ul>
-                <li><img src="{{ asset('img/graph-1.jpeg') }}" alt="Slide 1"></li>
+                <img src="{{ asset('img/graph-1.jpeg') }}" alt="Directorate of Evaluation">
                 {{-- <li><img src="{{asset('img/graph-1.jpg')}}" alt="Slide 2"></li>
                 <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>
                 <li><img src="{{asset('img/graph-3.png')}}" alt="Slide 4"></li> --}}
-
-            </ul>
         </div>
+
         {{-- <script>
             jQuery(document).ready(function($) {
                 setInterval(function() {
@@ -222,8 +219,40 @@
                 });
             });
         </script> --}}
-    </section>
+ 
     {{-- <div class="container"> --}}
+        {{-- <section class="officials-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 mb-3">
+                    <div class="official-card"> 
+                        <img src="{{ asset('img/cm-guj-planning.png') }}" alt="Chief Minister" style="width: 80px;height: 80px;">
+                        <div>
+                            <h5>Shri Bhupendra Patel</h5>
+                            <p>Hon'ble Chief Minister<br>Government of Gujarat</p>
+                            <div class="social-icons">
+                                <a href="https://www.facebook.com/ibhupendrapatel" target="_blank"><img title="Facebook" alt="Facebook" src="{{asset('img/IconeFbcm2.png')}}"></a>
+                                <a href="https://twitter.com/Bhupendrapbjp" target="_blank"><img title="X" alt="X" src="{{asset('img/IconeTwcm2.png')}}"></a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <div class="official-card">
+                        <img src="{{ asset('img/ms-ardra-agrawal.png') }}" alt="Secretary" style="width: 80px;height: 80px;">
+                        <div>
+                            <h5>Ms. Ardra Agarwal, IAS</h5>
+                            <p>Secretary (Planning)</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section> --}}
+
     <a href="{{ Config::get('custom_url.url') }}director-of-evaluation1#" class="skip" id="skip_main_content_start"
         style="visibility: hidden;">skip_main_content_start</a>
     <div class="clear" id="skip_main_content_end"></div>

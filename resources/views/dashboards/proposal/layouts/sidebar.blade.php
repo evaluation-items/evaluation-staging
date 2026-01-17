@@ -23,8 +23,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   {{-- <link rel="stylesheet" type="text/css" href="{{ asset('plugins/datatables-jquery/dataTables.min.css') }}"> --}}
   <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
   <link href="{{asset('css/jquery-ui.css')}}" rel="Stylesheet" type="text/css" />
-<link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
-<link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet">
+  <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet" />
 
 </head>
 <body class="sidebar-mini layout-fixed text-sm sidebar-collapse">

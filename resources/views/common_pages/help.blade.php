@@ -1,54 +1,56 @@
 @extends('layouts.app')
 @section('content')
-    <div class="menu-item-pages col-lg-9 col-md-8 col-sm-12 left_col">
-        <h4>Help</h4>
-        <div class="description" style="margin-top: 1%;">
-                    <div class="tbl-content">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Viewing different file formats&nbsp;</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Document Type</th>
-                                        <th>Download</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Portable Document Format (P.D.F.) content</td>
-                                        <td><a href="https://get.adobe.com/reader/otherversions/" target="_blank">Adobe Acrobat Reader</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Word files</td>
-                                        <td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=4" target="_blank">Word Viewer Microsoft Office Compatibility Pack for Word (for 2007 version)</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Excel files</td>
-                                        <td><a href="https://www.microsoft.com/en-us/download/" target="_blank">Excel Viewer Microsoft Office Compatibility Pack for Excel (for 2007 version)</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>PowerPoint presentations</td>
-                                        <td><a href="https://www.microsoft.com/en-us/download/" target="_blank">PowerPoint Viewer Microsoft Office Compatibility Pack for PowerPoint (for 2007 version)</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Flash content</td>
-                                        <td><a href="https://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player(Other Government website that opens in a new window)</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Audio Files</td>
-                                        <td><a href="https://www.microsoft.com/en-in/download/windows-media-player-details.aspx" target="_blank">Windows Media Player</a></td>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="help_info">
+<div class="row">
+    <div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
+            <h4 class="page-title text-center">Help</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped who-table">
+                    <thead class="table-dark">
+                        <tr>
+                             <tr>
+                                <th colspan="2">Viewing different file formats&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <th>Document Type</th>
+                                <th>Download</th>
+                            </tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                            <td>Portable Document Format (P.D.F.) content</td>
+                            <td><a href="https://get.adobe.com/reader/otherversions/" target="_blank">Adobe Acrobat Reader</a></td>
+                        </tr>
+                        <tr>
+                             <td>Word files</td>
+                            <td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=4" target="_blank">Word Viewer Microsoft Office Compatibility Pack for Word (for 2007 version)</a></td>
+                        </tr>
+                        <tr>
+                            <td>Excel files</td>
+                            <td><a href="https://www.microsoft.com/en-us/download/" target="_blank">Excel Viewer Microsoft Office Compatibility Pack for Excel (for 2007 version)</a></td>
+                        </tr>
+                        <tr>
+                            <td>PowerPoint presentations</td>
+                            <td><a href="https://www.microsoft.com/en-us/download/" target="_blank">PowerPoint Viewer Microsoft Office Compatibility Pack for PowerPoint (for 2007 version)</a></td>
+                        </tr>
+                        <tr>
+                            <td>Flash content</td>
+                            <td><a href="https://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player(Other Government website that opens in a new window)</a></td>
+                        </tr>
+                        <tr>
+                            <td>Audio Files</td>
+                            <td><a href="https://www.microsoft.com/en-in/download/windows-media-player-details.aspx" target="_blank">Windows Media Player</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+           </div>
+           <p  class="content-text">
+                 <div class="help_info">
                         <h4>Accessibility Help</h4>
 
                         <p>Use the accessibility options provided by this Website to control the screen display. These options allow increasing the text spacing, changing the text size and colour scheme for clear visibility and better readability.</p>
 
-                    <p><strong>Text Size Icons</strong> Following different options are provided in the form of icons which are available on the top of each page:</p>
+                        <p><strong>Text Size Icons</strong> Following different options are provided in the form of icons which are available on the top of each page:</p>
 
                         <ul>
                             <li>
@@ -89,8 +91,7 @@
                             <li><a href="https://gujecostat.gujarat.gov.in/accessibility-options">Accessibility Options in browsers</a></li>
                         </ul>
                     </div>
-                  
-            
-        </div>
+           </p>
     </div>
+</div>
 @endsection

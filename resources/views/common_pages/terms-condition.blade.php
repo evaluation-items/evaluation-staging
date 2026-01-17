@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
-
-    <div class="menu-item-pages col-lg-9 col-md-8 col-sm-12 left_col">
-        <h2>Terms & Condition</h2>
-        <div class="description" style="float: left;width: 100%;position: relative;">
-            <p>This website is updated and maintained by Directorate of Economics and Statistics, Government of Gujarat</p>
+<div class="row">
+    <div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
+        <h4 class="page-title text-center">Terms & Condition</h4>
+        <p class="content-text">
+              <p>This website is updated and maintained by Directorate of Economics and Statistics, Government of Gujarat</p>
 
             <p>Though all efforts have been made to ensure the accuracy of the content on this website, the same should not be construed as a statement of law or used for any legal purposes. In case of any ambiguity or doubts, users are advised o verify/check with the Directorate of Economics and Statistics and/or other source(s), and to obtain appropriate professional advice.</p>
 
@@ -16,8 +16,8 @@
 
             <h4>Disclaimer</h4>
 
-            <p>This website of the Directorate of Economics and Statistics is being maintained for information purposes only. Even though every effort is taken to provide accurate and up to date information, officers making use of the circulars posted on the website are advised to get in touch with the Directorate of Economics and Statistics whenever there is any doubt regarding the correctness of the information contained therein. In the event of any conflict between the contents of the circulars on the website and the hard copy of the circulars issued by Directorate of Economics and Statistics, the information in the hard copy should be relied upon and the matter shall be brought to the notice of the Directorate of Economics and Statistics.</p>
-
-        </div>
+            <p>This website of the Directorate of Economics and Statistics is being maintained for information purposes only. Even though every effort is taken to provide accurate and up to date information, officers making use of the circulars posted on the website are advised to get in touch with the Directorate of Economics and Statistics whenever there is any doubt regarding the correctness of the information contained therein. In the event of any conflict between the contents of the circulars on the website and the hard copy of the circulars issued by Directorate of Economics and Statistics, the information in the hard copy should be relied upon and the matter shall be brought to the notice of the Directorate of Economics and Statistics.</p>   
+        </p>
     </div>
+</div>
 @endsection

@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <div class="menu-item-pages col-lg-9 col-md-8 col-sm-12 left_col">
-        <h4>Privacy Policy</h4>
-        <div class="description" style="margin-top: 1%;">
-
-                
-            <p>As a general rule, this website does not collect Personal Information about you when you visit the site. You can generally visit the site without revealing Personal Information, unless you choose to provide such information.</p>
+<div class="row">
+    <div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
+            <h4 class="page-title text-center">Privacy Policy</h4>
+           <p class="content-text">
+                 <p>As a general rule, this website does not collect Personal Information about you when you visit the site. You can generally visit the site without revealing Personal Information, unless you choose to provide such information.</p>
 
             <h4>Site Visit Data:</h4>
 
@@ -28,7 +27,8 @@
             <h4>Note:</h4>
 
             <p>The use of the term "Personal Information" in this privacy statement refers to any information from which your identity is apparent or can be reasonably ascertained.</p>
-
-        </div>
+        
+           </p>
     </div>
+</div>
 @endsection
