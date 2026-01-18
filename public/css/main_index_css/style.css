@@ -97,8 +97,7 @@ video {
     font: inherit;
     vertical-align: baseline;
     font-family: 'Poppins', sans-serif;
-
-    /* overflow: hidden; */
+    /* overflow-x: hidden;  */
 }
 label{
     color: var('--form-group-text-color') !important;

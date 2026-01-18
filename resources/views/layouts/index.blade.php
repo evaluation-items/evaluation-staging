@@ -165,14 +165,110 @@
         .knowledge-links {
             gap: 0px !important;
         }
-    </style>
-        <div id="slider1">
+/* 
+.home-bg {
+    background: #4f7f73;
+    width: 100%;
+    padding: 120px 30px 4px 0; /* top padding creates space for floating cards 
+    position: relative;
+}
+
+.home-content {
+    margin-top: -120px; /* pulls content UP into the green section 
+    position: relative;
+    z-index: 10;
+}
+
+.info-card,
+.banner-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+} */
+
+
+/* .official-card {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+}
+.official-info h4 {
+    margin: 0;
+    color: #0b4d2c;
+    font-size: 16px;
+} */
+/* .official-info {
+    margin-top: 20px;
+} */
+/* .official-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+} */
+
+/* .social-icons{
+    display: inline-block;
+} */
+</style>
+
+{{-- <section class="home-bg">
+    <div class="container home-content">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-md-4">
+                <!-- LEFT CARD -->
+                <div class="info-card">
+                    <div class="official-card">
+                        <img src="{{ asset('img/cm-guj-planning.png') }}" alt="Chief Minister">
+                        <div class="official-info">
+                            <h4>Shri Bhupendra Patel</h4>
+                            <p>Hon'ble Chief Minister,<br>Government of Gujarat</p>
+                            <div class="social-icons">
+                                <a href="#"><img src="{{ asset('img/IconeFbcm2.png') }}" alt="Facebook"></a>
+                                <a href="#"><img src="{{ asset('img/IconeTwcm2.png') }}" alt="X"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                     <!-- Secretary -->
+                    <div class="official-card">
+                        <img src="{{ asset('img/ms-ardra-agrawal.png') }}" alt="Secretary" style=" width: 80px;height: 80px;">
+                        <div class="official-info">
+                            <h4>Ms. Ardra Agarwal, IAS</h4>
+                            <p>Secretary,<br>(Planning)</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="official-card">
+                        <img src="{{ asset('img/ms-ardra-agrawal.png') }}" alt="Secretary" style=" width: 80px;height: 80px;">
+                        <div class="official-info">
+                            <h4>Ms. Ardra Agarwal, IAS</h4>
+                            <p>Secretary,<br>(Planning)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <!-- RIGHT BANNER -->
+                <div class="banner-card">
+                    <img src="{{ asset('img/graph-1.jpeg') }}" class="img-fluid" alt="Directorate of Evaluation">
+                </div>
+            </div>
+        </div>
+    </div>
+</section> --}}
+
+
+
+     <div id="slider1">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}
                 <img src="{{ asset('img/graph-1.jpeg') }}" alt="Directorate of Evaluation">
                 {{-- <li><img src="{{asset('img/graph-1.jpg')}}" alt="Slide 2"></li>
                 <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>
-                <li><img src="{{asset('img/graph-3.png')}}" alt="Slide 4"></li> --}}
+                <li><img src="{{asset('img/graph-3.png')}}" alt="Slide 4"></li>--}} 
         </div>
 
         {{-- <script>
