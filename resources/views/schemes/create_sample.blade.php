@@ -824,7 +824,7 @@
                                                             <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <select name="taluka_id" class="form-control" id="districtList" style="display: none;">
+                                                    <select name="taluka_id" class="form-control" id="taluka_id" style="display: none;">
                                                       <option value="">Select District</option>
                                                     </select>
                                                     <div id="load_gif_img"></div>
@@ -1599,7 +1599,7 @@ function remove_financial_year(row) {
     function fngetdist(theval) {
         $(".thedistrictlist").remove();
         $("#beneficiariesGeoLocal_img").remove();
-        $('#districtList').hide();
+        $('#taluka_id').hide();
         if (theval === 'all') {
           // Handle the case when 'All' is selected
           fnSelectAll(true);
@@ -1626,7 +1626,7 @@ function remove_financial_year(row) {
                 $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
 
                 if(response.districts != '' && response.districts != undefined) {
-                  $('#districtList').css('display','none');
+                  $('#taluka_id').css('display','none');
                   $(".thedistrictlist").append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
                     // Add an "All" checkbox at the beginning of the list
                     $.each(response.districts, function(reskey, resval){
@@ -1634,14 +1634,14 @@ function remove_financial_year(row) {
                     });
                 }
                   if(response.district_list != '' && response.district_list != undefined) {
-                      $('#districtList').css('display','block');
-                      $('#districtList').empty();
+                      $('#taluka_id').css('display','block');
+                      $('#taluka_id').empty();
                       if (!$.isEmptyObject(response.district_list)) {
                           $.each(response.district_list, function(key, value) {   
-                              $('#districtList').append($("<option></option>").attr("value", value).text(key)); 
+                              $('#taluka_id').append($("<option></option>").attr("value", value).text(key)); 
                           });
                       } else {
-                          $('#districtList').append($("<option></option>").text('Select District'));
+                          $('#taluka_id').append($("<option></option>").text('Select District'));
                       }
                     
                     }
@@ -1656,7 +1656,7 @@ function remove_financial_year(row) {
                 // }
                 if(response.state != '' && response.state != undefined){
                       //console.log('state');
-                      $('#districtList').css('display','none');
+                      $('#taluka_id').css('display','none');
                       $.each(response.state,function(reskey,resval){
                        $(".thedistrictlist").append("<div class='col-xl-3'><input class='state_length' type='checkbox' style='margin:3px' value='"+resval.id+"' name='state_name[]'>"+resval.name+"</div>");
                     });
@@ -1690,7 +1690,7 @@ function remove_financial_year(row) {
         });
 
          //fetch taluka
-          $('#districtList').on('change',function(){
+          $('#taluka_id').on('change',function(){
               var district_code = $(this).val();
               if(district_code != ""){
                 $.ajax({
@@ -2447,7 +2447,7 @@ updateStepTitle(nextSlide);
             var talukas = [];
             var districts = [];
             var states = [];
-           
+            var taluka_id = $('#taluka_id').val();
             if(thedistrictlist > 0) {
               if(beneficiariesGeoLocal == 1) { //state
                     var i = 0;
@@ -2456,7 +2456,7 @@ updateStepTitle(nextSlide);
                         states[i] = ss_state.replace(/"/g,'');
                         i++;
                     });
-                }else if(beneficiariesGeoLocal == 7) { //Developing Taluka
+                }else if(beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) { //Developing Taluka
                     var i = 0;
                     $("input[name='taluka_name[]']:checked").each(function() {
                         var ss_taluka = this.value;
@@ -2480,7 +2480,7 @@ updateStepTitle(nextSlide);
               $("#the_error_html").remove();
            let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide); 
+            updateStepTitle(nextSlide); 
               $.ajax({
                   type: 'POST',
                   url: "{{ route('schemes.add_scheme') }}",
@@ -2493,6 +2493,7 @@ updateStepTitle(nextSlide);
                       'state_name':states, 
                       'district_name':districts,
                       'taluka_name':talukas, 
+                      'taluka_id':taluka_id,
                       'otherbeneficiariesGeoLocal': next_otherbeneficiariesGeoLocal
                   },
                   success: function(response) {
@@ -2537,7 +2538,7 @@ updateStepTitle(nextSlide);
                     $("#the_error_html").remove();
                  let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide); 
+                    updateStepTitle(nextSlide); 
                     // ✅ Build FormData manually (works with file uploads)
                     var formDataNineth = new FormData();
                     formDataNineth.append('_token', "{{ csrf_token() }}");
