@@ -10,7 +10,7 @@ use App\Models\Stage;
 use App\Models\Proposal;
 use Carbon\Carbon;
 
-class SummaryReport implements FromCollection, WithStyles
+class SummaryReportAll implements FromCollection, WithStyles
 {
     protected $draft_id;
 

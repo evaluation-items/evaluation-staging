@@ -172,6 +172,7 @@ Route::post('/welcome-popup/seen', function () {
     Route::post('get-donutchart-count-condept/{draft_id}',[StageController::class,'donutCount_con_dept'])->name('get-donutchart-count-condept');
     Route::get('detail-report', [StageController::class,'detailReport'])->name('detail_report');
     Route::get('summary_export/{draft_id?}', [StageController::class,'summaryReport'])->name('summary_export');
+    Route::get('summary_export_all/{draft_id?}', [StageController::class,'summaryReportAll'])->name('summary_export_all');
     
     //Stage Create
     Route::resource('stages',StageController::class);

@@ -3626,7 +3626,7 @@ class SchemeController extends Controller {
         }else if($distname == 2) { //District
             $entered_districts = Scheme::where('scheme_id', $scheme_id)->value('districts');
             $dist_arr = json_decode($entered_districts); 
-            $district = Districts::select('dcode', 'name_e')->orderBy('name_e', 'asc')->get();
+            $district = Districts::select('dcode', 'name_e')->whereIn('dcode',$dist_arr)->orderBy('name_e', 'asc')->get();
             $districts = array('districts' => $district, 'entered_values' => $dist_arr);
             return response()->json($districts);
             

@@ -27,6 +27,7 @@ use function App\Helpers\PdfHelper\getPdfContent;
 use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\SummaryReport;
+use App\Exports\SummaryReportAll;
 use App\Exports\ExcelReport;
 use Illuminate\Support\Facades\Crypt;
 use PDF;
@@ -1343,6 +1344,20 @@ class StageController extends Controller
             return response()->json(['error' => 'Invalid encrypted data'], 400);
         }
     }
+   }
+    public function summaryReportAll($draft_id = null){
+        if ($draft_id) {
+            try {
+                $decrypted_draft_id_str = Crypt::decryptString($draft_id);
+
+                $draft_ids = explode(',', $decrypted_draft_id_str);
+
+                return Excel::download(new SummaryReportAll($draft_ids), 'evaluation-summary-report-all.xlsx');
+
+            } catch (DecryptException $e) {
+                return response()->json(['error' => 'Invalid encrypted data'], 400);
+            }
+        }
    }
     public function normalizeDate($value, $type = 'date')
     {
