@@ -3594,8 +3594,8 @@ updateStepTitle(nextSlide);
 
             var count_tr = $("#thisistbody tr").length;
             if(next_financial_progress_selection != "" && next_financial_progress_year != ''  && next_financial_progress_target != '' && next_financial_progress_achivement != '' && next_financial_progress_allocation != '' && next_financial_progress_expenditure != '') {
-             // let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+              let nextSlide = countIncrease(slideid);
+                updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
                 var tr_array = [];
                 var count_blank_fields = 0;
