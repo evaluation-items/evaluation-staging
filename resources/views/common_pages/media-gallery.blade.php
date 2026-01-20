@@ -113,30 +113,33 @@
                     <div class="gallery-grid">
                         <!-- Image 1 -->
                         <div class="gallery-item" onclick="openModal(this)">
-                            <img src="{{ asset('img/gallery/picture.jpeg') }}" alt="Gallery Image 1">
-                            <div class="gallery-caption">Inauguration Event</div>
+                            <img src="{{ asset('img/gallery/picture.JPG') }}" alt="Gallery Image 1">
+                            <!-- <div class="gallery-caption">Inauguration Event</div> -->
                         </div>
 
                         <!-- Image 2 -->
                         <div class="gallery-item" onclick="openModal(this)">
-                            <img src="{{ asset('img/gallery/picture2.jpeg') }}" alt="Gallery Image 2">
-                            <div class="gallery-caption">Training Program</div>
+                            <img src="{{ asset('img/gallery/picture2.JPG') }}" alt="Gallery Image 2">
+                            <!-- <div class="gallery-caption">Training Program</div> -->
                         </div>
 
                         <!-- Image 3 -->
                         <div class="gallery-item" onclick="openModal(this)">
-                            <img src="{{ asset('img/gallery/picture3.jpeg') }}" alt="Gallery Image 3">
-                            <div class="gallery-caption">Workshop Session</div>
+                            <img src="{{ asset('img/gallery/picture3.JPG') }}" alt="Gallery Image 3">
+                            <!-- <div class="gallery-caption">Workshop Session</div> -->
                         </div>
 
                         <!-- Image 4 -->
                         <div class="gallery-item" onclick="openModal(this)">
-                            <img src="{{ asset('img/gallery/picture4.jpg') }}" alt="Gallery Image 4">
-                            <div class="gallery-caption">Department Meeting</div>
+                            <img src="{{ asset('img/gallery/picture4.JPG') }}" alt="Gallery Image 4">
+                            <!-- <div class="gallery-caption">Department Meeting</div> -->
                         </div>
 
                         <!-- Add more images as needed -->
-
+                        <div class="gallery-item" onclick="openModal(this)">
+                            <img src="{{ asset('img/gallery/picture5.JPG') }}" alt="Gallery Image 4">
+                            <!-- <div class="gallery-caption">Department Meeting</div> -->
+                        </div>
                     </div>
                 </div>
             </div>
