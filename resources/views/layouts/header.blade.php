@@ -276,6 +276,11 @@
                                         </a>
                                     </h2>
                                     <h2 class="sub_title">
+                                        <a href="{{ route('vission-mission') }}">
+                                            Vision, Mission
+                                        </a>
+                                    </h2>
+                                    <h2 class="sub_title">
                                         <a href="{{ route('whos-who') }}">
                                             {{ __('message.whos_who') }}
                                         </a>

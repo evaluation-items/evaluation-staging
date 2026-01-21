@@ -8,7 +8,7 @@
 
         [data-aos="fade"].aos-animate {
             opacity: 1;
-            color: #464646 !important;
+            color: #0e0808 !important;
             /* visible text */
         }
 
@@ -355,11 +355,11 @@
     <div class="px-4 main-content-index justify-content-center">
 
         <div class="col-lg-8 col-md-7 col-sm-12 left_col">
-            <h4 class="aos-item" data-aos="zoom-in">Directorate Of Evaluation of Gujarat</h4>
+            <h4 class="aos-item" data-aos="zoom-in">Directorate Of Evaluation</h4>
             <p></p>
             <h4 class="aos-item" data-aos="zoom-in">1. {{ __('message.background') }} :</h4>
             <p class="aos-item" data-aos="zoom-in">{{ __('message.paregraph-1') }}</p>
-
+            <p class="aos-item" data-aos="fade-up"> Every Evaluation studies are unique in itself as the subject under evaluation are different in context and relevance, target subject and impact in terms of socio-political-economical-cultural and structural realm. Directorate of Evaluation has its own unique way of doing evaluation of plans, projects and schemes etc implemented by various Department of Government. </p>
             <h4 class="aos-item" data-aos="fade-up">{{ __('message.paregraph-26') }}</h4>
             <ol class="aos-item" data-aos="fade-up">
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-27') }}</li>
@@ -370,9 +370,9 @@
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-32') }}</li>
             </ol>
             <p class="aos-item" data-aos="fade-up">{{ __('message.paregraph-33') }}</p>
-            <h4 class="aos-item" data-aos="fade-up">{{ __('message.paregraph-34') }} :</h4>
-            <p class="aos-item" data-aos="fade-up">{{ __('message.paregraph-35') }}</p>
-            <ol>
+            {{-- <h4 class="aos-item" data-aos="fade-up">{{ __('message.paregraph-34') }} :</h4>
+            <p class="aos-item" data-aos="fade-up">{{ __('message.paregraph-35') }}</p> --}}
+            {{-- <ol>
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-36') }}</li>
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-37') }}</li>
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-38') }}</li>
@@ -384,7 +384,7 @@
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-44') }}</li>
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-45') }}</li>
                 <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-46') }}</li>
-            </ol>
+            </ol> --}}
             {{--   <p>{{ __('message.paregraph-47') }}</p>
 
             <ol class="knowledge-links">
