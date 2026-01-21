@@ -108,8 +108,17 @@
                       </td>
                       <td width="25%"></td>
                     </tr>
+					 <tr>
+                      <th width="50%">{{ __('message.requistion_sent_hod')}}</th>
+                      <td width="25%">
+                          {{ ((!empty($stages->requistion_sent_hod)) ? Carbon::Parse($stages->requistion_sent_hod)->format('d-m-Y') : "") }}
+                      </td>
+                      <td width="25%">
+                        {{ ((!empty($stages->requistion_sent_hod_text)) ? $stages->requistion_sent_hod_text : "") }}
+                      </td>
+                    </tr>
                     <tr>
-                      <th width="50%">{{ trans('message.chart_labels')[0] }}</th>
+                      <th width="50%">{{ trans('message.requistion_received_date') }}</th>
                       <td width="25%">
                           {{ ((!empty($stages->requisition)) ? Carbon::Parse($stages->requisition)->format('d-m-Y') : "") }}
                       </td>
@@ -126,6 +135,15 @@
                         {{ ((!empty($stages->scheme_hod_text)) ? $stages->scheme_hod_text : "") }}
                       </td>
                     </tr>
+					 <tr>
+                      <th width="50%">{{ __('message.information_received_from_io')}}</th>
+                      <td width="25%">
+                          {{ ((!empty($stages->information_received_from_io)) ? Carbon::Parse($stages->information_received_from_io)->format('d-m-Y') : "") }}
+                      </td>
+                      <td width="25%">
+                        {{ ((!empty($stages->information_received_from_io_text)) ? $stages->information_received_from_io_text : "") }}
+                      </td>
+                    </tr>
                   
                     <tr>
                       <th width="50%">{{ __('message.study_design')}}</th>
@@ -134,6 +152,16 @@
                       </td>
                       <td width="25%">
                         {{ ((!empty($stages->study_design_text)) ? $stages->study_design_text : "") }}
+                      </td>
+                    </tr>
+					
+					<tr>
+                      <th width="50%">{{ __('message.study_design_sent_concern_department')}}</th>
+                      <td width="25%">
+                        {{ (!empty($stages->study_entrusted) ? Carbon::Parse($stages->study_entrusted)->format('d-m-Y') : "" ) }}
+                      </td>
+                      <td width="25%">
+                        {{ ((!empty($stages->study_entrusted_text)) ? $stages->study_entrusted_text : "") }}
                       </td>
                     </tr>
 
@@ -235,24 +263,34 @@
                       <td width="25%">{{!empty($stages->report_draft_hod_text) ? $stages->report_draft_hod_text : ""}}</td>
                     </tr>
 
-                     <tr>
+                    <tr>
                         <th width="50%">{{ __('message.draft_report_send')}}</th>
                         <td width="25%"> {{ (!empty($stages->report_draft_sent_hod_date) ? Carbon::Parse($stages->report_draft_sent_hod_date)->format('d-m-Y') : "" ) }}</td>
                         <td width="25%">{{!empty($stages->report_draft_sent_hod_text) ? $stages->report_draft_sent_hod_text : ""}}</td>
                     </tr>
 
-                    
-                   
                     <tr>
                       <th width="50%">{{ __('message.date_department')}}</th>
-                      <td width="25%">{{(!empty($stages->dept_eval_committee_datetime) ? Carbon::Parse($stages->dept_eval_committee_datetime)->format('d-m-Y H:i A') : '')}}</td>
+                      <td width="25%">{{(!empty($stages->dept_eval_committee_datetime) ? Carbon::Parse($stages->dept_eval_committee_datetime)->format('d-m-Y') : '')}}</td>
                       <td width="25%">{{!empty($stages->dept_eval_committee_text) ? $stages->dept_eval_committee_text : ""}}</td>
                     </tr>
+					
+					<tr>
+                      <th width="50%">{{ __('message.minutes_meeting_dec')}}</th>
+                      <td width="25%">{{(!empty($stages->minutes_meeting_dec) ? Carbon::Parse($stages->minutes_meeting_dec)->format('d-m-Y H:i A') : '')}}</td>
+                      <td width="25%">{{!empty($stages->minutes_meeting_dec_text) ? $stages->minutes_meeting_dec_text : ""}}</td>
+                    </tr>
+					
                      <tr>
                         <th width="50%">{{ __('message.draft_report_send_eval')}}</th>
                         <td width="25%">{{(!empty($stages->draft_sent_eval_committee_date) ? Carbon::Parse($stages->draft_sent_eval_committee_date)->format('d-m-Y')  : '')}}</td>
                         <td width="25%">{{!empty($stages->draft_sent_eval_committee_text) ? $stages->draft_sent_eval_committee_text : ""}}</td>
-                      </tr>
+                     </tr>
+					 <tr>
+                        <th width="50%">{{ __('message.minutes_meeting_eval')}}</th>
+                        <td width="25%">{{(!empty($stages->minutes_meeting_eval) ? Carbon::Parse($stages->minutes_meeting_eval)->format('d-m-Y')  : '')}}</td>
+                        <td width="25%">{{!empty($stages->minutes_meeting_eval_text) ? $stages->minutes_meeting_eval_text : ""}}</td>
+                     </tr>
                     <tr>
                         <th width="50%">{{ __('message.committee')}}</th>
                         <td width="25%">{{(!empty($stages->eval_cor_date) ?  Carbon::Parse($stages->eval_cor_date)->format('d-m-Y H:I A') : '')}}</td>

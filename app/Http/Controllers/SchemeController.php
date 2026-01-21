@@ -1846,7 +1846,7 @@ class SchemeController extends Controller {
             }
             return response()->json('updated successfully');
         } else if($slide == 'nineth') {
-        
+        //dd($request->all());
             if(Session::has('scheme_id') && Session::has('draft_id')){
                 $scheme_id = Session::get('scheme_id');
                 $draft_id = Session::get('draft_id');
@@ -3632,19 +3632,26 @@ class SchemeController extends Controller {
             
         }else if($distname == 3) { //Talukas
             $entered_districts = Scheme::where('scheme_id', $scheme_id)->pluck('talukas','taluka_id');
-            $talukaId = $entered_districts->keys()->all();
-            if($talukaId != '' || $talukaId != null){
-                $taluka = Taluka::where('dcode',$talukaId[0])->select('tcode', 'tname_e')->orderBy('tname_e', 'asc')->get();
-                $taluka_id = $talukaId[0];
-            }else{
-                $taluka = Taluka::select('tcode', 'tname_e')->orderBy('tname_e', 'asc')->get();
+            $taluka_id = $entered_districts->keys()->first(); // 2
+            $taluka_list = json_decode($entered_districts->first(), true); 
+
+            if (!empty($taluka_id) && !empty($taluka_list)) {
+
+            $taluka = Taluka::where('dcode', $taluka_id)
+                    ->whereIn('tcode', $taluka_list)
+                    ->select('tcode', 'tname_e')
+                    ->orderBy('tname_e', 'asc')
+                    ->get();
+
+            } else {
+                $taluka = collect();
                 $taluka_id = 0;
             }
+
             $dist_arr = json_decode($entered_districts->first()); 
             $district_list = Districts::select('dcode','name_e')->orderBy('name_e','asc')->get();
             $talukas = array('talukas' => $taluka, 'entered_values' => $dist_arr,'taluka_id'=>$taluka_id,'district_list' =>$district_list);
            // dd('taluka');
-
             return response()->json($talukas);
             
         } else if($distname == 9) { //Coastal Districts

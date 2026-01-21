@@ -960,7 +960,7 @@
                                                     <option value="{{$value->id}}" @if($value->id == $val->beneficiariesGeoLocal) selected @endif>{{$value->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <select name="taluka_id" class="form-control" id="districtList" style="display: none;">
+                                            <select name="taluka_id" class="form-control" id="taluka_id" style="display: none;">
                                               <option value="">Select District</option>
                                             </select>
                                             <div id="load_gif_img"></div>
@@ -2359,7 +2359,7 @@ $(document).ready(function () {
 
         $(".thedistrictlist").remove();
         $("#beneficiariesGeoLocal_img").remove();
-        $('#districtList').hide();
+        $('#taluka_id').hide();
         if (theval === 'all') {
             fnSelectAll(true);
             return;
@@ -2397,7 +2397,7 @@ $(document).ready(function () {
                     //     });
                     // }
                     if (response.districts) {
-                        $('#districtList').css('display','none');
+                        $('#taluka_id').css('display','none');
                         $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
                       $.each(response.districts, function (reskey, resval) {
@@ -2417,19 +2417,19 @@ $(document).ready(function () {
                   }
                     if(response.district_list != '' && response.district_list != undefined) {
                    //   console.log('district_list');
-                      $('#districtList').css('display','block');
-                      $('#districtList').empty();
+                      $('#taluka_id').css('display','block');
+                      $('#taluka_id').empty();
                       if (!$.isEmptyObject(response.district_list)) {
                           $.each(response.district_list, function(key, value) {   
-                              $('#districtList').append($("<option></option>").attr("value", value).text(key)); 
+                              $('#taluka_id').append($("<option></option>").attr("value", value).text(key)); 
                           });
                       } else {
-                          $('#districtList').append($("<option></option>").text('Select District'));
+                          $('#taluka_id').append($("<option></option>").text('Select District'));
                       }
                     
                     }
                     if (response.state && response.state.length > 0) {
-                    $('#districtList').css('display','none');
+                    $('#taluka_id').css('display','none');
 
                     $.each(response.state, function (reskey, resval) {
                         // check if current item is in the already selected list
@@ -2462,7 +2462,7 @@ $(document).ready(function () {
     });
 
     //fetch taluka
-    $('#districtList').on('change',function(){
+    $('#taluka_id').on('change',function(){
         var district_code = $(this).val();
         if(district_code != ""){
           $.ajax({
@@ -2546,7 +2546,7 @@ function DistItem(){
 
             // ✅ District Section
             if (response.districts && response.districts.length > 0) {
-                $('#districtList').hide();
+                $('#taluka_id').hide();
                 districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
                 $.each(response.districts, function (reskey, resval) {
@@ -2563,7 +2563,7 @@ function DistItem(){
 
             // ✅ State Section
             else if (response.states && response.states.length > 0) {
-                $('#districtList').hide();
+                $('#taluka_id').hide();
 
                 $.each(response.states, function (key, val) {
                     var thedcode = String(val.id);
@@ -2578,7 +2578,7 @@ function DistItem(){
 
             // ✅ Taluka Section
             else if (response.talukas && response.talukas.length > 0 && response.taluka_id) {
-                $('#districtList').show();
+                $('#taluka_id').show();
                 districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
                 $.each(response.talukas, function (reskey, resval) {
@@ -2597,10 +2597,10 @@ function DistItem(){
                         if (value.dcode == response.taluka_id) {
                             option.attr("selected", "selected");
                         }
-                        $('#districtList').append(option);
+                        $('#taluka_id').append(option);
                     });
                 } else {
-                    $('#districtList').append($("<option></option>").text('Select District'));
+                    $('#taluka_id').append($("<option></option>").text('Select District'));
                 }
             }
         },
@@ -3245,7 +3245,7 @@ updateStepTitle(nextSlide);
            var major_text = $(".major_benefit_textareas").val();
             if(major_text != '') {
                let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide);  
+                updateStepTitle(nextSlide);  
               
               $("#the_error_html").remove();
 
@@ -3280,7 +3280,8 @@ updateStepTitle(nextSlide);
             var talukas = [];
             var districts = [];
             var states = [];
-           
+            var taluka_id = $('#taluka_id').val();
+           console.log($('#taluka_id').val());
             if(thedistrictlist > 0) {
               if(beneficiariesGeoLocal == 1) { //state
                     var i = 0;
@@ -3289,8 +3290,9 @@ updateStepTitle(nextSlide);
                         states[i] = ss_state.replace(/"/g,'');
                         i++;
                     });
-                }else if(beneficiariesGeoLocal == 7) { //Developing Taluka
-                    var i = 0;
+                }else if(beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) { //Developing Taluka
+
+                  var i = 0;
                     $("input[name='taluka_name[]']:checked").each(function() {
                         var ss_taluka = this.value;
                         talukas[i] = ss_taluka.replace(/"/g,'');
@@ -3311,8 +3313,9 @@ updateStepTitle(nextSlide);
 
           if (next_scheme_implementing_procedure !== '' && beneficiariesGeoLocal !== '') {
               let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+              updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
+
 
                 $.ajax({
                     type:'post',
@@ -3324,6 +3327,7 @@ updateStepTitle(nextSlide);
                     'state_name':states, 
                     'district_name':districts,
                     'taluka_name':talukas, 
+                    'taluka_id':taluka_id,
                     'otherbeneficiariesGeoLocal':next_otherbeneficiariesGeoLocal,'draft_id':draft_id,'scheme_id':scheme_id
                   },
                     success:function(response) {
@@ -3590,8 +3594,8 @@ updateStepTitle(nextSlide);
 
             var count_tr = $("#thisistbody tr").length;
             if(next_financial_progress_selection != "" && next_financial_progress_year != ''  && next_financial_progress_target != '' && next_financial_progress_achivement != '' && next_financial_progress_allocation != '' && next_financial_progress_expenditure != '') {
-             // let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+              let nextSlide = countIncrease(slideid);
+                updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
                 var tr_array = [];
                 var count_blank_fields = 0;
