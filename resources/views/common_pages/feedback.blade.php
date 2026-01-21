@@ -195,9 +195,7 @@ textarea.form-control {
                                                     {!! captcha_img('clean') !!}
                                                 </span>
 
-                                                <button type="button" class="btn btn-outline-secondary btn-refresh">
-                                                    <i class="fa fa-refresh"></i>
-                                                </button>
+                                                <button type="button" class="btn btn-refresh"><i class="fa fa-refresh" style="font-size:22px;"></i></button>
 
                                                 <input type="text" class="form-control"
                                                     name="captcha"
