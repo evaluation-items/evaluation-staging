@@ -12,14 +12,7 @@
             /* visible text */
         }
 
-        :root {
-            --green: #73a92e;
-            --panel-bg: #ffffff;
-            --accent: #23286b;
-            --muted: #6b6b6b;
-            --border: #e6e6e6;
-            /* --font-sans:"Helvetica Neue",Arial,sans-serif; */
-        }
+      
 
         .whatsnew-card {
             width: 100%;

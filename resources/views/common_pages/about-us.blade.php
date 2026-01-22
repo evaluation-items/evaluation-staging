@@ -8,12 +8,10 @@
             
             <p class="content-text">
                 In evaluation study following criteria are analyzed on the basis of feedbacks of stakeholders, observations during fields and primary/secondary data.
-                <li> <h4>Relevance: </h4> the extent to which intervention/schemes or program relevant/appropriate. achieving desired results / outcomes for the target groups </li> 
-                <li><h4>Efficiency: </h4> measures quantitative and qualitative outputs in relation to inputs, cost effectiveness, timely achievement and comparison to alternative approaches.</li>
-                <li> <h4>Effectiveness:</h4> the extent to which program objectives were achieved or likely to be achieved as well as factor influencing achievements of the objectives.</li>
-                <li> <h4>Impact: </h4> measures positive and negative results achieved by program, difference made to the target group and reasons for difference created.</li>
-                <li> <h4> Sustainability: </h4> the extent of continuing of benefits after withdrawal of external support.</li>
             </p>
+            <div class="evaluation-process-img">
+                <img src="{{ asset('img/eval-process.png') }}" alt="Directorate of Evaluation">
+            </div>
             <h4>Process of Evaluation:</h4>
              <p class="content-text">
                 <h4>(1) Selection of schemes for Evaluation study</h4>
@@ -55,8 +53,6 @@
                     <li>Findings based on analysis of primary and secondary data.</li>
                     <li>Draft report is sent to implementing department for suggestions and draft is updated according to appropriate suggestions.</li>
                 </p>
-
-
 
                  <h4>(6) Submission of Draft report by DEC</h4>
                   <p>
