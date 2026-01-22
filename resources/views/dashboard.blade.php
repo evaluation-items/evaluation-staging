@@ -180,7 +180,7 @@
                   </div>
               </div> --}}
             <div class="row col-md-12">
-                    <div class="col-md-8">
+                    <div class="col-md-8" style="display: none;">
                         <div id="accordion">
                             <div class="card">
                                 <div class="card-header bg-info text-center" id="headingTwo">
@@ -194,13 +194,14 @@
                                 </div>
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                     <div class="card-body">
-                                        <div class="form-group"> <label
+                                        {{-- <div class="form-group"> <label
                                                 for="scheme_list">{{ __('message.select_scheme') }} <span
                                                     class="required_filed"> * </span> : </label> <select
                                                 class="form-control scheme_list" name="scheme" id="scheme_list">
-                                                {{-- <option>Select Scheme </option> --}} @foreach ($scheme_list as $key =>
+                                                 @foreach ($scheme_list as $key =>
                                                 $scheme_item) <option value="{{ $key }}">{{ $scheme_item }}</option> @endforeach
-                                            </select> </div>
+                                            </select> 
+                                        </div> --}}
                                         <div class="chartItems" style="display: none;">
                                             <div class="card card-success">
                                                 <div class="card-header">
@@ -222,11 +223,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    
+                    <div class="col-md-12">
+                        <div class="form-group"> <label
+                                                for="scheme_list">{{ __('message.select_scheme') }} <span
+                                                    class="required_filed"> * </span> : </label> <select
+                                                class="form-control scheme_list" name="scheme" id="scheme_list">
+                                                {{-- <option>Select Scheme </option> --}} @foreach ($scheme_list as $key =>
+                                                $scheme_item) <option value="{{ $key }}">{{ $scheme_item }}</option> @endforeach
+                                            </select> 
+                                        </div>
                         <div class="card card-custom gutter-b" style="border: 1px solid #000;">
                         <div class="card-header flex-wrap py-3">
                             <div class="card-toolbar">
-                            <h5>Display Dates</h5>
+                            <h5>Proposal Stage, Dates & Duration</h5>
                             </div>
                         </div>
                         <div class="card-body">
@@ -236,6 +246,7 @@
                                 <tr>
                                 <th>Concern Department Stages</th>
                                 <th>From DoE Date - To Date Concern/I.O Department</th>
+                                <th>Days count</th>
                                 </tr>
                             </thead>
                             <tbody class="tBody_item" id="stageTableBody">
@@ -408,10 +419,10 @@ function withoutOnchange(){
                             counts.minutes_of_metting
                         ];
                     // Update the chart
-                    barChart.update();
+                   // barChart.update();
                     updateStageTable(data.dates, data.counts);
 
-                        $('.chartItems').css('display','block');
+                        //$('.chartItems').css('display','block');
                     },
                     error: function (xhr, status, error) {
                       alert(error);
@@ -423,6 +434,7 @@ function withoutOnchange(){
 }
 $('#scheme_list').on('change', function () {
         var draft_id = $(this).val();
+        console.log(draft_id);
         draft_id =  btoa(draft_id);
                if (draft_id) {
                  donutChart();
@@ -440,18 +452,18 @@ $('#scheme_list').on('change', function () {
                         const dates = safeDates(data);
 
                         // Update chart safely
-                        barChart.data.datasets[0].data = [
-                            counts.requistion_sent_hod,
-                            counts.study_entrusted,
-                            counts.draft_report,
-                            counts.draft_report_send,
-                            counts.minutes_of_metting
-                        ];
+                        // barChart.data.datasets[0].data = [
+                        //     counts.requistion_sent_hod,
+                        //     counts.study_entrusted,
+                        //     counts.draft_report,
+                        //     counts.draft_report_send,
+                        //     counts.minutes_of_metting
+                        // ];
                     // Update the chart
-                    barChart.update();
+                   // barChart.update();
                     updateStageTable(data.dates, data.counts);
 
-                    $('.chartItems').css('display','block');
+                   // $('.chartItems').css('display','block');
                     },
                     error: function (xhr, status, error) {
                       alert(error);
@@ -507,9 +519,8 @@ function updateStageTable(dates, counts) {
         tbody.append(`
             <tr>
                 <td>${label}</td>
-                <td>
-                    ${from} - ${to} (${days} Days)
-                </td>
+                <td>${from} - ${to}</td>
+                <td>${days} Days</td>
             </tr>
         `);
     });

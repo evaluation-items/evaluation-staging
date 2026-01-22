@@ -97,10 +97,10 @@ return [
     'add_requisition' => 'Add Requisition',
     'add_new_requisition_form' => 'Add New Requisition Form',
     'no_of_new_proposals' => 'No. of New Proposals',
-    'no_of_forwraded_proposals' => 'No. of Forwraded Proposals',
-    'no_of_returned_proposals' => 'No. of Returned Proposals',
+    'no_of_forwraded_proposals' => 'No. of Proposals Forwarded',
+    'no_of_returned_proposals' => 'No. of Proposals Returned',
     'no_of_on-going_studies' => 'No. of On-going Studies',
-    'no_of_complete_studies' => 'No. of Complete  Studies',
+    'no_of_complete_studies' => 'No. of Studies Completed',
     'export_report' => 'Export Report',
     'bar_chart' => 'Bar Chart',
     'welcome' => 'Welcome',
@@ -216,16 +216,16 @@ return [
     'gad_desc' => 'List of new proposals received from Concern Department',
 
     //Gad-sec Sidebar
-    'returned_proposals' => 'Returned Proposals',
-    'ongoing_proposals' => 'Ongoing Proposals',
-    'approved_proposals' => 'Approved/Forwarded Proposals',
+    'returned_proposals' => 'Proposals Returned',
+    'ongoing_proposals' => 'Proposals Ongoing',
+    'approved_proposals' => 'Proposals Approved/Forwarded',
     'detail_reports' => 'Detail Reports',
 
     //Gad Dashboard
-    'no_of_approved_proposals' => 'No. of Approved/Forward Proposals to DoE',
+    'no_of_approved_proposals' => 'No. of Proposals Approved/Forward to DoE',
     'gad_secretary' => 'GAD Secretary',
 
-    //Gad Forwared
+    //Gad Forwarded
     'scheme_overview' => 'Scheme Overview',
     'scheme_objective' => 'Scheme Objective',
 
