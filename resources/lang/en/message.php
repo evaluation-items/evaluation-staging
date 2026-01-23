@@ -140,17 +140,18 @@ return [
     ],
 
     'chart_labels_con_dept' => [
-        'No. of days for Requisition',
-        'Approval Study Design',
-        'Suggestion of I.O. for Draft Report',
-        'Date of Draft Report sent to DEC',
-        'Minutes of Meeting From DEC',
+        'Requisition Stage',
+        'Study Design Approval Stage',
+        'Suggestion for I.O. on Draft Report',
+        'Draft Report Submission to DEC Stage',
+        'DEC Meeting & Minutes Stage',
     ],
     'chart_stage_scores_con_dept' => [
-        'No. of days for Requisition' => 30,
-        'Approval Study Design' => 30,
-        'Suggestion of I.O. for Draft Report' => 15,
-        'Minutes of Meeting From DEC' => 30,
+        'Requisition Stage' => 30,
+        'Study Design Approval Stage' => 30,
+        'SSuggestion for I.O. on Draft Report' => 15,
+        'Draft Report Submission to DEC Stage'=> 30,
+        'DEC Meeting & Minutes Stage' => 30,
     ],
 
     'delay_stage_sop_count' => 'Action Taken Report Concern Department',

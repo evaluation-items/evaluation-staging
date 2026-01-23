@@ -245,8 +245,8 @@
                             <thead>
                                 <tr>
                                 <th>Concern Department Stages</th>
-                                <th>From DoE Date - To Date Concern/I.O Department</th>
-                                <th>Days count</th>
+                                <th>From Date (DoE) – To Date (Concern / I.O Department)</th>
+                                <th>Days Count</th>
                                 </tr>
                             </thead>
                             <tbody class="tBody_item" id="stageTableBody">

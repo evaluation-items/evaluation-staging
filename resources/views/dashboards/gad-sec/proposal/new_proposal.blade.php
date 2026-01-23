@@ -72,7 +72,7 @@
                           <td width="23%">
                           	<a href="{{ route('schemes.newproposal_detail',Crypt::encrypt($prop->draft_id)) }}" class="btn btn-xs btn-info">{{ __('message.view') }}</a>
                             @if($prop->prop_status_id == 23 and $prop->forward_btn_show == 1)
-                            <button type="submit" class="btn btn-xs btn-success" onclick="fn_forward_modal('{{Crypt::encrypt($prop->draft_id)}}','{{Crypt::encrypt($prop->id)}}')">{{ __('message.approve') }}</button>
+                            <button type="submit" class="btn btn-xs btn-success" style="margin-top:49px;margin-bottom:49px;" onclick="fn_forward_modal('{{Crypt::encrypt($prop->draft_id)}}','{{Crypt::encrypt($prop->id)}}')">GAD sent scheme to Evaluation Office</button>
                             <button type="submit" class="btn btn-xs btn-danger" onclick="fn_backward_modal('{{Crypt::encrypt($prop->draft_id)}}','{{Crypt::encrypt($prop->id)}}')">{{ __('message.return') }}</button>
                             @endif
                           </td>
