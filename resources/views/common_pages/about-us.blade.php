@@ -53,6 +53,8 @@
                     <li>Findings based on analysis of primary and secondary data.</li>
                     <li>Draft report is sent to implementing department for suggestions and draft is updated according to appropriate suggestions.</li>
                 </p>
+                <h4>(6)  {{ __('message.paregraph-4') }}</h4><br>
+                <h4>(7) {{ __('message.evaluation_coordination_committee') }}</h4>
              </p>
 
     </div>

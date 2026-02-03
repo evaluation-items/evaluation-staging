@@ -47,18 +47,19 @@
 
                                     'about-us' => ['Home', 'About Us'],
                                     'organization-chart' => ['Home', 'About Us', 'Organization Chart'],
+                                    'vission-mission' => ['Home', 'About Us', 'Vision & Mission'],
                                     'whos-who' => ['Home', 'About Us', 'Who’s Who'],
 
                                     'dec' => ['Home', 'Committee', 'DEC'],
                                     'ecc' => ['Home', 'Committee', 'ECC'],
 
-                                    'publication_front_page' => ['Home', 'Publications'],
+                                    'publication_front_page' => ['Home', 'Evaluation Publications'],
                                    // 'policy-guidence' => ['Home', 'Policy & Guidence'],
-                                   //'media-gallary' => ['Home', 'Media Gallary'],
+                                   'media-gallery' => ['Home', 'Media Gallery'],
                                    'right-to-information' => ['Home', 'E-citizen', 'Right to Information'],
                                    'government-resolution' => ['Home', 'E-citizen', 'Goverment Resolution'],
-
                                     'contact-us' => ['Home', 'Contact Us'],
+                                    'login' => ['Home', 'Login for Evaluation Proposals'],
                                 ];
 
                                 $currentBreadcrumb = $breadcrumbs[$routeName] ?? ['Home'];
