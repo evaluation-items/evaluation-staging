@@ -132,7 +132,7 @@
     </h5>
 
     <ol class="function-list">
-        <li>{{ __('message.paregraph-17') }}</li>
+        {{-- <li>{{ __('message.paregraph-17') }}</li> --}}
         <li>{{ __('message.paregraph-18') }}</li>
         <li>{{ __('message.paregraph-19') }}</li>
     </ol>

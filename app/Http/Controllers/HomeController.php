@@ -46,9 +46,11 @@ class HomeController extends Controller
     public function departmentPublication($id)
     {
         $list = [];
-        $dept_list = DigitalProjectLibrary::where('dept_id',$id)->get();
-        return view('publication_front_page',compact('dept_list','list'));
+        $dept_list = DigitalProjectLibrary::where('dept_id', $id)->get();
+
+        return view('publication_front_page', compact('dept_list', 'list', 'id'));
     }
+
     public function getthepublicationdocument($id,$document) {
        
         try {

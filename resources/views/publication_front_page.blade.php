@@ -40,11 +40,24 @@
 			<div class="box_wrap">
 				<h4>{{ __('message.publications')}}</h4>
 				<div class="publication-content">
-					<ul>
+					@php $department = App\Models\Department::get(); @endphp
+                  	<select id="department_select_pb" class="form-control" aria-label="Default select example">
+						<option value="">{{ __('message.select_department') }}</option>
+
+						@foreach ($department as $department_items)
+							<option value="{{ $department_items->dept_id }}"
+								{{ (isset($id) && $id == $department_items->dept_id) ? 'selected' : '' }}>
+								{{ $department_items->dept_name }}
+							</option>
+						@endforeach
+					</select>
+                
+					{{-- <ul>
+						
 						@foreach($list->unique('dept_id') as $item)
 							<li><a href="{{ route('dept_publication', [$item->dept_id]) }}">{{ department_name($item->dept_id) }}</a></li>
 						@endforeach
-					</ul>
+					</ul> --}}
 				</div>
 			</div>
 		@endif
@@ -93,4 +106,18 @@
 	</div>
 	
 </div>
+<script type="text/javascript">
+$(document).ready(function () {
+    const deptBaseUrl = "{{ route('dept_publication', ['id' => 'DEPT_ID']) }}";
+	$('#department_select_pb').on('change', function() {
+		var dept_id = this.value;
+		if(dept_id){
+        	window.location.href = deptBaseUrl.replace('DEPT_ID', dept_id);
+		} else {
+       		 window.location.href = "{{ route('publication_front_page') }}";
+		}
+	});
+});
+</script>
+
 @endsection

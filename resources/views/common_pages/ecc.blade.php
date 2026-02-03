@@ -128,10 +128,10 @@
 
         <ol class="function-list">
             <li>{{ __('message.paregraph-21') }}</li>
-            <li>{{ __('message.paregraph-22') }}</li>
+            {{-- <li>{{ __('message.paregraph-22') }}</li> --}}
             <li>{{ __('message.paregraph-23') }}</li>
             <li>{{ __('message.paregraph-24') }}</li>
-            <li>{{ __('message.paregraph-25') }}</li>
+            {{-- <li>{{ __('message.paregraph-25') }}</li> --}}
         </ol>
 
     </div>
