@@ -471,7 +471,28 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) <br><small>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ)</small></th>
+                      <th>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું)</th>
+                      <td>{{$pval->implementing_procedure}} <br><br>
+                     
+                        @if($pval->implementing_procedure_file == '')
+                          No File
+                        @else
+                          @php  
+                            $extension = pathinfo($pval->implementing_procedure_file, PATHINFO_EXTENSION);
+                          @endphp
+                          @if($extension == 'pdf')
+                              <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->implementing_procedure_file]) }}" target="_blank" title="{{ $pval->implementing_procedure_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
+                             @elseif($extension == 'doc')
+                             <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->implementing_procedure_file]) }}" download="{{ $pval->implementing_procedure_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+                              @else
+                              <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->implementing_procedure_file]) }}" download="{{ $pval->implementing_procedure_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                          @endif
+                       
+                        @endif
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ)</th>
                       <td>
                         @foreach($beneficiariesGeoLocal as $benkey => $benval)
                           @if($pval->beneficiariesGeoLocal == $benval->id) {{ $benval->name }} @endif

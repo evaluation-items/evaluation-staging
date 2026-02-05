@@ -150,9 +150,12 @@
                     <p>{{ __('message.manage_by')}} {{ __('message.director_of_evaluation')}}.</p>
 
                     <div class="btm-content">
-                        
-                        {{-- <p>{{ __('message.last_update')}} : {{ config('app.last_updated') ?? env('SITE_LAST_UPDATED') }}</p> --}}
-                        <p>{{ __('message.last_update')}} : {{ date('Y-m-d')  }}</p>
+                         @php
+                            //$visitorCount = App\Models\Visitor::count();
+                        @endphp
+                        <span id="vstcnt">{{ __('message.visiter')}} : 00</span>
+                         <p>{{ __('message.last_update')}} : {{ config('app.last_updated') ?? env('SITE_LAST_UPDATED') }}</p>
+                       
                         
                         {{-- <figure>
                             <a target="_blank" href="javascript:void(0)">

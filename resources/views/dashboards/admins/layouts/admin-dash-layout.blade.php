@@ -209,6 +209,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{route('nodal-designations.index')}}" class="nav-link {{ Route::currentRouteName() == 'nodal-designations.index' ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>{{ __('message.nodal_designation')}}</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{route('beneficiaries.index')}}" class="nav-link {{ Route::currentRouteName() == 'beneficiaries.index' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-user"></i>
                   <p>{{ __('message.selection_of_field_area')}}</p>

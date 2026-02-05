@@ -820,48 +820,120 @@ class SchemeController extends Controller {
         } else if($slide == 'nineth') {
            
             $scheme_id = Session::get('scheme_id');
-            $scheme_implementing_procedure = $request->input('scheme_implementing_procedure');
-            $beneficiariesGeoLocal = $request->input('beneficiariesGeoLocal');
-            $districts = json_encode($request->input('district_name'));
-            $talukas = json_encode($request->input('taluka_name'));
-            $states = json_encode($request->input('state_name'));
-            $taluka_id = (!is_null($request->taluka_id)) ? $request->taluka_id : 'null';
-            $otherbeneficiariesGeoLocal = $request->input('otherbeneficiariesGeoLocal');
-            $filename = '';
+            $draft_id  = Session::get('draft_id');
 
-            if($request->hasFile('geographical_coverage')) {
-                $document = $request->file('geographical_coverage');
-                $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
-                $extended = new Couchdb();
-                $extended->InitConnection();
-                $status = $extended->isRunning();
-                $doc_id = "scheme_".$scheme_id;
-                $docid = 'geographical_coverage'; 
-                $path['id'] = $docid;
-                $path['tmp_name'] = $document->getRealPath();
-                $path['extension']  = $document->getClientOriginalExtension();
-                $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
-                $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+            $scheme_implementing_procedure = $request->input('scheme_implementing_procedure');
+            $implementing_procedure        = $request->input('implementing_procedure');
+            $beneficiariesGeoLocal          = $request->input('beneficiariesGeoLocal');
+            $otherbeneficiariesGeoLocal     = $request->input('otherbeneficiariesGeoLocal');
+
+            $districts = json_encode($request->input('district_name') ?? []);
+            $talukas   = json_encode($request->input('taluka_name') ?? []);
+            $states    = json_encode($request->input('state_name') ?? []);
+            $taluka_id = $request->taluka_id ?? null;
+
+            $geographical_coverage_file     = null;
+            $implementing_procedure_file   = null;
+
+            /* ================= COUCHDB INIT ================= */
+            $extended = new Couchdb();
+            $extended->InitConnection();
+
+            $doc_id = "scheme_" . $scheme_id;
+            $rev = Attachment::where('scheme_id', $scheme_id)->value('couch_rev_id');
+
+            /* ================= CREATE COUCH DOC IF NEEDED ================= */
+            if (!$rev) {
+                $out = $extended->createDocument(['scheme_id' => $doc_id], $this->envirment['database'], $doc_id);
                 $array = json_decode($out, true);
+
+                Attachment::create([
+                    'scheme_id'    => $scheme_id,
+                    'couch_doc_id' => $array['id'] ?? null,
+                    'couch_rev_id' => $array['rev'] ?? null
+                ]);
+
                 $rev = $array['rev'] ?? null;
-                if(isset($rev)) {
-                    $result = Attachment::where('scheme_id',$scheme_id)->update(['couch_rev_id'=>$rev]);
-                }                    
-                $filename = $path['name'];
             }
 
-            $arr = array('scheme_implementing_procedure'=>$scheme_implementing_procedure, 
-            'beneficiariesGeoLocal'=>$beneficiariesGeoLocal, 
-            'districts'=>$districts, 
-            'talukas'=>$talukas,
-            'taluka_id'=>$taluka_id,
-            'states'=>$states,
-            'otherbeneficiariesGeoLocal'=>$otherbeneficiariesGeoLocal,
-            'geographical_coverage'=>$filename);
-            Scheme::where('scheme_id',$scheme_id)->update($arr);
-            $draft_id = Session::get('draft_id');
-            Proposal::where('draft_id',$draft_id)->update($arr);
+            /* ================= IMPLEMENTING PROCEDURE FILE ================= */
+            if ($request->hasFile('implementing_procedure_file')) {
+
+                $document = $request->file('implementing_procedure_file');
+
+                $path = [
+                    'id'        => 'implementing_procedure_file',
+                    'tmp_name'  => $document->getRealPath(),
+                    'extension' => $document->getClientOriginalExtension(),
+                    'name'      => $doc_id . '_implementing_procedure_file.' . $document->getClientOriginalExtension()
+                ];
+
+                $out = $extended->createAttachmentDocument(
+                    $this->envirment['database'],
+                    $doc_id,
+                    $rev,
+                    $path
+                );
+
+                $array = json_decode($out, true);
+
+                if (!empty($array['rev'])) {
+                    $rev = $array['rev'];
+                    Attachment::where('scheme_id', $scheme_id)->update(['couch_rev_id' => $rev]);
+                }
+
+                $implementing_procedure_file = $path['name'];
+            }
+
+            /* ================= GEOGRAPHICAL COVERAGE FILE ================= */
+            if ($request->hasFile('geographical_coverage')) {
+
+                $document = $request->file('geographical_coverage');
+
+                $path = [
+                    'id'        => 'geographical_coverage',
+                    'tmp_name'  => $document->getRealPath(),
+                    'extension' => $document->getClientOriginalExtension(),
+                    'name'      => $doc_id . '_geographical_coverage.' . $document->getClientOriginalExtension()
+                ];
+
+                $out = $extended->createAttachmentDocument(
+                    $this->envirment['database'],
+                    $doc_id,
+                    $rev,
+                    $path
+                );
+
+                $array = json_decode($out, true);
+
+                if (!empty($array['rev'])) {
+                    $rev = $array['rev'];
+                    Attachment::where('scheme_id', $scheme_id)->update(['couch_rev_id' => $rev]);
+                }
+
+                $geographical_coverage_file = $path['name'];
+            }
+
+            /* ================= INSERT / UPDATE DATA ================= */
+            $arr = [
+                'scheme_implementing_procedure' => $scheme_implementing_procedure,
+                'implementing_procedure'        => $implementing_procedure,
+                'beneficiariesGeoLocal'          => $beneficiariesGeoLocal,
+                'districts'                     => $districts,
+                'talukas'                       => $talukas,
+                'states'                        => $states,
+                'taluka_id'                     => $taluka_id,
+                'otherbeneficiariesGeoLocal'    => $otherbeneficiariesGeoLocal,
+                'implementing_procedure_file'   => $implementing_procedure_file,
+                'geographical_coverage'         => $geographical_coverage_file
+            ];
+
+            /* ================= SAVE ================= */
+            Scheme::where('scheme_id', $scheme_id)->update($arr);
+            Proposal::where('draft_id', $draft_id)->update($arr);
+
             return response()->json('added successfully');
+
         } else if($slide == 'tenth') {
          
             $scheme_id = Session::get('scheme_id');
@@ -1846,85 +1918,263 @@ class SchemeController extends Controller {
             }
             return response()->json('updated successfully');
         } else if($slide == 'nineth') {
-        //dd($request->all());
-            if(Session::has('scheme_id') && Session::has('draft_id')){
-                $scheme_id = Session::get('scheme_id');
-                $draft_id = Session::get('draft_id');
-            }else{
-                $scheme_id = $request->scheme_id;
-                $draft_id = $request->draft_id;
+            $scheme_id = Session::get('scheme_id', $request->scheme_id);
+            $draft_id  = Session::get('draft_id', $request->draft_id);
+
+            $scheme_implementing_procedure = $request->scheme_implementing_procedure;
+            $beneficiariesGeoLocal= $request->beneficiariesGeoLocal;
+            $otherbeneficiariesGeoLocal = $request->otherbeneficiariesGeoLocal;
+            $implementing_procedure = $request->implementing_procedure;
+
+            $districts = json_encode($request->district_name ?? []);
+            $talukas   = json_encode($request->taluka_name ?? []);
+            $states    = json_encode($request->state_name ?? []);
+            $taluka_id = $request->taluka_id ?? null;
+
+            $implementing_procedure_file = null;
+
+            /* ================= FILE UPLOAD ================= */
+            if ($request->hasFile('implementing_procedure_file')) {
+
+                $document = $request->file('implementing_procedure_file');
+                $rev = Attachment::where('scheme_id', $scheme_id)->value('couch_rev_id');
+
+                $extended = new Couchdb();
+                $extended->InitConnection();
+
+                $doc_id = "scheme_" . $scheme_id;
+                $docid  = 'implementing_procedure_file';
+
+                $path = [
+                    'id'        => $docid,
+                    'tmp_name'  => $document->getRealPath(),
+                    'extension' => $document->getClientOriginalExtension(),
+                    'name'      => $doc_id . '_' . $docid . '.' . $document->getClientOriginalExtension()
+                ];
+
+                if (!$rev) {
+                    $out = $extended->createDocument(['scheme_id' => $doc_id], $this->envirment['database'], $doc_id);
+                    $array = json_decode($out, true);
+
+                    Attachment::create([
+                        'scheme_id'    => $scheme_id,
+                        'couch_doc_id' => $array['id'] ?? null,
+                        'couch_rev_id' => $array['rev'] ?? null
+                    ]);
+
+                    $rev = $array['rev'] ?? null;
+                }
+
+                $out = $extended->createAttachmentDocument(
+                    $this->envirment['database'],
+                    $doc_id,
+                    $rev,
+                    $path
+                );
+
+                $array = json_decode($out, true);
+
+                if (!empty($array['rev'])) {
+                    Attachment::where('scheme_id', $scheme_id)
+                        ->update(['couch_rev_id' => $array['rev']]);
+                }
+
+                $implementing_procedure_file = $path['name'];
             }
-            $scheme_implementing_procedure = $request->input('scheme_implementing_procedure');
-            $beneficiariesGeoLocal = $request->input('beneficiariesGeoLocal');
-            $districts = json_encode($request->input('district_name'));
-            $talukas = json_encode($request->input('taluka_name'));
-            $states = json_encode($request->input('state_name'));
-            $taluka_id = isset($request->taluka_id) ? $request->taluka_id : 'null';
-           
-            $otherbeneficiariesGeoLocal = $request->input('otherbeneficiariesGeoLocal');
             $filename = '';
 
             if($request->hasFile('geographical_coverage')) {
-                $document = $request->file('geographical_coverage');
-                $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
-                $extended = new Couchdb();
-                $extended->InitConnection();
-                $status = $extended->isRunning();
-                $doc_id = "scheme_".$scheme_id;
-                $docid = 'geographical_coverage'; //.time().'_'.mt_rand('000000000','999999999');
-                $path['id'] = $docid;
-                $path['tmp_name'] = $document->getRealPath();
-                $path['extension']  = $document->getClientOriginalExtension();
-                $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
-                if(is_null($rev)){
-                    $dummy_data = array(
-                        'scheme_id' => $doc_id
-                    );
-                    $out = $extended->createDocument($dummy_data,$this->envirment['database'],$doc_id);
-                    $array = json_decode($out, true);
-                    $id = $array['id'] ?? null;
-                    $rev = $array['rev'] ?? null;
-                    $data['scheme_id'] = $scheme_id;
-                    $data['couch_doc_id'] = $id;
-                    $data['couch_rev_id'] = $rev;
-                    $attachment = Attachment::create($data);
-                }
-                $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
-                $array = json_decode($out, true);
-                $rev = $array['rev'] ?? null;
-                if(isset($rev)) {
-                    $result = Attachment::where('scheme_id',$scheme_id)->update(['couch_rev_id'=>$rev]);
-                }                    
-                $filename = $path['name'];
-
-                $arr = array(
-                    'scheme_implementing_procedure'=>$scheme_implementing_procedure, 
-                    'beneficiariesGeoLocal'=>$beneficiariesGeoLocal, 
-                    'districts'=>$districts,
-                    'states'=>$states,
-                    'talukas'=>$talukas, 
-                    'taluka_id' =>$taluka_id,
-                    'otherbeneficiariesGeoLocal'=>$otherbeneficiariesGeoLocal,
-                    'geographical_coverage'=>$filename
-                );
-              
-                Scheme::where('scheme_id',$scheme_id)->update($arr);
-                Proposal::where('draft_id',$draft_id)->update($arr);
-            } else {
-                $arr = array(
-                    'scheme_implementing_procedure'=>$scheme_implementing_procedure, 
-                    'beneficiariesGeoLocal'=>$beneficiariesGeoLocal, 
-                    'districts'=>$districts,
-                    'states'=>$states,
-                    'talukas'=>$talukas, 
-                    'taluka_id' =>$taluka_id,
-                    'otherbeneficiariesGeoLocal'=>$otherbeneficiariesGeoLocal,
-                );
-             
-                Scheme::where('scheme_id', $scheme_id)->update($arr);
-                Proposal::where('draft_id',$draft_id)->update($arr);
+                        $document = $request->file('geographical_coverage');
+                        $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
+                        $extended = new Couchdb();
+                        $extended->InitConnection();
+                        $status = $extended->isRunning();
+                        $doc_id = "scheme_".$scheme_id;
+                        $docid = 'geographical_coverage'; //.time().'_'.mt_rand('000000000','999999999');
+                        $path['id'] = $docid;
+                        $path['tmp_name'] = $document->getRealPath();
+                        $path['extension']  = $document->getClientOriginalExtension();
+                        $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
+                        if(is_null($rev)){
+                            $dummy_data = array(
+                                'scheme_id' => $doc_id
+                            );
+                            $out = $extended->createDocument($dummy_data,$this->envirment['database'],$doc_id);
+                            $array = json_decode($out, true);
+                            $id = $array['id'] ?? null;
+                            $rev = $array['rev'] ?? null;
+                            $data['scheme_id'] = $scheme_id;
+                            $data['couch_doc_id'] = $id;
+                            $data['couch_rev_id'] = $rev;
+                            $attachment = Attachment::create($data);
+                        }
+                        $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+                        $array = json_decode($out, true);
+                        $rev = $array['rev'] ?? null;
+                        if(isset($rev)) {
+                            $result = Attachment::where('scheme_id',$scheme_id)->update(['couch_rev_id'=>$rev]);
+                        }                    
+                        $filename = $path['name'];
             }
+            /* ================= UPDATE ================= */
+
+            $arr = [
+                'scheme_implementing_procedure' => $scheme_implementing_procedure,
+                'beneficiariesGeoLocal'         => $beneficiariesGeoLocal,
+                'districts'                     => $districts,
+                'states'                        => $states,
+                'talukas'                       => $talukas,
+                'taluka_id'                     => $taluka_id,
+                'otherbeneficiariesGeoLocal'    => $otherbeneficiariesGeoLocal,
+                'implementing_procedure'        => $implementing_procedure,
+               // 'implementing_procedure_file'   => $implementing_procedure_file,
+               // 'geographical_coverage'         => $filename
+            ];
+                if ($implementing_procedure_file) {
+                    $arr['implementing_procedure_file'] = $implementing_procedure_file;
+                }else{
+                    $arr['implementing_procedure_file'] = $request->existing_implementing_procedure_file;
+                }
+
+                if ($filename) {
+                    $arr['geographical_coverage'] = $filename;
+                }
+            Scheme::where('scheme_id', $scheme_id)->update($arr);
+            Proposal::where('draft_id', $draft_id)->update($arr);
+
             return response()->json('updated successfully');
+
+        //     if(Session::has('scheme_id') && Session::has('draft_id')){
+        //         $scheme_id = Session::get('scheme_id');
+        //         $draft_id = Session::get('draft_id');
+        //     }else{
+        //         $scheme_id = $request->scheme_id;
+        //         $draft_id = $request->draft_id;
+        //     }
+        //     $scheme_implementing_procedure = $request->input('scheme_implementing_procedure');
+        //     $beneficiariesGeoLocal = $request->input('beneficiariesGeoLocal');
+        //     $districts = json_encode($request->input('district_name'));
+        //     $talukas = json_encode($request->input('taluka_name'));
+        //     $states = json_encode($request->input('state_name'));
+        //     $taluka_id = isset($request->taluka_id) ? $request->taluka_id : 'null';
+        //    $implementing_procedure = $request->input('implementing_procedure');
+        //     $otherbeneficiariesGeoLocal = $request->input('otherbeneficiariesGeoLocal');
+        //     $implementing_procedure_file = null;
+
+        //     if ($request->hasFile('implementing_procedure_file')) {
+
+        //         $document = $request->file('implementing_procedure_file');
+
+        //         $rev = Attachment::where('scheme_id', $scheme_id)->value('couch_rev_id');
+
+        //         $extended = new Couchdb();
+        //         $extended->InitConnection();
+
+        //         $doc_id = "scheme_" . $scheme_id;
+        //         $docid = 'implementing_procedure_file';
+
+        //         $path = [
+        //             'id'        => $docid,
+        //             'tmp_name'  => $document->getRealPath(),
+        //             'extension' => $document->getClientOriginalExtension(),
+        //             'name'      => $doc_id . '_' . $docid . '.' . $document->getClientOriginalExtension()
+        //         ];
+
+        //         if (is_null($rev)) {
+        //             $out = $extended->createDocument(['scheme_id' => $doc_id], $this->envirment['database'], $doc_id);
+        //             $array = json_decode($out, true);
+
+        //             Attachment::create([
+        //                 'scheme_id'     => $scheme_id,
+        //                 'couch_doc_id'  => $array['id'] ?? null,
+        //                 'couch_rev_id'  => $array['rev'] ?? null
+        //             ]);
+
+        //             $rev = $array['rev'] ?? null;
+        //         }
+
+        //         $out = $extended->createAttachmentDocument(
+        //             $this->envirment['database'],
+        //             $doc_id,
+        //             $rev,
+        //             $path
+        //         );
+
+        //         $array = json_decode($out, true);
+
+        //         if (!empty($array['rev'])) {
+        //             Attachment::where('scheme_id', $scheme_id)
+        //                 ->update(['couch_rev_id' => $array['rev']]);
+        //         }
+
+        //         $implementing_procedure_file = $path['name'];
+        //     }
+
+        //     $filename = '';
+
+        //     if($request->hasFile('geographical_coverage')) {
+        //         $document = $request->file('geographical_coverage');
+        //         $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
+        //         $extended = new Couchdb();
+        //         $extended->InitConnection();
+        //         $status = $extended->isRunning();
+        //         $doc_id = "scheme_".$scheme_id;
+        //         $docid = 'geographical_coverage'; //.time().'_'.mt_rand('000000000','999999999');
+        //         $path['id'] = $docid;
+        //         $path['tmp_name'] = $document->getRealPath();
+        //         $path['extension']  = $document->getClientOriginalExtension();
+        //         $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
+        //         if(is_null($rev)){
+        //             $dummy_data = array(
+        //                 'scheme_id' => $doc_id
+        //             );
+        //             $out = $extended->createDocument($dummy_data,$this->envirment['database'],$doc_id);
+        //             $array = json_decode($out, true);
+        //             $id = $array['id'] ?? null;
+        //             $rev = $array['rev'] ?? null;
+        //             $data['scheme_id'] = $scheme_id;
+        //             $data['couch_doc_id'] = $id;
+        //             $data['couch_rev_id'] = $rev;
+        //             $attachment = Attachment::create($data);
+        //         }
+        //         $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+        //         $array = json_decode($out, true);
+        //         $rev = $array['rev'] ?? null;
+        //         if(isset($rev)) {
+        //             $result = Attachment::where('scheme_id',$scheme_id)->update(['couch_rev_id'=>$rev]);
+        //         }                    
+        //         $filename = $path['name'];
+
+        //         $arr = array(
+        //             'scheme_implementing_procedure'=>$scheme_implementing_procedure, 
+        //             'beneficiariesGeoLocal'=>$beneficiariesGeoLocal, 
+        //             'districts'=>$districts,
+        //             'states'=>$states,
+        //             'talukas'=>$talukas, 
+        //             'taluka_id' =>$taluka_id,
+        //             'otherbeneficiariesGeoLocal'=>$otherbeneficiariesGeoLocal,
+        //             'geographical_coverage'=>$filename,
+        //             'implementing_procedure_file'=>$implementing_procedure_file
+        //         );
+              
+        //         Scheme::where('scheme_id',$scheme_id)->update($arr);
+        //         Proposal::where('draft_id',$draft_id)->update($arr);
+        //     } else {
+        //         $arr = array(
+        //             'scheme_implementing_procedure'=>$scheme_implementing_procedure, 
+        //             'beneficiariesGeoLocal'=>$beneficiariesGeoLocal, 
+        //             'districts'=>$districts,
+        //             'states'=>$states,
+        //             'talukas'=>$talukas, 
+        //             'taluka_id' =>$taluka_id,
+        //             'otherbeneficiariesGeoLocal'=>$otherbeneficiariesGeoLocal,
+        //             'implementing_procedure'=>$implementing_procedure
+        //         );
+             
+        //         Scheme::where('scheme_id', $scheme_id)->update($arr);
+        //         Proposal::where('draft_id',$draft_id)->update($arr);
+        //     }
+        //     return response()->json('updated successfully');
         } else if($slide == 'tenth') {
            
             if(Session::has('scheme_id') && Session::has('draft_id')){
@@ -2105,7 +2355,7 @@ class SchemeController extends Controller {
                         if (!is_array($file_data)) {
                             $file_data = [];
                         }
-                        $rev = $file_data['couch_rev_id'] ?? null;
+                         $rev = $file ? $file->couch_rev_id : null;
                         $path['id'] = $docid;
                         $path['tmp_name'] = $documentis->getRealPath();
                         $path['extension']  = $documentis->getClientOriginalExtension();

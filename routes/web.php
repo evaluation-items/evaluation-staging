@@ -30,6 +30,7 @@ use App\Http\Middleware\SessionTimeoutMiddleware;
 use App\Http\Middleware\Referrer;
 // use App\Http\Controllers\PowerBIController;
 use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\TrackVisitors;
 
 
 Route::post('lang/change', function (\Illuminate\Http\Request $request) {
@@ -264,6 +265,7 @@ Route::middleware(['isAdmin'::class,'auth',PreventBackHistory::class])->prefix('
         
         //Units
         Route::resource('units', App\Http\Controllers\UnitController::class);
+        Route::resource('nodal-designations', App\Http\Controllers\NodalDesignationController::class);
         //Beneficiaries
         Route::resource('beneficiaries', App\Http\Controllers\BeneficiariesController::class);
         Route::get('stage_update',[App\Http\Controllers\AdminController::class,'updateStage'])->name('stage_update');

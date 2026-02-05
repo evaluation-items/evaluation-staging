@@ -8,7 +8,7 @@ return [
     'increase_font' => 'Increase font size',
     'english' => 'English',
     'gujarati' => 'ગુજરાતી',
-    'director_of_evaluation' => 'Transforming Survey Ecoystem',
+    'director_of_evaluation' => 'Transforming Survey Ecosystem',
     'general_administration' => 'General Administration Department (Planning Division)',
     'government_of_gujarat' => 'Government of Gujarat',
     'home' => 'Home',
@@ -494,5 +494,6 @@ return [
     'dropped' => 'Dropped',
     'stages' => 'Stages',
     'date' => 'Stage Date',
+    'nodal_designation' => 'Nodal Designation',
 
 ];

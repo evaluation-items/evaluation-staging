@@ -880,7 +880,7 @@
                                                 <div class="form-group" id="major_benefits_div_0">
                                                   <label>Major Benefit :<span class="required_filed"> * </span> : <small><b> Max 3000 characters </b></small> </label>
                                                   <div>
-                                                    <textarea class="form-control major_benefit_textareas pattern" name="major_benefits_text[0][major_benefits_text]" id="major_benefit_textarea_0" rows="2" maxlength="3000">{{ $val->major_benefits_text }}</textarea>
+                                                    <textarea class="form-control major_benefit_textareas pattern" name="major_benefits_text" id="major_benefit_textarea_0" rows="2" maxlength="3000">{{ $val->major_benefits_text }}</textarea>
                                                   </div>
                                                 </div>
                                                
@@ -948,10 +948,37 @@
                                             <!--end::Input-->
                                           </div>
                                         </div> 
-
                                         <div class="row">
                                           <div class="col-xl-12">
-                                            <label>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) <br>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ) <span class="required_filed"> * </span> : </label>
+                                            <!--begin::Input-->
+                                            <div class="form-group">
+                                              <label>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) <span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small></label>
+                                              <textarea class="form-control pattern" id="implementing_procedure" name="implementing_procedure" maxlength="3000">{{ $val->implementing_procedure }}</textarea>
+                                            </div>
+                                            <!--end::Input-->
+                                            <div class="custom-file" style="margin:20px 0px">
+                                                <input type="file" class="custom-file-input file_type_name" name="implementing_procedure_file" id="implementing_procedure_file" accept=".pdf,.docx,.xlsx"/>
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                              </div>
+                                               @if($val->implementing_procedure_file)
+                                                  @php
+                                                    $extension = pathinfo($val->implementing_procedure_file, PATHINFO_EXTENSION);
+                                                  @endphp
+                                                  @if($extension == 'pdf')
+                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->implementing_procedure_file]) }}" target="_blank" title="{{ $val->implementing_procedure_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
+                                                      @elseif ($extension == 'doc')
+                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->implementing_procedure_file]) }}" download="{{ $val->implementing_procedure_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+
+                                                      @else
+                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->implementing_procedure_file]) }}" download="{{ $val->implementing_procedure_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                                                  @endif
+                                                  <input type="hidden" class="existing_implementing_procedure_file" name="existing_implementing_procedure_file" value="{{$val->implementing_procedure_file}}" />
+                                              @endif
+                                          </div>
+                                        </div> 
+                                        <div class="row">
+                                          <div class="col-xl-12">
+                                            <label>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ) <span class="required_filed"> * </span> : </label>
                                             {{-- <select name="beneficiariesGeoLocal" class="form-control" id="beneficiariesGeoLocal" onchange="fngetdist(this.value)"> --}}
                                               <select name="beneficiariesGeoLocal" class="form-control" id="beneficiariesGeoLocal">
 
@@ -965,7 +992,7 @@
                                             </select>
                                             <div id="load_gif_img"></div>
                                             <label style="margin-top:20px">Remarks</label>
-                                            <!-- <input type="text" name="otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage" class="form-control"> -->
+                                           
                                             <textarea name="otherbeneficiariesGeoLocal" id="next_otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage areas or Remarks" class="form-control pattern" rows="2">{{$val->otherbeneficiariesGeoLocal}}</textarea>
                                             <div></div>
                                               <div class="custom-file" style="margin:20px 0px">
@@ -3193,7 +3220,7 @@ updateStepTitle(nextSlide);
             var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").val();
             if(beneficiaries != '') {
                 let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+              updateStepTitle(nextSlide); 
               $("#the_error_html").remove();
                 var next_beneficiary_selection_criterias = $(".next_beneficiary_selection_criterias").length;
                 // var beneficiaries = [];
@@ -3273,82 +3300,88 @@ updateStepTitle(nextSlide);
                     $(".eighth_slide").append(the_html);
                 
             }
-        } else if(slideid == 9) {
-            var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
-            var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
-            var thedistrictlist = $(".thedistrictlist").length;
-            var talukas = [];
-            var districts = [];
-            var states = [];
-            var taluka_id = $('#taluka_id').val();
-           console.log($('#taluka_id').val());
-            if(thedistrictlist > 0) {
-              if(beneficiariesGeoLocal == 1) { //state
-                    var i = 0;
-                    $("input[name='state_name[]']:checked").each(function() {
-                        var ss_state = this.value;
-                        states[i] = ss_state.replace(/"/g,'');
-                        i++;
-                    });
-                }else if(beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) { //Developing Taluka
+        } else if (slideid == 9) {
 
-                  var i = 0;
-                    $("input[name='taluka_name[]']:checked").each(function() {
-                        var ss_taluka = this.value;
-                        talukas[i] = ss_taluka.replace(/"/g,'');
-                        i++;
-                    });
-                } else { // District
-                    var i = 0;
-                    $("input[name='district_name[]']:checked").each(function() {
-                        var ss_district = this.value;
-                        districts[i] = ss_district.replace(/"/g,'');
-                        i++;
-                    });
+    let formData = new FormData();
+
+    var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+    var implementing_procedure = $("#implementing_procedure").val();
+    var implementing_procedure_file = $("#implementing_procedure_file")[0]?.files[0];
+    var geographical_coverage = $("#geographical_coverage")[0]?.files[0];
+    var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
+    var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
+    var taluka_id = $('#taluka_id').val();
+    var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val();
+    var talukas = [];
+    var districts = [];
+    var states = [];
+
+    if ($(".thedistrictlist").length > 0) {
+        if (beneficiariesGeoLocal == 1) {
+            $("input[name='state_name[]']:checked").each(function () {
+                states.push(this.value.replace(/"/g, ''));
+            });
+        } else if (beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) {
+            $("input[name='taluka_name[]']:checked").each(function () {
+                talukas.push(this.value.replace(/"/g, ''));
+            });
+        } else {
+            $("input[name='district_name[]']:checked").each(function () {
+                districts.push(this.value.replace(/"/g, ''));
+            });
+        }
+    }
+
+      // ===== VALIDATION =====
+        if (next_scheme_implementing_procedure === '' || beneficiariesGeoLocal === '' || implementing_procedure === '') {
+            $("#the_error_html").remove();
+            $(".nineth_slide").append(
+                '<div id="the_error_html" style="color:red;font-size:20px">* All Fields are required</div>'
+            );
+            return;
+        }
+
+          // ===== APPEND DATA =====
+          formData.append('_token', "{{ csrf_token() }}");
+          formData.append('slide', 'nineth');
+          formData.append('scheme_implementing_procedure', next_scheme_implementing_procedure);
+          formData.append('beneficiariesGeoLocal', beneficiariesGeoLocal);
+          formData.append('otherbeneficiariesGeoLocal', next_otherbeneficiariesGeoLocal);
+          formData.append('draft_id', draft_id);
+          formData.append('scheme_id', scheme_id);
+          formData.append('implementing_procedure', implementing_procedure);
+          formData.append('taluka_id', taluka_id);
+          formData.append('geographical_coverage', geographical_coverage);
+            states.forEach(v => formData.append('state_name[]', v));
+            districts.forEach(v => formData.append('district_name[]', v));
+            talukas.forEach(v => formData.append('taluka_name[]', v));
+          formData.append('existing_implementing_procedure_file', existing_implementing_procedure_file);
+
+            if (implementing_procedure_file) {
+                formData.append('implementing_procedure_file', implementing_procedure_file);
+            }
+
+            // ===== AJAX =====
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('schemes.update_scheme') }}",
+                data: formData,
+                dataType: 'json',
+                processData: false, // 🔥 REQUIRED
+                contentType: false, // 🔥 REQUIRED
+                success: function (response) {
+                    $(".otherslides").hide();
+                    $(".tenth_slide").show();
+                    $("#previous_btn").val(10).show();
+                    $("#next_btn").val(10).show();
+                    $('.nineth_slide').removeClass("active-slide");
+                    $('.tenth_slide').addClass("active-slide");
+                },
+                error: function (xhr) {
+                    console.log('AJAX error', xhr.responseText);
                 }
-            }
-          var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
-          var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
-          var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
-
-          if (next_scheme_implementing_procedure !== '' && beneficiariesGeoLocal !== '') {
-              let nextSlide = countIncrease(slideid);
-              updateStepTitle(nextSlide); 
-                $("#the_error_html").remove();
-
-
-                $.ajax({
-                    type:'post',
-                    dataType:'json',
-                    url:"{{ route('schemes.update_scheme') }}",
-                    data:{'_token':"{{ csrf_token() }}", 'slide':'nineth', 
-                    'scheme_implementing_procedure':next_scheme_implementing_procedure, 
-                    'beneficiariesGeoLocal':beneficiariesGeoLocal, 
-                    'state_name':states, 
-                    'district_name':districts,
-                    'taluka_name':talukas, 
-                    'taluka_id':taluka_id,
-                    'otherbeneficiariesGeoLocal':next_otherbeneficiariesGeoLocal,'draft_id':draft_id,'scheme_id':scheme_id
-                  },
-                    success:function(response) {
-                        $(".otherslides").hide();
-                        $(".tenth_slide").show();
-                        $("#previous_btn").val(10).show();
-                        $("#next_btn").val(10).show();
-                        $('.nineth_slide').removeClass("active-slide");
-                        $('.tenth_slide').addClass("active-slide");
-                    },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
-                });
-
-            } else {
-                $("#the_error_html").remove();
-                var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
-                $(".nineth_slide").append(the_html);
-            }
-        } else if(slideid == 10) {
+            });
+        }else if(slideid == 10) {
             var next_coverage_beneficiaries_remarks = $("#next_coverage_beneficiaries_remarks").val();
             var beneficiaries_coverage = $("#beneficiaries_coverage")[0].files.length;
             // var implementation_year = $("#implementation_year").val();
