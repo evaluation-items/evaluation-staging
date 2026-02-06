@@ -274,9 +274,12 @@
                                                   <label>Designation of the Nodal Officer <br>(નોડલ અધિકારી નો હોદ્દો) <span class="required_filed"> * </span> :</label>
                                                    <select class="form-control" id="convener_designation" name="convener_designation">
                                                     <option value="">Select Designation</option>
-                                                    <option value="as" {{ $val->convener_designation == 'as' ? 'selected' : '' }}>Additional Secretary</option>
+                                                     @foreach($designations as $designation)
+                                                       <option value="{{ $designation }}" {{  $val->convener_designation == $designation ? 'selected' : '' }}>{{ $designation }}</option>
+                                                     @endforeach
+                                                    {{-- <option value="as" {{ $val->convener_designation == 'as' ? 'selected' : '' }}>Additional Secretary</option>
                                                     <option value="ds" {{ $val->convener_designation == 'ds' ? 'selected' : '' }}>Deputy Secretary</option>
-                                                    <option value="js" {{ $val->convener_designation == 'js' ? 'selected' : '' }}>Joint Secretary</option>
+                                                    <option value="js" {{ $val->convener_designation == 'js' ? 'selected' : '' }}>Joint Secretary</option> --}}
                                                   </select>
                                                   {{-- <input type="text" name="convener_designation" class="form-control pattern @error('convener_designation') is-invalid @enderror" maxlength="100" id="convener_designation" value="{{ $val->convener_designation }}"> --}}
                                                       @error('convener_designation')
@@ -948,7 +951,7 @@
                                             <!--end::Input-->
                                           </div>
                                         </div> 
-                                        <div class="row">
+										<div class="row">
                                           <div class="col-xl-12">
                                             <!--begin::Input-->
                                             <div class="form-group">
@@ -976,6 +979,7 @@
                                               @endif
                                           </div>
                                         </div> 
+		
                                         <div class="row">
                                           <div class="col-xl-12">
                                             <label>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ) <span class="required_filed"> * </span> : </label>
@@ -987,12 +991,12 @@
                                                     <option value="{{$value->id}}" @if($value->id == $val->beneficiariesGeoLocal) selected @endif>{{$value->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <select name="taluka_id" class="form-control" id="taluka_id" style="display: none;">
+                                            <select name="taluka_id" class="form-control" id="districtList" style="display: none;">
                                               <option value="">Select District</option>
                                             </select>
                                             <div id="load_gif_img"></div>
                                             <label style="margin-top:20px">Remarks</label>
-                                           
+                                            <!-- <input type="text" name="otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage" class="form-control"> -->
                                             <textarea name="otherbeneficiariesGeoLocal" id="next_otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage areas or Remarks" class="form-control pattern" rows="2">{{$val->otherbeneficiariesGeoLocal}}</textarea>
                                             <div></div>
                                               <div class="custom-file" style="margin:20px 0px">
@@ -2386,7 +2390,7 @@ $(document).ready(function () {
 
         $(".thedistrictlist").remove();
         $("#beneficiariesGeoLocal_img").remove();
-        $('#taluka_id').hide();
+        $('#districtList').hide();
         if (theval === 'all') {
             fnSelectAll(true);
             return;
@@ -2424,7 +2428,7 @@ $(document).ready(function () {
                     //     });
                     // }
                     if (response.districts) {
-                        $('#taluka_id').css('display','none');
+                        $('#districtList').css('display','none');
                         $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
                       $.each(response.districts, function (reskey, resval) {
@@ -2444,19 +2448,19 @@ $(document).ready(function () {
                   }
                     if(response.district_list != '' && response.district_list != undefined) {
                    //   console.log('district_list');
-                      $('#taluka_id').css('display','block');
-                      $('#taluka_id').empty();
+                      $('#districtList').css('display','block');
+                      $('#districtList').empty();
                       if (!$.isEmptyObject(response.district_list)) {
                           $.each(response.district_list, function(key, value) {   
-                              $('#taluka_id').append($("<option></option>").attr("value", value).text(key)); 
+                              $('#districtList').append($("<option></option>").attr("value", value).text(key)); 
                           });
                       } else {
-                          $('#taluka_id').append($("<option></option>").text('Select District'));
+                          $('#districtList').append($("<option></option>").text('Select District'));
                       }
                     
                     }
                     if (response.state && response.state.length > 0) {
-                    $('#taluka_id').css('display','none');
+                    $('#districtList').css('display','none');
 
                     $.each(response.state, function (reskey, resval) {
                         // check if current item is in the already selected list
@@ -2489,7 +2493,7 @@ $(document).ready(function () {
     });
 
     //fetch taluka
-    $('#taluka_id').on('change',function(){
+    $('#districtList').on('change',function(){
         var district_code = $(this).val();
         if(district_code != ""){
           $.ajax({
@@ -2573,7 +2577,7 @@ function DistItem(){
 
             // ✅ District Section
             if (response.districts && response.districts.length > 0) {
-                $('#taluka_id').hide();
+                $('#districtList').hide();
                 districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
                 $.each(response.districts, function (reskey, resval) {
@@ -2590,7 +2594,7 @@ function DistItem(){
 
             // ✅ State Section
             else if (response.states && response.states.length > 0) {
-                $('#taluka_id').hide();
+                $('#districtList').hide();
 
                 $.each(response.states, function (key, val) {
                     var thedcode = String(val.id);
@@ -2604,8 +2608,8 @@ function DistItem(){
             }
 
             // ✅ Taluka Section
-            else if (response.talukas && response.talukas.length > 0 && response.taluka_id) {
-                $('#taluka_id').show();
+            else if (response.talukas && response.talukas.length > 0 && response.districtList) {
+                $('#districtList').show();
                 districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
                 $.each(response.talukas, function (reskey, resval) {
@@ -2621,13 +2625,13 @@ function DistItem(){
                 if (!$.isEmptyObject(response.district_list)) {
                     $.each(response.district_list, function (key, value) {
                         var option = $("<option></option>").attr("value", value.dcode).text(value.name_e);
-                        if (value.dcode == response.taluka_id) {
+                        if (value.dcode == response.districtList) {
                             option.attr("selected", "selected");
                         }
-                        $('#taluka_id').append(option);
+                        $('#districtList').append(option);
                     });
                 } else {
-                    $('#taluka_id').append($("<option></option>").text('Select District'));
+                    $('#districtList').append($("<option></option>").text('Select District'));
                 }
             }
         },
@@ -2822,7 +2826,7 @@ $(document).on('change', '.custom-file-input', function () {
               $("#step2tab").addClass("active");
             
           } else if(slideid == 2){
-             let nextSlide = countIncrease(slideid);
+            let nextSlide = countIncrease(slideid);
             updateStepTitle(nextSlide); 
             // 🔹 Slide 1 fields (again for combined submission)
             var is_evaluation = $("input[name='is_evaluation']:checked").val();
@@ -2912,47 +2916,21 @@ $(document).on('change', '.custom-file-input', function () {
                 // }
             },
             error: function (xhr) {
-                alert(xhr.responseText || "* AJAX error occurred, please try again");
-            }
-        });
+                      let message = 'Something went wrong';
 
-            //  var next_dept_id = $("#next_dept_id").val();
-            // var the_convener = $("#con_id").val();
-            // var convener_designation = $('#convener_designation').val();
-            // var convener_phone =  $('#convener_phone').val();
-            // var form_scheme_name = $("#form_scheme_name").val();
-            // var next_reference_year = $('#next_reference_year').val();
-            // var next_reference_year2 = $('#next_reference_year2').val();
-            // var financial_adviser_name = $("#financial_adviser_name").val();
-            // var financial_adviser_designation = $("#financial_adviser_designation").val();
-            // var financial_adviser_phone = $('#financial_adviser_phone').val();
-            // if(next_dept_id != '' && the_convener != '' && form_scheme_name != '' && next_reference_year != '' && financial_adviser_name != "" && financial_adviser_designation != "" && financial_adviser_phone != '') {
-            //   let nextSlide = countIncrease(slideid);
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
 
-            //     $("#the_error_html").remove();
-            //     $.ajax({
-            //         type:'post',
-            //         dataType:'json',
-            //         url:"{{ route('schemes.update_scheme') }}",
-            //         data:{'_token':"{{ csrf_token() }}",'slide':'first','convener_designation':convener_designation,'convener_phone':convener_phone,'financial_adviser_name':financial_adviser_name,'financial_adviser_designation':financial_adviser_designation,'financial_adviser_phone' : financial_adviser_phone,'draft_id':draft_id,'scheme_id':scheme_id,'dept_id':next_dept_id,'convener_name':the_convener,'scheme_name':form_scheme_name,'reference_year':next_reference_year,'reference_year2':next_reference_year2},
-            //         success:function(response) {
-            //             console.log(response);
-            //             $(".otherslides").hide();
-            //             $(".second_slide").show();
-            //             $("#previous_btn").val(2).show();
-            //             $("#next_btn").val(2).show();
-            //         },
-            //         error:function() {
-            //              console.log('update_scheme ajax error');
-            //         }
-            //     });
-
-            // } else {
-            //     $("#the_error_html").remove();
-            //     var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
-            //     $(".first_slide").append(the_html);
-            // }
-          }else if(slideid == 3) {
+                      alert(message);
+                }
+           });
+        }else if(slideid == 3) {
             var next_major_objective = $('#next_major_objective_textarea').val();
             var major_objective_file = $("#major_objective_file")[0].files[0]; // get file object
             if(next_major_objective != '' ) {
@@ -2988,9 +2966,20 @@ $(document).on('change', '.custom-file-input', function () {
                          $('.third_slide').removeClass("active-slide");
                          $('.fourth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                    error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                  }
                 });
 
             } else {
@@ -3004,7 +2993,7 @@ $(document).on('change', '.custom-file-input', function () {
 
               if (next_major_indicator != '') {
                   let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+                updateStepTitle(nextSlide); 
                   $("#the_error_html").remove();
 
                   // Create FormData object
@@ -3038,9 +3027,20 @@ updateStepTitle(nextSlide);
                          $('.fourth_slide').removeClass("active-slide");
                          $('.fifth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                    error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                  }
                 });
 
             } else {
@@ -3103,7 +3103,7 @@ updateStepTitle(nextSlide);
                         return false;
                     }
               let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+              updateStepTitle(nextSlide); 
               if (state_perValue > 100) {
                   $("#the_error_html").remove();
                   $(".fifth_slide").append(`
@@ -3163,9 +3163,20 @@ updateStepTitle(nextSlide);
                          $('.fifth_slide').removeClass("active-slide");
                          $('.sixth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                    error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                  }
                 });
 
              
@@ -3176,7 +3187,7 @@ updateStepTitle(nextSlide);
             var is_sdg = $('input[name="is_sdg[]"]:checked').length;
             if(commencement_year != '' && scheme_status != '' && is_sdg > 0) {
               let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+              updateStepTitle(nextSlide); 
                 $("#the_error_html").remove();
                 var checked_scheme_status = [];
                 var i=0;
@@ -3198,9 +3209,20 @@ updateStepTitle(nextSlide);
                         $('.sixth_slide').removeClass("active-slide");
                          $('.seventh_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                    error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                }
                 });
 
             } else {
@@ -3258,9 +3280,20 @@ updateStepTitle(nextSlide);
                         $('.seventh_slide').removeClass("active-slide");
                         $('.eighth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                    error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                  }
                 });
 
             } else {
@@ -3289,9 +3322,20 @@ updateStepTitle(nextSlide);
                          $('.eighth_slide').removeClass("active-slide");
                         $('.nineth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                     error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                }
                 });
 
             } else {
@@ -3300,37 +3344,37 @@ updateStepTitle(nextSlide);
                     $(".eighth_slide").append(the_html);
                 
             }
-        } else if (slideid == 9) {
+        } else if(slideid == 9) {
+			 let formData = new FormData();
+			let nextSlide = countIncrease(slideid);
+			updateStepTitle(nextSlide); 
+			var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+			var implementing_procedure = $("#implementing_procedure").val();
+			var implementing_procedure_file = $("#implementing_procedure_file")[0]?.files[0];
+			var geographical_coverage = $("#geographical_coverage")[0]?.files[0];
+			var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
+			var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
+			var taluka_id = $('#taluka_id').val();
+			var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val();
+			var talukas = [];
+			var districts = [];
+			var states = [];
 
-    let formData = new FormData();
-
-    var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
-    var implementing_procedure = $("#implementing_procedure").val();
-    var implementing_procedure_file = $("#implementing_procedure_file")[0]?.files[0];
-    var geographical_coverage = $("#geographical_coverage")[0]?.files[0];
-    var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
-    var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
-    var taluka_id = $('#taluka_id').val();
-    var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val();
-    var talukas = [];
-    var districts = [];
-    var states = [];
-
-    if ($(".thedistrictlist").length > 0) {
-        if (beneficiariesGeoLocal == 1) {
-            $("input[name='state_name[]']:checked").each(function () {
-                states.push(this.value.replace(/"/g, ''));
-            });
-        } else if (beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) {
-            $("input[name='taluka_name[]']:checked").each(function () {
-                talukas.push(this.value.replace(/"/g, ''));
-            });
-        } else {
-            $("input[name='district_name[]']:checked").each(function () {
-                districts.push(this.value.replace(/"/g, ''));
-            });
-        }
-    }
+			if ($(".thedistrictlist").length > 0) {
+				if (beneficiariesGeoLocal == 1) {
+					$("input[name='state_name[]']:checked").each(function () {
+						states.push(this.value.replace(/"/g, ''));
+					});
+				} else if (beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) {
+					$("input[name='taluka_name[]']:checked").each(function () {
+						talukas.push(this.value.replace(/"/g, ''));
+					});
+				} else {
+					$("input[name='district_name[]']:checked").each(function () {
+						districts.push(this.value.replace(/"/g, ''));
+					});
+				}
+			}
 
       // ===== VALIDATION =====
         if (next_scheme_implementing_procedure === '' || beneficiariesGeoLocal === '' || implementing_procedure === '') {
@@ -3340,7 +3384,7 @@ updateStepTitle(nextSlide);
             );
             return;
         }
-
+		
           // ===== APPEND DATA =====
           formData.append('_token', "{{ csrf_token() }}");
           formData.append('slide', 'nineth');
@@ -3362,26 +3406,86 @@ updateStepTitle(nextSlide);
             }
 
             // ===== AJAX =====
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('schemes.update_scheme') }}",
-                data: formData,
-                dataType: 'json',
-                processData: false, // 🔥 REQUIRED
-                contentType: false, // 🔥 REQUIRED
-                success: function (response) {
+			
+            // var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+            // var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
+            // var thedistrictlist = $(".thedistrictlist").length;
+            // var talukas = [];
+            // var districts = [];
+            // var states = [];
+            // var districtList = $('#districtList').val();
+           // console.log($('#districtList').val());
+            // if(thedistrictlist > 0) {
+              // if(beneficiariesGeoLocal == 1) { //state
+                    // var i = 0;
+                    // $("input[name='state_name[]']:checked").each(function() {
+                        // var ss_state = this.value;
+                        // states[i] = ss_state.replace(/"/g,'');
+                        // i++;
+                    // });
+                // }else if(beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) { //Developing Taluka
+
+                  // var i = 0;
+                    // $("input[name='taluka_name[]']:checked").each(function() {
+                        // var ss_taluka = this.value;
+                        // talukas[i] = ss_taluka.replace(/"/g,'');
+                        // i++;
+                    // });
+                // } else { // District
+                    // var i = 0;
+                    // $("input[name='district_name[]']:checked").each(function() {
+                        // var ss_district = this.value;
+                        // districts[i] = ss_district.replace(/"/g,'');
+                        // i++;
+                    // });
+                // }
+            // }
+          // var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+          // var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
+          // var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
+
+          // if (next_scheme_implementing_procedure !== '' && beneficiariesGeoLocal !== '') {
+              // let nextSlide = countIncrease(slideid);
+              // updateStepTitle(nextSlide); 
+                // $("#the_error_html").remove();
+
+
+                $.ajax({
+                    type: 'POST',
+					url: "{{ route('schemes.update_scheme') }}",
+					data: formData,
+					dataType: 'json',
+					processData: false, // 🔥 REQUIRED
+					contentType: false, // 🔥 REQUIRED
+					success: function (response) {
                     $(".otherslides").hide();
                     $(".tenth_slide").show();
                     $("#previous_btn").val(10).show();
                     $("#next_btn").val(10).show();
                     $('.nineth_slide').removeClass("active-slide");
                     $('.tenth_slide').addClass("active-slide");
-                },
-                error: function (xhr) {
-                    console.log('AJAX error', xhr.responseText);
+                },error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
                 }
-            });
-        }else if(slideid == 10) {
+                });
+
+            // } else {
+                // $("#the_error_html").remove();
+                // var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
+                // $(".nineth_slide").append(the_html);
+            // }
+        } else if(slideid == 10) {
             var next_coverage_beneficiaries_remarks = $("#next_coverage_beneficiaries_remarks").val();
             var beneficiaries_coverage = $("#beneficiaries_coverage")[0].files.length;
             // var implementation_year = $("#implementation_year").val();
@@ -3391,7 +3495,7 @@ updateStepTitle(nextSlide);
             var next_iec = $("#iec")[0].files.length;
             if(next_coverage_beneficiaries_remarks != '' && next_training_capacity_remarks != '' && next_iec_activities_remarks != '') {
               let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide);   
+              updateStepTitle(nextSlide);   
               $("#the_error_html").remove();
                   var formDataNineth = new FormData();
                     formDataNineth.append('_token', "{{ csrf_token() }}");
@@ -3428,9 +3532,20 @@ updateStepTitle(nextSlide);
                         $('.tenth_slide').removeClass("active-slide");
                         $('.eleventh_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                    error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                  }
                 });
 
             } else {
@@ -3473,9 +3588,20 @@ updateStepTitle(nextSlide);
                         $('.eleventh_slide').removeClass("active-slide");
                         $('.twelth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                         console.log('update_scheme ajax error');
-                    }
+                     error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                  }
                 });
 
             // } else {
@@ -3571,10 +3697,19 @@ updateStepTitle(nextSlide);
                           $('.thirteenth_slide').addClass("active-slide");
                       },
                       error: function (xhr) {
-                          console.log('File upload error:', xhr.responseText);
-                          var errHtml = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Upload failed. Please try again.</div></div>';
-                          $(".twelth_slide").append(errHtml);
-                      }
+                        let message = 'Something went wrong';
+
+                        if (xhr.responseJSON) {
+                            message =
+                                xhr.responseJSON.message ||
+                                xhr.responseJSON.error ||
+                                JSON.stringify(xhr.responseJSON);
+                        } else if (xhr.responseText) {
+                            message = xhr.responseText;
+                        }
+
+                        alert(message);
+                    }
                   });
               } else {
                   // Validation error for missing GR/Notification
@@ -3586,7 +3721,7 @@ updateStepTitle(nextSlide);
              var indicator_values = $(".getindicator_hod").val();
           //  if(indicator_values != '') {
               let nextSlide = countIncrease(slideid);
-updateStepTitle(nextSlide); 
+              updateStepTitle(nextSlide); 
               $("#the_error_html").remove();
 
                 $.ajax({
@@ -3677,8 +3812,19 @@ updateStepTitle(nextSlide);
 
                                
                             },
-                            error:function() {
-                                 console.log('update_scheme ajax error');
+                            error: function (xhr) {
+                                  let message = 'Something went wrong';
+
+                                  if (xhr.responseJSON) {
+                                      message =
+                                          xhr.responseJSON.message ||
+                                          xhr.responseJSON.error ||
+                                          JSON.stringify(xhr.responseJSON);
+                                  } else if (xhr.responseText) {
+                                      message = xhr.responseText;
+                                  }
+
+                                  alert(message);
                             }
                         });
                     }

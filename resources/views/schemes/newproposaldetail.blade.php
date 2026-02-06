@@ -123,7 +123,7 @@
                         }elseif($pval->convener_designation == 'as'){
                           $name = 'Additional Secretary';   
                         }else{
-                          $name = '';
+                          $name = $pval->convener_designation;
                         }                  
                         @endphp
                         <td>
@@ -382,7 +382,7 @@
                                 <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->next_scheme_components_file]) }}" target="_blank" title="{{ $pval->next_scheme_components_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
                               @elseif($extension == 'doc')
                               <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->next_scheme_components_file]) }}" download="{{ $pval->next_scheme_components_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                @else
+                               @else
                                 <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->next_scheme_components_file]) }}" download="{{ $pval->next_scheme_components_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                             @endif
                            @endif
@@ -403,7 +403,7 @@
                       <tr>
                       <th>Sustainable Development Goals (SDG) (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ)</th>
                       <td>
-                      @if($entered_goals != null)
+                      @if($entered_goals != 'no data')
                         @foreach($goals as $k => $g)
                           @if(in_array($g->goal_id,$entered_goals))
                             <p>{{ $g->goal_name }}</p>
@@ -470,8 +470,8 @@
                         {{ $pval->scheme_implementing_procedure }}
                       </td>
                     </tr>
-                    <tr>
-                      <th>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું)</th>
+ 			<tr>
+                      <th>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) </th>
                       <td>{{$pval->implementing_procedure}} <br><br>
                      
                         @if($pval->implementing_procedure_file == '')
@@ -512,7 +512,7 @@
                     <tr>
                       <th>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ)</th>
                       <td>
-                        @if($pval->beneficiaries_coverage == '')
+                        @if($bencovfile == 'no data')
                           No File
                         @else
                           @php  

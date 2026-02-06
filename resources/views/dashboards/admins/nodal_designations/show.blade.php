@@ -1,5 +1,5 @@
 @extends('dashboards.admins.layouts.admin-dash-layout')
-@section('title','Unit Detail')
+@section('title','Nodal Designation Detail')
 
 @section('content')
 
@@ -33,14 +33,18 @@
                 <div class="card-body p-10">
                   <div class="row table-responsive">
                     <table class="table table-bordered table-hover table-stripped">
-                      
+                      <tr>
+                        <th>{{ __('message.department')}}</th>
+                        <td>{{ department_name($nodal->dept_id) }}</td>
+                      </tr>
                       <tr>
                         <th>{{ __('message.name')}}</th>
-                        <td>{{ $unit->name }}</td>
+                        <td>{{ $nodal->designation_name }}</td>
                       </tr>
+                      
                     </table>
                   </div>
-                  <a href="{{ route('units.index') }}" class="btn btn-xs btn-info" style="display:inline-block">{{ __('message.back')}}</a>
+                  <a href="{{ route('nodal-designations.index') }}" class="btn btn-xs btn-info" style="display:inline-block">{{ __('message.back')}}</a>
                 </div>
               </div>
             </div>

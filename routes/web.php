@@ -265,7 +265,10 @@ Route::middleware(['isAdmin'::class,'auth',PreventBackHistory::class])->prefix('
         
         //Units
         Route::resource('units', App\Http\Controllers\UnitController::class);
+        Route::post('nodal-designations/delete/{id}', [App\Http\Controllers\NodalDesignationController::class, 'destroy'])->name('nodal-designations.destroy');
+
         Route::resource('nodal-designations', App\Http\Controllers\NodalDesignationController::class);
+        
         //Beneficiaries
         Route::resource('beneficiaries', App\Http\Controllers\BeneficiariesController::class);
         Route::get('stage_update',[App\Http\Controllers\AdminController::class,'updateStage'])->name('stage_update');

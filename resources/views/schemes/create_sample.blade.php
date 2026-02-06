@@ -259,9 +259,9 @@
                                             <label>Designation of the Nodal Officer <br>(નોડલ અધિકારી નો હોદ્દો) <span class="required_filed"> * </span> :</label>
                                             <select class="form-control" id="convener_designation" name="convener_designation">
                                               <option value="">Select Designation</option>
-                                              <option value="as" {{ old('convener_designation') == 'as' ? 'selected' : '' }}>Additional Secretary</option>
-                                              <option value="ds" {{ old('convener_designation') == 'ds' ? 'selected' : '' }}>Deputy Secretary</option>
-                                              <option value="js" {{ old('convener_designation') == 'js' ? 'selected' : '' }}>Joint Secretary</option>
+                                                @foreach($designations as $designation)
+                                                    <option value="{{ $designation }}" {{ old('convener_designation') == $designation ? 'selected' : '' }}>{{ $designation }}</option>
+                                                @endforeach
                                             </select>
                                             {{-- <input type="text" name="convener_designation" class="form-control pattern @error('convener_designation') is-invalid @enderror" maxlength="100" id="convener_designation" value=""> --}}
                                                 @error('convener_designation')
@@ -814,7 +814,8 @@
                                                     <!--end::Input-->
                                                   </div>
                                                 </div> 
-                                                <div class="row">
+										
+												<div class="row">
                                                     <div class="col-xl-12">
                                                       <!--begin::Input-->
                                                       <div class="form-group">
@@ -828,6 +829,7 @@
                                                         </div>
                                                     </div>
                                                 </div> 
+										
                                                 <div class="row">
                                                   <div class="col-xl-12">
                                                     <label>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ) <span class="required_filed"> * </span> : </label>
@@ -837,7 +839,7 @@
                                                             <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <select name="taluka_id" class="form-control" id="taluka_id" style="display: none;">
+                                                    <select name="taluka_id" class="form-control" id="districtList" style="display: none;">
                                                       <option value="">Select District</option>
                                                     </select>
                                                     <div id="load_gif_img"></div>
@@ -1612,7 +1614,7 @@ function remove_financial_year(row) {
     function fngetdist(theval) {
         $(".thedistrictlist").remove();
         $("#beneficiariesGeoLocal_img").remove();
-        $('#taluka_id').hide();
+        $('#districtList').hide();
         if (theval === 'all') {
           // Handle the case when 'All' is selected
           fnSelectAll(true);
@@ -1639,7 +1641,7 @@ function remove_financial_year(row) {
                 $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
 
                 if(response.districts != '' && response.districts != undefined) {
-                  $('#taluka_id').css('display','none');
+                  $('#districtList').css('display','none');
                   $(".thedistrictlist").append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
                     // Add an "All" checkbox at the beginning of the list
                     $.each(response.districts, function(reskey, resval){
@@ -1647,14 +1649,14 @@ function remove_financial_year(row) {
                     });
                 }
                   if(response.district_list != '' && response.district_list != undefined) {
-                      $('#taluka_id').css('display','block');
-                      $('#taluka_id').empty();
+                      $('#districtList').css('display','block');
+                      $('#districtList').empty();
                       if (!$.isEmptyObject(response.district_list)) {
                           $.each(response.district_list, function(key, value) {   
-                              $('#taluka_id').append($("<option></option>").attr("value", value).text(key)); 
+                              $('#districtList').append($("<option></option>").attr("value", value).text(key)); 
                           });
                       } else {
-                          $('#taluka_id').append($("<option></option>").text('Select District'));
+                          $('#districtList').append($("<option></option>").text('Select District'));
                       }
                     
                     }
@@ -1669,7 +1671,7 @@ function remove_financial_year(row) {
                 // }
                 if(response.state != '' && response.state != undefined){
                       //console.log('state');
-                      $('#taluka_id').css('display','none');
+                      $('#districtList').css('display','none');
                       $.each(response.state,function(reskey,resval){
                        $(".thedistrictlist").append("<div class='col-xl-3'><input class='state_length' type='checkbox' style='margin:3px' value='"+resval.id+"' name='state_name[]'>"+resval.name+"</div>");
                     });
@@ -1703,7 +1705,7 @@ function remove_financial_year(row) {
         });
 
          //fetch taluka
-          $('#taluka_id').on('change',function(){
+          $('#districtList').on('change',function(){
               var district_code = $(this).val();
               if(district_code != ""){
                 $.ajax({
@@ -2104,8 +2106,19 @@ function countIncrease(slideid){
                 // }
             },
             error: function (xhr) {
-                alert(xhr.responseText || "* AJAX error occurred, please try again");
-            }
+                    let message = 'Something went wrong';
+
+                    if (xhr.responseJSON) {
+                        message =
+                            xhr.responseJSON.message ||
+                            xhr.responseJSON.error ||
+                            JSON.stringify(xhr.responseJSON);
+                    } else if (xhr.responseText) {
+                        message = xhr.responseText;
+                    }
+
+                    alert(message);
+              }
         });
       } else if (slideid == 3){
 
@@ -2145,9 +2158,20 @@ function countIncrease(slideid){
                           $('.third_slide').removeClass("active-slide");
                           $('.fourth_slide').addClass("active-slide");
                       },
-                      error: function(xhr) {
-                          console.log('add_scheme ajax error', xhr.responseText);
-                      }
+                      error: function (xhr) {
+                          let message = 'Something went wrong';
+
+                          if (xhr.responseJSON) {
+                              message =
+                                  xhr.responseJSON.message ||
+                                  xhr.responseJSON.error ||
+                                  JSON.stringify(xhr.responseJSON);
+                          } else if (xhr.responseText) {
+                              message = xhr.responseText;
+                          }
+
+                          alert(message);
+                    }
                   });
 
               } else {
@@ -2193,9 +2217,20 @@ function countIncrease(slideid){
                           $('.fourth_slide').removeClass("active-slide");
                           $('.fifth_slide').addClass("active-slide");
                       },
-                      error: function(xhr) {
-                          console.log('add_scheme ajax error', xhr.responseText);
-                      }
+                      error: function (xhr) {
+                          let message = 'Something went wrong';
+
+                          if (xhr.responseJSON) {
+                              message =
+                                  xhr.responseJSON.message ||
+                                  xhr.responseJSON.error ||
+                                  JSON.stringify(xhr.responseJSON);
+                          } else if (xhr.responseText) {
+                              message = xhr.responseText;
+                          }
+
+                          alert(message);
+                    }
                   });
 
               } else {
@@ -2256,7 +2291,7 @@ function countIncrease(slideid){
           }
        let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide);
+        updateStepTitle(nextSlide);
         if (state_perValue > 100) {
             $("#the_error_html").remove();
             $(".fifth_slide").append(`
@@ -2313,9 +2348,20 @@ updateStepTitle(nextSlide);
                 $('.fifth_slide').removeClass("active-slide");
                 $('.sixth_slide').addClass("active-slide");
             },
-            error: function(xhr) {
-                console.log('add_scheme ajax error', xhr.responseText);
-            }
+            error: function (xhr) {
+                    let message = 'Something went wrong';
+
+                    if (xhr.responseJSON) {
+                        message =
+                            xhr.responseJSON.message ||
+                            xhr.responseJSON.error ||
+                            JSON.stringify(xhr.responseJSON);
+                    } else if (xhr.responseText) {
+                        message = xhr.responseText;
+                    }
+
+                    alert(message);
+              }
         });
 
 
@@ -2327,7 +2373,7 @@ updateStepTitle(nextSlide);
             if(commencement_year != '' && scheme_status != '' && is_sdg > 0) {
               let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide);
+              updateStepTitle(nextSlide);
               $("#the_error_html").remove();
                 var checked_scheme_status = [];
                 var i=0;
@@ -2350,9 +2396,20 @@ updateStepTitle(nextSlide);
                         $('.seventh_slide').addClass("active-slide");
                         
                     },
-                    error:function() {
-                        console.log('add_scheme ajax error');
-                    }
+                     error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                }
                 });
 
             } else {
@@ -2371,7 +2428,7 @@ updateStepTitle(nextSlide);
             if(beneficiaries != '') {
                let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide);
+            updateStepTitle(nextSlide);
               $("#the_error_html").remove();
                 var next_beneficiary_selection_criterias = $(".next_beneficiary_selection_criterias").length;
                 // var beneficiaries = [];
@@ -2409,8 +2466,19 @@ updateStepTitle(nextSlide);
                         $('.seventh_slide').removeClass("active-slide");
                         $('.eighth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                        console.log('add_scheme ajax error');
+                     error: function (xhr) {
+                          let message = 'Something went wrong';
+
+                          if (xhr.responseJSON) {
+                              message =
+                                  xhr.responseJSON.message ||
+                                  xhr.responseJSON.error ||
+                                  JSON.stringify(xhr.responseJSON);
+                          } else if (xhr.responseText) {
+                              message = xhr.responseText;
+                          }
+
+                          alert(message);
                     }
                 });
 
@@ -2424,7 +2492,7 @@ updateStepTitle(nextSlide);
             if(major_text != '') {
               let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide); 
+            updateStepTitle(nextSlide); 
               
               $("#the_error_html").remove();
 
@@ -2441,9 +2509,20 @@ updateStepTitle(nextSlide);
                          $('.eighth_slide').removeClass("active-slide");
                         $('.nineth_slide').addClass("active-slide");
                     },
-                    error:function() {
-                        console.log('add_scheme ajax error');
-                    }
+                    error: function (xhr) {
+                        let message = 'Something went wrong';
+
+                        if (xhr.responseJSON) {
+                            message =
+                                xhr.responseJSON.message ||
+                                xhr.responseJSON.error ||
+                                JSON.stringify(xhr.responseJSON);
+                        } else if (xhr.responseText) {
+                            message = xhr.responseText;
+                        }
+
+                        alert(message);
+                  }
                 });
 
             } else {
@@ -2454,7 +2533,7 @@ updateStepTitle(nextSlide);
               
             }
       }else if(slideid == 9){
-            var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+		   var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
             var implementing_procedure = $("#implementing_procedure").val();
             var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
             var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
@@ -2500,7 +2579,9 @@ updateStepTitle(nextSlide);
                 `);
                 return;
             }
+			let nextSlide = countIncrease(slideid);
 
+            updateStepTitle(nextSlide); 
             /* ================= FORM DATA ================= */
             let formData = new FormData();
 
@@ -2529,8 +2610,47 @@ updateStepTitle(nextSlide);
                 formData.append('geographical_coverage', geoFile);
             }
 
-            /* ================= AJAX ================= */
-            $.ajax({
+            // var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+            // var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
+            // var thedistrictlist = $(".thedistrictlist").length;
+            // var talukas = [];
+            // var districts = [];
+            // var states = [];
+            // var districtList = $('#districtList').val();
+            // if(thedistrictlist > 0) {
+              // if(beneficiariesGeoLocal == 1) { //state
+                    // var i = 0;
+                    // $("input[name='state_name[]']:checked").each(function() {
+                        // var ss_state = this.value;
+                        // states[i] = ss_state.replace(/"/g,'');
+                        // i++;
+                    // });
+                // }else if(beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) { //Developing Taluka
+                    // var i = 0;
+                    // $("input[name='taluka_name[]']:checked").each(function() {
+                        // var ss_taluka = this.value;
+                        // talukas[i] = ss_taluka.replace(/"/g,'');
+                        // i++;
+                    // });
+                // } else { // District
+                    // var i = 0;
+                    // $("input[name='district_name[]']:checked").each(function() {
+                        // var ss_district = this.value;
+                        // districts[i] = ss_district.replace(/"/g,'');
+                        // i++;
+                    // });
+                // }
+            // }
+          // var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+          // var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
+          // var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
+
+          // if (next_scheme_implementing_procedure !== '' && beneficiariesGeoLocal !== '') {
+              // $("#the_error_html").remove();
+           // let nextSlide = countIncrease(slideid);
+
+            // updateStepTitle(nextSlide); 
+              $.ajax({
                 type: 'POST',
                 url: "{{ route('schemes.add_scheme') }}",
                 data: formData,
@@ -2544,12 +2664,31 @@ updateStepTitle(nextSlide);
                     $("#next_btn").val(10).show();
                     $('.nineth_slide').removeClass("active-slide");
                     $('.tenth_slide').addClass("active-slide");
-                },
-                error: function (xhr) {
-                    console.error('add_scheme ajax error:', xhr.status, xhr.responseText);
-                }
-            });
+                },error: function (xhr) {
+                      let message = 'Something went wrong';
 
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
+                }
+              });
+          // } else {
+              // $("#the_error_html").remove();
+              // $(".nineth_slide").append(`
+                  // <div class="row" id="the_error_html">
+                      // <div class="col-xl-12" style="color:red;font-size:20px">
+                          // * All Fields are required
+                      // </div>
+                  // </div>
+              // `);
+          // }
 
       }else if (slideid == 10){
       
@@ -2606,9 +2745,20 @@ updateStepTitle(nextSlide);
                             $('.tenth_slide').removeClass("active-slide");
                             $('.eleventh_slide').addClass("active-slide");
                         },
-                        error: function (xhr) {
-                            console.log('add_scheme ajax error', xhr.responseText);
-                        }
+                         error: function (xhr) {
+                            let message = 'Something went wrong';
+
+                            if (xhr.responseJSON) {
+                                message =
+                                    xhr.responseJSON.message ||
+                                    xhr.responseJSON.error ||
+                                    JSON.stringify(xhr.responseJSON);
+                            } else if (xhr.responseText) {
+                                message = xhr.responseText;
+                            }
+
+                            alert(message);
+                      }
                     });
                 } else {
                     // ✅ Validation error
@@ -2621,7 +2771,6 @@ updateStepTitle(nextSlide);
                 }
     
       }else if(slideid == 11){
-    
         var next_benefit_to = $("#next_benefit_to").val();
         console.log(next_benefit_to);
         var countallconvergence = $(".countallconvergence").length;
@@ -2639,7 +2788,6 @@ updateStepTitle(nextSlide);
 
       //  if (next_benefit_to != '') {
         let nextSlide = countIncrease(slideid);
-
         updateStepTitle(nextSlide);  
             $("#the_error_html").remove();
 
@@ -2661,8 +2809,19 @@ updateStepTitle(nextSlide);
                     $('.eleventh_slide').removeClass("active-slide");
                     $('.twelth_slide').addClass("active-slide");
                 },
-                error: function (xhr, status, error) {
-                    console.log('AJAX Error (slide 11):', xhr.responseText || error);
+                 error: function (xhr) {
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
                 }
             });
 
@@ -2672,10 +2831,9 @@ updateStepTitle(nextSlide);
         //     $(".eleventh_slide").append(the_html);
         // }
 
-      }else if(slideid == 12){
-        let nextSlide = countIncrease(slideid);
-
-updateStepTitle(nextSlide); 
+    }else if(slideid == 12){
+          let nextSlide = countIncrease(slideid);
+          updateStepTitle(nextSlide); 
             var tokenis = $("meta[name='csrf-token']").attr('content');
             var formData = new FormData();
             formData.append('_token', tokenis);
@@ -2741,7 +2899,18 @@ updateStepTitle(nextSlide);
                     $('.thirteenth_slide').addClass("active-slide");
                 },
                 error: function (xhr) {
-                    console.log('add_scheme ajax error (slide 12)', xhr.responseText);
+                      let message = 'Something went wrong';
+
+                      if (xhr.responseJSON) {
+                          message =
+                              xhr.responseJSON.message ||
+                              xhr.responseJSON.error ||
+                              JSON.stringify(xhr.responseJSON);
+                      } else if (xhr.responseText) {
+                          message = xhr.responseText;
+                      }
+
+                      alert(message);
                 }
             });
       }else if(slideid == 13){
@@ -2749,7 +2918,7 @@ updateStepTitle(nextSlide);
            // if(indicator_values != '') {
                let nextSlide = countIncrease(slideid);
 
-updateStepTitle(nextSlide);
+                updateStepTitle(nextSlide);
                 $("#the_error_html").remove();
                 
                 $.ajax({

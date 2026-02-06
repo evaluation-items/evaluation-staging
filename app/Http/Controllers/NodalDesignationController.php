@@ -72,8 +72,10 @@ class NodalDesignationController extends Controller
      * @param  \App\Models\NodalDesignation  $nodal
      * @return \Illuminate\Http\Response
      */
-    public function show(NodalDesignation $nodal)
+    public function show($id)
     {
+        $nodal = NodalDesignation::find($id);
+       
         return view('dashboards.admins.nodal_designations.show',compact('nodal'));
     }
 
@@ -125,19 +127,18 @@ class NodalDesignationController extends Controller
      * @param  \App\Models\NodalDesignation  $nodal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,NodalDesignation $nodal)
-    {
-        if (!is_null($nodal)) {
+        public function destroy(Request $request, $id)
+        {
+            $nodal = NodalDesignation::find($id);
+
+            if (!$nodal) {
+                return redirect()->back()->withError('Invalid record');
+            }
+
             $nodal->delete();
-            $act['userid'] = Auth::user()->id;
-            $act['ip'] = $request->ip();
-            $act['activity'] = 'Nodal Designation Delete By Admin';
-            $act['officecode'] = Auth::user()->dept_id;
-            $act['pagereferred'] = $request->url();
-            Activitylog::insert($act);
-            return redirect()->route('nodal-designations.index')->withSuccess('Nodal Designation deleted successfully');
-        } else {
-            return redirect()->route('nodal-designations.index')->withError('Invalid Nodal Designation');
+
+            return redirect() ->route('nodal-designations.index')->withSuccess('Deleted successfully');
         }
-    }
+
+
 }

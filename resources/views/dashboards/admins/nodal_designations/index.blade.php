@@ -79,12 +79,15 @@
                                               
                                               <a  class="btn btn-xs btn-primary editNodalDesignation"  data-id="{{ $nodal_item->id }}"  data-dept-id="{{ $nodal_item->dept_id }}" data-name="{{ $nodal_item->designation_name }}">{{ __('message.edit')}}</a>
 
-                                              <a href="#myModal" class="btn btn-xs btn-danger trigger-btn" data-id= "{{$nodal_item->id}}"data-bs-toggle="modal">{{ __('message.delete')}}</a> 
-              
-                                              <form id="delete-form-{{$nodal_item->id}}" action="{{ route('nodal-designations.destroy',$nodal_item->id) }}" method="POST" style="display: none;">
-                                                  @csrf
-                                                  @method('DELETE')
-                                              </form> 
+                                              <a href="javascript:void(0)"  class="btn btn-xs btn-danger trigger-btn" data-id="{{ $nodal_item->id }}" data-bs-toggle="modal"  data-bs-target="#myModal">  {{ __('message.delete') }}</a>
+
+                                                  <form id="delete-form-{{ $nodal_item->id }}"
+                                                        action="{{ route('nodal-designations.destroy', $nodal_item->id) }}"
+                                                        method="POST"
+                                                        style="display:none;">
+                                                      @csrf
+                                                  </form>
+ 
                                           </td>
                                       </tr>
                                   @endforeach
@@ -114,40 +117,40 @@
       <div class="modal-body">
         <div class="container">
         <form id="nodalDesignationFrm" method="POST" action="{{ route('nodal-designations.store') }}">
-    @csrf
-    <input type="hidden" name="_method" id="formMethod" value="POST">
-    <input type="hidden" name="nodal_designation_id" id="nodal_designation_id">
+          @csrf
+          <input type="hidden" name="_method" id="formMethod" value="POST">
+          <input type="hidden" name="nodal_designation_id" id="nodal_designation_id">
 
-    <div class="row">
-        <label>Department <span class="required_filed">*</span></label>
-        <select name="dept_id" id="dept_id" class="form-control">
-            <option value="">-- Select Department --</option>
+          <div class="row">
+              <label>Department <span class="required_filed">*</span></label>
+              <select name="dept_id" id="dept_id" class="form-control">
+                  <option value="">-- Select Department --</option>
 
-            @foreach($departments as $department)
-                <option value="{{ $department->dept_id }}">
-                    {{ $department->dept_name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
+                  @foreach($departments as $department)
+                      <option value="{{ $department->dept_id }}">
+                          {{ $department->dept_name }}
+                      </option>
+                  @endforeach
+              </select>
+          </div>
 
-    <div class="row mt-2">
-        <label>Nodal Designation Name <span class="required_filed">*</span></label>
-        <input type="text" name="designation_name" id="designation_name"
-               class="form-control" autocomplete="off">
-    </div>
+          <div class="row mt-2">
+              <label>Nodal Designation Name <span class="required_filed">*</span></label>
+              <input type="text" name="designation_name" id="designation_name"
+                    class="form-control" autocomplete="off">
+          </div>
 
-    <div class="row mt-3">
-        <div class="col-xl-12 text-end">
-            <button type="submit" class="btn btn-primary">
-                Submit
-            </button>
-            <button type="button" class="btn btn-default" data-bs-dismiss="modal">
-                Close
-            </button>
-        </div>
-    </div>
-</form>
+          <div class="row mt-3">
+              <div class="col-xl-12 text-end">
+                  <button type="submit" class="btn btn-primary">
+                      Submit
+                  </button>
+                  <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+                      Close
+                  </button>
+              </div>
+          </div>
+        </form>
 
         </div>
       </div>
@@ -182,20 +185,16 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
+let deleteId = null;
 
     $('.trigger-btn').on('click', function () {
-        var district_id = $(this).data('id');
-        
-        var deleteBtn = $('.deleteBtn');
-        var deleteId = deleteBtn.data('unit-id');
-            deleteBtn.data('unit-id',district_id);
-        
+        deleteId = $(this).data('id');
     });
     $('.deleteBtn').on('click', function () {
-      const id = $(this).data('unit-id');
-      $('#delete-form-'+id).get(0).submit();
-      $('#myModal').modal('hide');
-      });
+        if (!deleteId) return;
+
+        $('#delete-form-' + deleteId).submit();
+    });
   });
   $(document).ready(function () {
 
