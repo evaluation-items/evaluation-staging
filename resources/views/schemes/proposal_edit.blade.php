@@ -3063,9 +3063,9 @@ $(document).on('change', '.custom-file-input', function () {
               var next_scheme_components = $('#next_scheme_components').val();
               var state_perValue = parseFloat($('#state_ratio').val()) || 0;
          
-              var existing_next_scheme_overview_file = $(".existing_next_scheme_overview_file").val();
-              var existing_scheme_objective_file = $(".existing_scheme_objective_file").val();
-              var existing_next_scheme_components_file = $(".existing_next_scheme_components_file").val();
+              var existing_next_scheme_overview_file = $(".existing_next_scheme_overview_file").val() ?? null;
+              var existing_scheme_objective_file = $(".existing_scheme_objective_file").val() ?? null;
+              var existing_next_scheme_components_file = $(".existing_next_scheme_components_file").val() ?? null;
               // ✅ Collect HOD Table Data
                var hodData = [];
               $('#hodTable tbody tr').each(function() {
@@ -3239,7 +3239,7 @@ $(document).on('change', '.custom-file-input', function () {
               beneficiaries.push(value);
           });
             var beneficiaryFile = $('#beneficiary_selection_criteria_file')[0].files[0];
-            var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").val();
+            var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").val() ?? null;
             if(beneficiaries != '') {
                 let nextSlide = countIncrease(slideid);
               updateStepTitle(nextSlide); 
@@ -3355,7 +3355,7 @@ $(document).on('change', '.custom-file-input', function () {
 			var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
 			var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
 			var taluka_id = $('#taluka_id').val();
-			var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val();
+			var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val() ?? null;
 			var talukas = [];
 			var districts = [];
 			var states = [];
@@ -3452,12 +3452,12 @@ $(document).on('change', '.custom-file-input', function () {
 
                 $.ajax({
                     type: 'POST',
-					url: "{{ route('schemes.update_scheme') }}",
-					data: formData,
-					dataType: 'json',
-					processData: false, // 🔥 REQUIRED
-					contentType: false, // 🔥 REQUIRED
-					success: function (response) {
+                    url: "{{ route('schemes.update_scheme') }}",
+                    data: formData,
+                    dataType: 'json',
+                    processData: false, // 🔥 REQUIRED
+                    contentType: false, // 🔥 REQUIRED
+                    success: function (response) {
                     $(".otherslides").hide();
                     $(".tenth_slide").show();
                     $("#previous_btn").val(10).show();

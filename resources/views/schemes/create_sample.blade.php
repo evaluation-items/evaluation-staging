@@ -2585,7 +2585,7 @@ function countIncrease(slideid){
             /* ================= FORM DATA ================= */
             let formData = new FormData();
 
-            formData.append('_token', $('#csrf_token').val());
+            formData.append('_token', "{{ csrf_token() }}");
             formData.append('slide', 'nineth');
             formData.append('scheme_implementing_procedure', next_scheme_implementing_procedure);
             formData.append('implementing_procedure', implementing_procedure);
