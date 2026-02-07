@@ -470,7 +470,7 @@
                         {{ $pval->scheme_implementing_procedure }}
                       </td>
                     </tr>
- 			<tr>
+ 			              <tr>
                       <th>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) </th>
                       <td>{{$pval->implementing_procedure}} <br><br>
                      
@@ -612,9 +612,9 @@
                         <tr>
                           <th>GR (ઠરાવો)</th>
                           <td>
-                            @if($gr_files == 'no data')
+                            {{-- @if($gr_files == 'no data')
                               No File
-                            @else
+                            @else --}}
                             @if($pval->gr_file->count() > 0)
                               @foreach($pval->gr_file as $kgrs => $vgrs)
                                 @php
@@ -632,16 +632,18 @@
                                 <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
                               </a> --}}
                               @endforeach
+                              @else
+                                No File
                               @endif
-                            @endif
+                            {{-- @endif --}}
                           </td>
                         </tr>
                         <tr>
                           <th>Notification (જાહેરનામાં)</th>
                           <td>
-                            @if($notification_files == 'no data')
+                            {{-- @if($notification_files == 'no data')
                               No File
-                            @else
+                            @else --}}
                             @if ($pval->notification_files->count() > 0)
                               @foreach($pval->notification_files as $kgrs => $items)
                                 @php
@@ -659,16 +661,18 @@
                                 <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
                               </a> --}}
                               @endforeach
+                              @else
+                                No File
                             @endif
-                            @endif
+                            {{-- @endif --}}
                           </td>
                         </tr>
                         <tr>
                           <th>Brochure (બ્રોશર)</th>
                           <td>
-                            @if($brochure_files == 'no data')
+                            {{-- @if($brochure_files == 'no data')
                               No File
-                            @else
+                            @else --}}
                             @if($pval->brochure_files->count() > 0)
                               @foreach($pval->brochure_files as $kgrs => $file)
                               @php
@@ -686,16 +690,18 @@
                                 <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
                               </a> --}}
                               @endforeach
+                              @else
+                                No File
                             @endif
-                            @endif
+                            {{-- @endif --}}
                           </td>
                         </tr>
                         <tr>
                           <th>Pamphlets (પેમ્ફલેટ્સ)</th>
                           <td>
-                            @if($pamphlets_files == 'no data')
+                            {{-- @if($pamphlets_files == 'no data')
                               No File
-                            @else
+                            @else --}}
                               @if($pval->pamphlets_files->count() > 0)
                                 @foreach($pval->pamphlets_files as $kgrs => $pam_file)
                                   @php
@@ -713,16 +719,18 @@
                                   <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
                                 </a> --}}
                                 @endforeach
+                                @else
+                                  No File
                               @endif
-                            @endif
+                            {{-- @endif --}}
                           </td>
                         </tr>
                         <tr>
                           <th>Other Details of the Scheme (યોજનાને લાગતું અન્ય સાહિત્ય) ( Central–State Separate )</th>
                           <td>
-                            @if($otherdetailscenterstate_files == 'no data')
+                            {{-- @if($otherdetailscenterstate_files == 'no data')
                               No File
-                            @else
+                            @else --}}
                               @if($pval->otherdetailscenterstate_files->count() > 0)
                                 @foreach($pval->otherdetailscenterstate_files as $kgrs => $other_file)
                                   @php
@@ -740,8 +748,10 @@
                                   <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
                                 </a> --}}
                                 @endforeach
+                              @else
+                                 No File
                               @endif
-                            @endif
+                            {{-- @endif --}}
                           </td>
                         </tr>
                       <tr>

@@ -25,7 +25,7 @@ class Proposal extends Model {
         return $date->format('d-m-Y');
     }
 
-    public function gr_file(){
+  public function gr_file(){
         return $this->hasMany(GrFilesList::class,'scheme_id','scheme_id');
     }
     public function notification_files(){
@@ -40,5 +40,6 @@ class Proposal extends Model {
     public function otherdetailscenterstate_files(){
         return $this->hasMany(CenterStateFiles::class,'scheme_id','scheme_id');
     }
+
     
 }

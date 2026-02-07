@@ -3,47 +3,29 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Validation\ValidationException;
+use Smalot\PdfParser\Parser;
 
 class PdfSecurityService
 {
-    public static function check(UploadedFile $file): void
+    public static function check(UploadedFile $file, bool $throw = true): bool
     {
-        // ✅ Apply ONLY to PDFs
         if (strtolower($file->getClientOriginalExtension()) !== 'pdf') {
-            return;
+            return true;
         }
 
         $path = $file->getRealPath();
 
-        /*
-        |--------------------------------------------------------------------------
-        | 1️⃣ MAGIC BYTE CHECK
-        |--------------------------------------------------------------------------
-        */
         $handle = fopen($path, 'rb');
         $header = fread($handle, 5);
         fclose($handle);
 
         if ($header !== '%PDF-') {
-            throw ValidationException::withMessages([
-                'file' => 'Invalid PDF file format',
-            ]);
+            return self::fail('Invalid PDF file format', $throw);
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | 2️⃣ READ CONTENT (LIMITED SIZE)
-        |--------------------------------------------------------------------------
-        */
-        $content = file_get_contents($path, false, null, 0, 2 * 1024 * 1024); // read first 2MB only
+        $content = file_get_contents($path, false, null, 0, 2 * 1024 * 1024);
 
-        /*
-        |--------------------------------------------------------------------------
-        | 3️⃣ BLOCK REAL JAVASCRIPT / ACTIONS
-        |--------------------------------------------------------------------------
-        */
-        $dangerousPatterns = [
+        $patterns = [
             '/\/JavaScript\s*<<|\/JavaScript\s*\(/i',
             '/\/JS\s*<<|\/JS\s*\(/i',
             '/\/OpenAction\s*<<|\/OpenAction\s*\(/i',
@@ -51,12 +33,23 @@ class PdfSecurityService
             '/\/Launch\s*<<|\/Launch\s*\(/i',
         ];
 
-        foreach ($dangerousPatterns as $pattern) {
+        foreach ($patterns as $pattern) {
             if (preg_match($pattern, $content)) {
-                throw ValidationException::withMessages([
-                    'file' => 'PDF contains embedded scripts and is not allowed',
-                ]);
+                return self::fail('PDF contains embedded scripts and is not allowed', $throw);
             }
         }
+
+        return true;
+    }
+
+    protected static function fail(string $message, bool $throw): bool
+    {
+        if ($throw) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'file' => $message,
+            ]);
+        }
+
+        return false;
     }
 }

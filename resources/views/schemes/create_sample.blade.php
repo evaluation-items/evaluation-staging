@@ -1289,7 +1289,7 @@ $(document).ready(function() {
       let newFileInput = `
           <div class="gr-row d-flex align-items-center mb-2">
               <div class="custom-file">
-                  <input type="file" class="file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" />
+                  <input type="file" class="custom-file-input file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" />
                   <label class="custom-file-label">Choose file</label>
               </div>
               <button type="button" class="btn btn-danger btn-sm remove_gr_file ml-2">Remove</button>

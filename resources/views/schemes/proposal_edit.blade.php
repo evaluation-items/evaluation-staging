@@ -951,7 +951,7 @@
                                             <!--end::Input-->
                                           </div>
                                         </div> 
-										<div class="row">
+										                  <div class="row">
                                           <div class="col-xl-12">
                                             <!--begin::Input-->
                                             <div class="form-group">
@@ -1316,7 +1316,7 @@
                                                         <button type="button" class="btn btn-primary" id="add_gr_file" style="margin-top:40px;">Add</button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                              </div>
 
                                                 
                                             {{-- <div class="row mt-3">
@@ -1480,10 +1480,8 @@
                                                 </div>
                                                 @if($center_state->count())
                                                 <div class="form-group">
-                                                {{-- @foreach($center_state as $kgr => $vgr)
-                                                    <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_center_state_{{++$kgr}}" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                @endforeach --}}
-                                                @if($val->otherdetailscenterstate_files->count() > 0)
+                                                
+                                                @if($center_state->count() > 0)
                                                     @foreach($val->otherdetailscenterstate_files as $kgrs => $other_file)
                                                       @php
                                                         $extension = pathinfo($other_file->file_name, PATHINFO_EXTENSION);
@@ -1886,7 +1884,7 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
         // No selected → hide and clear file input
         $('.beneficiary_form').hide();
         $('.beneficiary_filling_form').val('');
-        $('.custom-file-label').text('Choose file');
+       $('.beneficiary_form .custom-file-label').text('Choose file');
     }
 });
 
@@ -3063,9 +3061,25 @@ $(document).on('change', '.custom-file-input', function () {
               var next_scheme_components = $('#next_scheme_components').val();
               var state_perValue = parseFloat($('#state_ratio').val()) || 0;
          
-              var existing_next_scheme_overview_file = $(".existing_next_scheme_overview_file").val() ?? null;
-              var existing_scheme_objective_file = $(".existing_scheme_objective_file").val() ?? null;
-              var existing_next_scheme_components_file = $(".existing_next_scheme_components_file").val() ?? null;
+              // var existing_next_scheme_overview_file = $(".existing_next_scheme_overview_file").val();
+              // var existing_scheme_objective_file = $(".existing_scheme_objective_file").val();
+              // var existing_next_scheme_components_file = $(".existing_next_scheme_components_file").val();
+
+              var existing_next_scheme_overview_file =
+                $(".existing_next_scheme_overview_file").length
+                    ? $(".existing_next_scheme_overview_file").val()
+                    : null;
+
+            var existing_scheme_objective_file =
+                $(".existing_scheme_objective_file").length
+                    ? $(".existing_scheme_objective_file").val()
+                    : null;
+
+            var existing_next_scheme_components_file =
+                $(".existing_next_scheme_components_file").length
+                    ? $(".existing_next_scheme_components_file").val()
+                    : null;
+
               // ✅ Collect HOD Table Data
                var hodData = [];
               $('#hodTable tbody tr').each(function() {
@@ -3140,9 +3154,18 @@ $(document).on('change', '.custom-file-input', function () {
               formData.append('sub_scheme', next_scheme_components);
               formData.append('draft_id', draft_id);
               formData.append('scheme_id', scheme_id);
-              formData.append('existing_next_scheme_overview_file', existing_next_scheme_overview_file);
-              formData.append('existing_scheme_objective_file', existing_scheme_objective_file);
-              formData.append('existing_next_scheme_components_file', existing_next_scheme_components_file);
+             if (existing_next_scheme_overview_file) {
+                  formData.append('existing_next_scheme_overview_file', existing_next_scheme_overview_file);
+              }
+
+              if (existing_scheme_objective_file) {
+                  formData.append('existing_scheme_objective_file', existing_scheme_objective_file);
+              }
+
+              if (existing_next_scheme_components_file) {
+                  formData.append('existing_next_scheme_components_file', existing_next_scheme_components_file);
+              }
+
               // ✅ Append files if selected
               if (overview_file) formData.append('next_scheme_overview_file', overview_file);
               if (objective_file) formData.append('scheme_objective_file', objective_file);
@@ -3239,7 +3262,8 @@ $(document).on('change', '.custom-file-input', function () {
               beneficiaries.push(value);
           });
             var beneficiaryFile = $('#beneficiary_selection_criteria_file')[0].files[0];
-            var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").val() ?? null;
+            var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").length ? $(".existing_beneficiary_selection_criteria_file").val() : null;
+           // var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").val() ?? null;
             if(beneficiaries != '') {
                 let nextSlide = countIncrease(slideid);
               updateStepTitle(nextSlide); 
@@ -3259,7 +3283,9 @@ $(document).on('change', '.custom-file-input', function () {
                 formData.append('scheme_beneficiary_selection_criteria', beneficiaries);
                 formData.append('draft_id', draft_id);
                 formData.append('scheme_id', scheme_id);
-                formData.append('existing_beneficiary_selection_criteria_file', existing_beneficiary_selection_criteria_file);
+                if(existing_beneficiary_selection_criteria_file){
+                    formData.append('existing_beneficiary_selection_criteria_file', existing_beneficiary_selection_criteria_file);
+                }
                 // Append file input
                 if (beneficiaryFile) {
                     formData.append('beneficiary_selection_criteria_file', beneficiaryFile);
@@ -3355,7 +3381,9 @@ $(document).on('change', '.custom-file-input', function () {
 			var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
 			var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
 			var taluka_id = $('#taluka_id').val();
-			var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val() ?? null;
+			//var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val() ?? null;
+      var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").length ? $(".existing_implementing_procedure_file").val() : null;
+
 			var talukas = [];
 			var districts = [];
 			var states = [];
@@ -3399,7 +3427,9 @@ $(document).on('change', '.custom-file-input', function () {
             states.forEach(v => formData.append('state_name[]', v));
             districts.forEach(v => formData.append('district_name[]', v));
             talukas.forEach(v => formData.append('taluka_name[]', v));
-          formData.append('existing_implementing_procedure_file', existing_implementing_procedure_file);
+            if (existing_implementing_procedure_file) {
+              formData.append('existing_implementing_procedure_file', existing_implementing_procedure_file);
+            }
 
             if (implementing_procedure_file) {
                 formData.append('implementing_procedure_file', implementing_procedure_file);
@@ -3612,7 +3642,9 @@ $(document).on('change', '.custom-file-input', function () {
         } else if(slideid == 12) {
               var existing_gr_files = {{ $gr_files->count() ?? 0 }};
               var existing_notification_files = {{ $notifications->count() ?? 0 }};
-
+              var existing_brochures_files = {{ $brochures->count() ?? 0 }};
+              var existing_pamphlets_files = {{ $pamphlets->count() ?? 0 }};
+              var existing_otherdetailscenterstate_files = {{ $center_state->count() ?? 0 }};
               var next_gr_files = 0;
                 $('input[name="gr[]"]').each(function() {
                     next_gr_files += this.files.length;
@@ -3623,7 +3655,8 @@ $(document).on('change', '.custom-file-input', function () {
               var next_otherdetailscenterstate = $(".next_otherdetailscenterstate")[0]?.files.length || 0;
 
               // Validation: require at least GR or Notification file (new or existing)
-              if ((next_gr_files > 0) || (existing_gr_files > 0)) {
+               if (next_gr_files > 0 || existing_gr_files > 0 || next_notification_files > 0 || existing_notification_files > 0) {
+
                   $("#the_error_html").remove();
                   let nextSlide = countIncrease(slideid);
                   updateStepTitle(nextSlide); 
