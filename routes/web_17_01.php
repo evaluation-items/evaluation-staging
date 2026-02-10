@@ -28,13 +28,8 @@ use App\Mail\ForwardProposalMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\SessionTimeoutMiddleware;
 use App\Http\Middleware\Referrer;
-use App\Http\Middleware\XSS;
-use App\Http\Middleware\PreventOpenRedirect;
-use App\Http\Middleware\ForceOptionsResponse;
-
 // use App\Http\Controllers\PowerBIController;
 use App\Http\Middleware\SetLocale;
-use App\Http\Middleware\TrackVisitors;
 
 
 Route::post('lang/change', function (\Illuminate\Http\Request $request) {
@@ -48,7 +43,7 @@ Route::post('lang/change', function (\Illuminate\Http\Request $request) {
 })->name('lang.change');
 
 
-Route::middleware([SetLocale::class, PreventOpenRedirect::class,ForceOptionsResponse::class,TrackVisitors::class])->group(function () {
+Route::middleware([SetLocale::class])->group(function () {
 
 
 Route::any('/', function () {
@@ -121,10 +116,6 @@ Route::get('/whos-who', [App\Http\Controllers\SlugController::class, 'Whos'])->n
 Route::get('/Dec', [App\Http\Controllers\SlugController::class, 'Dec'])->name('dec');
 Route::get('/Ecc', [App\Http\Controllers\SlugController::class, 'Ecc'])->name('ecc');
 Route::get('/government-resolution', [App\Http\Controllers\SlugController::class, 'governmentResolution'])->name('government-resolution');
-Route::get('/media-gallery', [App\Http\Controllers\SlugController::class, 'mediaGallery'])->name('media-gallery');
-Route::get('/vission-mission', function(){
-    return view('common_pages.vission-mission');
-})->name('vission-mission');
 
 Route::get('/menu-item/{slug}', [App\Http\Controllers\SlugController::class, 'menuItem'])->name('slug');
 
@@ -177,11 +168,8 @@ Route::post('/welcome-popup/seen', function () {
     Route::get('get-scheme-count',[StageController::class,'schemeCount'])->name('get-scheme-count');
     Route::get('get-stage-count',[StageController::class,'stageCount'])->name('get-stage-count');
     Route::post('get-donutchart-count/{draft_id}',[StageController::class,'donutCount'])->name('get-donutchart-count');
-    Route::post('get-donutchart-count-condept/{draft_id}',[StageController::class,'donutCount_con_dept'])->name('get-donutchart-count-condept');
     Route::get('detail-report', [StageController::class,'detailReport'])->name('detail_report');
     Route::get('summary_export/{draft_id?}', [StageController::class,'summaryReport'])->name('summary_export');
-	Route::get('summary_export_all/{draft_id?}', [StageController::class,'summaryReportAll'])->name('summary_export_all');
-
     
     //Stage Create
     Route::resource('stages',StageController::class);
@@ -192,7 +180,6 @@ Route::post('/welcome-popup/seen', function () {
 
     //Custom Filter
     Route::post('/custom_filter_items',[SchemeController::class,'customItems'])->name('custom_filter_items');
-    Route::post('/custom_filter_condept_items',[SchemeController::class,'customdeptItems'])->name('custom_filter_condept_items');
     Route::get('proposals/{param?}',[ProposalController::class, 'proposalItems'])->name('proposals');
     Route::post('forwardtodept',[ProposalController::class,'forwardtodept'])->name('proposals.forwardtodept');
 
@@ -269,9 +256,6 @@ Route::middleware(['isAdmin'::class,'auth',PreventBackHistory::class])->prefix('
         
         //Units
         Route::resource('units', App\Http\Controllers\UnitController::class);
-		Route::post('nodal-designations/delete/{id}', [App\Http\Controllers\NodalDesignationController::class, 'destroy'])->name('nodal-designations.destroy');
-
-        Route::resource('nodal-designations', App\Http\Controllers\NodalDesignationController::class);
         //Beneficiaries
         Route::resource('beneficiaries', App\Http\Controllers\BeneficiariesController::class);
         Route::get('stage_update',[App\Http\Controllers\AdminController::class,'updateStage'])->name('stage_update');
@@ -361,9 +345,6 @@ Route::middleware([GadsecMiddleware::class,'auth'])->prefix('gadsec')->group(fun
 
         
         Route::post('gadtoeval',[GadsecController::class,'frwdtoeval'])->name('gadsec.gadtoeval');
-
-        Route::post('gad-scheme-to-eval',[GadsecController::class,'gadSchemefrwd'])->name('gadsec.gad-scheme-to-eval');
-
         Route::post('returntodept',[GadsecController::class,'returntodept'])->name('gadsec.returntodept');
         Route::post('forwardtoeval',[GadsecController::class,'forwardtoeval'])->name('gadsec.forwardtoeval');
     });

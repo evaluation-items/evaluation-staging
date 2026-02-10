@@ -8,7 +8,7 @@ return [
     'increase_font' => 'Increase font size',
     'english' => 'English',
     'gujarati' => 'ગુજરાતી',
-    'director_of_evaluation' => 'Transforming Survey Ecosystem',
+    'director_of_evaluation' => 'Transforming Survey Ecoystem',
     'general_administration' => 'General Administration Department (Planning Division)',
     'government_of_gujarat' => 'Government of Gujarat',
     'home' => 'Home',
@@ -96,11 +96,11 @@ return [
     //Concern Department Dashboard
     'add_requisition' => 'Add Requisition',
     'add_new_requisition_form' => 'Add New Requisition Form',
-    'no_of_new_proposals' => 'No. of New Proposals',
+    'no_of_new_proposals'        => 'No. of New Proposals',
     'no_of_forwraded_proposals' => 'No. of Proposals Forwarded',
-    'no_of_returned_proposals' => 'No. of Proposals Returned',
-    'no_of_on-going_studies' => 'No. of On-going Studies',
-    'no_of_complete_studies' => 'No. of Studies Completed',
+     'no_of_returned_proposals'  => 'No. of Proposals Returned',
+     'no_of_on-going_studies'     => 'No. of Ongoing Studies',
+     'no_of_complete_studies'   => 'No. of Studies Completed',
     'export_report' => 'Export Report',
     'bar_chart' => 'Bar Chart',
     'welcome' => 'Welcome',
@@ -140,18 +140,17 @@ return [
     ],
 
     'chart_labels_con_dept' => [
-        'Requisition Stage',
-        'Study Design Approval Stage',
-        'Suggestion for I.O. on Draft Report',
-        'Draft Report Submission to DEC Stage',
-        'DEC Meeting & Minutes Stage',
+        'No. of days for Requisition',
+        'Approval Study Design',
+        'Suggestion of I.O. for Draft Report',
+        'Date of Draft Report sent to DEC',
+        'Minutes of Meeting From DEC',
     ],
     'chart_stage_scores_con_dept' => [
-        'Requisition Stage' => 30,
-        'Study Design Approval Stage' => 30,
-        'SSuggestion for I.O. on Draft Report' => 15,
-        'Draft Report Submission to DEC Stage'=> 30,
-        'DEC Meeting & Minutes Stage' => 30,
+        'No. of days for Requisition' => 30,
+        'Approval Study Design' => 30,
+        'Suggestion of I.O. for Draft Report' => 15,
+        'Minutes of Meeting From DEC' => 30,
     ],
 
     'delay_stage_sop_count' => 'Action Taken Report Concern Department',
@@ -217,16 +216,16 @@ return [
     'gad_desc' => 'List of new proposals received from Concern Department',
 
     //Gad-sec Sidebar
-    'returned_proposals' => 'Proposals Returned',
-    'ongoing_proposals' => 'Proposals Ongoing',
-    'approved_proposals' => 'Proposals Approved/Forwarded',
+    'returned_proposals' => 'Returned Proposals',
+    'ongoing_proposals' => 'Ongoing Proposals',
+    'approved_proposals' => 'Approved/Forwarded Proposals',
     'detail_reports' => 'Detail Reports',
 
     //Gad Dashboard
-    'no_of_approved_proposals' => 'No. of Proposals Approved/Forward to DoE',
+    'no_of_approved_proposals' => 'No. of Proposals Approved/Forwarded to DoE',
     'gad_secretary' => 'GAD Secretary',
 
-    //Gad Forwarded
+    //Gad Forwared
     'scheme_overview' => 'Scheme Overview',
     'scheme_objective' => 'Scheme Objective',
 
@@ -418,7 +417,7 @@ return [
     'paregraph-2' => 'The Directorate of Evaluation is working under the Supervision and Control of Additional Chief Secretary/Principal Secretary/Secretary, General Administration Department (Planning). For efficient functioning and carry out the studies, the Director is headed by the Sr. Class I officer from the cadre of Gujarat Statistical Services. For undertaking the various evaluation studies Government has also sanctioned 75 posts as follows:',
     'paregraph-3' => 'For proper monitoring and evaluation of schemes/programmes Government had constituted various Advisory Committees shown below:',
     'paregraph-4' => 'Departmental Evaluation Committee (DEC)',
-    'paregraph-5' => 'Evaluation Committee constituted in various secretariat departments. The composition of the committee is as under:',
+    'paregraph-5' => 'Evaluation Committee constituted in various secretariat departments. The composition of the committee are as under:',
     'paregraph-6' => 'Additional Chief Secretary/Principal Secretary/Secretary of Concerned department',
     'paregraph-7' => 'Head of Department of concerned implementing office',
     'paregraph-8' => 'Deputy Secretary, General Administration Department (Planning)',
@@ -433,7 +432,7 @@ return [
     'paregraph-17' => 'To suggest plan schemes/programmes of evaluation study.',
     'paregraph-18' => 'To finalize the Draft Evaluation Report.',
     'paregraph-19' => 'To review the follow up action taken on the recommendations made in the report.',
-    'paregraph-20' => 'Evaluation Co-ordination Committee constituted under the Chairmanship of Additional Chief Secretary/Principal Secretary/ Secretary, General Administration Department. The composition of the committee is as under:',
+    'paregraph-20' => 'Evaluation Co-ordination Committee constituted under the Chairmanship of Additional Chief Secretary/Principal Secretary/ Secretary, General Administration Department. The composition of the committee are as under:',
     'paregraph-21' => 'To collect proposals of schemes/programmes of evaluation.',
     'paregraph-22' => 'To co-ordinate the proposals received from the Secretariat Departments and finalise for evaluation study every year and entrust the work of evaluation study to the Directorate of Evaluation.',
     'paregraph-23' => 'To observe the Draft Evaluation Report approved by Departmental Evaluation Committee and gives its approval.',
