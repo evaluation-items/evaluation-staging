@@ -8,6 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Rules\CaptchaRule;
+use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class LoginController extends Controller
 {
@@ -89,4 +93,65 @@ class LoginController extends Controller
             'captcha' => captcha_img('clean')
         ]);
     }
+     public function forceReset($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('login')->withError("User not found.");
+        }
+
+        return view('auth.force-reset', compact('user'));
+    }
+
+      public function forceResetSubmit(Request $request)
+      {
+        try {
+            $userId = Crypt::decrypt($request->user_id);
+        } catch (\Exception $e) {
+            return redirect()->route('login')->withErrors(['error' => 'Invalid request.']);
+        }
+        $user = User::find($userId);
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['error' => 'User not found.']);
+        }
+            $request->validate([
+            'email' => [
+                'required',
+                'email:rfc,dns', // ✅ Better email validation
+                Rule::unique('users', 'email')->ignore($userId),
+
+                // ✅ OPTIONAL: Restrict to gov.in only (uncomment if needed)
+                // function ($attribute, $value, $fail) {
+                //     if (!preg_match('/\.gov\.in$/', $value)) {
+                //         $fail('Only government email addresses are allowed.');
+                //     }
+                // }
+            ],
+            'password' => [
+                'required',
+                'confirmed',
+                'min:8',
+                'regex:/[a-z]/',      // lowercase
+                'regex:/[A-Z]/',      // uppercase
+                'regex:/[0-9]/',      // number
+            ],
+        ]);
+    
+         $updated = DB::table('public.users')
+              ->where('id', $userId)
+              ->update([
+                  'email'          => $request->email,
+                  'password'       => Hash::make($request->password),
+                  'is_first_login' => false,
+                  'email_verified_at' => now(),
+              ]);
+
+          if ($updated === 0) {
+              return back()->withErrors(['error' => 'Nothing was updated']);
+          }
+          Auth::logout();
+
+          return redirect('login')->withSuccess('Credentials updated. Please login with new email & password.');
+      }
 }

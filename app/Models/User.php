@@ -10,8 +10,10 @@ use App\Models\SchemeSend;
 use App\Models\Stage;
 use App\Models\User_user_role;
 use App\Models\Department;
+use Illuminate\Auth\Notifications\ResetPassword;
 
-class User extends Authenticatable {
+
+class User extends Authenticatable implements MustVerifyEmail{
     
     use HasFactory, Notifiable;
 
@@ -36,7 +38,7 @@ class User extends Authenticatable {
         'phone',
         'picture',
         'password',
-        'dept_id','role_manage','login_user','welcome_popup'
+        'dept_id','role_manage','login_user','welcome_popup','is_first_login'
     ];
 
     /**
@@ -82,5 +84,10 @@ class User extends Authenticatable {
     {
         return $this->hasMany(Department::class,'dept_id','dept_id');
     }
-    
+    public function sendPasswordResetNotification($token)
+    {
+        \Log::info('Reset token: ' . $token);
+
+        $this->notify(new ResetPassword($token));
+    }
 }

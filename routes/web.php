@@ -24,6 +24,8 @@ use App\Http\Controllers\ODKController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Mail\ForwardProposalMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Middleware\SessionTimeoutMiddleware;
@@ -56,14 +58,18 @@ Route::any('/', function () {
 })->name('main-index');
 
 Route::get('/login', function () {
-    return view('auth.login');
+    return view('auth.login-new');
 })->name('login');
 
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
 // Route::get('login-user', [LoginController::class, 'showLogin'])->name('login-user');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 Route::get('refresh_captcha', [LoginController::class, 'refreshCaptcha'])->name('refresh_captcha');
 
 Route::get('/cache-clear', function() {

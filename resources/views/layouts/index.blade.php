@@ -258,7 +258,8 @@
      <div id="slider1">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}
-                <img src="{{ asset('img/graph-1.jpeg') }}" alt="Directorate of Evaluation">
+                 <img src="{{ asset('img/vidhansabha.avif') }}" alt="Directorate of Evaluation" style="min-width:100%;height: 400px;object-fit: cover;">
+
                 {{-- <li><img src="{{asset('img/graph-1.jpg')}}" alt="Slide 2"></li>
                 <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>
                 <li><img src="{{asset('img/graph-3.png')}}" alt="Slide 4"></li>--}} 

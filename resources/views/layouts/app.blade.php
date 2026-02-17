@@ -87,7 +87,8 @@
                             
                             </div> --}}
                         </div>
-                    <div class="row main-content-sec {{ request()->segment(1) }}">
+                        
+                        <div class="row main-content-sec {{ request()->segment(1) }}">
                         <div class="container">
                             @yield('content')
                         </div>
