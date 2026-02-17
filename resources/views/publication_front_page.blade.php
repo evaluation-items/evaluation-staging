@@ -121,7 +121,7 @@
 }
 </style>
 
-<div class="">
+<div class="container">
 
     <!-- FILTER BAR -->
     <form method="GET" action="{{ route('publication_front_page') }}">

@@ -2,14 +2,14 @@
 
 @section('content')
 <style>
- /* .ecc-wrapper {
+.ecc-wrapper {
     margin-top: 25px;
     background: #ffffff;
     padding: 25px 30px;
     border-radius: 6px;
 }
 
-.page-title {
+ /* .page-title {
     font-weight: 600;
     /* margin-bottom: 20px; 
     color: #1f2d3d;
@@ -67,8 +67,8 @@
     transform: none !important;
 }
 </style>
-<div class="row">
-    <div class="col-lg-9 col-md-8 col-sm-12 left_col ecc-wrapper">
+<div class="container">
+    <div class="ecc-wrapper">
         <h4 class="page-title text-center">
             {{ __('message.evaluation_coordination_committee') }}
         </h4>

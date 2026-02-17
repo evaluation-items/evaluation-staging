@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="row">
-    <div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
-            <h4 class="page-title text-center">Privacy Policy</h4>
+<div class="container">
+    <div class="advisory-wrapper">
+            <h4 class="page-title text-center mt-3">Privacy Policy</h4>
            <p class="content-text">
                  <p>As a general rule, this website does not collect Personal Information about you when you visit the site. You can generally visit the site without revealing Personal Information, unless you choose to provide such information.</p>
 

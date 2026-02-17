@@ -2,15 +2,12 @@
 
 @section('content')
 <style>
-.who-wrapper {
-    background: #fff;
-    padding: 25px;
-    border-radius: 6px;
-}
+
 
 .who-title {
     font-weight: 600;
     margin-bottom: 20px;
+    margin-top: 50px;
     color: #1f2d3d;
 }
 
@@ -48,9 +45,9 @@
 }
 
 </style>
-<div class="col-lg-9 col-md-8 col-sm-12 left_col">
+<div class="container">
     <div class="who-wrapper">
-        <h4 class="who-title text-center">Who's Who</h4>
+        <h4 class="who-title text-center mb-3">Who's Who</h4>
         <div class="table-responsive">
             <table class="table table-bordered table-striped who-table">
                 <thead class="table-dark">

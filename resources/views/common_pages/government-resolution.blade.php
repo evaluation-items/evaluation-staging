@@ -10,6 +10,7 @@
 .who-title {
     font-weight: 600;
     margin-bottom: 20px;
+    margin-top: 50px;
     color: #1f2d3d;
 }
 
@@ -46,8 +47,8 @@
     background-color: #f9f9f9;
 }
 </style>
-<div class="col-lg-12 col-md-12 col-sm-12 left_col">
-    <h4 class="who-title text-center">Government of Resolution/Circulars</h4>
+<div class="container">
+    <h4 class="who-title text-center mt-3">Government of Resolution/Circulars</h4>
     <div class="table-responsive">
         <table class="table table-bordered who-table">
             <thead>

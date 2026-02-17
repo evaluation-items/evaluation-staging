@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="row">
+
+<div class="container">
     <div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
-            <h4 class="page-title text-center">Help</h4>
+            <h4 class="page-title text-center mt-3">Help</h4>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped who-table">
                     <thead class="table-dark">

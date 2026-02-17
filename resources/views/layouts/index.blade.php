@@ -253,12 +253,10 @@
     </div>
 </section> --}}
 
-
-
-     <div id="slider1">
+        <div id="slider1 ">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}
-                 <img src="{{ asset('img/vidhansabha.avif') }}" alt="Directorate of Evaluation" style="min-width:100%;height: 400px;object-fit: cover;">
+                 <img src="{{ asset('img/vidhansabha.avif') }}" alt="Directorate of Evaluation" style="min-width: 100%;object-fit: fill;height: 500px;">
 
                 {{-- <li><img src="{{asset('img/graph-1.jpg')}}" alt="Slide 2"></li>
                 <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>
@@ -346,7 +344,7 @@
     <a href="{{ Config::get('custom_url.url') }}director-of-evaluation1#" class="skip" id="skip_main_content_start"
         style="visibility: hidden;">skip_main_content_start</a>
     <div class="clear" id="skip_main_content_end"></div>
-    <div class="px-4 main-content-index justify-content-center">
+    <div class="px-4 main-content-index justify-content-center container">
 
         <div class="col-lg-8 col-md-7 col-sm-12 left_col">
             <h4 class="aos-item" data-aos="zoom-in">Directorate Of Evaluation</h4>

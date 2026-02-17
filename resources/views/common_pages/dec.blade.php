@@ -75,9 +75,9 @@
     transform: none !important;
 }
 </style>
-<div class="row">
+<div class="container">
 
-<div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
+<div class="advisory-wrapper">
     <h4 class="page-title text-center">
         {{ __('message.paregraph-4') }}
     </h4>

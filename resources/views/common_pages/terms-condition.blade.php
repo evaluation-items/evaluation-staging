@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="row">
-    <div class="col-lg-9 col-md-8 col-sm-12 left_col advisory-wrapper">
-        <h4 class="page-title text-center">Terms & Condition</h4>
+<div class="container">
+    <div class="advisory-wrapper">
+        <h4 class="page-title text-center mt-3">Terms & Condition</h4>
         <p class="content-text">
               <p>This website is updated and maintained by Directorate of Economics and Statistics, Government of Gujarat</p>
 

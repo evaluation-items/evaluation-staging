@@ -96,7 +96,7 @@
 }
 </style>
 
-<div class="row">
+<div class="container">
     <div class="col-lg-12 gallery-wrapper">
 
         <h4 class="page-title text-center">Media Gallery</h4>
