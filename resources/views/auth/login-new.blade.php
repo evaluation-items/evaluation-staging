@@ -41,7 +41,10 @@
     flex-direction: column;
     justify-content: center;
 }
-
+.nic-branding {
+    display: flex;
+    gap: 16px;
+}
 .nic-branding img { 
     height: 60px; 
     /* margin-bottom: 40px;  */
@@ -148,7 +151,6 @@
     background-color: #00426a; /* Theme Blue */
     background-image: url({{ asset('img/login_bg.png') }}); /* Subtle background image */
     background-size: cover;
-    background-position: center;
     color: #fff;
     padding: 60px;
     display: flex;
@@ -252,6 +254,7 @@ label.error {
         <div class="login-section-left">
             <div class="nic-branding">
                 <img src="{{ asset('img/emblem.png') }}" alt="NIC Logo">
+                <div class="logo-text"><h1 class="mb-1 fw-bold text-dark" style="font-size: 1.25rem;margin-top: 2px;">Transforming Survey Ecosystem</h1> Directorate of Evaluation</div>
             </div>
 
             <div class="form-content">
