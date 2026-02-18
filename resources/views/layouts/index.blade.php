@@ -169,28 +169,38 @@
     background: #4389cf;
 }
 .info-card {
-    background: #fff;
+   background: #fff;
     border-radius: 12px;
-    padding: 15px;
+    padding: 20px; /* Slightly more padding looks more professional */
     width: 100%;
-    height: 36vh;   
-    margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 325px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     border: 1px solid #e1e1e1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-
+.info-card hr {
+    border: 0;
+    border-top: 1px solid #e0e0e0; /* Light grey line */
+    margin: 10px 0; /* Adjust vertical spacing between officials */
+    width: 100%;
+    opacity: 0.8;
+}
 .official-card {
     display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    padding: 10px 0;
+    gap: 15px;
+    align-items: center; 
+    padding: 5px 0;
 }
 
 .official-card img {
     width: 80px;
-    height: 100px;
+    height: 90px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 8px;
+    border: none; /* Remove any existing border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: soft shadow instead of a line */
 }
 
 .official-info h4 {
@@ -408,92 +418,15 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
-                     <!-- Secretary -->
-                    <div class="official-card">
-                        <img src="{{ asset('img/ms-ardra-agrawal.png') }}" alt="Secretary" style=" width: 80px;height: 80px;">
+
+                    <hr> <div class="official-card">
+                        <img src="{{ asset('img/ms-ardra-agrawal.png') }}" alt="Secretary">
                         <div class="official-info">
-                            <h4>Ms. Ardra Agarwal,IAS</h4>
+                            <h4>Ms. Ardra Agarwal, IAS</h4>
                             <p>Department of Planning Division,<br> Government of Gujarat</p>
                         </div>
                     </div>
-                    
                 </div>
-                {{-- <div class="link-sec">
-                    <div class="sub-title">
-                        <h4>{{ __('message.other_offices') }}</h4>
-                    </div>
-                    <div class="box_wrap">  
-                        <div class="office-content">
-                            <ul class="listed">
-                                <li>
-                                    <a href="https://planning.gujarat.gov.in/">General Administration Department(Planning)</a>
-                                </li>
-                                <li>
-                                    <a href="https://gujecostat.gujarat.gov.in/">{{ __('message.directorate_economics') }}</a>
-                                </li>
-                                <li>
-                                    <a href="https://gujhd.gujarat.gov.in/">{{ __('message.gujarat_social_infra') }}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                </div> --}}
-                {{-- <div class="external-link-info">
-                    <ul>
-                        <li style="display: none">
-                            <a href="{{ Config::get('custom_url.vibrantgujarat') }}" target="_blank">
-                                <img src="{{ asset('css/main_index_css/Vglogo15225.jpg') }}" alt="Image 1"
-                                    class="img-responsive">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ Config::get('custom_url.gujarattourism') }}" target="_blank">
-                                <img src="{{ asset('css/main_index_css/gujarat-tourism.jpg') }}" alt="Image 2"
-                                    class="img-responsive">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ Config::get('custom_url.gujaratindia') }}" target="_blank">
-                                <img src="{{ asset('css/main_index_css/explore-gujarat.jpg') }}" alt="Image 3"
-                                    class="img-responsive">
-                            </a>
-                        </li>
-                    </ul>
-                </div> --}}
-                {{-- <div class="whatsnew-card" role="region" aria-label="What's new">
-                    <div class="whatsnew-header">
-                        <h2>What's New</h2>
-                    </div>
-
-                    <div class="whatsnew-content">
-                        <div class="scroll-up">
-                            @php
-                                $name = App\Models\Advertisement::active()->get();
-                            @endphp
-
-                            @if ($name->count() > 0)
-                                @foreach ($name as $key => $item)
-                                    <div class="wn-item">
-                                        <div class="wn-index">{{ ++$key }}.</div>
-                                        <div class="wn-text">
-                                            <span>{{ $item->name }}</span>
-                                            @if ($item->is_adverties == '1')
-                                                <img src="{{ asset('img/new.gif') }}" width="30" height="30">
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="read-more-wrap">
-                        <a class="read-more-item" href="#" role="button" aria-label="Read more what's new">Read
-                            More</a>
-                    </div>
-                </div> --}}
             </div>
         </div>
         <div class="theme-container closetheme">
