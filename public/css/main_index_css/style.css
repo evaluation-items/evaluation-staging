@@ -1284,7 +1284,7 @@ ul.nav li:hover>ul.dropdown-menu {
     margin: 0px;
     color: #adadad;
     text-transform: uppercase;
-    font-size:
+    font-size: 14px;
 }
 
 .gallery_tab_add .nav-tabs>li a:last-child {

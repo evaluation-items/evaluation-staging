@@ -11,7 +11,6 @@
 <style>
     body{
         margin: 0;
-        
     }
 /* 1. Base Layout & Container */
 .main-login-wrapper {
@@ -28,7 +27,7 @@
     width: 100%;
     max-width: 1100px;
     background: #fff;
-    border-radius: 15px;
+    border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     overflow: hidden; /* Clips the pattern and background */
 }
@@ -182,7 +181,7 @@
     top: 20px;
     right: 20px;
     width: 130px;
-    opacity: 0.4;
+    opacity: 2.4;
     pointer-events: none;
 }
 
@@ -302,7 +301,7 @@ label.error {
         </div>
 
         <div class="login-section-right">
-            <img src="https://kmea.karnataka.gov.in/assets/front/login_page/pattern.png" class="corner-pattern">
+            <img src="{{ asset('img/pattern.png') }}" class="corner-pattern">
             <div class="welcome-text-wrapper">
                 <h1>Welcome to Transforming Survey Ecosystem, Gujarat.</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
