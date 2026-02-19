@@ -134,4 +134,49 @@ class BeneficiariesController extends Controller
             return redirect()->route('beneficiaries.index')->withError('Invalid department');
         }
     }
+   public function beneficiariesStatus($id, Request $request)
+{
+    // 1. Check if ID exists
+    if (!$id) {
+        return response()->json(['message' => 'ID is required'], 400);
+    }
+
+    try {
+        // 2. Decode the ID (btoa in JS -> base64_decode in PHP)
+        $decodedId = base64_decode($id);
+
+        if (is_numeric($decodedId)) {
+            $beneficiary = Beneficiaries::find($decodedId);
+
+            if ($beneficiary) {
+                // 3. Update the status (1 for Active, 0 for Inactive)
+                $beneficiary->update(['status' => $request->status]);
+
+                // 4. Log the activity
+                $act = [
+                    'userid'       => Auth::user()->id,
+                    'ip'           => $request->ip(),
+                    'activity'     => 'Beneficiaries Status changed to ' . ($request->status == 1 ? 'Active' : 'Inactive') . ' by Admin.',
+                    'officecode'   => Auth::user()->dept_id,
+                    'pagereferred' => $request->url(),
+                    'createdate'   => now() // Good practice for manual inserts
+                ];
+                Activitylog::insert($act);
+
+                // 5. Dynamic success message
+                $statusText = ($request->status == 1) ? 'activated' : 'deactivated';
+                return response()->json([
+                    'message' => "Beneficiary {$statusText} successfully"
+                ]);
+
+            } else {
+                return response()->json(['message' => 'Beneficiary record not found'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Invalid ID format'], 422);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+    }
+}
 }

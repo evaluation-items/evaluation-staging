@@ -50,7 +50,7 @@ Route::post('lang/change', function (\Illuminate\Http\Request $request) {
 })->name('lang.change');
 
 
-Route::middleware([SetLocale::class, PreventOpenRedirect::class,ForceOptionsResponse::class,TrackVisitors::class])->group(function () {
+Route::middleware([SetLocale::class, PreventOpenRedirect::class,ForceOptionsResponse::class])->group(function () {
 
 
 Route::any('/', function () {
@@ -280,6 +280,8 @@ Route::middleware(['isAdmin'::class,'auth',PreventBackHistory::class])->prefix('
         Route::resource('nodal-designations', App\Http\Controllers\NodalDesignationController::class);
         //Beneficiaries
         Route::resource('beneficiaries', App\Http\Controllers\BeneficiariesController::class);
+        Route::post('beneficiaries/status/{id}',[App\Http\Controllers\BeneficiariesController::class, 'beneficiariesStatus'])->name('beneficiaries.status');
+        Route::post('advertisement/status/{id}',[AdminController::class, 'advertisementStatus'])->name('advertisement.status');
         Route::get('stage_update',[App\Http\Controllers\AdminController::class,'updateStage'])->name('stage_update');
         Route::post('stage-filter-item',[App\Http\Controllers\AdminController::class,'Stagefiltter'])->name('stage-filter-item');
         Route::post('stage-item',[App\Http\Controllers\AdminController::class, 'summaryReport'])->name('stage-item');
