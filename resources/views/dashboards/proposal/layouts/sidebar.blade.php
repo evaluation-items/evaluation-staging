@@ -129,8 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" >
-  
-  @yield('content')
+    @yield('content')
   </div>
   <!-- /.content wrapper -->
 
@@ -143,8 +142,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </aside>
   <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
+</div>
+<!-- Main Footer -->
   <footer class="main-footer">
     <!-- To the right -->
     {{-- <div class="float-right d-none d-sm-inline">
@@ -155,7 +154,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <strong>National Informatical Center (NIC) &copy; <?php echo date('Y'); ?>.</strong> All rights reserved.
     </div>
   </footer>
-</div>
 <!-- ./wrapper -->
 {{-- <script src="{{asset('js/jquery.min.js')}}"></script> old file version 3.3.1--}}
 <script src="{{asset('js/jquery.min.js')}}"></script>

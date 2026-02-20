@@ -28,7 +28,7 @@ if (!function_exists('is_gujarati')) {
   }
 
   function beneficiariesGeoLocal() {
-    return App\Models\Beneficiaries::all();
+    return App\Models\Beneficiaries::active()->get();
 
     // return [
     //     '1' => 'State',

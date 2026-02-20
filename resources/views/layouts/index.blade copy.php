@@ -12,6 +12,45 @@
             /* visible text */
         }
 
+      
+
+        .whatsnew-card {
+            width: 100%;
+            /* position: absolute; */
+            margin-left: 10%;
+            max-width: 420px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            /* bottom:55%;  fix to bottom */
+        }
+
+        .whatsnew-header {
+            background: linear-gradient(180deg, var(--green), #6ea229);
+            color: #fff;
+            text-align: center;
+            padding: 22px 16px;
+        }
+
+        .whatsnew-header h2 {
+            margin: -16px;
+            font-size: 28px;
+            letter-spacing: 0.5px;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .whatsnew-content {
+            height: 250px;
+            /* scrolling area height */
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+            padding: 0 10px;
+        }
+
         /* animation container */
         .scroll-up {
             display: flex;
@@ -31,7 +70,46 @@
             }
         }
 
-    
+        /* each item */
+        .wn-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 18px;
+            color: #000;
+        }
+
+        .wn-index {
+            font-weight: 700;
+        }
+
+        .wn-text span {
+            font-weight: 700;
+            font-size: 18px;
+            display: block;
+        }
+
+        .wn-text img {
+            vertical-align: middle;
+        }
+
+        /* read more */
+        .read-more-wrap {
+            background: linear-gradient(180deg, #2e2f78, #1d2260);
+            text-align: center;
+        }
+
+        .read-more-item {
+            display: block;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 18px 12px;
+            font-size: 20px;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
         .main-content-index p,
         .main-content-index li {
             text-align: justify;
@@ -45,7 +123,13 @@
         }
 
         @media (max-width: 991px) {
-           
+            .whatsnew-card {
+                position: static;
+                transform: none;
+                margin: 20px auto;
+                width: 100%;
+            }
+
             .left_col {
                 padding-right: 0;
             }
@@ -74,132 +158,28 @@
         .knowledge-links {
             gap: 0px !important;
         }
-
-    /* 1. Background Section */
-    .inner-light-box {
-        background: linear-gradient(90deg, rgba(33, 37, 41, 0.9) 9%, rgba(67, 137, 207, 0.9) 120%), 
-                    url("{{ asset('img/kmea.png') }}") no-repeat center center;
-        background-size: cover;
-        background-attachment: fixed;
-        padding: 80px 20px;
-    }
-
-/* 2. Base Card Structure (Universal for all cards) */
-.custom-card {
-   background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    
-    /* Fixed Height Settings */
-    min-height: 350px; 
-    height: 100%; 
-    
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.custom-card:hover {
-    transform: translateY(-5px);
-}
-
-/* 3. Card Header (For the Dark Title block) */
-.card-header-title {
-    background: #212529;
-    padding: 20px 15px;
-    text-align: center;
-}
-
-.card-header-title h5 {
-    color: #ffffff;
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-/* 4. Card Body & List Items */
-.custom-card .card-body {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* This pushes the footer to the bottom */
-}
-
-.item-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-    flex-grow: 1;
-}
-
-.item-list li {
-    font-size: 14px;
-    color: #555;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
-    display: flex;
-    align-items: center;
-    margin-left: 0px !important;
-}
-
-.item-list li i {
-    color: #212529;
-    margin-right: 10px;
-}
-
-/* 5. Button (Centered at bottom) */
-.card-footer-btn {
-    margin-top: auto; /* Forces button to the bottom of the fixed-size card */
-    text-align: center;
-    padding-top: 15px;
-}
-
-.btn-purple {
-    background: #212529;
-    color: #fff !important;
-    padding: 8px 25px;
-    border-radius: 50px;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.btn-purple:hover {
-    background: #4389cf;
-}
 .info-card {
-   background: #fff;
+    background: #fff;
     border-radius: 12px;
-    padding: 20px; /* Slightly more padding looks more professional */
+    padding: 15px;
     width: 100%;
-    height: 325px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border: 1px solid #e1e1e1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
-.info-card hr {
-    border: 0;
-    border-top: 1px solid #e0e0e0; /* Light grey line */
-    margin: 10px 0; /* Adjust vertical spacing between officials */
-    width: 100%;
-    opacity: 0.8;
-}
+
 .official-card {
     display: flex;
-    gap: 15px;
-    align-items: center; 
-    padding: 5px 0;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
 }
 
 .official-card img {
     width: 80px;
-    height: 90px;
+    height: 100px;
     object-fit: cover;
-    border-radius: 8px;
-    border: none; /* Remove any existing border */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: soft shadow instead of a line */
+    border-radius: 4px;
 }
 
 .official-info h4 {
@@ -213,11 +193,29 @@
     width: 30px;
     height: 30px;
 }
-.aboutUsButton {
-    display: flex;
-    justify-content: end;
-    margin-top: 10px;
-    width: 98%;
+
+.main-text {
+    margin-top: 20px;
+}
+.left_col {
+    padding-right: 25px;
+}
+
+.sidebar_col {
+    padding-left: 25px;
+}
+
+.social-icons img{
+    width: 30px;
+    height: 30px;
+}
+/* Make it responsive for small screens */
+@media (max-width: 768px) {
+    .info-card {
+        float: none; /* Stop floating on mobile */
+        width: 100%; /* Take full width */
+        margin: 0 0 20px 0; /* Space below the card */
+    }
 }
 </style>
 
@@ -271,10 +269,10 @@
         <div id="slider1 ">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}
-                    <img src="{{ asset('img/vidhansabha.avif') }}" alt="Directorate of Evaluation" style="min-width: 100%;object-fit: fill;height: 500px;">
+                 <img src="{{ asset('img/vidhansabha.avif') }}" alt="Directorate of Evaluation" style="min-width: 100%;object-fit: fill;height: 500px;">
 
-                   {{--<li><img src="{{asset('img/slider-img-2.png')}}" alt="Slide 2"></li>
-               {{-- <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>
+                {{-- <li><img src="{{asset('img/graph-1.jpg')}}" alt="Slide 2"></li>
+                <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>
                 <li><img src="{{asset('img/graph-3.png')}}" alt="Slide 4"></li>--}} 
         </div>
 
@@ -362,7 +360,7 @@
     <div class="px-4 main-content-index justify-content-center container">
         <div class="row">
             <div class="col-lg-8 col-md-7 col-sm-12 left_col">
-                {{-- <div class="info-card">
+                <div class="info-card">
                     <div class="official-card">
                         <img src="{{ asset('img/cm-guj-planning.png') }}" alt="CM">
                         <div class="official-info">
@@ -382,15 +380,14 @@
                             <p>Secretary (Planning)</p>
                         </div>
                     </div>
-                </div> --}}
-                <div class="">
+                </div>
+                <div class="main-text">
                         <h4 class="aos-item" data-aos="zoom-in">Directorate Of Evaluation</h4>
                         <p></p>
-                        {{-- <h4>1. {{ __('message.background') }} :</h4> --}}
+                        <h4>1. {{ __('message.background') }} :</h4>
                         <p>{{ __('message.paregraph-1') }}</p>
                         <p> Every Evaluation studies are unique in itself as the subject under evaluation are different in context and relevance, target subject and impact in terms of socio-political-economical-cultural and structural realm. Directorate of Evaluation has its own unique way of doing evaluation of plans, projects and schemes etc implemented by various Department of Government. </p>
-                            <div class="aboutUsButton"><a href="{{ route('about-us') }}">Know more about us</a></div>
-                        {{-- <h4 class="aos-item" data-aos="fade-up">{{ __('message.paregraph-26') }}</h4>
+                        <h4 class="aos-item" data-aos="fade-up">{{ __('message.paregraph-26') }}</h4>
                         <ol class="aos-item" data-aos="fade-up">
                             <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-27') }}</li>
                             <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-28') }}</li>
@@ -398,36 +395,93 @@
                             <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-30') }}</li>
                             <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-31') }}</li>
                             <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-32') }}</li>
-                        </ol> --}}
-                        {{-- <p class="aos-item" data-aos="fade-up">{{ __('message.paregraph-33') }}</p> --}}
+                        </ol>
+                        <p class="aos-item" data-aos="fade-up">{{ __('message.paregraph-33') }}</p>
                         
                         <p>&nbsp;</p>
                     </div>
             </div>
             <div class="col-lg-4 col-md-5 col-sm-12 sidebar_col">
-                <div class="info-card">
-                    <div class="official-card">
-                        <img src="{{ asset('img/cm-guj-planning.png') }}" alt="Chief Minister">
-                        <div class="official-info">
-                            <h4>Shri Bhupendra Patel</h4>
-                            <p>Hon'ble Chief Minister,<br>Government of Gujarat</p>
-                            <div class="social-icons">
-                                <a href="#"><img src="{{ asset('img/IconeFbcm2.png') }}" alt="Facebook"></a>
-                                <a href="#"><img src="{{ asset('img/IconeTwcm2.png') }}" alt="X"></a>
-                            </div>
+                <div class="link-sec">
+                    <div class="sub-title">
+                        <h4>{{ __('message.other_offices') }}</h4>
+                    </div>
+                    <div class="box_wrap">
+                        <div class="office-content">
+                            <ul class="listed">
+                                <li>
+                                    <a href="https://planning.gujarat.gov.in/">General Administration Department(Planning)</a>
+                                </li>
+                                <li>
+                                    <a href="https://gujecostat.gujarat.gov.in/">{{ __('message.directorate_economics') }}</a>
+                                </li>
+                                <li>
+                                    <a href="https://gujhd.gujarat.gov.in/">{{ __('message.gujarat_social_infra') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {{-- <div class="read-more">
+                        <a href="{{ Config::get('custom_url.url') }}other-offices">{{ __('message.more') }}</a>
+                    </div> --}}
+                </div>
+                <div class="external-link-info">
+                    <ul>
+                        <li style="display: none">
+                            <a href="{{ Config::get('custom_url.vibrantgujarat') }}" target="_blank">
+                                <img src="{{ asset('css/main_index_css/Vglogo15225.jpg') }}" alt="Image 1"
+                                    class="img-responsive">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ Config::get('custom_url.gujarattourism') }}" target="_blank">
+                                <img src="{{ asset('css/main_index_css/gujarat-tourism.jpg') }}" alt="Image 2"
+                                    class="img-responsive">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ Config::get('custom_url.gujaratindia') }}" target="_blank">
+                                <img src="{{ asset('css/main_index_css/explore-gujarat.jpg') }}" alt="Image 3"
+                                    class="img-responsive">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="whatsnew-card" role="region" aria-label="What's new">
+                    <div class="whatsnew-header">
+                        <h2>What's New</h2>
+                    </div>
+
+                    <div class="whatsnew-content">
+                        <div class="scroll-up">
+                            @php
+                                $name = App\Models\Advertisement::active()->get();
+                            @endphp
+
+                            @if ($name->count() > 0)
+                                @foreach ($name as $key => $item)
+                                    <div class="wn-item">
+                                        <div class="wn-index">{{ ++$key }}.</div>
+                                        <div class="wn-text">
+                                            <span>{{ $item->name }}</span>
+                                            @if ($item->is_adverties == '1')
+                                                <img src="{{ asset('img/new.gif') }}" width="30" height="30">
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
 
-                    <hr> <div class="official-card">
-                        <img src="{{ asset('img/ms-ardra-agrawal.png') }}" alt="Secretary">
-                        <div class="official-info">
-                            <h4>Ms. Ardra Agarwal, IAS</h4>
-                            <p>Department of Planning Division,<br> Government of Gujarat</p>
-                        </div>
+                    <div class="read-more-wrap">
+                        <a class="read-more-item" href="#" role="button" aria-label="Read more what's new">Read
+                            More</a>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="theme-container closetheme">
             <div class="position-relative">
                 {{-- <button class="theme-toggle-button" style="background: none; border: none;"> --}}
@@ -454,70 +508,5 @@
             </div>
         </div>
     </div>
-   <section class="outer-section">
-    <div class="inner-light-box">
-        <div class="container"> 
-            <div class="row justify-content-center g-4"> 
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="custom-card">
-                            <div class="card-header-title">
-                                <h5>{{ __('message.other_offices') }}</h5>
-                            </div>
-                            <div class="card-body">
-                                <ul class="item-list">
-                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i><a href="https://planning.gujarat.gov.in/"> General Administration Department(Planning)</a></li>
-                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i> <a href="https://gujecostat.gujarat.gov.in/">{{ __('message.directorate_economics') }}</a></li>
-                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i> <a href="https://gujhd.gujarat.gov.in/">{{ __('message.gujarat_social_infra') }}</a></li>
-                                </ul>
-                                <div class="card-footer-btn">
-                                    <a href="#" class="btn btn-purple">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @php
-                        $name = App\Models\Advertisement::active()->get();
-                    @endphp
-                    @if ($name->count() > 0)
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="custom-card">
-                            <div class="card-header-title">
-                                <h5>What's New</h5>
-                            </div>
-                            <div class="card-body">
-                                <ul class="item-list">
-                                    @foreach ($name as $key => $item)
-                                    <li>{{ ++$key }}. {{ $item->name }}
-                                            @if ($item->is_adverties == '1')
-                                                <img src="{{ asset('img/new.gif') }}" width="30" height="30">
-                                            @endif</li>
-                                    @endforeach
-                                </ul>
-                                <div class="card-footer-btn">
-                                    <a href="#" class="btn btn-purple">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="custom-card">
-                            <div class="card-header-title">
-                                <h5>Recruitment</h5>
-                            </div>
-                            <div class="card-body">
-                                <ul class="item-list">
-                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i>Updated Shortly</li>
-                                </ul>
-                                <div class="card-footer-btn">
-                                    <a href="#" class="btn btn-purple">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </div>
-</section>
-
+   
 @endsection

@@ -238,6 +238,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{{  route('menu-item.index') }}" class="nav-link"><i class="nav-icon fas fa-book"></i><p> {{ __('message.menu_items')}} </p></a>
               </li>
+              <li class="nav-item">
+                <a href="{{  route('sdg-goals.index') }}" class="nav-link {{ Route::currentRouteName() == 'sdg-goals.index' ? 'active' : '' }}"><i class="nav-icon fas fa-book"></i><p>SDG Goals</p></a>
+              </li>
               {{-- <li class="nav-item">
                 <a href="{{ route('publication.index')}}" class="nav-link {{ (request()->is('admin/publication*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-user"></i>

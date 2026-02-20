@@ -265,7 +265,7 @@ class SchemeController extends Controller {
                 $convener_designation = $request->convener_designation;
                 $convener_phone = $request->convener_phone;
                 $financial_adviser_name = $request->financial_adviser_name;
-                $financial_adviser_designation = $request->financial_adviser_designation;
+               // $financial_adviser_designation = $request->financial_adviser_designation;
                 $financial_adviser_phone = $request->financial_adviser_phone;
 
                 // 🧩 Evaluation Fields
@@ -324,7 +324,7 @@ class SchemeController extends Controller {
                     'reference_year' => $reference_year,
                     'reference_year2' => $reference_year2,
                     'financial_adviser_name' => $financial_adviser_name,
-                    'financial_adviser_designation' => $financial_adviser_designation,
+                   // 'financial_adviser_designation' => $financial_adviser_designation,
                     'financial_adviser_phone' => $financial_adviser_phone,
                     'is_evaluation' => $is_evaluation,
                     'eval_scheme_bywhom' => $eval_by_whom,
@@ -361,7 +361,7 @@ class SchemeController extends Controller {
                     $reference_year = $request->input('reference_year');
                     $reference_year2 = $request->input('reference_year2');
                     $financial_adviser_name = $request->input('financial_adviser_name');
-                    $financial_adviser_designation = $request->input('financial_adviser_designation');
+                  //  $financial_adviser_designation = $request->input('financial_adviser_designation');
                     $financial_adviser_phone = $request->input('financial_adviser_phone');
                     $financial_adviser_email = $request->input('financial_adviser_email');
                     $financial_adviser_mobile = $request->input('financial_adviser_mobile');
@@ -379,7 +379,7 @@ class SchemeController extends Controller {
                         'reference_year' => $reference_year,
                         'reference_year2' => $reference_year2,
                         'financial_adviser_name' => $financial_adviser_name,
-                        'financial_adviser_designation' => $financial_adviser_designation,
+                      //  'financial_adviser_designation' => $financial_adviser_designation,
                         'financial_adviser_phone' => $financial_adviser_phone,
                         'financial_adviser_email' => $financial_adviser_email,
                         'financial_adviser_mobile' => $financial_adviser_mobile,
@@ -455,7 +455,7 @@ class SchemeController extends Controller {
                         'reference_year' => $reference_year,
                         'reference_year2' => $reference_year2,
                         'financial_adviser_name' => $financial_adviser_name,
-                        'financial_adviser_designation' => $financial_adviser_designation,
+                       // 'financial_adviser_designation' => $financial_adviser_designation,
                         'financial_adviser_phone' => $financial_adviser_phone,
                         'financial_adviser_email' => $financial_adviser_email,
                         'financial_adviser_mobile' => $financial_adviser_mobile,
@@ -1537,7 +1537,7 @@ class SchemeController extends Controller {
                 $reference_year = $request->input('reference_year');
                 $reference_year2 = $request->input('reference_year2');
                 $financial_adviser_name = $request->input('financial_adviser_name');
-                $financial_adviser_designation = $request->input('financial_adviser_designation');
+               // $financial_adviser_designation = $request->input('financial_adviser_designation');
                 $financial_adviser_phone = $request->input('financial_adviser_phone');
                 $financial_adviser_email = $request->input('financial_adviser_email');
                 $financial_adviser_mobile = $request->input('financial_adviser_mobile');
@@ -1563,7 +1563,7 @@ class SchemeController extends Controller {
                     'reference_year' => $reference_year,
                     'reference_year2' => $reference_year2,
                     'financial_adviser_name' => $financial_adviser_name,
-                    'financial_adviser_designation' => $financial_adviser_designation,
+                   // 'financial_adviser_designation' => $financial_adviser_designation,
                     'financial_adviser_phone' => $financial_adviser_phone,
                     'financial_adviser_email' => $financial_adviser_email,
                     'financial_adviser_mobile' => $financial_adviser_mobile,
@@ -2131,7 +2131,7 @@ class SchemeController extends Controller {
             }
             return response()->json('updated successfully');
         } else if($slide == 'nineth') {
-			 $scheme_id = Session::get('scheme_id', $request->scheme_id);
+			$scheme_id = Session::get('scheme_id', $request->scheme_id);
             $draft_id  = Session::get('draft_id', $request->draft_id);
 
             $scheme_implementing_procedure = $request->scheme_implementing_procedure;

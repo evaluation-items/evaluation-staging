@@ -69,6 +69,23 @@
 .content-wrapper{
   background-color:#e0eaed !important;
 }
+#the_ratios .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+#the_ratios .form-control {
+    height: 38px; /* Standard Bootstrap input height */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+/* Make textarea look like an input for single line UI */
+#the_ratios textarea.form-control {
+    overflow: hidden;
+}
 </style>
 @section('content')
 @php
@@ -194,19 +211,25 @@
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
                                                         <label>Geographical coverage of Beneficiaries (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર) <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" name="eval_scheme_geo_cov_bene" class="form-control pattern" id="eval_geographical_coverage_beneficiaries" value="{{ old('eval_scheme_geo_cov_bene', $val->eval_scheme_geo_cov_bene) }}">
+                                                          <textarea name="eval_scheme_geo_cov_bene" class="form-control word-limit" rows="5" data-max-count="200"  data-warning-count="180"  data-hard-count="230" id="eval_geographical_coverage_beneficiaries">{{ old('eval_scheme_geo_cov_bene', $val->eval_scheme_geo_cov_bene) }}</textarea>
+
+                                                            <small class="word-message text-muted"></small>
+                                                            {{-- <input type="text" name="eval_scheme_geo_cov_bene" class="form-control pattern" id="eval_geographical_coverage_beneficiaries" value="{{ old('eval_scheme_geo_cov_bene', $val->eval_scheme_geo_cov_bene) }}"> --}}
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
-                                                        <label>No. of beneficiaries in sample (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા) <small>( greater than 10 )</small> <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" name="eval_scheme_no_of_bene" class="form-control numberonly pattern" id="eval_number_of_beneficiaries" maxlength="90" value="{{ old('eval_scheme_no_of_bene', $val->eval_scheme_no_of_bene) }}">
+                                                        <label>No. of beneficiaries in sample (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા)<span class="required_filed"> * </span> :</label>
+                                                        <input type="text" name="eval_scheme_no_of_bene" class="form-control numberonly pattern" id="eval_number_of_beneficiaries"  value="{{ old('eval_scheme_no_of_bene', $val->eval_scheme_no_of_bene) }}">
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
                                                       <div class="form-group">
                                                         <label>Major recommendations (મુખ્ય ભલામણો.) <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" name="eval_scheme_major_recommendation" class="form-control pattern" id="eval_major_recommendation" value="{{ old('eval_scheme_major_recommendation', $val->eval_scheme_major_recommendation) }}">
+                                                        <textarea name="eval_scheme_major_recommendation" class="form-control word-limit" rows="5" data-max-count="200"  data-warning-count="180"  data-hard-count="230" id="eval_major_recommendation">{{ old('eval_scheme_major_recommendation', $val->eval_scheme_major_recommendation) }}</textarea>
+
+                                                        <small class="word-message text-muted"></small>
+                                                        {{-- <input type="text" name="eval_scheme_major_recommendation" class="form-control pattern" id="eval_major_recommendation" value="{{ old('eval_scheme_major_recommendation', $val->eval_scheme_major_recommendation) }}"> --}}
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-12">
@@ -214,7 +237,7 @@
                                                         <label>Upload report (અહેવાલ અપલોડ કરવો.) <span class="required_filed"> * </span> :</label>
                                                         <div></div>
                                                           <div class="custom-file">
-                                                              <input type="file" class="custom-file-input file_type_name" name="eval_upload_report" id="eval_if_yes_upload_file" accept=".pdf,.xlsx,.docx">
+                                                              <input type="file" class="custom-file-input file_type_name" name="eval_upload_report" id="eval_if_yes_upload_file" accept=".pdf">
                                                               <label class="custom-file-label" for="eval_if_yes_upload_file">Choose File</label>
                                                           </div>
                                                       </div>
@@ -224,13 +247,8 @@
                                                               $extension = pathinfo($val->eval_scheme_report, PATHINFO_EXTENSION);
                                                             @endphp
                                                             @if($extension == 'pdf')
-                                                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->eval_scheme_report]) }}" target="_blank" title="{{ $val->eval_scheme_report }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                            @elseif ($extension == 'doc')
-                                                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->eval_scheme_report]) }}" download="{{ $val->eval_scheme_report }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                                @else
-                                                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->eval_scheme_report]) }}" download="{{ $val->eval_scheme_report }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                                                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->eval_scheme_report]) }}" target="_blank" title="{{ $val->eval_scheme_report }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>    
                                                             @endif
-                                                              {{-- <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_eval_report" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
                                                           </div>
                                                       @endif
                                                   </div>
@@ -246,24 +264,25 @@
                                   <div class="second_slide {{  ($currentSlide  == 2) ? 'active-slide' : '' }} otherslides" style="{{($currentSlide  == 2) ? 'display:block;' : 'display:none;' }}">
                                           <input type="hidden" name="draft_id" id="next_draft_id" value="{{ $val->draft_id }}">
                                           <input type="hidden" name="scheme_id" id="next_scheme_id" value="{{ $scheme_id }}">
-                                          <div class="row ">
+                                          <input type="hidden" class="form-control" id="next_dept_id" name="dept_id" value="{{ $val->dept_id }}" />
+
+                                          {{-- <div class="row">
                                               <div class="col-xl-12">
                                                   <div class="form-group">
                                                     <label>Name of the Department (વિભાગનું નામ) <span class="required_filed"> * </span> : </label>
                                                     <input type="text" id="next_dept_name" value="{{department_name($val->dept_id)}}" name="dept_name" readonly class="form-control pattern @error('dept_id') is-invalid @enderror">
-                                                      <input type="hidden" class="form-control" id="next_dept_id" name="dept_id" value="{{ $val->dept_id }}" />
                                                       @error('dept_id')
                                                           <div class="alert alert-danger">{{ $message }}</div>
                                                       @enderror
                                                   </div>
                                               </div>
-                                          </div>
+                                          </div> --}}
                                             <!--end::Input-->
                                             <div class="row" style="margin-top: 15px;">
                                               <div class="col-xl-4">
                                                   <div class="form-group">
                                                     <label>Name of the Nodal Officer <br>(નોડલ અધિકારીનું નામ) <span class="required_filed"> * </span> :</label>
-                                                    <input type="text" name="convener_name" class="form-control pattern @error('convener_name') is-invalid @enderror" maxlength="100" id="con_id" value="{{ $val->convener_name }}">
+                                                    <input type="text" name="convener_name" class="form-control only-text pattern @error('convener_name') is-invalid @enderror" maxlength="100" id="con_id" value="{{ $val->convener_name }}">
                                                         @error('convener_name')
                                                             <div class="text-danger">* {{ $message }}</div>
                                                         @enderror
@@ -271,7 +290,7 @@
                                               </div>
                                               <div class="col-xl-4">
                                                 <div class="form-group">
-                                                  <label>Designation of the Nodal Officer <br>(નોડલ અધિકારી નો હોદ્દો) <span class="required_filed"> * </span> :</label>
+                                                  <label>Designation of the Nodal Officer <br>(નોડલ અધિકારીનો હોદ્દો) <span class="required_filed"> * </span> :</label>
                                                    <select class="form-control" id="convener_designation" name="convener_designation">
                                                     <option value="">Select Designation</option>
                                                      @foreach($designations as $designation)
@@ -289,7 +308,7 @@
                                               </div>
                                               <div class="col-xl-4">
                                                 <div class="form-group">
-                                                  <label style="font-size: 15.8px;">Contact Number of the Nodal Officer <br>(નોડલ અધિકારીના સંપર્ક નંબર) <span class="required_filed"> * </span> :</label>
+                                                  <label style="font-size: 15.8px;">Contact Number of the Nodal Officer <br>(નોડલ અધિકારીનો સંપર્ક નંબર) <span class="required_filed"> * </span> :</label>
                                                   <input type="text" name="convener_phone" class="landline form-control @error('convener_phone') is-invalid @enderror" maxlength="11" id="convener_phone" value="{{ $val->convener_phone }}">
                                                       @error('convener_phone')
                                                           <div class="text-danger">* {{ $message }}</div>
@@ -300,7 +319,7 @@
                                              <div class="row">
                                               <div class="col-xl-6">
                                                   <div class="form-group">
-                                                      <label>Mobile Number of the Nodal Officer <br> (નોડલ અધિકારીના મોબાઇલ નંબર) <span class="required_filed"> * </span> :</label>
+                                                      <label>Mobile Number of the Nodal Officer <br> (નોડલ અધિકારીનો મોબાઇલ નંબર) <span class="required_filed"> * </span> :</label>
                                                       <input type="text" id="convener_mobile" class="form-control mobile_number  pattern @error('convener_mobile') is-invalid @enderror" name="convener_mobile"  value="{{ $val->convener_mobile }}" maxlength="10"  />
                                                       @error('convener_mobile')
                                                         <div class="text-danger">* {{ $message }}</div>
@@ -309,7 +328,7 @@
                                               </div>
                                                 <div class="col-xl-6">
                                                   <div class="form-group">
-                                                      <label>Email Address of the Nodal Officer <br> (નોડલ અધિકારીનું ઇમેઇલ સરનામું) <span class="required_filed"> * </span> :</label>
+                                                      <label>Email Address of the Nodal Officer <br> (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ) <span class="required_filed"> * </span> :</label>
                                                       <input type="email" id="convener_email" class="form-control email-input pattern @error('convener_email') is-invalid @enderror" name="convener_email"  value="{{ $val->convener_email }}" />
                                                       @error('convener_email')
                                                         <div class="text-danger">* {{ $message }}</div>
@@ -345,21 +364,21 @@
                                                 </div>
                                               </div>
                                               <div class="row">
-                                                  <div class="col-xl-4">
+                                                  <div class="col-xl-6">
                                                     <div class="form-group">
-                                                      <label>Name of the Financial Adviser <br>(નાણાકીય સલાહકાર નું નામ) <span class="required_filed"> * </span> :</label>
-                                                      <input type="text" name="financial_adviser_name" class="form-control pattern" id="financial_adviser_name" maxlength="100" value="{{$val->financial_adviser_name}}">
+                                                      <label>Name of the Financial Adviser <br>(નાણાકીય સલાહકારનું નામ) <span class="required_filed"> * </span> :</label>
+                                                      <input type="text" name="financial_adviser_name" class="form-control only-text pattern" id="financial_adviser_name" maxlength="100" value="{{$val->financial_adviser_name}}">
                                                     </div>
                                                  </div>
-                                                  <div class="col-xl-4">
+                                                  {{-- <div class="col-xl-4">
                                                     <div class="form-group">
-                                                      <label>Designation of the Financial Adviser <br>(નાણાકીય સલાહકાર નો હોદ્દો) <span class="required_filed"> * </span> :</label>
-                                                      <input type="text" name="financial_adviser_designation" class="form-control pattern"  value="{{$val->financial_adviser_designation}}" id="financial_adviser_designation" maxlength="100">
+                                                      <label>Designation of the Financial Adviser <br>(નાણાકીય સલાહકારનો હોદ્દો) <span class="required_filed"> * </span> :</label>
+                                                      <input type="text" name="financial_adviser_designation" class="form-control only-textpattern"  value="{{$val->financial_adviser_designation}}" id="financial_adviser_designation" maxlength="100">
                                                     </div>
-                                                  </div>
-                                                  <div class="col-xl-4">
+                                                  </div> --}}
+                                                  <div class="col-xl-6">
                                                     <div class="form-group">
-                                                      <label>Contact Number of the Financial Adviser <br>(નાણાકીય સલાહકાર ના સંપર્ક નંબર) <span class="required_filed"> * </span> :</label>
+                                                      <label>Contact Number of the Financial Adviser <br>(નાણાકીય સલાહકારનો સંપર્ક નંબર) <span class="required_filed"> * </span> :</label>
                                                       <input type="text" name="financial_adviser_phone" class="form-control landline" value="{{$val->financial_adviser_phone}}" id="financial_adviser_phone" maxlength="11">
                                                     </div>
                                                   </div>
@@ -367,7 +386,7 @@
                                                <div class="row">
                                                   <div class="col-xl-6">
                                                       <div class="form-group">
-                                                          <label>Mobile Number of the Financial Adviser <br>(નાણાકીય સલાહકાર ના મોબાઇલ નંબર) <span class="required_filed"> * </span> :</label>
+                                                          <label>Mobile Number of the Financial Adviser <br>(નાણાકીય સલાહકારનો મોબાઇલ નંબર) <span class="required_filed"> * </span> :</label>
                                                           <input type="text" id="financial_adviser_mobile" class="form-control mobile_number pattern @error('financial_adviser_mobile') is-invalid @enderror" name="financial_adviser_mobile"  value="{{$val->financial_adviser_mobile}}" maxlength="10" />
                                                           @error('financial_adviser_mobile')
                                                             <div class="text-danger">* {{ $message }}</div>
@@ -376,7 +395,7 @@
                                                   </div>
                                                   <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Email Address of the Financial Adviser <br>(નાણાકીય સલાહકારનું ઇમેઇલ સરનામું) <span class="required_filed"> * </span> :</label>
+                                                        <label>Email Address of the Financial Adviser <br>(નાણાકીય સલાહકારનું ઇમેઇલ એડ્રેસ) <span class="required_filed"> * </span> :</label>
                                                         <input type="email" id="financial_adviser_email" class="form-control email-input pattern @error('financial_adviser_email') is-invalid @enderror" name="financial_adviser_email"  value="{{$val->financial_adviser_email}}" />
                                                         @error('financial_adviser_email')
                                                           <div class="text-danger">* {{ $message }}</div>
@@ -426,15 +445,19 @@
                                     <div class="row ">  
                                           <div class="col-xl-12">
                                               <div class="form-group major_objective_parent_div">
-                                                <label> Major Objective of the Evaluation study (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ) <span class="required_filed"> * </span> :</label><br>
-                                               
+                                                <label> Major Objective of the Evaluation study (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label><br>
                                                   <div class="room_fields_0">
-                                                    <!-- <label>Objective 1: </label> -->
-                                                    <textarea class="form-control next_major_objectives @error('major_objective') is-invalid @enderror" id="next_major_objective_textarea" name="major_objective" rows="2">{{  $val->major_objective }}</textarea>
-                                                    @error('major_objective')
+                                                    <textarea  class="form-control word-limit next_major_objectives @error('major_objective') is-invalid @enderror"
+                                                    id="next_major_objective_textarea"
+                                                    name="major_objective"
+                                                    rows="8"
+                                                    data-max-count="3000"
+                                                    data-warning-count="2800"
+                                                    data-hard-count="3200">{{ old('major_objective', $val->major_objective) }}</textarea>
+                                                    <small class="word-message text-muted"></small>
+                                                     @error('major_objective')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
-                                                    <br>
                                                 </div>
                                               </div>
                                           </div>
@@ -448,7 +471,6 @@
                                             </div>
                                             @if($val->major_objective_file)
                                                   <div class="form-group">
-                                                      {{-- <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_beneficiaries_coverage" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
                                                       @php
                                                         $extension = pathinfo($val->major_objective_file, PATHINFO_EXTENSION);
                                                       @endphp
@@ -473,26 +495,20 @@
                                     <div class="row ">  
                                         <div class="col-xl-12">
                                             <div class="form-group major_indicator_parent_div">
-                                              <label>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો) <span class="required_filed"> * </span>:</label><br>
+                                              <label>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો) <span class="required_filed"> * </span>: <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label><br>
                                               
                                                 <div class="indicator_fields_0">
-                                                    <!-- <label>Indicator: 1 </label> -->
-                                                    <textarea class="form-control next_major_indicators @error('major_indicator') is-invalid @enderror" id="next_major_indicator_textarea" name="major_indicator" rows="2">{{ $val->major_indicator }}</textarea>
+                                                    <textarea class="form-control word-limit next_major_indicators @error('major_indicator') is-invalid @enderror" id="next_major_indicator_textarea" name="major_indicator" rows="8" data-max-count="3000" data-warning-count="2800"
+                                                    data-hard-count="3200">{{ old('major_indicator', $val->major_indicator) }}</textarea>
+
+                                                    <small class="word-message text-muted"></small>
                                                     @error('major_indicator')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                     <br>
                                                 </div>
-                                               
                                             </div>
-                                            {{-- <button type="button" class="btn btn-primary" id="btn_add_indicator">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="white"></rect>
-                                                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="white"></rect>
-                                                    </svg>
-                                                </span>
-                                            Add Indicator</button> --}}
+                                            
                                         </div>
                                          <div class="col-xl-12">
                                             <!--begin::Input-->
@@ -533,7 +549,7 @@
                                       <div class="row ">
                                         <div class="col-xl-12">
                                           <div class="form-group" style="margin-top: 32px;">
-                                            <label>Name of the HOD/ Branch. (કચેરીનું નામ)<span class="required_filed"> * </span> :</label>
+                                            <label>Name of the HOD/Branch.(કચેરી/શાખાનું નામ)<span class="required_filed"> * </span> :</label>
                                             <select name="implementing_office[]" class="form-control implementing_office" id="implementing_office" multiple="multiple">
                                               <option value="">Select HOD</option>
                                                 @foreach (department_hod_name(Auth::user()->dept_id) as $key => $item)
@@ -577,7 +593,7 @@
                                                       @foreach (explode(',', $val->implementing_office) as $index => $office)
                                                           <tr>
                                                               <td><input type="text" class="form-control" value="{{ $index + 1 }}" disabled></td>
-                                                              <td><input type="text" class="form-control hod_officer_name" name="hod_officer_name[]" value="{{ explode(',', $val->hod_officer_name)[$index] ?? '' }}"></td>
+                                                              <td><input type="text" class="form-control only-text hod_officer_name" name="hod_officer_name[]" value="{{ explode(',', $val->hod_officer_name)[$index] ?? '' }}"></td>
                                                               <td><input type="email" class="form-control email-input-td hod_email" name="hod_email[]" value="{{ explode(',', $val->hod_email)[$index] ?? '' }}"></td>
                                                               <td><input type="text" class="form-control implementing_office_contact" name="implementing_office_contact[]" value="{{ explode(',', $val->implementing_office_contact)[$index] ?? '' }}"></td>
                                                               <td><input type="text" class="form-control hod_mobile" name="hod_mobile[]" value="{{ explode(',', $val->hod_mobile)[$index] ?? '' }}"></td>
@@ -592,75 +608,81 @@
                                       <div class="row">
                                         <div class="col-xl-6">
                                               <div class="form-group">
-                                                <label>Name of the Nodal Officer (HOD) (નોડલ અધિકારી નું નામ)<span class="required_filed"> * </span></label>
-                                                <input type="text" name="nodal_officer_name" class="form-control pattern" maxlength="100" id="nodal_id" value="{{ $val->nodal_officer_name }}">
+                                                <label>Name of the Nodal Officer (HOD) (નોડલ અધિકારીનું નામ)<span class="required_filed"> * </span></label>
+                                                <input type="text" name="nodal_officer_name" class="form-control only-text pattern" maxlength="100" id="nodal_id" value="{{ $val->nodal_officer_name }}">
                                               </div>
                                         </div>
                                         <div class="col-xl-6">
                                               <div class="form-group">
-                                                <label>Designation of Nodal Officer(HOD) (નોડલ અધિકારી હોદ્દો)<span class="required_filed"> * </span> </label>
-                                                  <input type="text" name="nodal_officer_designation" class="form-control pattern" value="{{$val->nodal_officer_designation}}" maxlength="100" id="nodal_designation">
+                                                <label>Designation of Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)<span class="required_filed"> * </span> </label>
+                                                  <input type="text" name="nodal_officer_designation" class="form-control only-text pattern" value="{{$val->nodal_officer_designation}}" maxlength="100" id="nodal_designation">
                                               </div>
                                         </div>
                                       </div>
                                       <div class="row">
                                         <div class="col-xl-3">
                                             <div class="form-group">
-                                              <label>Contact Number of the Nodal Officer (HOD) (નોડલ અધિકારી ના સંપર્ક નંબર)<span class="required_filed"> * </span> :</label>
+                                              <label>Contact Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો સંપર્ક નંબર)<span class="required_filed"> * </span> :</label>
                                               <input type="text" name="nodal_officer_contact" class="form-control pattern landline" maxlength="11" id="nodal_contact" value="{{$val->nodal_officer_contact}}">
                                             </div>
                                         </div>
                                           <div class="col-xl-3">
                                             <div class="form-group">
-                                              <label>Mobile Number of the Nodal Officer (HOD) (નોડલ અધિકારી ના મોબાઇલ નંબર)<span class="required_filed"> * </span> :</label>
+                                              <label>Mobile Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો મોબાઇલ નંબર)<span class="required_filed"> * </span> :</label>
                                               <input type="text" name="nodal_officer_mobile" class="form-control mobile_number pattern" maxlength="10" id="nodal_mobile" value="{{$val->nodal_officer_mobile}}">
                                             </div>
                                         </div>
                                         <div class="col-xl-6" style="margin-top: 4%;">
                                             <div class="form-group">
-                                              <label>Email of Nodal Officer(HOD)  (નોડલ અધિકારી નું ઇમેઇલ)<span class="required_filed"> * </span> </label>
+                                              <label>Email of Nodal Officer(HOD)  (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)<span class="required_filed"> * </span> </label>
                                               <input type="text" name="nodal_officer_email" class="form-control pattern" maxlength="100" id="nodal_email" value="{{$val->nodal_officer_email}}">
                                             </div>
                                         </div>
                                       </div>
                                       <div class="row" id="the_ratios">
-                                        <div class="col-xl-12"><label>Fund Flow (in %) (યોજના માટેનો નાણાકીય સ્ત્રોત્ર)<span class="required_filed"> * </span> :</label></div>
-                                        <div class="col-xl-6">
-                                          <div class="form-group">
-                                              <div class="row align-items-center">
-                                                 <div class="col-xl-6">
-                                                      <label>Central Govt.(%) (કેન્દ્ર: %)</label>
-                                                      <input type="text" name="center_ratio" class="form-control numberonly state_per" placeholder="Percentage Sponsored by central govt" id="center_ratio" value="{{$val->center_ratio}}">
+                                                <div class="col-xl-12 d-flex justify-content-between">
+                                                    <label>Fund Flow (in %) (યોજના માટેનો નાણાકીય સ્ત્રોત્ર)<span class="required_filed"> * </span> :</label>
+                                                </div>
+                                                  <div class="col-xl-3 col-md-3">
+                                                      <div class="form-group mb-0">
+                                                          <label>Central Govt.(%) (કેન્દ્ર: %)</label>
+                                                          <input type="text" id="center_ratio" class="form-control" value="{{$val->center_ratio}}">
+                                                      </div>
                                                   </div>
-                                                  <div class="col-xl-6">
-                                                      <label>State Govt.(%) (રાજ્ય: %)</label>
-                                                      <input type="text" name="state_ratio" class="form-control numberonly state_per" placeholder="Percentage Sponsored by state govt" id="state_ratio" value="{{$val->state_ratio}}">
-                                                  </div>
-                                                
-                                              </div>
-                                                @if(Session::has('state_center_ratio_error'))
-                                              <div class="row">
-                                                  <div class="col-xl-12">
-                                                      <p class="text-red">{{ Session::get('state_center_ratio_error') }}</p>
-                                                  </div>
-                                              </div>
-                                            @endif
-                                          </div>
-                                        </div>
-                                      
-                                        <div class="col-xl-6" style="margin-top: -2%;">
-                                           <label>Other:</label>
-                                            <textarea name="both_ration" class="form-control pattern" placeholder="Remarks" id="both_ration">{{$val->both_ration}}</textarea>
-                                                      {{-- <input type="text" name="both_ratio" class="form-control" placeholder="Remarks" id="both_ration" value="{{$val->both_ration}}"> --}}
-                                          {{-- <label>Name of Implementing office (અમલીકરણ ઓફિસ નું નામ)<span class="required_filed"> * </span> :</label>
-                                          <input type="text" name="hod_name" class="form-control pattern" id="hod_name" value="{{ $val->hod_name }}"> --}}
-                                        </div>
-                                      </div>
 
+                                                  <div class="col-xl-3 col-md-3">
+                                                      <div class="form-group mb-0">
+                                                          <label>State Govt.(%) (રાજ્ય: %)</label>
+                                                          <input type="text" id="state_ratio" class="form-control" value="{{$val->state_ratio}}">
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-xl-3 col-md-3">
+                                                      <div class="form-group mb-0">
+                                                          <label>Other Govt.(%) (અન્ય: %)</label>
+                                                          <input type="text" id="other_ratio" class="form-control bg-light" value="{{$val->other_ratio}}" readonly>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-xl-3 col-md-3">
+                                                      <div class="form-group">
+                                                          <label>Remarks</label>
+                                                          <textarea name="both_ration" class="form-control pattern" id="both_ration" maxlength="200" style="height: 38px; resize: vertical;">{{$val->both_ration}}</textarea>
+                                                      </div>
+                                                  </div>
+
+                                                @if(Session::has('state_center_ratio_error'))
+                                                <div class="col-12">
+                                                    <p class="text-red">{{ Session::get('state_center_ratio_error') }}</p>
+                                                </div>
+                                                @endif
+                                            
+                                      </div>
                                       <div class="row">
                                         <div class="col-xl-12">
-                                          <label>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય) <span class="required_filed"> * </span> : <small><b>At most 250 words (વધુમાં વધુ ૨૫૦ શબ્દોમાં)</b></small></label>
-                                          <textarea class="form-control pattern" id="next_scheme_overview" name="scheme_overview" maxlength="3000">{{$val->scheme_overview}}</textarea>
+                                          <label>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
+                                          <textarea class="form-control word-limit pattern" id="next_scheme_overview" name="scheme_overview" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('scheme_overview', $val->scheme_overview) }}</textarea>
+                                          <small class="word-message text-muted"></small>
+
                                         </div>
                                       </div>
                                       <div class="row" style="margin-top:20px;">
@@ -689,8 +711,10 @@
                                       <!--begin::Input-->
                                      
                                         <div class="form-group">
-                                          <label>Objectives of the scheme (યોજનાના હેતુઓ) <span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small></label>
-                                          <textarea class="form-control pattern" id="next_scheme_objective" name="scheme_objective" maxlength="3000">{{$val->scheme_objective}}</textarea>
+                                          <label>Objectives of the scheme (યોજનાના હેતુઓ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
+                                          <textarea class="form-control word-limit pattern" id="next_scheme_objective" name="scheme_objective" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{old('scheme_objective', $val->scheme_objective)}}</textarea>
+                                         <small class="word-message text-muted"></small>
+
                                         </div>
                                      
                                       <div class="row" style="margin-top:20px;">
@@ -719,8 +743,9 @@
                                       <!--end::Input-->
                                       <!--begin::Input-->
                                       <div class="form-group">
-                                        <label>Name of Sub-schemes/components (પેટા યોજનાનું નામ અને ઘટકો) <span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small></label>
-                                        <textarea class="form-control pattern" id="next_scheme_components" name="sub_scheme" maxlength="3000">{{$val->sub_scheme}}</textarea>
+                                        <label>Name of Sub-schemes/components (પેટા યોજનાનું નામ અને ઘટકો) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
+                                        <textarea class="form-control word-limit pattern" id="next_scheme_components" name="sub_scheme" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('sub_scheme', $val->sub_scheme) }}</textarea>
+                                        <small class="word-message text-muted"></small>
                                       </div>
                                       <div class="row" style="margin-top:20px;">
                                         <div class="col-xl-12">
@@ -792,10 +817,11 @@
                                           <div class="col-xl-12 col-sm-12">
                                             <!--begin::Input-->
                                             <div class="form-group">
-                                              <label>Sustainable Development Goals (SDG) (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ) <span class="required_filed"> * </span> :</label>
-                                              <div class="row">
+                                                <label>Sustainable Development Goals (SDG): Which specific goal(s) does this scheme follow? (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ (SDG): આ યોજના કયા ચોક્કસ લક્ષ્યાંકોને અનુસરે છે?) <span class="required_filed" style="color: red;"> * </span> : </label>
+                                              {{-- <label>Sustainable Development Goals (SDG) (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ) <span class="required_filed"> * </span> :</label> --}}
+                                                {{-- <div class="row">
                                                     @php $issdg = array(); 
-                                                    $issdg = json_decode($val->is_sdg); 
+                                                      $issdg = json_decode($val->is_sdg); 
                                                     @endphp
                                                     @foreach($goals as $k => $g)
                                                     <div class="col-xl-4">
@@ -805,11 +831,35 @@
                                                             @else
                                                                 <input type="checkbox" name="is_sdg[]" class="form-check-input" id="goal1" value="{{ $g->goal_id }}">
                                                             @endif
-                                                            <label class="form-check-label" for="goal1">{{ $g->goal_name }}</label>
+                                                            <label class="form-check-label" for="goal1">{{ $g->goal_name }} ({{ $g->goal_name_guj }})</label>
                                                         </div>
                                                     </div>
                                                     @endforeach
-                                                </div>
+                                                </div> --}}
+                                                <div class="row">
+                                                      @php 
+                                                          $issdg = json_decode($val->is_sdg) ?? []; 
+                                                      @endphp
+                                                      
+                                                      @foreach($goals as $k => $g)
+                                                      <div class="col-xl-4">
+                                                          <div class="form-group form-check">
+                                                              {{-- Use a unique ID like goal_{{ $g->goal_id }} --}}
+                                                              <input type="checkbox" 
+                                                                    name="is_sdg[]" 
+                                                                    class="form-check-input" 
+                                                                    id="goal_{{ $g->goal_id }}" 
+                                                                    value="{{ $g->goal_id }}"
+                                                                    {{ (!empty($issdg) && in_array($g->goal_id, $issdg)) ? 'checked' : '' }}>
+                                                              
+                                                              {{-- The 'for' attribute must match the input 'id' exactly --}}
+                                                              <label class="form-check-label" for="goal_{{ $g->goal_id }}" style="font-size: 15px;cursor: pointer;">
+                                                                  {{ $g->goal_name }} ({{ $g->goal_name_guj }})
+                                                              </label>
+                                                          </div>
+                                                      </div>
+                                                      @endforeach
+                                                  </div>
                                             </div>
                                             <!--end::Input-->
                                           </div>
@@ -825,13 +875,12 @@
                                             <div class="col-xl-12">
                                               <!--begin::Input-->
                                               <div class="form-group">
-                                                <label>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો) <span class="required_filed"> * </span> : </label>
+                                                <label>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
                                               </div>
                                               <div class="form-group" id="beneficiary_selection_div_0">
-                                                <label>Beneficiary Criteria :<small><b>Max 3000 characters</b></small></label>
-                                                <textarea class="form-control next_beneficiary_selection_criterias pattern" id="next_beneficiary_selection_criteria" name="beneficiary_selection_criteria[0][beneficiary_selection_criteria]" rows="2" maxlength="3000">{{ $val->scheme_beneficiary_selection_criteria }}</textarea>
+                                                <textarea class="form-control word-limit next_beneficiary_selection_criterias pattern" id="next_beneficiary_selection_criteria" name="beneficiary_selection_criteria[0][beneficiary_selection_criteria]" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('beneficiary_selection_criteria', $val->scheme_beneficiary_selection_criteria) }}</textarea>
+                                                <small class="word-message text-muted"></small>
                                               </div>
-                                             
                                             </div>
                                           </div>
                                           <div class="row" style="margin-top:20px;">
@@ -871,64 +920,45 @@
                                             <div class="col-xl-12">
                                               <!--begin::Input-->
                                               <div class="form-group">
-                                                <label>Expected Major Benefits Derived from the Scheme (યોજના ના અપેક્ષિત મુખ્ય લાભો)<span class="required_filed"> * </span> :  </label>
+                                                <label>Expected Major Benefits Derived from the Scheme (યોજના ના અપેક્ષિત મુખ્ય લાભો)<span class="required_filed"> * </span> :   <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
                                               </div>
                                               <!--end::Input-->
-                                            </div>
-                                          </div>
-
-                                          <div class="row">
-                                            <div class="col-xl-12">
-
                                                 <div class="form-group" id="major_benefits_div_0">
-                                                  <label>Major Benefit :<span class="required_filed"> * </span> : <small><b> Max 3000 characters </b></small> </label>
                                                   <div>
-                                                    <textarea class="form-control major_benefit_textareas pattern" name="major_benefits_text" id="major_benefit_textarea_0" rows="2" maxlength="3000">{{ $val->major_benefits_text }}</textarea>
+                                                    <textarea class="form-control word-limit major_benefit_textareas pattern" name="major_benefits_text" id="major_benefit_textarea_0" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ $val->major_benefits_text }}</textarea>
+                                                    <small class="word-message text-muted"></small>
                                                   </div>
                                                 </div>
-                                               
                                             </div>
-                                            {{-- <div class="col-xl-12">
-                                                <button type="button" class="btn btn-xs btn-primary" id="btn_add_major_benefit" style="margin-top:20px">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                                    <span class="svg-icon svg-icon-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="white"></rect>
-                                                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="white"></rect>
-                                                        </svg>
-                                                    </span>
-                                                Add Major Benefit</button>
-                                            </div> --}}
                                           </div>
 
-                                          <div style="margin-top:20px"></div>
+                                            <div style="margin-top:20px"></div>
+                                            <div class="row">
+                                              <div class="col-xl-12">
+                                                <div class="form-group">
+                                                  <div class="custom-file">
+                                                    <input type="file" class="custom-file-input next_major_benefits_file file_type_name" name="major_benefits" id="customFile" accept=".pdf,.docx,.xlsx" />
+                                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                                  </div>
+                                                </div>
+                                                <div class="form-group">
+                                                  @if($val->benefit_to_file)
+                                                  @php
+                                                    $extension = pathinfo($val->benefit_to_file, PATHINFO_EXTENSION);
+                                                  @endphp
+                                                  @if($extension == 'pdf')
+                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->benefit_to_file]) }}" target="_blank" title="{{ $val->benefit_to_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
+                                                      @elseif ($extension == 'doc')
+                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->benefit_to_file]) }}" download="{{ $val->benefit_to_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
 
-                                          <div class="row">
-                                            <div class="col-xl-12">
-                                              <div class="form-group">
-                                                <div class="custom-file">
-                                                  <input type="file" class="custom-file-input next_major_benefits_file file_type_name" name="major_benefits" id="customFile" accept=".pdf,.docx,.xlsx" />
-                                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                                      @else
+                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->benefit_to_file]) }}" download="{{ $val->benefit_to_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                                                  @endif
+                                                    {{-- <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_major_benefits" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
+                                                  @endif
                                                 </div>
                                               </div>
-                                              <div class="form-group">
-                                                @if($val->benefit_to_file)
-                                                @php
-                                                  $extension = pathinfo($val->benefit_to_file, PATHINFO_EXTENSION);
-                                                @endphp
-                                                @if($extension == 'pdf')
-                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->benefit_to_file]) }}" target="_blank" title="{{ $val->benefit_to_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                    @elseif ($extension == 'doc')
-                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->benefit_to_file]) }}" download="{{ $val->benefit_to_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-
-                                                    @else
-                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->benefit_to_file]) }}" download="{{ $val->benefit_to_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                @endif
-                                                  {{-- <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_major_benefits" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
-                                                @endif
-                                              </div>
                                             </div>
-                                          </div>
                                           {{-- <button type="submit" id="btn_seventh_slide_submit" style="visibility: hidden;"></button>
                                       </form> --}}
                                   </div>
@@ -945,24 +975,26 @@
                                           <div class="col-xl-12">
                                             <!--begin::Input-->
                                             <div class="form-group">
-                                              <label>Implementing procedure of the Scheme (યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)<span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small></label>
-                                              <textarea class="form-control pattern" id="next_scheme_implementing_procedure" name="scheme_implementing_procedure" maxlength="3000">{{ $val->scheme_implementing_procedure }}</textarea>
+                                              <label>Implementation procedure of the Scheme (યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)<span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
+                                              <textarea class="form-control word-limit pattern" id="next_scheme_implementing_procedure" name="scheme_implementing_procedure" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('scheme_implementing_procedure', $val->scheme_implementing_procedure) }}</textarea>
+                                              <small class="word-message text-muted"></small>
                                             </div>
                                             <!--end::Input-->
                                           </div>
                                         </div> 
-										                  <div class="row">
+										                    <div class="row">
                                           <div class="col-xl-12">
                                             <!--begin::Input-->
                                             <div class="form-group">
-                                              <label>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) <span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small></label>
-                                              <textarea class="form-control pattern" id="implementing_procedure" name="implementing_procedure" maxlength="3000">{{ $val->implementing_procedure }}</textarea>
+                                              <label>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
+                                              <textarea class="form-control word-limit pattern" id="implementing_procedure" name="implementing_procedure" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('implementing_procedure', $val->implementing_procedure) }}</textarea>
+                                              <small class="word-message text-muted"></small>
                                             </div>
                                             <!--end::Input-->
                                             <div class="custom-file" style="margin:20px 0px">
                                                 <input type="file" class="custom-file-input file_type_name" name="implementing_procedure_file" id="implementing_procedure_file" accept=".pdf,.docx,.xlsx"/>
                                                 <label class="custom-file-label" for="customFile">Choose file</label>
-                                              </div>
+                                            </div>
                                                @if($val->implementing_procedure_file)
                                                   @php
                                                     $extension = pathinfo($val->implementing_procedure_file, PATHINFO_EXTENSION);
@@ -985,16 +1017,15 @@
                                             <label>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ) <span class="required_filed"> * </span> : </label>
                                             {{-- <select name="beneficiariesGeoLocal" class="form-control" id="beneficiariesGeoLocal" onchange="fngetdist(this.value)"> --}}
                                               <select name="beneficiariesGeoLocal" class="form-control" id="beneficiariesGeoLocal">
-
-                                              <option value="">Select Coverage Area</option>
+                                              {{-- <option value="">Select Coverage Area</option> --}}
                                                 @foreach($beneficiariesGeoLocal as $key=> $value)
                                                     <option value="{{$value->id}}" @if($value->id == $val->beneficiariesGeoLocal) selected @endif>{{$value->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <select name="taluka_id" class="form-control" id="districtList" style="display: none;">
+                                            {{-- <select name="taluka_id" class="form-control" id="districtList" style="display: none;">
                                               <option value="">Select District</option>
                                             </select>
-                                            <div id="load_gif_img"></div>
+                                            <div id="load_gif_img"></div> --}}
                                             <label style="margin-top:20px">Remarks</label>
                                             <!-- <input type="text" name="otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage" class="form-control"> -->
                                             <textarea name="otherbeneficiariesGeoLocal" id="next_otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage areas or Remarks" class="form-control pattern" rows="2">{{$val->otherbeneficiariesGeoLocal}}</textarea>
@@ -1022,8 +1053,7 @@
                                           </div>
                                         </div>
                                       {{-- </div> --}}
-                                        {{-- <button type="submit" id="btn_eighth_slide_submit" style="visibility: hidden;"></button>
-                                    </form> --}}
+                                        
                                   </div>
                                  
                                   <!-- eighth_slide close -->
@@ -1041,10 +1071,11 @@
                                               <div class="row">
                                                 <div class="col-xl-12">
                                                   <div class="form-group">
-                                                    <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small> </label>
+                                                    <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small> </label>
                                                     <div></div>
                                                     <div class="custom-file">
-                                                      <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control pattern" rows="2" maxlength="3000">{{$val->coverage_beneficiaries_remarks}}</textarea>
+                                                      <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control word-limit pattern" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{$val->coverage_beneficiaries_remarks}}</textarea>
+                                                      <small class="word-message text-muted"></small>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1054,8 +1085,6 @@
                                                 <div class="col-xl-12">
                                                   <!--begin::Input-->
                                                   <div class="form-group">
-                                                    <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) : </label>
-                                                    <div></div>
                                                     <div class="custom-file">
                                                       <input type="file" class="custom-file-input file_type_name" name="beneficiaries_coverage" id="beneficiaries_coverage" accept=".pdf,.docx,.xlsx"/>
                                                       <label class="custom-file-label" for="customFile">Choose file</label>
@@ -1063,7 +1092,6 @@
                                                   </div>
                                                   @if($val->beneficiaries_coverage)
                                                   <div class="form-group">
-                                                      {{-- <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_beneficiaries_coverage" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
                                                       @php
                                                         $extension = pathinfo($val->beneficiaries_coverage, PATHINFO_EXTENSION);
                                                       @endphp
@@ -1086,10 +1114,11 @@
                                               <div class="row">
                                                 <div class="col-xl-12">
                                                   <div class="form-group">
-                                                    <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી) <span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small> </label>
+                                                    <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
                                                     <div></div>
                                                     <div class="custom-file">
-                                                      <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control pattern" rows="2" maxlength="3000">{{ $val->training_capacity_remarks }}</textarea>
+                                                      <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control word-limit pattern" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ $val->training_capacity_remarks }}</textarea>
+                                                      <small class="word-message text-muted"></small>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1129,10 +1158,11 @@
                                               <div class="row">
                                                 <div class="col-xl-12">
                                                   <div class="form-group">
-                                                    <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed"> * </span> : <small><b>Max 3000 characters</b></small> </label>
+                                                    <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
                                                     <div></div>
                                                     <div class="custom-file">
-                                                      <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control pattern" rows="2" maxlength="3000">{{ $val->iec_activities_remarks }}</textarea>
+                                                      <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control word-limit pattern" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ $val->iec_activities_remarks }}</textarea>
+                                                      <small class="word-message text-muted"></small>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1804,21 +1834,6 @@ $.ajaxSetup({
 });
 $(document).ready(function() {
 
-  
-  // $( ".datepicker" ).datepicker({
-  //         format: 'dd/mm/yyyy', 
-  //         changeMonth: true,
-  //         changeYear: true,
-  //         maxDate: new Date(),
-  //         beforeShow: function (input, inst) {
-  //             $(input).attr("placeholder", "dd/mm/yyyy");
-  //         },
-  //         onSelect: function (dateText, inst) {
-  //           // Enable the file input only after a date is selected
-  //           $('#notification').prop('disabled', false);
-  //       }
-  // });
-
   $('.max_file_size').on('change', function () {
         var fileInput = $(this)[0];
         var file = fileInput.files[0];
@@ -1829,6 +1844,7 @@ $(document).ready(function() {
             $(this).val(''); // Clear the file input
         }
   });
+
  $('#add_gr_file').click(function () {
     let newFileInput = `
         <div class="gr-row d-flex align-items-center mb-2">
@@ -1888,69 +1904,68 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
     }
 });
 
-  // ✅ Initialize Select2 with checkboxes
-        $('#implementing_office').select2({
-            placeholder: "Select HOD / Office",
-            allowClear: true,
-            closeOnSelect: false
-        });
-          // ✅ Show text field when "Other" is selected
-           $('#implementing_office').on('change', function () {
-            let selected = $(this).val() || [];
+  $('#implementing_office').select2({
+      placeholder: "Select HOD / Office",
+      allowClear: true,
+      closeOnSelect: false
+  });
+    // ✅ Show text field when "Other" is selected
+  $('#implementing_office').on('change', function () {
+      let selected = $(this).val() || [];
 
-            // Show / Hide "Other"
-            if (selected.includes("other")) {
-                $('.other_val').show();
-            } else {
-                $('.other_val').hide();
-                $('input[name="name"]').val('');
-            }
+      // Show / Hide "Other"
+      if (selected.includes("other")) {
+          $('.other_val').show();
+      } else {
+          $('.other_val').hide();
+          $('input[name="name"]').val('');
+      }
 
-            // Show/Hide Table
-            if (selected.length > 0 && !(selected.length === 1 && selected.includes("other"))) {
-                $('#hodTable').show();
-            } else {
-                $('#hodTable').hide();
-                $('#hodTable tbody').empty();
-                return;
-            }
+      // Show/Hide Table
+      if (selected.length > 0 && !(selected.length === 1 && selected.includes("other"))) {
+          $('#hodTable').show();
+      } else {
+          $('#hodTable').hide();
+          $('#hodTable tbody').empty();
+          return;
+      }
 
-            // Clear previous rows
-            $('#hodTable tbody').empty();
+      // Clear previous rows
+      $('#hodTable tbody').empty();
 
-            let srNo = 1; // 🔑 Sr No counter
+      let srNo = 1; // 🔑 Sr No counter
 
-            selected.forEach(function (val) {
-                if (val !== "other") {
-                    let row_id = "row_" + val.replace(/\s+/g, '_');
+      selected.forEach(function (val) {
+          if (val !== "other") {
+              let row_id = "row_" + val.replace(/\s+/g, '_');
 
-                    $('#hodTable tbody').append(`
-                        <tr id="${row_id}">
-                            <td>
-                                <input type="text" class="form-control text-center" value="${srNo}" readonly>
-                            </td>
-                            <td>
-                                <input type="text" name="hod_officer_name[]" class="form-control hod_officer_name" required>
-                            </td>
-                            <td>
-                                <input type="email" name="hod_email[]" class="form-control email-input-td hod_email" required>
-                            </td>
-                            <td>
-                                <input type="text" name="implementing_office_contact[]" class="form-control implementing_office_contact" maxlength="12" required>
-                            </td>
-                            <td>
-                                <input type="text" name="hod_mobile[]" class="form-control hod_mobile" maxlength="10" required>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm removeRow">X</button>
-                            </td>
-                        </tr>
-                    `);
+              $('#hodTable tbody').append(`
+                  <tr id="${row_id}">
+                      <td>
+                          <input type="text" class="form-control text-center" value="${srNo}" readonly>
+                      </td>
+                      <td>
+                          <input type="text" name="hod_officer_name[]" class="form-control only-texthod_officer_name" required>
+                      </td>
+                      <td>
+                          <input type="email" name="hod_email[]" class="form-control email-input-td hod_email" required>
+                      </td>
+                      <td>
+                          <input type="text" name="implementing_office_contact[]" class="form-control implementing_office_contact" maxlength="12" required>
+                      </td>
+                      <td>
+                          <input type="text" name="hod_mobile[]" class="form-control hod_mobile" maxlength="10" required>
+                      </td>
+                      <td>
+                          <button type="button" class="btn btn-danger btn-sm removeRow">X</button>
+                      </td>
+                  </tr>
+              `);
 
-                    srNo++; // 🔼 increment
-                }
-            });
-        });
+              srNo++; // 🔼 increment
+          }
+      });
+  });
 
   $('.add_hod').on('click',function(e){
     e.preventDefault();
@@ -2022,6 +2037,7 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
     }
  
   });
+
    $(document).on('change','.next_financial_progress_selection',function() {
       var classValue = $(this).attr('id');
       var type = $('#'+classValue).val();
@@ -2067,121 +2083,55 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
 
 
 $(document).ready(function() {
+    // Listen for inputs on Central and State fields specifically
+    $('#center_ratio, #state_ratio').on('input', function () {
+        var center = parseFloat($('#center_ratio').val()) || 0;
+        var state = parseFloat($('#state_ratio').val()) || 0;
+        
+        // 1. Validate individual input
+        var currentInput = parseFloat($(this).val()) || 0;
+        if (currentInput < 0 || currentInput > 100) {
+            alert('Please enter a valid percentage between 0 and 100.');
+            $(this).val(0);
+            return;
+        }
 
-  // $('#implementing_office_contact').on('input', function () {
-  //   var implementing_office_contact_type = $('input[name="implementing_office_contact_type"]:checked').val();
-      
-  //   if (implementing_office_contact_type == 0) {
-  //     $(this).inputmask("(999) 9999")
-  //   }else if (implementing_office_contact_type == 1) {
-  //     $(this).inputmask("(999) 999-9999")
-  //   }
-  // });
+        // 2. Calculate the sum of the first two
+        var subTotal = center + state;
 
+        if (subTotal > 100) {
+            alert('The sum of Central and State cannot exceed 100%.');
+            $(this).val(0); // Reset the field that broke the rule
+            subTotal = (parseFloat($('#center_ratio').val()) || 0) + (parseFloat($('#state_ratio').val()) || 0);
+        }
 
-  //  $('.both_ration').on('input', function () {
-  //      var both_ratio_type = $('input[name="both_ratio_type"]:checked').val();
-      
-  //      if (both_ratio_type == 0) {
-  //       var value = $(this).val().replace(/,/g, ''); // Remove existing commas
-  //       var formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  //       console.log(formattedValue);
-  //       $(this).val(formattedValue);
-  //   }
-  //   else if (both_ratio_type == 1) {
-  //      // Get the entered value
-  //     var enteredValue = parseFloat($(this).val()) || 0;
-  //     // Validate the entered value
-  //     if (enteredValue < 0 || enteredValue > 100) {
-  //       alert('Please enter a valid percentage between 0 and 100.');
-  //       $(this).val('');
-  //       return;
-  //     }
-  //   }
-
-  // });
-
-     // Add event listener to both input fields
-   $('.state_per').on('input', function () {
-      // Get the entered value
-      var enteredValue = parseFloat($(this).val()) || 0;
-
-      // Validate the entered value
-      if (enteredValue < 0 || enteredValue > 100) {
-        alert('Please enter a valid percentage between 0 and 100.');
-        $(this).val('');
-        return;
-      }
-
-      // Calculate the remaining percentage
-      var remainingPercentage = 100 - enteredValue;
-
-      // Update the other input field with the remaining percentage
-      var otherInput = $(this).attr('id') === 'state_ratio' ? $('#center_ratio') : $('#state_ratio');
-      otherInput.val(remainingPercentage);
+        // 3. Automatically set the remainder in the 'Other' field
+        var remaining = 100 - subTotal;
+        $('#other_ratio').val(remaining.toFixed(2)); // Use toFixed for clean decimals
+        
+        updateTotalDisplay();
     });
 
- 
+    // Handle manual changes to 'Other' field
+    $('#other_ratio').on('input', function() {
+        var center = parseFloat($('#center_ratio').val()) || 0;
+        var state = parseFloat($('#state_ratio').val()) || 0;
+        var other = parseFloat($(this).val()) || 0;
+
+        if (center + state + other > 100) {
+            alert('Total cannot exceed 100%. Adjusting Other to fit.');
+            $(this).val(100 - (center + state));
+        }
+        updateTotalDisplay();
+    });
+
+    function updateTotalDisplay() {
+        var total = (parseFloat($('#center_ratio').val()) || 0) + 
+                    (parseFloat($('#state_ratio').val()) || 0) + 
+                    (parseFloat($('#other_ratio').val()) || 0);
+        $('#total_display').text(total.toFixed(0));
+    }
 });
-
-$(document).ready(function() {
-  // $("#btn_add_indicator").click(function(){
-
-  //   var ktcontent = $("#kt_content").height();
-  //   $(".content-wrapper").css('min-height',ktcontent+50);
-
-  //   var indicator_room = $(".next_major_indicators").length - 1;
-  //   var after_indicator_room = indicator_room+1;
-  //   var major_indicator = "major_indicator";
-  //   if(indicator_room < 10) {
-  //     $(".indicator_fields_"+indicator_room).after('<div class="form-group indicator_fields_'+after_indicator_room+'"><input class="form-control next_major_indicators" type="text" name="major_indicator['+after_indicator_room+']['+major_indicator+']" /><br></div>');
-  //     indicator_room++;
-  //   }
-  // });
-});
-
-// $(document).ready(function() {
-//   $("#btn_add_beneficiary_sel_criteria").click(function() {
-
-//     var ktcontent = $("#kt_content").height();
-//     $(".content-wrapper").css('min-height',ktcontent+50);
-
-//     var beneficiary_selection = $(".next_beneficiary_selection_criterias").length - 1;
-//     var after_beneficiary_selection = beneficiary_selection+1;
-//     var beneficiary_selection_criteria = "beneficiary_selection_criteria";
-//     if(beneficiary_selection < 10) {
-//       if($("#beneficiary_selection_div_"+beneficiary_selection+" textarea").val() == '') {
-//         var alert_ben_sec = new String("You missed beneficiary criteria above");
-//         alert(alert_ben_sec);
-//       } else {
-//           $("#beneficiary_selection_div_"+beneficiary_selection).after('<div id="beneficiary_selection_div_'+after_beneficiary_selection+'"><label>Beneficiary Criteria : <small><b>Max 3000 characters</b></small></label><textarea class="form-control next_beneficiary_selection_criterias" type="text" name="beneficiary_selection_criteria['+after_beneficiary_selection+']['+beneficiary_selection_criteria+']" maxlength="3000"/></textarea><br></div>');
-//           beneficiary_selection++;
-//       }
-//     }
-//   });
- 
-// });
-
-$(document).ready(function() {
-  // $("#btn_add_major_benefit").click(function(){
-
-  //   var ktcontent = $("#kt_content").height();
-  //   $(".content-wrapper").css('min-height',ktcontent+20);
-  //   var major_benefit = $(".major_benefit_textareas").length - 1;
-  //   var after_major_benefit = major_benefit+1;
-  //   var major_benefits_text = "major_benefits_text";
-  //   if(major_benefit < 4) {
-  //     if($("#major_benefit_textarea_"+major_benefit).val() == '') {
-  //       var alert_maj_ben = new String("You missed major benefit above");
-  //       alert(alert_maj_ben);
-  //     } else {
-  //         $("#major_benefits_div_"+major_benefit).after('<div class="form-group" id="major_benefits_div_'+after_major_benefit+'"><label>Major benefit '+(after_major_benefit+1)+': </label><textarea id="major_benefit_textarea_'+after_major_benefit+'" class="form-control major_benefit_textareas" type="text" name="major_benefits_text['+after_major_benefit+']['+major_benefits_text+']" /></textarea></div>');
-  //         major_benefit++;
-  //     }
-  //   }
-  // });
-});
-
 
 function fn_convergencewithotherscheme(value) {
   if(value == 'Other_Department') {
@@ -2277,29 +2227,6 @@ function remove_financial_year(row) {
     $(".content-wrapper").css('min-height',ktcontent);
 }
 
-// $(document).ready(function(){
-//   $("#addnewindicatorbtn").click(function(){
-//     var indicator_array_num = $(".getindicator_hod").length;
-
-//     // var ktcontent = $("#kt_content").height();
-//     // var ktcontent_long = Number(ktcontent) + 100;
-//    // $(".content-wrapper").css('min-height',ktcontent_long);
-
-//     indicator_array_num++;
-//     var major_indicator_hod = 'major_indicator_hod';
-//     var addindicator = '<tr class="indicator_tr_'+indicator_array_num+'"><th class="borderless col-md-1" width="100%" id="indicator_id_'+indicator_array_num+'">Indicator '+(indicator_array_num)+'</th><td class="borderless" width="95"><input class="form-control getindicator_hod" id="indicator_hod_id_'+indicator_array_num+'" type="text" name="major_indicator_hod['+indicator_array_num+']['+major_indicator_hod+']" /></td><td class="borderless" width="5%"><button type="button" class="btn btn-primary" value="'+indicator_array_num+'" id="removeindicatorbtn" style="padding:2px;width:20px;height:auto;font-weight:bolder" onclick="removeindicatorrow(this.value)">-</button></td></tr>';
-//     console.log($("#indicator_table tbody tr:last"));
-//     $("#indicator_table tbody tr:last").after(addindicator);
-//   });
-// });
-
-// function removeindicatorrow(row) {
-//     $("#indicator_table tbody .indicator_tr_"+row).remove();
-   
-//     var ktcontent = $("#kt_content").height();
-//     $(".content-wrapper").css('min-height',ktcontent);
-// }
-
 $(document).ready(function(){
     var ktcontent = $("#kt_content").height();
     $(".content-wrapper").css('min-height',ktcontent);
@@ -2330,39 +2257,6 @@ $(document).ready(function () {
     $(document).ready(function(){
         $(".form_scheme_to_submit").submit(function(){
             var count_total_msg = 0;
-            // var major_obj = $(".major_objective_parent_div div").length;
-            // // major_obj should be minimum 5
-            // if(major_obj < 2) {
-            //     $(".maj_obj_error").remove();
-            //     $('.major_objective_parent_div').after("<div class='row maj_obj_error text-red' style='font-size:16px;margin-left:20px'>Please add minimum 2 major Objectives Scheme</div>");
-            //     var major_obj_after = Number(major_obj)-1;
-            //     count_total_msg = 1;
-            //     // return false;
-            //     alert('Warning : Major Objectives are less than 2 !!!!!!!');
-            // } else {
-            //     $(".maj_obj_error").remove();
-            //     count_total_msg = 0;
-            // }
-            // var major_ind = $(".major_indicator_parent_div div").length;
-            // // major_ind should be minimum 5
-            // if(major_ind < 2) {
-            //     var major_ind_after = Number(major_ind)-1;
-            //     count_total_msg = 1;
-            //     // return false;
-            //     alert('Warning : Major Indicators are less than 2 !!!!!!!');
-            // } else {
-            //     $(".maj_ind_error").remove();
-            //     count_total_msg = 0;
-            // }
-            // var major_hod_indicator = $(".indicator_tr_4").length;
-            // // major_hod_indicator must be 1
-            // if(major_hod_indicator < 1) {
-            //     count_total_msg = 1;
-            //     // return false;
-            //     alert('Warning : Major Monitoring Indicators are less than 2 !!!!!!!');
-            // } else {
-            //     count_total_msg = 0;
-            // }
             var finprogresstr = $("#kt_datatable #thisistbody tr").length;
             // finprogresstr must be 5
             if(finprogresstr < 5) {
@@ -2376,160 +2270,168 @@ $(document).ready(function () {
             return true;
         });
     });
-    function fnSelectAll(checked) {
-        $('input[type="checkbox"]').prop('checked', checked);
-    }
+   function fnSelectAll(checked) {
+    // Only toggle checkboxes that belong to the geographic lists
+    $('.district_length').prop('checked', checked);
+}
    
 
-    $(document).ready(function(){
+$(document).ready(function(){
       
-      $('#beneficiariesGeoLocal').on('change',function(){
-      var theval = $(this).val();
+    // $('#beneficiariesGeoLocal').on('change',function(){
+    //   var theval = $(this).val();
 
-        $(".thedistrictlist").remove();
-        $("#beneficiariesGeoLocal_img").remove();
-        $('#districtList').hide();
-        if (theval === 'all') {
-            fnSelectAll(true);
-            return;
-        }
-        // if(theval != 2 ){
-        //   $('.all_item').hide();
-        // }
-        $.ajax({
-            type:'post',
-            dataType:'json',
-            url:"{{ route('districts') }}",
-            data:{'_token':"{{ csrf_token() }}",'district':theval},
-            beforeSend:function() {
-                $("#load_gif_img").html('<img id="beneficiariesGeoLocal_img" src="loading.gif" style="max-width:200px;max-height:200px">');
-            },
-            complete:function() {
-                $("#beneficiariesGeoLocal_img").remove();
-                var ktcontent = $("#kt_content").height();
-                $(".content-wrapper").css('min-height',ktcontent);
-            },
-            success:function(response) {
-              
-                var ktcontent = $("#kt_content").height();
-                $(".content-wrapper").css('min-height',ktcontent);
+    //   $(".thedistrictlist").remove();
+    //   $("#beneficiariesGeoLocal_img").remove();
+    //   $('#districtList').hide();
+    //   if (theval === 'all') {
+    //       fnSelectAll(true);
+    //       return;
+    //   }
+    //   // if(theval != 2 ){
+    //   //   $('.all_item').hide();
+    //   // }
+    //   $.ajax({
+    //       type:'post',
+    //       dataType:'json',
+    //       url:"{{ route('districts') }}",
+    //       data:{'_token':"{{ csrf_token() }}",'district':theval},
+    //       beforeSend:function() {
+    //           $("#load_gif_img").html('<img id="beneficiariesGeoLocal_img" src="loading.gif" style="max-width:200px;max-height:200px">');
+    //       },
+    //       complete:function() {
+    //           $("#beneficiariesGeoLocal_img").remove();
+    //           var ktcontent = $("#kt_content").height();
+    //           $(".content-wrapper").css('min-height',ktcontent);
+    //       },
+    //       success:function(response) {
+            
+    //           var ktcontent = $("#kt_content").height();
+    //           $(".content-wrapper").css('min-height',ktcontent);
 
-                    $(".thedistrictlist").remove();
-                    
-                     $('#beneficiariesGeoLocal').after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
-                    // if(response.districts != '' && response.districts != undefined) {
-                    // //  console.log('district');
-                    //   $('#districtList').css('display','none');
-                    //     $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
-                    //     $.each(response.districts, function(reskey, resval){
-                    //         $(".thedistrictlist").append("<div class='col-xl-3'><input class='district_length' type='checkbox' style='margin:3px' value='"+resval.dcode+"' name='district_name[]'>"+resval.name_e+"</div>");
-                    //     });
-                    // }
-                    if (response.districts) {
-                        $('#districtList').css('display','none');
-                        $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
+    //               $(".thedistrictlist").remove();
+                  
+    //                 $('#beneficiariesGeoLocal').after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
+    //               // if(response.districts != '' && response.districts != undefined) {
+    //               // //  console.log('district');
+    //               //   $('#districtList').css('display','none');
+    //               //     $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
+    //               //     $.each(response.districts, function(reskey, resval){
+    //               //         $(".thedistrictlist").append("<div class='col-xl-3'><input class='district_length' type='checkbox' style='margin:3px' value='"+resval.dcode+"' name='district_name[]'>"+resval.name_e+"</div>");
+    //               //     });
+    //               // }
+    //               if (response.districts) {
+    //                   $('#districtList').css('display','none');
+    //                   $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
-                      $.each(response.districts, function (reskey, resval) {
-                       
-                          var checked = "";
-                          if (response.entered_item && response.entered_item.includes(String(resval.dcode))) {
-                              checked = "checked";
-                          }
-                          $(".thedistrictlist").append(`
-                              <div class="col-xl-3">
-                                  <input class="district_length" type="checkbox" style="margin:3px"
-                                      value="${resval.dcode}" name="district_name[]" ${checked}>
-                                  ${resval.name_e}
-                              </div>
-                          `);
-                      });
-                  }
-                    if(response.district_list != '' && response.district_list != undefined) {
-                   //   console.log('district_list');
-                      $('#districtList').css('display','block');
-                      $('#districtList').empty();
-                      if (!$.isEmptyObject(response.district_list)) {
-                          $.each(response.district_list, function(key, value) {   
-                              $('#districtList').append($("<option></option>").attr("value", value).text(key)); 
-                          });
-                      } else {
-                          $('#districtList').append($("<option></option>").text('Select District'));
-                      }
-                    
-                    }
-                    if (response.state && response.state.length > 0) {
-                    $('#districtList').css('display','none');
+    //                 $.each(response.districts, function (reskey, resval) {
+                      
+    //                     var checked = "";
+    //                     if (response.entered_item && response.entered_item.includes(String(resval.dcode))) {
+    //                         checked = "checked";
+    //                     }
+    //                     $(".thedistrictlist").append(`
+    //                         <div class="col-xl-3">
+    //                             <input class="district_length" type="checkbox" style="margin:3px"
+    //                                 value="${resval.dcode}" name="district_name[]" ${checked}>
+    //                             ${resval.name_e}
+    //                         </div>
+    //                     `);
+    //                 });
+    //             }
+    //               if(response.district_list != '' && response.district_list != undefined) {
+    //               //   console.log('district_list');
+    //                 $('#districtList').css('display','block');
+    //                 $('#districtList').empty();
+    //                 if (!$.isEmptyObject(response.district_list)) {
+    //                     $.each(response.district_list, function(key, value) {   
+    //                         $('#districtList').append($("<option></option>").attr("value", value).text(key)); 
+    //                     });
+    //                 } else {
+    //                     $('#districtList').append($("<option></option>").text('Select District'));
+    //                 }
+                  
+    //               }
+    //               if (response.state && response.state.length > 0) {
+    //               $('#districtList').css('display','none');
 
-                    $.each(response.state, function (reskey, resval) {
-                        // check if current item is in the already selected list
-                        var checked = "";
-                        if (response.entered_item && response.entered_item.includes(String(resval.id))) {
-                            checked = "checked";
-                        }
+    //               $.each(response.state, function (reskey, resval) {
+    //                   // check if current item is in the already selected list
+    //                   var checked = "";
+    //                   if (response.entered_item && response.entered_item.includes(String(resval.id))) {
+    //                       checked = "checked";
+    //                   }
 
-                        $(".thedistrictlist").append(`
-                            <div class="col-xl-3">
-                                <input class="state_length" type="checkbox" style="margin:3px"
-                                    value="${resval.id}" name="state_name[]" ${checked}>
-                                ${resval.name}
-                            </div>
-                        `);
-                    });
-                }
-                  //   if(response.state != '' && response.state != undefined){
-                  //     //console.log('state');
-                  //     $('#districtList').css('display','none');
-                  //     $.each(response.state,function(reskey,resval){
-                  //         $(".thedistrictlist").append("<div class='col-xl-3'><input class='state_length' type='checkbox' style='margin:3px' value='"+resval.id+"' name='state_name[]'>"+resval.name+"</div>");
-                  //     });
-                  //  }
-            },
-            error:function() {
-                console.log('districts ajax error');
-            }
-        });
-    });
+    //                   $(".thedistrictlist").append(`
+    //                       <div class="col-xl-3">
+    //                           <input class="state_length" type="checkbox" style="margin:3px"
+    //                               value="${resval.id}" name="state_name[]" ${checked}>
+    //                           ${resval.name}
+    //                       </div>
+    //                   `);
+    //               });
+    //           }
+    //             //   if(response.state != '' && response.state != undefined){
+    //             //     //console.log('state');
+    //             //     $('#districtList').css('display','none');
+    //             //     $.each(response.state,function(reskey,resval){
+    //             //         $(".thedistrictlist").append("<div class='col-xl-3'><input class='state_length' type='checkbox' style='margin:3px' value='"+resval.id+"' name='state_name[]'>"+resval.name+"</div>");
+    //             //     });
+    //             //  }
+    //       },
+    //       error:function() {
+    //           console.log('districts ajax error');
+    //       }
+    //   });
+    // });
 
     //fetch taluka
-    $('#districtList').on('change',function(){
-        var district_code = $(this).val();
-        if(district_code != ""){
-          $.ajax({
-            type:'POST',
-            dataType:'json',
-            url:"{{ route('get_taluka') }}",
-            data:{'_token':"{{ csrf_token() }}",'taluka_dcode':district_code},
-            beforeSend:function() {
-                $("#load_gif_img").html('<img id="beneficiariesGeoLocal_img" src="loading.gif" style="max-width:200px;max-height:200px">');
-            },
-            complete:function() {
-                $("#beneficiariesGeoLocal_img").remove();
-                var ktcontent = $("#kt_content").height();
-                $(".content-wrapper").css('min-height',ktcontent);
-            },
-            success:function(response) {
-              $(".thedistrictlist").remove();
-              $('#beneficiariesGeoLocal').after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
-              $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
+    // $('#districtList').on('change',function(){
+    //     var district_code = $(this).val();
+    //     if(district_code != ""){
+    //       $.ajax({
+    //         type:'POST',
+    //         dataType:'json',
+    //         url:"{{ route('get_taluka') }}",
+    //         data:{'_token':"{{ csrf_token() }}",'taluka_dcode':district_code},
+    //         beforeSend:function() {
+    //             $("#load_gif_img").html('<img id="beneficiariesGeoLocal_img" src="loading.gif" style="max-width:200px;max-height:200px">');
+    //         },
+    //         complete:function() {
+    //             $("#beneficiariesGeoLocal_img").remove();
+    //             var ktcontent = $("#kt_content").height();
+    //             $(".content-wrapper").css('min-height',ktcontent);
+    //         },
+    //         success:function(response) {
+    //           $(".thedistrictlist").remove();
+    //           $('#beneficiariesGeoLocal').after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
+    //           $(".thedistrictlist").append("<div class='col-xl-3 all_item'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
-              if(response.error != '' && response.error != undefined){
-                  alert(response.error);
-              }else{
-                  $.each(response.talukas,function(reskey,resval){
-                      $(".thedistrictlist").append("<div class='col-xl-3'><input class='taluka_length' type='checkbox' style='margin:3px' value='"+resval.tcode+"' name='taluka_name[]'>"+resval.tname_e+"</div>");
-                  });
-              }
-             // console.log(response);
-            },
-            error:function() {
-                console.log('districts ajax error');
-            }
-          })
-        }else{
-          alert('Something went wrong');
-        }
+    //           if(response.error != '' && response.error != undefined){
+    //               alert(response.error);
+    //           }else{
+    //               $.each(response.talukas,function(reskey,resval){
+    //                   $(".thedistrictlist").append("<div class='col-xl-3'><input class='taluka_length' type='checkbox' style='margin:3px' value='"+resval.tcode+"' name='taluka_name[]'>"+resval.tname_e+"</div>");
+    //               });
+    //           }
+    //          // console.log(response);
+    //         },
+    //         error:function() {
+    //             console.log('districts ajax error');
+    //         }
+    //       })
+    //     }else{
+    //       alert('Something went wrong');
+    //     }
+    // });
+
+    $(document).on('click', '.district_length', function() {
+        var allChecked = true;
+        $('.district_length').each(function() {
+            if(!$(this).prop('checked')) allChecked = false;
+        });
+        $('#selectAllCheckbox').prop('checked', allChecked);
     });
-
     DistItem();
    
 });
@@ -2559,79 +2461,71 @@ function DistItem(){
             $(".content-wrapper").css('min-height', ktcontent);
         },
        success: function (response) {
-        console.log(response);
-            $(".thedistrictlist").remove();
-            $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
-            var districtList = $(".thedistrictlist");
+        
+          $(".thedistrictlist").remove();
+              $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
+              var districtList = $(".thedistrictlist");
 
-            // Normalize all possible entered arrays safely
-            let enteredDistricts = Array.isArray(response.entered_values)
-                ? response.entered_values
-                : (response.entered_values ? String(response.entered_values).split(',') : []);
+              // Normalize arrays
+              let enteredDistricts = Array.isArray(response.entered_values) ? response.entered_values : [];
 
-            let enteredStates = Array.isArray(response.entered_item)
-                ? response.entered_item
-                : (response.entered_item ? String(response.entered_item).split(',') : []);
+              // ✅ District Section
+              if (response.districts && response.districts.length > 0) {
+                  // 1. Force the "All" checkbox to be checked on creation
+                  districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' checked onchange='fnSelectAll(this.checked)'> <strong>All</strong></div>");
 
-            // ✅ District Section
-            if (response.districts && response.districts.length > 0) {
-                $('#districtList').hide();
-                districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
-
-                $.each(response.districts, function (reskey, resval) {
-                    var thedcode = String(resval.dcode);
-                    var checkbox = $("<div class='col-xl-3'><input class='district_length' type='checkbox' style='margin:3px' value='" + thedcode + "' name='district_name[]'>" + resval.name_e + "</div>");
-                    districtList.append(checkbox);
-
-                    // ✅ Safe include check
-                    if (enteredDistricts.includes(thedcode)) {
-                        checkbox.find('input[type="checkbox"]').prop('checked', true);
-                    }
-                });
-            }
-
+                  $.each(response.districts, function (reskey, resval) {
+                      var thedcode = String(resval.dcode);
+                      
+                      // 2. Automatically check if enteredDistricts is empty (Initial Load) OR if ID matches
+                      var isChecked = (enteredDistricts.length === 0 || enteredDistricts.includes(thedcode)) ? 'checked' : '';
+                      
+                      var checkbox = $("<div class='col-xl-3'><input class='district_length' type='checkbox' style='margin:3px' value='" + thedcode + "' name='district_name[]' " + isChecked + ">" + resval.name_e + "</div>");
+                      districtList.append(checkbox);
+                  });
+              }
             // ✅ State Section
-            else if (response.states && response.states.length > 0) {
-                $('#districtList').hide();
+            // else if (response.states && response.states.length > 0) {
+            //     $('#districtList').hide();
 
-                $.each(response.states, function (key, val) {
-                    var thedcode = String(val.id);
-                    var checkbox = $("<div class='col-xl-3'><input class='state_length' type='checkbox' style='margin:3px' value='" + thedcode + "' name='state_name[]'>" + val.name + "</div>");
-                    districtList.append(checkbox);
+            //     $.each(response.states, function (key, val) {
+            //         var thedcode = String(val.id);
+            //         var checkbox = $("<div class='col-xl-3'><input class='state_length' type='checkbox' style='margin:3px' value='" + thedcode + "' name='state_name[]'>" + val.name + "</div>");
+            //         districtList.append(checkbox);
 
-                    if (enteredStates.includes(thedcode)) {
-                        checkbox.find('input[type="checkbox"]').prop('checked', true);
-                    }
-                });
-            }
+            //         if (enteredStates.includes(thedcode)) {
+            //             checkbox.find('input[type="checkbox"]').prop('checked', true);
+            //         }
+            //     });
+            // }
 
             // ✅ Taluka Section
-            else if (response.talukas && response.talukas.length > 0 && response.districtList) {
-                $('#districtList').show();
-                districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
+            // else if (response.talukas && response.talukas.length > 0 && response.districtList) {
+            //     $('#districtList').show();
+            //     districtList.append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> All</div>");
 
-                $.each(response.talukas, function (reskey, resval) {
-                    var thedcode = String(resval.tcode);
-                    var checkbox = $("<div class='col-xl-3'><input class='taluka_length' type='checkbox' style='margin:3px' value='" + thedcode + "' name='taluka_name[]'>" + resval.tname_e + "</div>");
-                    districtList.append(checkbox);
+            //     $.each(response.talukas, function (reskey, resval) {
+            //         var thedcode = String(resval.tcode);
+            //         var checkbox = $("<div class='col-xl-3'><input class='taluka_length' type='checkbox' style='margin:3px' value='" + thedcode + "' name='taluka_name[]'>" + resval.tname_e + "</div>");
+            //         districtList.append(checkbox);
 
-                    if (enteredDistricts.includes(thedcode)) {
-                        checkbox.find('input[type="checkbox"]').prop('checked', true);
-                    }
-                });
+            //         if (enteredDistricts.includes(thedcode)) {
+            //             checkbox.find('input[type="checkbox"]').prop('checked', true);
+            //         }
+            //     });
 
-                if (!$.isEmptyObject(response.district_list)) {
-                    $.each(response.district_list, function (key, value) {
-                        var option = $("<option></option>").attr("value", value.dcode).text(value.name_e);
-                        if (value.dcode == response.districtList) {
-                            option.attr("selected", "selected");
-                        }
-                        $('#districtList').append(option);
-                    });
-                } else {
-                    $('#districtList').append($("<option></option>").text('Select District'));
-                }
-            }
+            //     if (!$.isEmptyObject(response.district_list)) {
+            //         $.each(response.district_list, function (key, value) {
+            //             var option = $("<option></option>").attr("value", value.dcode).text(value.name_e);
+            //             if (value.dcode == response.districtList) {
+            //                 option.attr("selected", "selected");
+            //             }
+            //             $('#districtList').append(option);
+            //         });
+            //     } else {
+            //         $('#districtList').append($("<option></option>").text('Select District'));
+            //     }
+            // }
         },
 
         error: function () {
@@ -2639,6 +2533,7 @@ function DistItem(){
         }
     });
 }
+
 $(document).on('change', '.custom-file-input', function () {
     const $input = $(this);
     const files  = this.files;
@@ -2847,13 +2742,13 @@ $(document).on('change', '.custom-file-input', function () {
             var next_reference_year = $('#next_reference_year').val();
             var next_reference_year2 = $('#next_reference_year2').val();
             var financial_adviser_name = $("#financial_adviser_name").val();
-            var financial_adviser_designation = $("#financial_adviser_designation").val();
+           // var financial_adviser_designation = $("#financial_adviser_designation").val();
             var financial_adviser_phone = $('#financial_adviser_phone').val();
             var financial_adviser_email = $('#financial_adviser_email').val();
             var financial_adviser_mobile = $('#financial_adviser_mobile').val();
 
             // 🔹 Validation for Slide 2
-            if (next_dept_id === '' || the_convener === '' || form_scheme_name === '' || next_reference_year === '' || financial_adviser_name === '' || financial_adviser_designation === '' || financial_adviser_phone === '' || convener_mobile === '' || convener_designation === '' || convener_phone === '' || convener_email === '' || financial_adviser_email === '' || financial_adviser_mobile === '') {
+            if (next_dept_id === '' || the_convener === '' || form_scheme_name === '' || next_reference_year === '' || financial_adviser_name === ''  || financial_adviser_phone === '' || convener_mobile === '' || convener_designation === '' || convener_phone === '' || convener_email === '' || financial_adviser_email === '' || financial_adviser_mobile === '') {
                 showError("* All fields are required");
                 return;
             }
@@ -2884,7 +2779,7 @@ $(document).on('change', '.custom-file-input', function () {
             formData.append("reference_year", next_reference_year);
             formData.append("reference_year2", next_reference_year2);
             formData.append("financial_adviser_name", financial_adviser_name);
-            formData.append("financial_adviser_designation", financial_adviser_designation);
+           // formData.append("financial_adviser_designation", financial_adviser_designation);
             formData.append("financial_adviser_phone", financial_adviser_phone);
             formData.append("financial_adviser_email", financial_adviser_email);
             formData.append("financial_adviser_mobile", financial_adviser_mobile);
@@ -3371,47 +3266,47 @@ $(document).on('change', '.custom-file-input', function () {
                 
             }
         } else if(slideid == 9) {
-			 let formData = new FormData();
-			let nextSlide = countIncrease(slideid);
-			updateStepTitle(nextSlide); 
-			var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
-			var implementing_procedure = $("#implementing_procedure").val();
-			var implementing_procedure_file = $("#implementing_procedure_file")[0]?.files[0];
-			var geographical_coverage = $("#geographical_coverage")[0]?.files[0];
-			var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
-			var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
-			var taluka_id = $('#taluka_id').val();
-			//var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val() ?? null;
-      var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").length ? $(".existing_implementing_procedure_file").val() : null;
+            let formData = new FormData();
+            let nextSlide = countIncrease(slideid);
+            updateStepTitle(nextSlide); 
+            var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
+            var implementing_procedure = $("#implementing_procedure").val();
+            var implementing_procedure_file = $("#implementing_procedure_file")[0]?.files[0];
+            var geographical_coverage = $("#geographical_coverage")[0]?.files[0];
+            var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
+            var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
+            var taluka_id = $('#taluka_id').val() || null;
+            //var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").val() ?? null;
+            var existing_implementing_procedure_file = $(".existing_implementing_procedure_file").length ? $(".existing_implementing_procedure_file").val() : null;
 
-			var talukas = [];
-			var districts = [];
-			var states = [];
+            var talukas = [];
+            var districts = [];
+            var states = [];
 
-			if ($(".thedistrictlist").length > 0) {
-				if (beneficiariesGeoLocal == 1) {
-					$("input[name='state_name[]']:checked").each(function () {
-						states.push(this.value.replace(/"/g, ''));
-					});
-				} else if (beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) {
-					$("input[name='taluka_name[]']:checked").each(function () {
-						talukas.push(this.value.replace(/"/g, ''));
-					});
-				} else {
-					$("input[name='district_name[]']:checked").each(function () {
-						districts.push(this.value.replace(/"/g, ''));
-					});
-				}
-			}
+            if ($(".thedistrictlist").length > 0) {
+              if (beneficiariesGeoLocal == 1) {
+                $("input[name='state_name[]']:checked").each(function () {
+                  states.push(this.value.replace(/"/g, ''));
+                });
+              } else if (beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) {
+                $("input[name='taluka_name[]']:checked").each(function () {
+                  talukas.push(this.value.replace(/"/g, ''));
+                });
+              } else {
+                $("input[name='district_name[]']:checked").each(function () {
+                  districts.push(this.value.replace(/"/g, ''));
+                });
+              }
+            }
 
       // ===== VALIDATION =====
-        if (next_scheme_implementing_procedure === '' || beneficiariesGeoLocal === '' || implementing_procedure === '') {
-            $("#the_error_html").remove();
-            $(".nineth_slide").append(
-                '<div id="the_error_html" style="color:red;font-size:20px">* All Fields are required</div>'
-            );
-            return;
-        }
+            if (next_scheme_implementing_procedure === '' || beneficiariesGeoLocal === '' || implementing_procedure === '') {
+                $("#the_error_html").remove();
+                $(".nineth_slide").append(
+                    '<div id="the_error_html" style="color:red;font-size:20px">* All Fields are required</div>'
+                );
+                return;
+            }
 		
           // ===== APPEND DATA =====
           formData.append('_token', "{{ csrf_token() }}");
@@ -4019,6 +3914,7 @@ $(document).ready(function(){
           autoclose: true
       });
 });
+
 document.addEventListener('DOMContentLoaded', function () {
     const emailInputs = document.querySelectorAll('.email-input');
 
@@ -4034,6 +3930,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 function toggleNextButton() {
     if ($('.is-invalid').length > 0) {
         $('#next_btn').prop('disabled', true);
@@ -4043,21 +3940,39 @@ function toggleNextButton() {
 }
 
 $(document).on('input', '.mobile_number', function () {
-    let value = this.value.replace(/[^0-9]/g, '');
+    let value = this.value;
+    // Convert Gujarati digits to English
+    value = value.replace(/[૦-૯]/g, function(d) {
+        return '૦૧૨૩૪૫૬૭૮૯'.indexOf(d);
+    });
+
+    // Remove non-numeric
+    value = value.replace(/[^0-9]/g, '');
+
     this.value = value.slice(0, 10);
 
     let $this = $(this);
     let $group = $this.closest('.form-group');
     $group.find('.mobile-error').remove();
 
-    if (value.length > 0 && value.length < 10) {
-        $this.addClass('is-invalid');
-        $this.after('<div class="text-danger mobile-error">Please enter 10 digit mobile number</div>');
+    if (value.length > 0) {
+
+        if (!/^[6-9]/.test(value)) {
+            $this.addClass('is-invalid');
+            $this.after('<div class="text-danger mobile-error">Mobile number must start with 6, 7, 8, or 9</div>');
+        }
+        else if (value.length < 10) {
+            $this.addClass('is-invalid');
+            $this.after('<div class="text-danger mobile-error">Please enter 10 digit mobile number</div>');
+        }
+        else {
+            $this.removeClass('is-invalid');
+        }
     } else {
         $this.removeClass('is-invalid');
     }
 
-    toggleNextButton(); // 👈 ADD THIS
+    toggleNextButton();
 });
 $(document).on('input', '.landline', function () {
     let value = this.value.replace(/[^0-9]/g, '');
@@ -4078,23 +3993,28 @@ $(document).on('input', '.landline', function () {
 });
 
 $(document).on('input', '.email-input', function () {
-    let value = this.value.trim();
+
+    let value = this.value.trim().toLowerCase();
     let $this = $(this);
     let $group = $this.closest('.form-group');
 
     $group.find('.email-error').remove();
 
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    let emailRegex = /^[a-z0-9._%+-]+@([a-z0-9-]+\.)*gujarat\.gov\.in$/;
 
     if (value.length > 0 && !emailRegex.test(value)) {
+
         $this.addClass('is-invalid');
-        $this.after('<div class="text-danger email-error">Please enter a valid email address</div>');
+        $this.after('<div class="text-danger email-error">Only gujarat.gov.in email is allowed</div>');
+
     } else {
+
         $this.removeClass('is-invalid');
     }
 
-    toggleNextButton(); // 👈 ADD THIS
+    toggleNextButton();
 });
+
 $(document).on('blur', '.email-input-td', function () {
     let value = this.value.trim();
     let $this = $(this);
@@ -4103,7 +4023,7 @@ $(document).on('blur', '.email-input-td', function () {
     // remove old error
     $td.find('.email-error').remove();
 
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    let emailRegex = /^[a-z0-9._%+-]+@([a-z0-9-]+\.)*gujarat\.gov\.in$/;
 
     if (value !== '' && !emailRegex.test(value)) {
         $this.addClass('is-invalid');
@@ -4118,6 +4038,72 @@ $(document).on('blur', '.email-input-td', function () {
     toggleNextButton();
 });
 
+document.addEventListener("input", function (e) {
+    if (e.target.classList.contains("only-text")) {
+        e.target.value = e.target.value.replace(/[^\p{L}.\s]/gu, '');
+    }
+});
+$(document).ready(function () {
+   $('.word-limit').trigger('input');
+});
+
+$(document).on('input', '.word-limit', function () {
+
+    let text = $(this).val().trim();
+    let words = text ? text.match(/\b\S+\b/g).length : 0;
+
+    let maxWords = parseInt($(this).data('max-count'));
+    let warningLimit = parseInt($(this).data('warning-count'));
+    let hardLimit = parseInt($(this).data('hard-count'));
+
+    let messageBox = $(this).next('.word-message');
+    messageBox.removeClass('text-danger text-warning text-muted');
+
+    if (words <= warningLimit) {
+
+        messageBox.addClass('text-muted')
+                  .text(words + " / " + maxWords + " words");
+
+    } else if (words <= maxWords) {
+
+        messageBox.addClass('text-warning')
+                  .text(words + " / " + maxWords + " words (Approaching limit)");
+
+    } else if (words <= hardLimit) {
+
+        let extra = words - maxWords;
+
+        messageBox.addClass('text-danger')
+                  .text("Exceeded by " + extra + " words. Please reduce.");
+
+    } else {
+
+        let extra = words - hardLimit;
+
+        messageBox.addClass('text-danger')
+                  .text("Hard limit exceeded. Remove " + extra + " words immediately.");
+    }
+
+    // ✅ MULTIPLE FIELD SAFE BUTTON LOGIC
+    let hasError = false;
+
+      $('.word-limit').each(function () {
+
+        let text = $(this).val().trim();
+        let wordsArr = text.match(/\b\S+\b/g);
+        let words = wordsArr ? wordsArr.length : 0;
+
+        let maxWords = parseInt($(this).data('max-count'));
+
+        if (words > maxWords) {
+            hasError = true;
+            return false;
+        }
+    });
+
+    $('#next_btn').prop('disabled', hasError);
+
+});
 </script>
 
 

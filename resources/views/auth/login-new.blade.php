@@ -248,6 +248,16 @@ label.error {
     width: 100%;
 }
 </style>
+	@if (session()->has('success'))
+			<div class="alert alert-success" style="margin-top: 10%;">
+				{{ session()->get('success') }}
+			</div>
+	@endif
+	@session('error')
+		<div class="alert alert-danger" role="alert" style="margin-top: 6%;"> 
+			{{ $value }}
+		</div>
+	@endsession
 <div class="main-login-wrapper">
     <div class="login-card">
         <div class="login-section-left">

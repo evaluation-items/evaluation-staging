@@ -279,6 +279,9 @@ Route::middleware(['isAdmin'::class,'auth',PreventBackHistory::class])->prefix('
 
         Route::resource('nodal-designations', App\Http\Controllers\NodalDesignationController::class);
         //Beneficiaries
+        Route::post('sdg-goals/delete/{id}', [App\Http\Controllers\SDGController::class, 'destroy'])->name('sdg-goals.destroy');
+        Route::resource('sdg-goals', App\Http\Controllers\SDGController::class);
+
         Route::resource('beneficiaries', App\Http\Controllers\BeneficiariesController::class);
         Route::post('beneficiaries/status/{id}',[App\Http\Controllers\BeneficiariesController::class, 'beneficiariesStatus'])->name('beneficiaries.status');
         Route::post('advertisement/status/{id}',[AdminController::class, 'advertisementStatus'])->name('advertisement.status');
