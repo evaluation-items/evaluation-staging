@@ -6,6 +6,7 @@
     <title>Login - Transforming Survey Ecosystem, Gujarat</title>
     {{-- <link rel="stylesheet" href="{{ asset('css/login.css') }}"> --}}
     <link href="{{asset('plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
  <body>
 <style>
@@ -148,7 +149,7 @@
 .login-section-right {
     flex: 1;
     background-color: #00426a; /* Theme Blue */
-    background-image: url({{ asset('img/login_bg.png') }}); /* Subtle background image */
+    background-image: url("{{ asset('img/login_bg.png') }}"); /* Subtle background image */
     background-size: cover;
     color: #fff;
     padding: 60px;
@@ -247,17 +248,48 @@ label.error {
     display: block;
     width: 100%;
 }
+/* Custom Alert Colors */
+.alert {
+    /* Sets the maximum width so it doesn't span the whole screen */
+    max-width: 1000px; 
+    /* Centers the box if it has a width */
+    margin-left: auto;
+    margin-right: auto;
+    /* Adjust internal padding for a "sleeker" look */
+    padding: 12px 20px;
+    /* Optional: adds a subtle shadow like your login card */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
 </style>
-	@if (session()->has('success'))
-			<div class="alert alert-success" style="margin-top: 10%;">
-				{{ session()->get('success') }}
-			</div>
-	@endif
-	@session('error')
-		<div class="alert alert-danger" role="alert" style="margin-top: 6%;"> 
-			{{ $value }}
-		</div>
-	@endsession
+	
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12"> 
+            @if (session()->has('success'))
+                <div class="alert alert-success mt-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @session("error")
+                <div class="alert alert-danger mt-4" role="alert"> 
+                    {{ $value }}
+                </div>
+            @endsession
+        </div>
+    </div>
+</div>
 <div class="main-login-wrapper">
     <div class="login-card">
         <div class="login-section-left">
@@ -444,6 +476,22 @@ $(document).ready(function () {
         }
     });
 });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find all alert elements
+        const alerts = document.querySelectorAll('.alert');
+        
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                // Smoothly fade out the alert
+                alert.style.transition = "opacity 0.5s ease";
+                alert.style.opacity = "0";
+                
+                // Remove from DOM after fade completes
+                setTimeout(() => alert.remove(), 500);
+            }, 5000); // 5000ms = 5 seconds
+        });
+    });
+
 </script>
  </body>
 </html>
