@@ -128,7 +128,7 @@
                   $draft_id_str = implode(',', $draft_id);
                   $draft_id_str =  Crypt::encryptString($draft_id_str)  ?? '';
                 @endphp
-              <a href="{{route('summary_export',['draft_id' => $draft_id_str])}}" class="btn btn-success float-left"> {{ __('message.export_report')}}</a>
+              <a href="{{route('summary_export_all',['draft_id' => $draft_id_str])}}" class="btn btn-success float-left"> {{ __('message.export_report')}}</a>
               </h5>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
@@ -211,7 +211,6 @@
         ]
       }
       // Configuring the chart options
-      
           stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d');
           var stackedBarChartData = $.extend(true, {}, areaChartData);
           var stackedBarChartOptions = {

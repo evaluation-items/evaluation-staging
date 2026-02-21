@@ -12,15 +12,14 @@ class SchemeSend extends Model
 
     protected $table ='itransaction.scheme_send';
 
-    protected $fillable = [
+     protected $fillable = [
         'dept_id',
         'draft_id',
         'user_id',
         'created_by',
         'created_at',
-        'status_id','team_member_dd','remarks','return_eval_date'
+        'status_id','team_member_dd','remarks','return_eval_date','evaluation_sent_date','viewed','forward_btn_show','forward_id','approved'
     ];
-
     public function users()
     {
         $userIds = array_filter(explode(',', $this->team_member_dd)); // Filter out empty values

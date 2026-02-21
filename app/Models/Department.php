@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Stage;
 use App\Models\Subdepartment;
+use App\Models\DepartmentHod;
 
 class Department extends Model
 {
@@ -26,4 +27,9 @@ class Department extends Model
     {
         return $this->hasMany(Subdepartment::class, 'dept_id');
     }
+   public function hods()
+    {
+        return $this->hasMany(DepartmentHod::class, 'dept_id', 'dept_id');
+    }
+
 }

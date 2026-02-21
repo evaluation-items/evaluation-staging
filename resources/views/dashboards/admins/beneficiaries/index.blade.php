@@ -1,7 +1,85 @@
 @extends('dashboards.admins.layouts.admin-dash-layout')
 @section('title','Beneficiaries')
 @section('content')
+<style>/* Base Button Styling */
+.btn-toggle {
+  top: 10px;
+  margin: .5rem;
+  padding: 0;
+  position: relative;
+  border: none;
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 1.5rem;
+  width: 5rem;
+  outline: none;
+  background: #7C8288 !important;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
 
+/* Common styles for Yes/No text */
+.btn-toggle:before,
+.btn-toggle:after {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  position: absolute;
+  top: 0;
+  transition: opacity 0.25s;
+  color: #fff;
+  letter-spacing: 0.75px;
+  width: 100%;
+  display: block;
+}
+
+/* "No" Text positioning */
+.btn-toggle:before {
+  content: 'No';
+  text-align: right;
+  padding-right: 0.6rem;
+  opacity: 1;
+}
+
+/* "Yes" Text positioning */
+.btn-toggle:after {
+  content: 'Yes';
+  text-align: left;
+  padding-left: 0.6rem;
+  opacity: 0;
+}
+
+/* The White Circle (Handle) */
+.btn-toggle .handle {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  background: #fff !important;
+  transition: left 0.25s;
+  z-index: 2;
+}
+
+/* ACTIVE STATE (When "Yes" is selected) */
+.btn-toggle.active {
+  background-color: #1565C1 !important;
+}
+
+.btn-toggle.active .handle {
+  left: 3.2rem;
+}
+
+.btn-toggle.active:before {
+  opacity: 0;
+}
+
+.btn-toggle.active:after {
+  opacity: 1;
+}
+
+</style>
         <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
             <!--begin::Subheader-->
             <div class="subheader py-2 py-lg-6  subheader-solid " id="kt_subheader">
@@ -60,7 +138,8 @@
                               <tr>
                                   <th width="5%">{{ __('message.no')}}</th>
                                   <th width="10%">{{ __('message.name')}}</th>
-                                  <th width="10%">{{ __('message.action')}}</th>
+                                  <th width="10%">{{ __('message.status')}}</th>
+                                  <th width="10%">{{ __('message.actions')}}</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -72,6 +151,12 @@
                                       <tr>
                                           <td>{{ $i++ }}</td>
                                           <td>{{ $beneficiaries_item->name }}</td> 
+                                          <td class="text-center">
+                                          <button type="button" data-id="{{ $beneficiaries_item->id }}" class="btn  btn-sm btn-secondary btn-toggle {{ $beneficiaries_item->status == 1 ? 'active' : '' }}" data-toggle="button" aria-pressed="{{ $beneficiaries_item->status == 1 ? 'true' : 'false' }}" autocomplete="off">
+                                            <div class="handle"></div>
+                                          </button>
+
+                                        </td>
                                           <td>
                                               <a href="{{ route('beneficiaries.show',$beneficiaries_item->id) }}" class="btn btn-xs btn-info" style="display:inline-block">{{ __('message.view')}}</a>
                                               <!-- <a href="{{ route('beneficiaries.edit',$beneficiaries_item->id) }}" class="btn btn-xs btn-primary editBeneficiaries">Edit</a> -->
@@ -222,5 +307,53 @@
       }
     });
   });
+  document.querySelectorAll('.btn-toggle').forEach(ele => {
+    ele.addEventListener('click', function(e) {
+        // 1. Prevent default behavior immediately
+        e.preventDefault();
+
+        // 2. Toggle the active class for visual feedback
+        const isActive = this.classList.toggle('active');
+        
+        // 3. Get ID using vanilla JS (since you used querySelectorAll)
+        // Ensure your HTML has data-id="123"
+        const rawId = this.getAttribute('data-id');
+        
+        if (rawId) {
+            const id = btoa(rawId);
+            const url = "{{ route('beneficiaries.status', ':id') }}".replace(':id', id);
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: url,
+                data: {
+                    status: isActive ? 1 : 0,
+                    id: id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    // Using a console log is smoother than alert if reloading
+                    console.log(response.message);
+                    location.reload();
+                },
+                error: function (jqXHR, exception) {
+                    let msg = '';
+                    if (jqXHR.status === 0) msg = 'Not connect.\n Verify Network.';
+                    else if (jqXHR.status == 404) msg = 'Requested page not found. [404]';
+                    else if (jqXHR.status == 500) msg = 'Internal Server Error [500].';
+                    else if (exception === 'timeout') msg = 'Time out error.';
+                    else msg = 'Error: ' + jqXHR.responseText;
+                    
+                    alert(msg);
+                    // Revert toggle if error occurs
+                    ele.classList.toggle('active'); 
+                },
+            });
+        }
+    });
+});
 </script>
 @endsection

@@ -1,12 +1,6 @@
 @extends('dashboards.proposal.layouts.sidebar')
 @section('title','New Proposals')
-
 @section('content')
-<style>
-  .content-wrapper{
-    background-color: #8ddce9;
-  }
-</style>
 @php
   use Illuminate\Support\Facades\Crypt;
 @endphp
@@ -30,9 +24,9 @@
             </div>
             <!--end::Subheader-->
             <!--begin::Entry-->
-            <div class="d-flex flex-column-fluid">
+            <div class="row justify-content-center">
               <!--begin::Container-->
-              <div class=" container ">
+              <div class="col-md-10">
                 <div class="row">
                   @session('forward_to_dept_success')
                     <div class="alert alert-success" role="alert" style="display: block;width: -webkit-fill-available;text-align: -webkit-center;font-size: 19px;">

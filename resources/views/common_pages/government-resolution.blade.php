@@ -10,6 +10,7 @@
 .who-title {
     font-weight: 600;
     margin-bottom: 20px;
+    margin-top: 50px;
     color: #1f2d3d;
 }
 
@@ -46,8 +47,8 @@
     background-color: #f9f9f9;
 }
 </style>
-<div class="col-lg-12 col-md-12 col-sm-12 left_col">
-    <h4 class="who-title text-center">Government of Resolution/Circulars</h4>
+<div class="container">
+    <h4 class="who-title text-center mt-3">Government of Resolution/Circulars</h4>
     <div class="table-responsive">
         <table class="table table-bordered who-table">
             <thead>
@@ -57,7 +58,7 @@
                         <th>GR/Circular No.</th>
                         <th valign="top" align="left">Subject/Title</th>
                         <th width="80" valign="top" align="left" class="lastTh">Download</th>
-                        <th>Document Type</th>
+                        {{-- <th>Document Type</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -71,7 +72,7 @@
                             <img title="1987 Resolution" alt="1987 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Circular</td>
+                    {{-- <td>Circular</td> --}}
                 </tr>
                 
                 <tr>
@@ -84,7 +85,7 @@
                             <img title="2008 Resolution" alt="2008 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Circular</td>
+                    {{-- <td>Circular</td> --}}
                 </tr>
                 <tr>
                     <td>3</td>
@@ -96,7 +97,7 @@
                             <img title="2008-1 Resolution" alt="2008-1 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Circular</td>
+                    {{-- <td>Circular</td> --}}
                 </tr>
                 <tr>
                     <td>4</td>
@@ -108,19 +109,19 @@
                             <img title="2013 Resolution" alt="2013 Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Resolution</td>
+                    {{-- <td>Resolution</td> --}}
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>15 July 2015</td>
-                    <td>MLV/102015/347966/TH</td>
+                    <td>૧૫/૦૭/૨૦૧૫</td>
+                    <td>મલવ-૧૦૨૦૧૫/૩૪૭૯૬૬/ઠ</td>
                     <td>Reconstitution of Steering committee to prepare the draft of State Evaluation Policy.</td>
                     <td>
                         <a title="Resolution" target="_blank" href="{{asset('GR/resolution.pdf')}}">
                             <img title="Resolution" alt="Resolution" src=" {{asset('GR/download.png')}}" width="50px" height="50px">
                         </a>
                     </td>
-                    <td>Resolution</td>
+                    {{-- <td>Resolution</td> --}}
                 </tr>
             </tbody>
         </table>

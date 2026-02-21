@@ -3,6 +3,7 @@
 <style>
 .page-title {
     font-weight: 600;
+    margin-top: 50px;
     color: #084a84;
 }
 
@@ -34,7 +35,8 @@ p a:hover {
             <h5 class="mb-3">Address:</h5>
 
             <p class="mb-2">
-                <strong>Directorate of Evaluation of Gujarat</strong><br>
+                <strong>Directorate of Evaluation</strong><br>
+              {{ __('message.general_administration') }}<br>
                 Sector 18, Gandhinagar,<br>
                 Gujarat – 382009
             </p>
@@ -43,7 +45,6 @@ p a:hover {
                 <strong>Ph. No.:</strong>
                 <a href="tel:07923252861">079-23252861</a>
             </p>
-
             <p>
                 <strong>E-mail:</strong>
                 <a href="mailto:direvl@gujarat.gov.in">direvl@gujarat.gov.in</a>

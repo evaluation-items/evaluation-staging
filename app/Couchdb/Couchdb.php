@@ -53,7 +53,7 @@ class Couchdb
   * @param bool   $my_db_username
   * @param bool   $my_db_password
   */
- public function __construct ( $server_api_url='http://10.10.2.238:5984/', $my_db_username='niceval', $my_db_password='n!c3v@l123')
+ public function __construct ( $server_api_url='http://127.0.0.1:5984/', $my_db_username='nic', $my_db_password='nic')
 // public function __construct ( $server_api_url='http://10.10.2.54:5984/', $my_db_username='admin', $my_db_password='admin')
  {
      // The Server API Url .

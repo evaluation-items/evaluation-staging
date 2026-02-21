@@ -10,6 +10,7 @@ use App\Models\SchemeSend;
 use App\Models\Status;
 use App\Models\Scheme;
 use DB;
+use Session;
 use App\Models\Convener;
 use App\Models\GrFilesList;
 use App\Models\NotificationFileList;
@@ -1571,7 +1572,7 @@ class GadsecController extends Controller {
             $data['created_by'] = Auth::user()->name;
             $data['dept_id'] = $dept_id;
             $data['remarks'] = $request->remarks;
-            $data['evaluation_sent_date'] = date('Y-m-d h:i:s');
+            $data['evaluation_sent_date'] = date('Y-m-d');
             $data['forward_btn_show'] = 1;
             $data['forward_id'] = 1;
             $approved_by = '1';
@@ -1587,18 +1588,82 @@ class GadsecController extends Controller {
                 SchemeSend::where('draft_id',$d_id)->update(['forward_btn_show'=>1]);
             
             } else {
-                return redirect()->back()->withError('Sending Proposal is failed');
+                return redirect()->back()->withError('Sending Proposal is failed something went wrong!');
             }
             if($update){
                 $update->update($data);
             }else{
                 SchemeSend::insert($data);
             }
-            return redirect()->back()->withSuccess('Proposal sent successfully to Evalution Diector');
+            return redirect()->back()->withSuccess('Proposal sent successfully to Evalution Department.');
 
        }
     }
 
+    public function gadSchemefrwd(Request $request)
+{
+     // 🔐 Role check
+    if (Auth::user()->role != 20) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Unauthorized'
+        ], 403);
+    }
+
+    // ✅ Get from session
+    $d_id = Session::get('draft_id');
+
+    if (!$d_id) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Draft ID not found in session'
+        ], 422);
+    }
+
+    $user = Auth::user();
+
+    $data = [
+        'status_id'  => 25,
+        'user_id'   => $user->id,
+        'created_by'=> $user->name,
+        'dept_id'   => $user->dept_id,
+        'draft_id' => $d_id,
+        'remarks'  => 'This scheme will be sent directly to GAD',
+        'forward_id' => 1,
+        'created_at' => now(),
+        'evaluation_sent_date' => date('Y-m-d'),
+        'forward_btn_show' => 1,
+        'approved' => 1
+    ];
+    // Insert record
+    SchemeSend::create($data); // preferred over insert()
+
+    // Mail data
+    $details = [
+        'scheme_name' => Proposal::where('draft_id', $d_id)->value('scheme_name') ?? '-',
+        'department' => department_name($user->dept_id) ?? '-',
+        'hod_name'   => Proposal::where('draft_id', $d_id)->value('hod_name') ?? '-',
+    ];
+
+    // Optional mail
+    // Mail::to(['direvl@gujarat.gov.in','ds-plan-gad@gujarat.gov.in'])
+    //     ->send(new ForwardProposalMail($details));
+
+    // Activity log
+    Activitylog::create([
+        'userid' => $user->id,
+        'ip' => $request->ip(),
+        'activity' => 'GAD Planning Department forwarded scheme to GAD',
+        'officecode' => $user->dept_id,
+        'pagereferred' => $request->url()
+    ]);
+
+    // ✅ JSON response for AJAX
+    return response()->json([
+        'status' => true,
+        'message' => 'Proposal successfully sent to GAD.'
+    ]);
+}
     public function returntodept(Request $request) {
       
         $validate = Validator::make($request->all(),[
@@ -1654,7 +1719,7 @@ class GadsecController extends Controller {
             $data['dept_id'] = $dept_id;
             $data['forward_id'] = 1;
             $data['forward_btn_show'] = 1;
-            $data['evaluation_sent_date'] = date('Y-m-d H:i:s');
+            $data['evaluation_sent_date'] = date('Y-m-d');
             $data['remarks'] = $request->remarks;
             $s_id = '28';
             unset($data['_token']);

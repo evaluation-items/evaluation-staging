@@ -2,9 +2,9 @@
 @section('title','Ongoing Proposals')
 @section('content')
 <style>
-  .content-wrapper{
+  /* .content-wrapper{
     background: #7bc2eb;
-  }
+  } */
 </style>
  <!--begin::Content-->
  <div class="content  d-flex flex-column flex-column-fluid">
@@ -26,11 +26,10 @@
             </div>
             <!--end::Subheader-->
             <!--begin::Entry-->
-            <div class="d-flex flex-column-fluid">
+            <div class="row justify-content-center">
               <!--begin::Container-->
-              <div class="container">
+              <div class="col-md-10">
                   <!--begin::Card-->
-
                   <div class="card card-custom gutter-b" style="border: 1px solid #000;">
                       <div class="card-header flex-wrap py-3">
                         <div class="card-toolbar">
@@ -52,8 +51,8 @@
                               <th>{{ __('message.no') }}</th>
                               <th>{{ __('message.scheme_name') }}</th>
                               <th>{{ __('message.hod_name') }}</th>
-                              <th>{{ __('message.returned_date') }}</th>
-                              <th>{{ __('message.branch_name') }}</th>
+                              <!-- <th>{{ __('message.proposal_sent_to_gad') }}</th> -->
+                              <!-- <th>{{ __('message.branch_name') }}</th> -->
                               <th>{{ __('message.current_stage') }}</th>
                               <th>{{ __('message.actions') }}</th>
                             </tr>
@@ -66,8 +65,8 @@
                               <td>{{ $i++ }} </td>
                               <td>{{ SchemeName($prop->scheme_id) }}</td> 
                               <td>{{ hod_name($prop->draft_id) }}</td>
-                              <td>{{ !empty($prop->created_at) ?  date('M d Y',strtotime($prop->created_at)) : '-'}}</td>
-                              <td>{{ isset($prop->schemeSend->team_member_dd) ? branch_list($prop->schemeSend->team_member_dd) : '-' }}</td>
+                              <!-- <td>{{ !empty($prop->created_at) ?  date('M d Y',strtotime($prop->created_at)) : '-'}}</td>
+                              <td>{{ isset($prop->schemeSend->team_member_dd) ? branch_list($prop->schemeSend->team_member_dd) : '-' }}</td> -->
                               <td>{{current_stages($prop->id)}}</td> 
                               <td width="23%" class="text-center">
                                 {{-- <a href="{{ route('schemes.proposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View Scheme</a> --}}

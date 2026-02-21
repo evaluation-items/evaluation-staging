@@ -36,19 +36,42 @@ class HomeController extends Controller
     {
         return view('contact-us');
     }
-    public function publicationfront()
-    {
-        //$list = Publication::all();
-        $list = DigitalProjectLibrary::all();
-        $dept_list = [];
-        return view('publication_front_page',compact('list','dept_list'));
+    
+
+public function publicationfront(Request $request)
+{
+    $query = DigitalProjectLibrary::query();
+
+    // Search by Title
+    if ($request->search) {
+        $query->where('study_name', 'ILIKE', '%' . $request->search . '%');
     }
-    public function departmentPublication($id)
-    {
-        $list = [];
-        $dept_list = DigitalProjectLibrary::where('dept_id',$id)->get();
-        return view('publication_front_page',compact('dept_list','list'));
+
+    // Filter by Department
+    if ($request->dept_id) {
+        $query->where('dept_id', $request->dept_id);
     }
+
+    // Filter by Year
+    if ($request->year) {
+        $query->where('year', $request->year);
+    }
+
+    $dept_list = $query->orderBy('year', 'desc')
+                       ->paginate(10)
+                       ->withQueryString();
+
+    return view('publication_front_page', compact('dept_list'));
+}
+
+    // public function departmentPublication($id)
+    // {
+    //     $list = [];
+    //     $dept_list = DigitalProjectLibrary::where('dept_id', $id)->get();
+
+    //     return view('publication_front_page', compact('dept_list', 'list', 'id'));
+    // }
+
     public function getthepublicationdocument($id,$document) {
        
         try {

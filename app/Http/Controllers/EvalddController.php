@@ -1347,21 +1347,109 @@ public function updateBranch(Request $request) {
 
 public function downloadStagereport()
 {
-    try {
-
+     try {
         $report_item = Stage::with(['schemeSend' => function ($q) {
             $q->whereNotNull('team_member_dd');
         }])->whereNull('document')->get();  
 
         $current_date = now()->format('d-m-Y');
 
-        $pdf = PDF::loadView('dashboards.stage.pdf.stage-report', compact('report_item'))
-                    ->setPaper('a4', 'landscape');
+        $html = '
+            <style>
+            body {
+              
+                font-size: 12px;
+            }
 
-        return $pdf->download('stage-detail-report-' . $current_date . '.pdf');
-    } catch (Exception $e) {
-        return redirect()->back()->with(['error' => $e->getMessage()]);
+            h1 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .label {
+                font-weight: bold;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                border: 1px solid #000;
+                padding: 6px;
+                vertical-align: top;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                text-align: left;
+            }
+        </style>
+        <h1>Stage Detail Report</h1>
+        <table>
+             <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Scheme Name</th>
+                    <th>Current Stage</th>
+                </tr>
+            </thead>
+            
+            <tbody>';
+                $i=1;  
+                foreach($report_item as $prop){
+                   $html .= '<tr>
+                        <td>'.$i++.'</td>
+                        <td class="gujarati">'.SchemeName($prop->scheme_id).'</td>
+                        <td>'.current_stages($prop->id).'</td>
+                    </tr>';
+                }
+           $html .= '</tbody>
+        </table>';
+        $mpdf = new \Mpdf\Mpdf([
+            'tempDir' => sys_get_temp_dir(),
+            'mode' => 'utf-8',
+            'autoScriptToLang' => true,
+            'autoLangToFont' => true,
+           // 'default_font' => 'notosansgujarati',
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+      // Gujarati filename
+       $filename = 'stage-detail-report-' . $current_date . '.pdf';
+
+        // Get PDF as string
+        $pdfContent = $mpdf->Output('', 'S');
+
+        // Return response with UTF-8 filename header
+        return response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' =>
+                "attachment; filename*=UTF-8''" . $filename
+        ]);
+        
+    } catch (\Exception $e) {
+        // This will help you see if there is a font path error
+        return "PDF Error: " . $e->getMessage();
     }
+
+    // try {
+
+    //     $report_item = Stage::with(['schemeSend' => function ($q) {
+    //         $q->whereNotNull('team_member_dd');
+    //     }])->whereNull('document')->get();  
+
+    //     $current_date = now()->format('d-m-Y');
+
+    //     $pdf = PDF::loadView('dashboards.stage.pdf.stage-report', compact('report_item'))
+    //                 ->setPaper('a4', 'landscape');
+
+    //     return $pdf->download('stage-detail-report-' . $current_date . '.pdf');
+    // } catch (Exception $e) {
+    //     return redirect()->back()->with(['error' => $e->getMessage()]);
+    // }
     
 }
 

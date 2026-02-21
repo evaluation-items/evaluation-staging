@@ -4,71 +4,131 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use App\Models\SchemeSend;
-use Carbon\Carbon;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use App\Models\Stage;
 use App\Models\Proposal;
+use Carbon\Carbon;
 
-class SummaryReport implements FromCollection
+class SummaryReport implements FromCollection, WithHeadings, WithStyles
 {
     protected $draft_id;
 
-    function __construct($draft_id) {
+    function __construct($draft_id)
+    {
         $this->draft_id = $draft_id;
     }
 
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
-    {
-        $this->array1 = [];
-        $this->array2 = [];
+   public function collection()
+{
+    $exportData = [];
 
+    $proposal_list = Proposal::where('status_id', 23)
+        ->whereIn('draft_id', $this->draft_id)
+        ->get();
 
-        $proposal_list = Proposal::where('status_id',23)->whereIn('draft_id',$this->draft_id)->get();
-       
+    foreach ($proposal_list as $proposal) {
 
-        $exportData = [['Name of Scheme', 'Proper Report count', 'Delay Report Count']];
-        foreach ($proposal_list as $key => $proposal_data) {
-
-            $item = StageCount($proposal_data->draft_id);
-            if(!is_null($item)){
-            $schemeName = proposal_name($proposal_data->draft_id);
-                
-            //Proper Count
-            $properReportCount = 'Requisition = ' . $item['get_count']['requisition'] . ', ';
-            $properReportCount .= 'Preparation of study design and question = ' . $item['get_count']['study_design_date'] . ', ';
-            $properReportCount .= 'Approval from concern department = ' . $item['get_count']['study_design_receive_hod_date'] . ', ';
-            $properReportCount .= 'Pilot study = ' . $item['get_count']['polot_study_date'] . ', ';
-            $properReportCount .= 'Field Work = ' . $item['get_count']['field_survey_startdate']  . ', ';
-            $properReportCount .= 'Data scrutiny, entry/Validation = ' . $item['get_count']['data_entry_level_start'] . ', ';
-            $properReportCount .= 'Report writing = ' . $item['get_count']['data_entry_level_start'] . ', ';
-            $properReportCount .= 'Suggestion of concern department on report = ' . $item['get_count']['report_draft_hod_date'] . ', ';
-            $properReportCount .= 'DEC = ' . $item['get_count']['dept_eval_committee_datetime'] . ', ';
-            $properReportCount .= 'ECC = ' . $item['get_count']['eval_cor_date'] . ', ';
-            $properReportCount .= 'Publication = ' . $item['get_count']['final_report'] . ', ';
-            $properReportCount .= 'Dropped = ' . $item['get_count']['dropped'] . ', ';
-
-            //Delay Count
-            $delayReportCount = 'Requisition = ' .$item['get_count_delay']['requisition_delay']  . ', ';
-            $delayReportCount .= 'Preparation of study design and question = ' .$item['get_count_delay']['study_design_date_delay'] . ', ';
-            $delayReportCount .= 'Approval from concern department = ' .$item['get_count_delay']['study_design_receive_hod_date_delay'] . ', ';
-            $delayReportCount .= 'Pilot study = ' .$item['get_count_delay']['polot_study_date_delay'] . ', ';
-            $delayReportCount .= 'Field Work = ' .$item['get_count_delay']['field_survey_startdate_delay'] . ', ';
-            $delayReportCount .= 'Data scrutiny, entry/Validation = ' . $item['get_count_delay']['data_entry_level_start_delay'] . ', ';
-            $delayReportCount .= 'Report writing = ' .$item['get_count_delay']['data_entry_level_start_delay'] . ', ';
-            $delayReportCount .= 'Suggestion of concern department on report = ' .$item['get_count_delay']['report_draft_hod_date_delay'] . ', ';
-            $delayReportCount .= 'DEC = ' .$item['get_count_delay']['dept_eval_committee_datetime_delay'] . ', ';
-            $delayReportCount .= 'ECC = ' .$item['get_count_delay']['eval_cor_date_delay'] . ', ';
-            $delayReportCount .= 'Publication = ' .$item['get_count_delay']['final_report_delay'] . ', ';
-            $delayReportCount .= 'Dropped = ' .$item['get_count_delay']['dropped_delay'] . ', ';
-
-            $exportData[] = [$schemeName, $properReportCount, $delayReportCount];
-            }
-        
-
+        $stage = Stage::where('draft_id', $proposal->draft_id)->first();
+        if (!$stage) {
+            continue;
         }
-         return collect($exportData);
+
+        $schemeName = proposal_name($proposal->draft_id);
+
+        // Always show all 5 stages
+        $stageMap = [
+            'No. of days for Requisition' => [
+                'from' => $stage->requistion_sent_hod ?? null,
+                'to'   => $stage->requisition ?? null
+            ],
+            'Approval Study Design' => [
+                'from' => $stage->study_entrusted ?? null,
+                'to'   => $stage->study_design_hod_date ?? null
+            ],
+            'Suggestion of I.O. for Draft Report' => [
+                'from' => $stage->report_sent_hod_date ?? null,
+                'to'   => $stage->report_draft_hod_date ?? null
+            ],
+            'Date of Draft Report sent to DEC' => [
+                'from' => $stage->report_draft_sent_hod_date ?? null,
+                'to'   => $stage->dept_eval_committee_datetime ?? null
+            ],
+            'Minutes of Meeting From DEC' => [
+                'from' => $stage->dept_eval_committee_datetime ?? null,
+                'to'   => $stage->minutes_meeting_dec ?? null
+            ],
+        ];
+        $firstRow = true;
+
+        foreach ($stageMap as $stageName => $dates) {
+
+           $from = $dates['from'];
+            $to   = $dates['to'];
+
+            if ($from && $to) {
+                // both available
+                $showFrom = \Carbon\Carbon::parse($from)->format('d-m-Y');
+                $showTo   = \Carbon\Carbon::parse($to)->format('d-m-Y');
+                $days     = $this->countDays($from, $to);
+            } elseif ($from && !$to) {
+                // only from available
+                $showFrom = \Carbon\Carbon::parse($from)->format('d-m-Y');
+                $showTo   = '-';
+                $days     = 0;
+            } elseif (!$from && $to) {
+                // only to available
+                $showFrom = '-';
+                $showTo   = \Carbon\Carbon::parse($to)->format('d-m-Y');
+                $days     = 0;
+            } else {
+                // both null
+                $showFrom = '-';
+                $showTo   = '-';
+                $days     = 0;
+            }
+
+            $exportData[] = [
+                $firstRow ? $schemeName : '',
+                $stageName,
+                $days,
+                $showFrom,
+                $showTo,
+            ];
+
+
+            $firstRow = false;
+        }
+    }
+
+    return collect($exportData);
+}
+
+
+    public function headings(): array
+    {
+        return [
+            'Name of Scheme',
+            'Stage',
+            'Days',
+            'From Date',
+            'To Date'
+        ];
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1 => ['font' => ['bold' => true]],
+        ];
+    }
+
+    private function countDays($start, $end)
+    {
+        if (empty($start) || empty($end)) {
+            return 0;
+        }
+
+        return Carbon::parse($start)->diffInDays(Carbon::parse($end));
     }
 }

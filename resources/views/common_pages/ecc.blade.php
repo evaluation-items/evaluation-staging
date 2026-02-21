@@ -2,14 +2,14 @@
 
 @section('content')
 <style>
- /* .ecc-wrapper {
+.ecc-wrapper {
     margin-top: 25px;
     background: #ffffff;
     padding: 25px 30px;
     border-radius: 6px;
 }
 
-.page-title {
+ /* .page-title {
     font-weight: 600;
     /* margin-bottom: 20px; 
     color: #1f2d3d;
@@ -67,8 +67,8 @@
     transform: none !important;
 }
 </style>
-<div class="row">
-    <div class="col-lg-9 col-md-8 col-sm-12 left_col ecc-wrapper">
+<div class="container">
+    <div class="ecc-wrapper">
         <h4 class="page-title text-center">
             {{ __('message.evaluation_coordination_committee') }}
         </h4>
@@ -81,7 +81,7 @@
                     <tr>
                         <th style="width:10%">{{ __('message.sr_no') }}</th>
                         <th colspan="2">
-                            Department of Evaluation Co-ordination Committee (ECC)
+                            Evaluation Co-ordination Committee (ECC)
                         </th>
                     </tr>
                 </thead>
@@ -103,7 +103,7 @@
                     </tr>
                     <tr>
                         <td class="text-center">4</td>
-                        <td>Director, Department of Evaluation</td>
+                        <td>Director, Directorate of Evaluation</td>
                         <td class="text-center">{{ __('message.member') }}</td>
                     </tr>
                     <tr>
@@ -116,7 +116,7 @@
                     <tr>
                         <td class="text-center">6</td>
                         <td>{{ __('message.paregraph-15') }}</td>
-                        <td class="text-center">{{ __('message.invitee') }}</td>
+                        <td class="text-center">{{ __('message.member_secretary') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -128,10 +128,10 @@
 
         <ol class="function-list">
             <li>{{ __('message.paregraph-21') }}</li>
-            <li>{{ __('message.paregraph-22') }}</li>
+            {{-- <li>{{ __('message.paregraph-22') }}</li> --}}
             <li>{{ __('message.paregraph-23') }}</li>
             <li>{{ __('message.paregraph-24') }}</li>
-            <li>{{ __('message.paregraph-25') }}</li>
+            {{-- <li>{{ __('message.paregraph-25') }}</li> --}}
         </ol>
 
     </div>

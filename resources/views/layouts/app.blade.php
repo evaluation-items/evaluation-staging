@@ -40,10 +40,44 @@
                     <!-- Breadcrumb + Content -->
                     <div class="breadcrumb">
                             @php
-                                $segment = request()->segment(1);
-                                $formattedSegment = ucwords(str_replace('-', ' ', $segment));
+                                $routeName = Route::currentRouteName();
+
+                                $breadcrumbs = [
+                                    'home' => ['Home'],
+
+                                    'about-us' => ['Home', 'About Us'],
+                                    'organization-chart' => ['Home', 'About Us', 'Organization Chart'],
+                                    'vission-mission' => ['Home', 'About Us', 'Vision & Mission'],
+                                    'whos-who' => ['Home', 'About Us', 'Who’s Who'],
+
+                                    'dec' => ['Home', 'Committee', 'DEC'],
+                                    'ecc' => ['Home', 'Committee', 'ECC'],
+
+                                    'publication_front_page' => ['Home', 'Evaluation Publications'],
+                                   // 'policy-guidence' => ['Home', 'Policy & Guidence'],
+                                   'media-gallery' => ['Home', 'Media Gallery'],
+                                   'right-to-information' => ['Home', 'E-citizen', 'Right to Information'],
+                                   'government-resolution' => ['Home', 'E-citizen', 'Goverment Resolution'],
+                                    'contact-us' => ['Home', 'Contact Us'],
+                                    'login' => ['Home', 'Login for Evaluation Proposals'],
+                                ];
+
+                                $currentBreadcrumb = $breadcrumbs[$routeName] ?? ['Home'];
                             @endphp
-                            <div class="container">
+                                <div class="container">
+                                        <ol>
+                                            @foreach($currentBreadcrumb as $key => $crumb)
+                                                @if($key === 0)
+                                                    <li>
+                                                        <a href="{{ url('/') }}">{{ $crumb }}</a>
+                                                    </li>
+                                                @else
+                                                    <li class="active breadcrumCls"> {{ $crumb }}</li>
+                                                @endif
+                                            @endforeach
+                                        </ol>
+                                    </div>
+                            {{-- <div class="container">
                                 <ol>
                                     <div id="myDivrti">
                                         <li><a href="{{env('APP_URL')}}">{{ __('message.home') }}  </a></li>
@@ -51,12 +85,13 @@
                                     </div>
                                 </ol>
                             
-                            </div>
+                            </div> --}}
                         </div>
-                    <div class="row main-content-sec {{ request()->segment(1) }}">
-                    <div class="container">
+                        
+                        <div class="row main-content-sec {{ request()->segment(1) }}">
+                        
                         @yield('content')
-                    </div>
+                       
                     </div>
                 </section>
                 </main>

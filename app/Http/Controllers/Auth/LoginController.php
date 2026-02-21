@@ -3,113 +3,155 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Models\User;
-use App\Models\User_user_role;
-use App\Models\User_user_role_deptid;
-use App\Models\Department;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Rules\CaptchaRule;
+use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
-class LoginController extends Controller {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-    
-      protected function redirectTo(){
-          if(Auth::user()->role == 25) {
-              return route('admin.dashboard');
-          } 
-      }
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+class LoginController extends Controller
+{
     public function __construct()
     {
-      Auth::viaRemember();
-      $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
-   
-    // public function showLogin()
-    // {
-      
-    //   return view('auth.login');
-    // }
 
-   
-
-    public function login(Request $request): RedirectResponse {
+    public function login(Request $request): RedirectResponse
+    {
         $request->validate([
             'email'    => 'required|email',
             'password' => 'required',
-            'captcha'  => ['required', new CaptchaRule]
+            'captcha'  => ['required', new CaptchaRule],
         ]);
-        $input = $request->all();
 
-        $remember =  (isset($input) and array_key_exists('remember',$input))  ? true : false;
-        if( Auth::attempt(array('email'=>$input['email'], 'password'=>$input['password']),$remember) ){
-             $user_id= Auth::user()->id;
-             $find_user = User::where('email','=',$input['email'])->latest()->first();
-            
-             if($request->login_user ==  $find_user->login_user){
-                 if (Auth::user()->role == 25) {
-                   return redirect()->route('admin.dashboard');
-                 }
-                 if(Auth::user()->role <= 22 && Auth::user()->role_manage == 0){
-                     return redirect()->route('dashboard');   // return redirect()->route('users.dashboard');
-                 }
-                 if(Auth::user()->role <= 22 && Auth::user()->role_manage == 1){
-                   return redirect()->route('gadsec.dashboard');
-                 }
-                 if((Auth::user()->role == 23 || Auth::user()->role == 24) && Auth::user()->role_manage == 2){
-                   return redirect()->route('evaldir.dashboard');
-                 }
-                 if(Auth::user()->role_manage == 3 || Auth::user()->role_manage == 4){
-                   return redirect()->route('evaldd.dashboard');
-                 }
-             }else{
-               return redirect('login')->withError("You don't have use diffrent email for diffrent department login. please set proper email and password.");
-             }
-             
-        }else{
-            return redirect('login')->withError('Email and password are incorrect.please try again.');
+        $remember = $request->boolean('remember');
+
+        if (! Auth::attempt(
+            ['email' => $request->email, 'password' => $request->password],
+            $remember
+        )) {
+            return redirect('login')
+                ->withError('Email and password are incorrect. Please try again.');
         }
- 
+
+        // ? Regenerate session (security)
+        $request->session()->regenerate();
+
+        // ? Enforce single session per user
+        DB::table('sessions')
+            ->where('user_id', Auth::id())
+            ->where('id', '!=', session()->getId())
+            ->delete();
+
+        $user = Auth::user();
+
+        // ? Role-based redirects (unchanged logic)
+        if ($user->role == 25) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($user->role <= 22 && $user->role_manage == 0) {
+            return redirect()->route('dashboard');
+        }
+
+        if ($user->role <= 22 && $user->role_manage == 1) {
+            return redirect()->route('gadsec.dashboard');
+        }
+
+        if (
+            ($user->role == 23 || $user->role == 24) &&
+            $user->role_manage == 2
+        ) {
+            return redirect()->route('evaldir.dashboard');
+        }
+
+        if (in_array($user->role_manage, [3, 4])) {
+            return redirect()->route('evaldd.dashboard');
+        }
+
+        // fallback (safety)
+        return redirect('/');
     }
 
-    public function logout(Request $request): RedirectResponse {
-      
-      Auth::logout();
-  
-      $request->session()->invalidate();
-  
-      $request->session()->regenerateToken();
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect('login');
     }
+
     public function refreshCaptcha()
     {
-        return response()->json(['captcha'=> captcha_img('flat')]);
+        return response()->json([
+            'captcha' => captcha_img('clean')
+        ]);
     }
+     public function forceReset($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('login')->withError("User not found.");
+        }
+
+        return view('auth.force-reset', compact('user'));
+    }
+
+      public function forceResetSubmit(Request $request)
+      {
+        try {
+            $userId = Crypt::decrypt($request->user_id);
+        } catch (\Exception $e) {
+            return redirect()->route('login')->withErrors(['error' => 'Invalid request.']);
+        }
+        $user = User::find($userId);
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['error' => 'User not found.']);
+        }
+            $request->validate([
+            'email' => [
+                'required',
+                'email:rfc,dns', // ✅ Better email validation
+                Rule::unique('users', 'email')->ignore($userId),
+
+                // ✅ OPTIONAL: Restrict to gov.in only (uncomment if needed)
+                // function ($attribute, $value, $fail) {
+                //     if (!preg_match('/\.gov\.in$/', $value)) {
+                //         $fail('Only government email addresses are allowed.');
+                //     }
+                // }
+            ],
+            'password' => [
+                'required',
+                'confirmed',
+                'min:8',
+                'regex:/[a-z]/',      // lowercase
+                'regex:/[A-Z]/',      // uppercase
+                'regex:/[0-9]/',      // number
+            ],
+        ]);
+    
+         $updated = DB::table('public.users')
+              ->where('id', $userId)
+              ->update([
+                  'email'          => $request->email,
+                  'password'       => Hash::make($request->password),
+                  'is_first_login' => false,
+                  'email_verified_at' => now(),
+              ]);
+
+          if ($updated === 0) {
+              return back()->withErrors(['error' => 'Nothing was updated']);
+          }
+          Auth::logout();
+
+          return redirect('login')->withSuccess('Credentials updated. Please login with new email & password.');
+      }
 }

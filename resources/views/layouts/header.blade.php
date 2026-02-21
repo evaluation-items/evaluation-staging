@@ -238,10 +238,10 @@
                     <h1 class="mb-1 fw-bold text-dark" style="font-weight:bold; font-size:1.25rem;">
                         {{ __('message.director_of_evaluation') }}
                     </h1>
-                    <div class="text-secondary" style="font-size: 0.95rem;margin-top: 1%;">
+                    <div class="text-secondary" style="margin-top: 5px;">
                         <strong> Directorate of Evaluation </strong> <br>
                         {{ __('message.general_administration') }}<br>
-                         <strong>{{ __('message.government_of_gujarat') }}</strong>
+                         {{ __('message.government_of_gujarat') }}
                     </div>
                 </div>
             </div>
@@ -251,7 +251,7 @@
                 <img src="{{ asset('img/nic_logo.jpg') }}" alt="NIC Logo" style="height: 55px;" class="nic-image">
             </div>
         </div>
-    </div>
+    </div> 
     <nav style="margin: 28px 0px 0px 0px !important;">
         <div class="container">
             <div class="row">
@@ -273,6 +273,11 @@
                                     <h2 class="sub_title">
                                         <a href="{{ route('organization-chart') }}">
                                             {{ __('message.organization_chart') }}
+                                        </a>
+                                    </h2>
+                                    <h2 class="sub_title">
+                                        <a href="{{ route('vission-mission') }}">
+                                            Vision, Mission
                                         </a>
                                     </h2>
                                     <h2 class="sub_title">
@@ -309,7 +314,7 @@
                                 <a aria-label="privacy-guidance" href="javascript:void(0)">Policy guidance</a>
                             </li>
                             <li>
-                                <a aria-label="media-gallery" href="javascript:void(0)">Media gallery</a>
+                                <a aria-label="media-gallery" href="{{route('media-gallery')}}">Media gallery</a>
                             </li>
                             <li>
                                 <a  href="javascript:void(0)">E-Citizen <i class="fa fa-caret-down" aria-hidden="true"></i></a>

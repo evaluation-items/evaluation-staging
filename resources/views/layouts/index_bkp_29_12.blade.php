@@ -97,8 +97,37 @@
   text-decoration:none;
   letter-spacing:1px;
 }
+
+/* .hero-banner {
+    width: 100vw;
+    height: 480px;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+    background: #000;
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Mobile responsive 
+@media (max-width: 768px) {
+    .hero-banner {
+        height: 260px;
+    }
+} */
     </style>
     <section>
+         <div class="hero-banner">
+        <img src="{{ asset('img/graph-1.jpeg') }}" alt="Government Banner">
+    </div>
         <div id="slider">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}

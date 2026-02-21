@@ -4,19 +4,28 @@
 
 <link href="{{asset('plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
 <style>
-
-
-/* Eye Icon */
-.toggle-password {
-    position: absolute;
-    right: 44px;
-    top: 37%;
-    cursor: pointer;
-    color: #888;
+.position-relative {
+   position: relative;
+	display: flex;
+	align-items: center;
 }
 
-.toggle-password:hover {
-    color: #333;
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #888;
+    z-index: 10;
+}
+
+/* Ensure text doesn't hide behind the eye when typing */
+.form-control {
+    padding-right: 40px !important;
+}
+
+/* IMPORTANT: Prevent text from typing underneath the eye icon */
+.form-control {
+    padding-right: 45px !important;
 }
 .error{
 	color: #e02d2d !important;
@@ -62,18 +71,21 @@
 					</div>
 					<div class="form-group">
 						<label for="password">Password <span class="required_filed"> * </span></label>
-						<input id="password" type="password" class="form-control" name="password" placeholder="Enter password" required>
-						{{-- <div class="password-wrapper"> --}}
+						<div class="position-relative">
+							<input id="password" type="password" class="form-control" name="password" placeholder="Enter password" required>
 							<span class="toggle-password">
 								<i class="fa fa-eye" id="toggleIcon"></i>
 							</span>
-						{{-- </div> --}}
+						</div>
+					</div>
+					<div class="mt-4 text-center">
+						<a href="{{ route('password.request') }}">Forgot Password</a>
 					</div>
 					<div class="form-group">
 						<label for="captcha" style="margin-top:2%;">{{ __('message.captcha')}} <span class="required_filed"> * </span></label>
 						<div class="captcha">
-							<span class="captcha-img">{!! captcha_img('flat') !!}</span>
-							<button type="button" class="btn btn-refresh" style="margin-top: -10%;"><i class="fa fa-refresh" style="font-size:22px;"></i>												</button>
+							<span class="captcha-img">{!! captcha_img('clean') !!}</span>
+							<button type="button" class="btn btn-refresh"><i class="fa fa-refresh" style="font-size:22px;"></i>												</button>
 						</div>
 						<input id="captcha" name="captcha" type="text" class="form-control" placeholder="Enter Captcha" required >
 						@if ($errors->has('message'))

@@ -8,5 +8,10 @@ class Sdggoals extends Model {
     protected $primaryKey = 'goal_id';
     public $timestamps = false;
     protected $guarded = [];
+
+    protected $fillable = [
+        'goal_name_guj',
+        'goal_name','status'
+    ];
 }
 

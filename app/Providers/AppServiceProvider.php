@@ -40,5 +40,6 @@ class AppServiceProvider extends ServiceProvider {
         if (session()->has('locale')) {
              app()->setLocale(session('locale'));
         }
+		view()->share('lastUpdated', date("d-m-Y H:i:s", filemtime(base_path('routes/web.php'))));
     }
 }

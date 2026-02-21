@@ -187,7 +187,17 @@ class ProposalController extends Controller
         $completed_count = $this->count_all_proposals("completed");
         $sentprops = SchemeSend::pluck('draft_id');
         
-        $scheme_list = Proposal::where('dept_id',Auth::user()->dept_id)->orderBy('draft_id','desc')->pluck('scheme_name','draft_id',);
+        $scheme_list = Proposal::where('dept_id', Auth::user()->dept_id)
+                                ->whereNotNull([
+                                    'scheme_name',
+                                    'draft_id',
+                                    'major_objective',
+                                    'major_indicator',
+                                ])
+                                ->groupBy('scheme_name', 'draft_id')
+                                ->orderBy('draft_id', 'desc')
+                                ->pluck('scheme_name', 'draft_id');
+
 
         $draft_id = [];
         foreach ($scheme_list as $key => $value) {

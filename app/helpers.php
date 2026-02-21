@@ -28,7 +28,7 @@ if (!function_exists('is_gujarati')) {
   }
 
   function beneficiariesGeoLocal() {
-    return App\Models\Beneficiaries::all();
+    return App\Models\Beneficiaries::active()->get();
 
     // return [
     //     '1' => 'State',
@@ -161,19 +161,35 @@ if (!function_exists('is_gujarati')) {
     }
     function hod_name($draft_id)
     {
-      if(!is_null($draft_id)){
-        $hod_name = App\Models\Proposal::where('draft_id',$draft_id)->value('hod_name');
-        if(!is_null($hod_name)){
-          return $hod_name;
-        }else{
-            return '-';
-        }
-      }
+         $value = App\Models\Proposal::where('draft_id',$draft_id)->value('implementing_office');
+
+            if (!$value) {
+                return '';
+            }
+            $list = array_map('trim', explode(',', $value));
+
+            if (is_numeric($list[0])) {
+                $names = App\Models\DepartmentHod::whereIn('id', $list)
+                    ->pluck('name')
+                    ->toArray();
+            } else {
+                $names = $list;
+            }
+            // ✅ Convert array to string
+            return implode(', ', $names);
+    //   if(!is_null($draft_id)){
+    //     $hod_name = App\Models\Proposal::where('draft_id',$draft_id)->value('hod_name');
+    //     if(!is_null($hod_name)){
+    //       return $hod_name;
+    //     }else{
+    //         return '-';
+    //     }
+    //   }
     }
     function department_hod_name($id)
     {
       if(!is_null($id)){
-        $hod_list = App\Models\DepartmentHod::where('dept_id',$id)->pluck('name')->toArray();
+        $hod_list = App\Models\DepartmentHod::where('dept_id',$id)->select('id','name')->get();
         if(!is_null($hod_list)){
           return $hod_list;
         }else{
@@ -280,40 +296,59 @@ if (!function_exists('is_gujarati')) {
         $stage = App\Models\Stage::find($stage_id);
     
         $fields = [
-            'requisition' => 'Requisition',
-            'scheme_hod_date' => 'Additional information / data of the scheme is sought to Implementing Office (HOD)',
-            'study_design_date' => 'Study Design and Schedule Preparation',
-            'study_design_hod_date' => 'Study Design and Survey Forms sent to Implementing Office (HOD) for inputs',
-            'study_design_receive_hod_date' => 'Inputs on Study Design and Survey Forms received from Implementing Office (HOD)',
-            'polot_study_date' => 'Pilot study /Digitization of Survey Forms Completed',
-            'field_survey_startdate' => 'Field Survey Start',
-            'field_survey_enddate' => 'Field Survey End',
-            'data_statistical_startdate' => 'Data cleaning and Statistical Analysis Start',
-            'data_statistical_enddate' => 'Data cleaning and Statistical Analysis End',
-            'report_startdate' => 'Report writing Start',
-            'report_enddate' => 'Report writing End',
-            'report_sent_hod_date' => 'Draft Report sent to Implementing Office (HOD) for inputs',
-            'report_draft_hod_date' => 'Inputs on Draft Report received from Implementing Office (HOD)',
-            'report_draft_sent_hod_date' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
-            'dept_eval_committee_datetime' => 'Date of Departmental Evaluation Committee (DEC)',
-            'draft_sent_eval_committee_date' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
-            'eval_cor_date' => 'Date of Evaluation Coordination Committee (ECC)',
             'final_report' => 'Published',
+            'eval_cor_date' => 'Evaluation Coordination Committee (ECC)',
+            'draft_sent_eval_committee_date' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
+            'dept_eval_committee_datetime' => 'Departmental Evaluation Committee (DEC)',
+            'report_draft_sent_hod_date' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
+            'report_draft_hod_date' => 'Inputs on Draft Report received from Implementing Office (HOD)',
+            'report_sent_hod_date' => 'Draft Report sent to Implementing Office (HOD) for inputs',
+            'report_enddate' => 'Report writing End',
+            'report_startdate' => 'Report writing Start',
+            'data_statistical_enddate' => 'Data cleaning and Statistical Analysis End',
+            'data_statistical_startdate' => 'Data cleaning and Statistical Analysis Start',
+            'field_survey_enddate' => 'Field Survey End',
+            'field_survey_startdate' => 'Field Survey Start',
+            'polot_study_date' => 'Pilot study /Digitization of Survey Forms Completed',
+            'study_design_receive_hod_date' => 'Inputs on Study Design and Survey Forms received from Implementing Office (HOD)',
+            'study_design_hod_date' => 'Study Design and Survey Forms sent to Implementing Office (HOD) for inputs',
+            'study_design_date' => 'Study Design and Schedule Preparation',
+            'scheme_hod_date' => 'Additional information / data of the scheme is sought to Implementing Office (HOD)',
+            'requisition' => 'Requisition',
             'dropped' => 'Dropped'
         ];
+
+
+        //  $fields = [
+        //     'requisition' => 'Requisition',
+        //     'scheme_hod_date' => 'Additional information / data of the scheme is sought to Implementing Office (HOD)',
+        //     'study_design_date' => 'Study Design and Schedule Preparation',
+        //     'study_design_hod_date' => 'Study Design and Survey Forms sent to Implementing Office (HOD) for inputs',
+        //     'study_design_receive_hod_date' => 'Inputs on Study Design and Survey Forms received from Implementing Office (HOD)',
+        //     'polot_study_date' => 'Pilot study /Digitization of Survey Forms Completed',
+        //     'field_survey_startdate' => 'Field Survey Start',
+        //     'field_survey_enddate' => 'Field Survey End',
+        //     'data_statistical_startdate' => 'Data cleaning and Statistical Analysis Start',
+        //     'data_statistical_enddate' => 'Data cleaning and Statistical Analysis End',
+        //     'report_startdate' => 'Report writing Start',
+        //     'report_enddate' => 'Report writing End',
+        //     'report_sent_hod_date' => 'Draft Report sent to Implementing Office (HOD) for inputs',
+        //     'report_draft_hod_date' => 'Inputs on Draft Report received from Implementing Office (HOD)',
+        //     'report_draft_sent_hod_date' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
+        //     'dept_eval_committee_datetime' => 'Departmental Evaluation Committee (DEC)',
+        //     'draft_sent_eval_committee_date' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
+        //     'eval_cor_date' => 'Evaluation Coordination Committee (ECC)',
+        //     'final_report' => 'Published',
+        //     'dropped' => 'Dropped'
+        // ];
     
-        $lastNonNullColumn = null;
-        foreach ($fields as $field => $text) {
+       foreach ($fields as $field => $text) {
             if (!empty($stage->$field)) {
-                $lastNonNullColumn = $field;
+                return $text; // return first match (highest priority)
             }
         }
-    
-        if (!is_null($lastNonNullColumn)) {
-            return $fields[$lastNonNullColumn];
-        } else {
-            return 'Requisition';
-        }
+
+        return 'Requisition sent to Concern Department';
       } else {
           return '-';
       }    
@@ -336,9 +371,9 @@ if (!function_exists('is_gujarati')) {
         'report_sent_hod_date' => 'Draft Report sent to Implementing Office (HOD) for inputs',
         'report_draft_hod_date' => 'Inputs on Draft Report received from Implementing Office (HOD)',
         'report_draft_sent_hod_date' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
-        'dept_eval_committee_datetime' => 'Date of Departmental Evaluation Committee (DEC)',
+        'dept_eval_committee_datetime' => 'Departmental Evaluation Committee (DEC)',
         'draft_sent_eval_committee_date' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
-        'eval_cor_date' => 'Date of Evaluation Coordination Committee (ECC)',
+        'eval_cor_date' => 'Evaluation Coordination Committee (ECC)',
         'final_report' => 'Published',
         'dropped' => 'Dropped'
     ];
@@ -791,5 +826,42 @@ function current_stage_key($stage_id) {
     }
     return $count;
    }
-   
+   function implementingOfc($scheme_id)
+    {
+     
+          $value = App\Models\Scheme::where('scheme_id', $scheme_id)
+        ->value('implementing_office');
+
+            if (!$value) {
+                return '';
+            }
+
+            $list = array_map('trim', explode(',', $value));
+
+            if (is_numeric($list[0])) {
+                $names = App\Models\DepartmentHod::whereIn('id', $list)
+                    ->pluck('name')
+                    ->toArray();
+            } else {
+                $names = $list;
+            }
+
+            // ✅ Convert array to string
+            return implode(', ', $names);
+    }
+    function completedStudy($date) {
+
+        $date = \Carbon\Carbon::parse($date);
+
+        // If date is before April → previous FY completed
+        if ($date->month < 4) {
+            $startYear = $date->year - 2;
+            $endYear   = $date->year - 1;
+        } else {
+            $startYear = $date->year - 1;
+            $endYear   = $date->year;
+        }
+
+        return $startYear . '-' . substr($endYear, -2);
+    }
 ?>

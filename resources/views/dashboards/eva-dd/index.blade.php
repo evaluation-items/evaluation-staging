@@ -224,6 +224,7 @@
 
   var barChart;
   function donutChart(){
+
     const chartLabels = @json(__('message.chart_labels'));
     const delayLabel = "{{ __('message.delay_stage_sop_count') }}";
     const earlyLabel = "{{ __('message.early_stage_completion_count') }}";
@@ -241,17 +242,17 @@
           pointHighlightStroke: 'rgba(60,141,188,1)',
         //  data                : [28, 48, 40, 19, 86, 27, 90]
         },
-        {
-          label               : earlyLabel, //grey
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
+       // {
+        //   label               : earlyLabel, //grey
+        //   backgroundColor     : 'rgba(210, 214, 222, 1)',
+        //   borderColor         : 'rgba(210, 214, 222, 1)',
+        //   pointRadius         : false,
+        //   pointColor          : 'rgba(210, 214, 222, 1)',
+        //   pointStrokeColor    : '#c1c7d1',
+        //   pointHighlightFill  : '#fff',
+        //   pointHighlightStroke: 'rgba(220,220,220,1)',
        //   data                : [65, 59, 80, 81, 56, 55, 40]
-        },
+        //},
       ]
     }
    
@@ -271,7 +272,7 @@
             categoryPercentage: 0.8, // Adjust the value as needed (0.8 means 80% of available space)
             scaleLabel: {
               display: true,
-              labelString: '<-- Stage wise Status of Evaluation Studies -->',
+              labelString: '<-- Department Action for Evaluation Study -->',
               fontColor: 'green', 
                 fontFamily:"monospace",
                 fontSize: 17,
@@ -289,31 +290,43 @@
                   },
                     beginAtZero:true,
                     fontColor: 'black',
-                    fontSize: 16,
+                    fontSize: 14,
                     fontFamily:"monospace", 
                 },
             // Other X-axis configurations
           }],
           yAxes: [{
-            ticks: {
-                min: 0,
-                max: 500,
-                stepSize: 50,
-                fontColor: 'black',
-                fontSize: 16,
-                fontFamily: "monospace",
-            },
-            scaleLabel: {
-              display: true,
-              labelString: '<-- Stages Day AS Per SOP -->',
-              fontColor: 'green',  // Set color for Y-axis title
-                fontFamily:"monospace", 
-                fontSize: 17,
-                padding: {
-                  left: 20, 
-                  right: 20
-                }
-            },
+              ticks: {
+                  min: 0,
+                  max: 300,
+                  stepSize: 30,          // 🔒 compulsory
+                  padding: 15,           // 🔴 creates gap between labels
+                  fontColor: 'black',
+                  fontSize: 16,
+                  fontFamily: "monospace",
+                  beginAtZero: true
+              },
+              gridLines: {
+                  drawBorder: true,
+                  lineWidth: 1,
+                  color: 'rgba(0,0,0,0.1)',
+                  zeroLineColor: 'rgba(0,0,0,0.25)',
+                  tickMarkLength: 10     // 🔴 extra vertical space
+              },
+              scaleLabel: {
+                  display: true,
+                  labelString: '<-- No. of Days -->',
+                  fontColor: 'green',
+                  fontFamily: "monospace",
+                  fontSize: 17,
+                  padding: {
+                      top: 10,
+                      bottom: 10
+                  }
+              },
+              afterFit: function (scale) {
+                  scale.height += 25;    // 🔴 FORCE extra Y-axis space
+              }
           }]
         }
       };
@@ -323,9 +336,7 @@
         data: barChartData,
         options: barChartOptions
     })
-  
   }
-
 $(document).ready(function(){
     var barChartCanvas = $('#barChart').get(0).getContext('2d');
     $('#collapseTwo').collapse('show');
@@ -349,34 +360,11 @@ function withoutOnchange(){
                     success: function (data) {
                           // Update the chart data
                     barChart.data.datasets[0].data = [
-                        data['requisition_delay'],
-                        data['study_design_date_delay'],
-                        data['study_design_receive_hod_date_delay'],
-                        data['polot_study_date_delay'],
-                        data['field_survey_startdate_delay'],
-                        data['data_entry_level_start_delay'],
-                        data['report_startdate_delay'],
-                        data['report_draft_hod_date_delay'],
-                        data['dept_eval_committee_datetime_delay'],
-                        data['eval_cor_date_delay'],
-                        data['final_report_delay'],
-                        data['dropped_delay']
-                    ];
-
-                    barChart.data.datasets[1].data = [
-                        data['requisition'],
-                        data['study_design_date'],
-                        data['study_design_receive_hod_date'],
-                        data['polot_study_date'],
-                        data['field_survey_startdate'],
-                        data['data_entry_level_start'],
-                        data['report_startdate'],
-                        data['report_draft_hod_date'],
-                        data['dept_eval_committee_datetime'],
-                        data['eval_cor_date'],
-                        data['final_report'],
-                        data['dropped']
-                    ];
+                          data['requistion_sent_hod'],
+                          data['study_entrusted'],
+                          data['draft_report'],
+                          data['draft_report_send'],
+                      ];
 
                     // Update the chart
                     barChart.update();
@@ -388,7 +376,7 @@ function withoutOnchange(){
                 });
         } else {
           
-             alert("There is doesn't have any scheme");
+             //alert("There is doesn't have any scheme");
              $('#accordion').css('display','none');
         }
 }
@@ -407,35 +395,13 @@ $('#scheme_list').on('change', function () {
                     },
                     success: function (data) {
                           // Update the chart data
-                    barChart.data.datasets[0].data = [
-                        data['requisition_delay'],
-                        data['study_design_date_delay'],
-                        data['study_design_receive_hod_date_delay'],
-                        data['polot_study_date_delay'],
-                        data['field_survey_startdate_delay'],
-                        data['data_entry_level_start_delay'],
-                        data['report_startdate_delay'],
-                        data['report_draft_hod_date_delay'],
-                        data['dept_eval_committee_datetime_delay'],
-                        data['eval_cor_date_delay'],
-                        data['final_report_delay'],
-                        data['dropped_delay']
+                   barChart.data.datasets[0].data = [
+                        data['requistion_sent_hod'],
+                        data['study_entrusted'],
+                        data['draft_report'],
+                        data['draft_report_send'],
                     ];
 
-                    barChart.data.datasets[1].data = [
-                        data['requisition'],
-                        data['study_design_date'],
-                        data['study_design_receive_hod_date'],
-                        data['polot_study_date'],
-                        data['field_survey_startdate'],
-                        data['data_entry_level_start'],
-                        data['report_startdate'],
-                        data['report_draft_hod_date'],
-                        data['dept_eval_committee_datetime'],
-                        data['eval_cor_date'],
-                        data['final_report'],
-                        data['dropped']
-                    ];
 
                     // Update the chart
                     barChart.update();

@@ -8,7 +8,7 @@ return [
     'increase_font' => 'Increase font size',
     'english' => 'English',
     'gujarati' => 'ગુજરાતી',
-    'director_of_evaluation' => 'Transforming Survey Ecoystem',
+    'director_of_evaluation' => 'Transforming Survey Ecosystem',
     'general_administration' => 'General Administration Department (Planning Division)',
     'government_of_gujarat' => 'Government of Gujarat',
     'home' => 'Home',
@@ -32,7 +32,7 @@ return [
     'org_structure' => 'Organization Structure of Directorate',
     'advisory_committee' => 'Formation of Advisory Committee for Director of Evaluation',
     'functions_of_committee' => 'Functions of Committee',
-    'evaluation_coordination_committee' => 'Evaluation Coordination Committee (ECC)',
+    'evaluation_coordination_committee' => 'Evaluation Co-ordination Committee (ECC)',
     'schemes_for_evaluation' => 'Schemes/Programs Generally Taken for Evaluation Study:',
     'process_of_evaluation' => 'Evaluation Process',
     'other_offices' => 'Other Offices',
@@ -76,7 +76,7 @@ return [
     'officer_login' => 'Officer Login',
     'select_officer' => 'Select Officer',
     'concern_department' => 'Concern Department',
-    'gad_planing' => 'GAD Planing',
+    'gad_planing' => 'GAD Planning',
     'evaluation_office' => 'Evaluation Office',
     'email' => 'E-Mail Address',
     'password' => 'Password',
@@ -97,10 +97,10 @@ return [
     'add_requisition' => 'Add Requisition',
     'add_new_requisition_form' => 'Add New Requisition Form',
     'no_of_new_proposals' => 'No. of New Proposals',
-    'no_of_forwraded_proposals' => 'No. of Forwraded Proposals',
-    'no_of_returned_proposals' => 'No. of Returned Proposals',
+    'no_of_forwraded_proposals' => 'No. of Proposals Forwarded',
+    'no_of_returned_proposals' => 'No. of Proposals Returned',
     'no_of_on-going_studies' => 'No. of On-going Studies',
-    'no_of_complete_studies' => 'No. of Complete  Studies',
+    'no_of_complete_studies' => 'No. of Studies Completed',
     'export_report' => 'Export Report',
     'bar_chart' => 'Bar Chart',
     'welcome' => 'Welcome',
@@ -109,7 +109,8 @@ return [
     'hello' => 'Hello!',
     'select_scheme' => 'Select Scheme',
     
-    'chart_labels' => [
+
+   'chart_labels' => [
         'Requisition',
         'Study Design',
         'Approval from concern department',
@@ -138,9 +139,25 @@ return [
         'Dropped' => 30,
     ],
 
-    'delay_stage_sop_count' => 'Delay Stage SOP Count',
+    'chart_labels_con_dept' => [
+        'Requisition Stage',
+        'Study Design Approval Stage',
+        'Suggestion for I.O. on Draft Report',
+        'Draft Report Submission to DEC Stage',
+        'DEC Meeting & Minutes Stage',
+    ],
+    'chart_stage_scores_con_dept' => [
+        'Requisition Stage' => 30,
+        'Study Design Approval Stage' => 30,
+        'SSuggestion for I.O. on Draft Report' => 15,
+        'Draft Report Submission to DEC Stage'=> 30,
+        'DEC Meeting & Minutes Stage' => 30,
+    ],
+
+    'delay_stage_sop_count' => 'Action Taken Report Concern Department',
     'early_stage_completion_count' => 'Early Stage Completion Count',
 
+    
    //Profile
     'change_picture' => 'Change picture',
     'personal_information' => 'Personal Information',
@@ -171,7 +188,7 @@ return [
 
     //Concern Department Forward Proposal page
     'forward_proposal_desc' => 'Proposals of Evaluation study Forwarded to GAD',
-    'proposal_sent_to_gad' => 'Proposal sent to GAD',
+    'proposal_sent_to_gad' => 'Proposal sent from GAD',
     'remarks' => 'Remarks',
 
     //Concern Department Return Proposal Page
@@ -200,16 +217,16 @@ return [
     'gad_desc' => 'List of new proposals received from Concern Department',
 
     //Gad-sec Sidebar
-    'returned_proposals' => 'Returned Proposals',
-    'ongoing_proposals' => 'Ongoing Proposals',
-    'approved_proposals' => 'Approved/Forwarded Proposals',
+    'returned_proposals' => 'Proposals Returned',
+    'ongoing_proposals' => 'Proposals Ongoing',
+    'approved_proposals' => 'Proposals Approved/Forwarded',
     'detail_reports' => 'Detail Reports',
 
     //Gad Dashboard
-    'no_of_approved_proposals' => 'No. of Approved/Forward Proposals to DoE',
+    'no_of_approved_proposals' => 'No. of Proposals Approved/Forward to DoE',
     'gad_secretary' => 'GAD Secretary',
 
-    //Gad Forwared
+    //Gad Forwarded
     'scheme_overview' => 'Scheme Overview',
     'scheme_objective' => 'Scheme Objective',
 
@@ -400,23 +417,23 @@ return [
     'paregraph-1' => 'A number of development schemes/programmes covering almost every socio-economic aspect of life in rural and urban areas have been launched by the Government. It is in this context that the need for an efficient evaluation system had been strongly felt if maximum benefits are to be derived from these schemes/programmes.In pursuance of the recommendations of the Working Group of Evaluation in the State set up by the Planning Commission, a State Government has created separate set up of Directorate of Evaluation in March 1965 as an integral part of the evaluation machinery. The Directorate of Evaluation was thereafter declared as the head of office in 1st April 1965. Keeping in view the increase works and responsibilities the State Govt. has also declared the Directorate of Evaluation as the Head of Department in July 1991.',
     'paregraph-2' => 'The Directorate of Evaluation is working under the Supervision and Control of Additional Chief Secretary/Principal Secretary/Secretary, General Administration Department (Planning). For efficient functioning and carry out the studies, the Director is headed by the Sr. Class I officer from the cadre of Gujarat Statistical Services. For undertaking the various evaluation studies Government has also sanctioned 75 posts as follows:',
     'paregraph-3' => 'For proper monitoring and evaluation of schemes/programmes Government had constituted various Advisory Committees shown below:',
-    'paregraph-4' => 'Evaluation Coordination Committee (DEC)',
-    'paregraph-5' => 'Evaluation Committee constituted in various secretariat departments. The composition of the committee.',
+    'paregraph-4' => 'Departmental Evaluation Committee (DEC)',
+    'paregraph-5' => 'Evaluation Committee constituted in various secretariat departments. The composition of the committee is as under:',
     'paregraph-6' => 'Additional Chief Secretary/Principal Secretary/Secretary of Concerned department',
     'paregraph-7' => 'Head of Department of concerned implementing office',
     'paregraph-8' => 'Deputy Secretary, General Administration Department (Planning)',
-    'paregraph-9' => 'Financial Advisor of concerned department',
-    'paregraph-10' => 'Deputy Secretary of concerned department',
+    'paregraph-9' => 'Financial Advisor of Concerned Department',
+    'paregraph-10' => 'Deputy Secretary of Concerned Department',
     'paregraph-11' => 'Additional Chief Secretary/Principal Secretary/Secretary, General Administration Department (Planning)',
     'paregraph-12' => 'Principal Secretary (Expenditure)Finance Department',
     'paregraph-13' => 'Joint Secretary, Energy and Petrochemicals Department',
     'paregraph-14' => 'Deputy Secretary,Tribal Development Department',
     'paregraph-15' => 'Deputy Secretary General Administrative Department (Planning)',
-    'paregraph-16' => 'Additional Chief Secretary/Principal Secretary/Secretary of Concerned department',
+    'paregraph-16' => 'Additional Chief Secretary/Principal Secretary/Secretary of Concerned Department',
     'paregraph-17' => 'To suggest plan schemes/programmes of evaluation study.',
     'paregraph-18' => 'To finalize the Draft Evaluation Report.',
     'paregraph-19' => 'To review the follow up action taken on the recommendations made in the report.',
-    'paregraph-20' => 'Evaluation Co-ordination Committee constituted under the Chairmanship of Additional Chief Secretary/Principal Secretary/ Secretary, General Administration Department. The composition of the committee.',
+    'paregraph-20' => 'Evaluation Co-ordination Committee constituted under the Chairmanship of Additional Chief Secretary/Principal Secretary/ Secretary, General Administration Department. The composition of the committee is as under:',
     'paregraph-21' => 'To collect proposals of schemes/programmes of evaluation.',
     'paregraph-22' => 'To co-ordinate the proposals received from the Secretariat Departments and finalise for evaluation study every year and entrust the work of evaluation study to the Directorate of Evaluation.',
     'paregraph-23' => 'To observe the Draft Evaluation Report approved by Departmental Evaluation Committee and gives its approval.',
@@ -448,11 +465,13 @@ return [
     //Create Stages Page
 
     'proposal_date'=> 'Proposal Received Date',
-    'study_entrusted' => 'Study Entrusted to Directorate of Evaluation',
-    'requistion_sent_hod' => 'Requisition sent to Implementing Office (HOD)',
+    'requistion_sent_hod' => 'Requisition sent Form Concern Department',
+    'requistion_received_date' => 'Requisition Received Date',
+   // 'study_entrusted' => 'Study Entrusted to Directorate of Evaluation',
     'additional_info' => 'Additional information / data of the scheme is sought to Implementing Office (HOD)',
     'information_received_from_io' => 'Information Received from Implementing Office (HOD)',
     'study_design' => 'Study Design and Schedule Preparation',
+    'study_design_sent_concern_department' => 'Study Design sent to Concern Department',
     'study_design_survey' => 'Study Design and Survey Forms sent to Implementing Office (HOD) for inputs',
     'input_study_design' => 'Inputs on Study Design and Survey Forms received from Implementing Office (HOD)',
     'pilot_study' => 'Pilot study /Digitization of Survey Forms Completed',
@@ -464,15 +483,16 @@ return [
     'report_end' => 'Report writing end',
     'draft_report' => 'Draft Report sent to Implementing Office (HOD) for inputs ',
     'input_draft_report' => 'Inputs on Draft Report received from Implementing Office (HOD)',
-    'draft_report_send' => 'Draft Report sent for Departmental Evaluation Committee (DEC)',
+    'draft_report_send' => 'Draft Report sent for Department of Evaluation Committee (DEC)',
     'minutes_meeting_dec' => 'Minutes of Meeting from DEC Received',
-    'date_department' => 'Date of Departmental Evaluation Committee (DEC) ',
+    'date_department' => 'Departmental Evaluation Committee (DEC) ',
     'draft_report_send_eval' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
-    'committee' => 'Date of Evaluation Coordination Committee (ECC)',
+    'committee' => 'Evaluation Coordination Committee (ECC)',
     'minutes_meeting_eval' => 'Minutes of Meeting from ECC Received',
     'final_report' => 'Final Report',
     'report_sent_press' => 'Report Sent to Press',
     'dropped' => 'Dropped',
     'stages' => 'Stages',
+    'date' => 'Stage Date',
 
 ];

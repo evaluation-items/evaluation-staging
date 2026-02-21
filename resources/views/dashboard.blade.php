@@ -79,6 +79,7 @@
 @php 
   $user_dept_id = Auth::user()->dept_id; 
   $dept_name =  department_name($user_dept_id);
+  $user = Auth::user();
 @endphp
 <div class="content-header">
     <div class="container-fluid">
@@ -97,7 +98,7 @@
 </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="row col-md-9" style=" margin-bottom: 0;float:left;"> 
+            <div class="row col-md-12" style="margin-bottom: 0;float:left;"> 
                 <div class="col-12 col-sm-6 col-md-4 mb-3">
                     <div class="info-box">
                         <span class="info-box-icon bg-lightblue elevation-1"><i class="fab fa-wpforms"></i></span>
@@ -178,88 +179,111 @@
                     @endif
                   </div>
               </div> --}}
-            
-            <div class="row col-md-12"> 
-                <div id="accordion" class="col-md-12">
-                  <div class="card">
-                    <div class="card-header bg-info text-center" id="headingTwo">
-                      <h5 class="mb-0">
-                        <button class="btn collapsed text-white" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            {{ __('message.detail_reports')}}
-                        </button>
-                        @php
-                          $draft_id_str = implode(',', $draft_id);
-                          $draft_id_str =  Crypt::encryptString($draft_id_str)  ?? '';
-                        @endphp
-                        <a href="{{route('summary_export',['draft_id' => $draft_id_str])}}" class="btn btn-success float-left">{{ __('message.export_report')}}</a>
-                      </h5>
-                    </div>
-                   
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                      <div class="card-body">
-                        <div class="form-group">
-                            <label for="scheme_list">{{ __('message.select_scheme')}} <span class="required_filed"> * </span> : </label>
-                            <select class="form-control scheme_list" name="scheme" id="scheme_list">
-                              {{-- <option>Select Scheme </option> --}}
-                              @foreach ($scheme_list as $key => $scheme_item)
-                                  <option value="{{ $key}}">{{ $scheme_item}}</option>
-                              @endforeach
-                            </select>
+            <div class="row col-md-12">
+                    <div class="col-md-8" style="display: none;">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header bg-info text-center" id="headingTwo">
+                                    <h5 class="mb-0"> <button class="btn collapsed text-white" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            {{ __('message.detail_reports') }} </button> @php $draft_id_str =
+                                        implode(',', $draft_id); $draft_id_str = Crypt::encryptString($draft_id_str) ?? ''; @endphp <a
+                                            href="{{ route('summary_export',['draft_id' => $draft_id_str]) }}"
+                                            class="btn btn-success float-left">{{ __('message.export_report') }}</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                    <div class="card-body">
+                                        {{-- <div class="form-group"> <label
+                                                for="scheme_list">{{ __('message.select_scheme') }} <span
+                                                    class="required_filed"> * </span> : </label> <select
+                                                class="form-control scheme_list" name="scheme" id="scheme_list">
+                                                 @foreach ($scheme_list as $key =>
+                                                $scheme_item) <option value="{{ $key }}">{{ $scheme_item }}</option> @endforeach
+                                            </select> 
+                                        </div> --}}
+                                        <div class="chartItems" style="display: none;">
+                                            <div class="card card-success">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">{{ __('message.bar_chart') }}</h3>
+                                                    <div class="card-tools"> <button type="button" class="btn btn-tool"
+                                                            data-card-widget="collapse"> <i class="fas fa-minus"></i> </button> <button
+                                                            type="button" class="btn btn-tool" data-card-widget="remove"> <i
+                                                                class="fas fa-times"></i> </button> </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="chart"> <canvas id="barChart"
+                                                            style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="chartItems" style="display: none;">
-                              <div class="card card-success">
-                                  <div class="card-header">
-                                      <h3 class="card-title">{{ __('message.bar_chart')}}</h3>
-                                      <div class="card-tools">
-                                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                          <i class="fas fa-minus"></i>
-                                          </button>
-                                          <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                          <i class="fas fa-times"></i>
-                                          </button>
-                                      </div>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="chart">
-                                        <canvas id="barChart" style="min-height: 500px; height:  500px; max-height:  500px; max-width: 100%;"></canvas>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                    
+                    <div class="col-md-12">
+                        <div class="form-group"> <label
+                                                for="scheme_list">{{ __('message.select_scheme') }} <span
+                                                    class="required_filed"> * </span> : </label> <select
+                                                class="form-control scheme_list" name="scheme" id="scheme_list">
+                                                {{-- <option>Select Scheme </option> --}} @foreach ($scheme_list as $key =>
+                                                $scheme_item) <option value="{{ $key }}">{{ $scheme_item }}</option> @endforeach
+                                            </select> 
+                                        </div>
+                        <div class="card card-custom gutter-b" style="border: 1px solid #000;">
+                        <div class="card-header flex-wrap py-3">
+                            <div class="card-toolbar">
+                            <h5>Proposal Stage, Dates & Duration</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!--begin: Datatable-->
+                            <table class="table table-bordered table-striped dataTable1 dtr-inline" id="example1" style="font-size:16px;">
+                            <thead>
+                                <tr>
+                                <th>Concern Department Stages</th>
+                                <th>From Date (DoE) – To Date (Concern / I.O Department)</th>
+                                <th>Days Count</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tBody_item" id="stageTableBody">
+                            </tbody>
+                            </table> 
+                            <!--end: Datatable-->
+                        </div>
+                        </div>
+                    </div>
                 </div>
-        </div>    
+        </div>
     </section>
     <div id="welcome-user" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content welcome-box">
             <div class="modal-header bb-0">
             <span class="ribbon top-left ribbon-primary">
-                <small>{{ __('message.hello')}}</small>
+                <small>Hello!</small>
             </span> 
-              <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+              <button type="button btnClose" class="close" data-bs-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body welcome-box-body">
-                <h4 class="modal-title text-center" style="line-height:0px !important;">{{ __('message.welcome')}}</h4>
-                <h4 class="modal-title text-center" style="font-size:24px !important;">{{ __('message.the_directorate_of_evaluation_portal')}}</h4>
-                <p class="text-center">{{ __('message.start_your_journey_with_our_dashboard_by_exploring_its_functionalities')}}</p>
+                <h4 class="modal-title text-center" style="line-height:0px !important;">Welcome</h4>
+                <h4 class="modal-title text-center" style="font-size:24px !important;">The Directorate Of Evaluation Portal</h4>
+                <p class="text-center">Start your journey with our dashboard by exploring its functionalities.</p>
             </div>
           </div>
         </div>
-      </div>
+    </div>
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 <Script>
   
-    Chart.defaults.global.datasets.bar.categoryPercentage = 0.95;
+Chart.defaults.global.datasets.bar.categoryPercentage = 0.95;
   var barChart;
+  var chartLabels = @json(__('message.chart_labels_con_dept'));
   function donutChart(){
-
-    const chartLabels = @json(__('message.chart_labels'));
     const delayLabel = "{{ __('message.delay_stage_sop_count') }}";
     const earlyLabel = "{{ __('message.early_stage_completion_count') }}";
     var areaChartData = {
@@ -274,18 +298,6 @@
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-        //  data                : [28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label               : earlyLabel, //grey
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-       //   data                : [65, 59, 80, 81, 56, 55, 40]
         },
       ]
     }
@@ -306,7 +318,7 @@
             categoryPercentage: 0.8, // Adjust the value as needed (0.8 means 80% of available space)
             scaleLabel: {
               display: true,
-              labelString: '<-- Stage wise Status of Evaluation Studies -->',
+              labelString: '<-- Department Action for Evaluation Study -->',
               fontColor: 'green', 
                 fontFamily:"monospace",
                 fontSize: 17,
@@ -330,25 +342,37 @@
             // Other X-axis configurations
           }],
           yAxes: [{
-            ticks: {
-                min: 0,
-                max: 500,
-                stepSize: 50,
-                fontColor: 'black',
-                fontSize: 16,
-                fontFamily: "monospace",
-            },
-            scaleLabel: {
-              display: true,
-              labelString: '<-- Stages Day AS Per SOP -->',
-              fontColor: 'green',  // Set color for Y-axis title
-                fontFamily:"monospace", 
-                fontSize: 17,
-                padding: {
-                  left: 20, 
-                  right: 20
-                }
-            },
+              ticks: {
+                  min: 0,
+                  max: 300,
+                  stepSize: 30,          // 🔒 compulsory
+                  padding: 15,           // 🔴 creates gap between labels
+                  fontColor: 'black',
+                  fontSize: 16,
+                  fontFamily: "monospace",
+                  beginAtZero: true
+              },
+              gridLines: {
+                  drawBorder: true,
+                  lineWidth: 1,
+                  color: 'rgba(0,0,0,0.1)',
+                  zeroLineColor: 'rgba(0,0,0,0.25)',
+                  tickMarkLength: 10     // 🔴 extra vertical space
+              },
+              scaleLabel: {
+                  display: true,
+                  labelString: '<-- No. of Days -->',
+                  fontColor: 'green',
+                  fontFamily: "monospace",
+                  fontSize: 17,
+                  padding: {
+                      top: 10,
+                      bottom: 10
+                  }
+              },
+              afterFit: function (scale) {
+                  scale.height += 25;    // 🔴 FORCE extra Y-axis space
+              }
           }]
         }
       };
@@ -374,7 +398,7 @@ function withoutOnchange(){
         draft_id =  btoa(draft_id);
                if (draft_id) {
                  donutChart();
-                const url = "{{ route('get-donutchart-count', ':draft_id') }}".replace(':draft_id', draft_id);
+                const url = "{{ route('get-donutchart-count-condept', ':draft_id') }}".replace(':draft_id', draft_id);
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
@@ -383,40 +407,22 @@ function withoutOnchange(){
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (data) {
-                          // Update the chart data
-                    barChart.data.datasets[0].data = [
-                        data['requisition_delay'],
-                        data['study_design_date_delay'],
-                        data['study_design_receive_hod_date_delay'],
-                        data['polot_study_date_delay'],
-                        data['field_survey_startdate_delay'],
-                        data['data_entry_level_start_delay'],
-                        data['report_startdate_delay'],
-                        data['report_draft_hod_date_delay'],
-                        data['dept_eval_committee_datetime_delay'],
-                        data['eval_cor_date_delay'],
-                        data['final_report_delay'],
-                        data['dropped_delay']
-                    ];
+                        const counts = safeCounts(data);
+                        const dates = safeDates(data);
 
-                    barChart.data.datasets[1].data = [
-                        data['requisition'],
-                        data['study_design_date'],
-                        data['study_design_receive_hod_date'],
-                        data['polot_study_date'],
-                        data['field_survey_startdate'],
-                        data['data_entry_level_start'],
-                        data['report_startdate'],
-                        data['report_draft_hod_date'],
-                        data['dept_eval_committee_datetime'],
-                        data['eval_cor_date'],
-                        data['final_report'],
-                        data['dropped']
-                    ];
-
+                        // Update chart safely
+                        barChart.data.datasets[0].data = [
+                            counts.requistion_sent_hod,
+                            counts.study_entrusted,
+                            counts.draft_report,
+                            counts.draft_report_send,
+                            counts.minutes_of_metting
+                        ];
                     // Update the chart
-                    barChart.update();
-                        $('.chartItems').css('display','block');
+                   // barChart.update();
+                    updateStageTable(data.dates, data.counts);
+
+                        //$('.chartItems').css('display','block');
                     },
                     error: function (xhr, status, error) {
                       alert(error);
@@ -428,10 +434,11 @@ function withoutOnchange(){
 }
 $('#scheme_list').on('change', function () {
         var draft_id = $(this).val();
+        console.log(draft_id);
         draft_id =  btoa(draft_id);
                if (draft_id) {
                  donutChart();
-                const url = "{{ route('get-donutchart-count', ':draft_id') }}".replace(':draft_id', draft_id);
+                const url = "{{ route('get-donutchart-count-condept', ':draft_id') }}".replace(':draft_id', draft_id);
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
@@ -441,39 +448,22 @@ $('#scheme_list').on('change', function () {
                     },
                     success: function (data) {
                           // Update the chart data
-                    barChart.data.datasets[0].data = [
-                        data['requisition_delay'],
-                        data['study_design_date_delay'],
-                        data['study_design_receive_hod_date_delay'],
-                        data['polot_study_date_delay'],
-                        data['field_survey_startdate_delay'],
-                        data['data_entry_level_start_delay'],
-                        data['report_startdate_delay'],
-                        data['report_draft_hod_date_delay'],
-                        data['dept_eval_committee_datetime_delay'],
-                        data['eval_cor_date_delay'],
-                        data['final_report_delay'],
-                        data['dropped_delay']
-                    ];
+                         const counts = safeCounts(data);
+                        const dates = safeDates(data);
 
-                    barChart.data.datasets[1].data = [
-                        data['requisition'],
-                        data['study_design_date'],
-                        data['study_design_receive_hod_date'],
-                        data['polot_study_date'],
-                        data['field_survey_startdate'],
-                        data['data_entry_level_start'],
-                        data['report_startdate'],
-                        data['report_draft_hod_date'],
-                        data['dept_eval_committee_datetime'],
-                        data['eval_cor_date'],
-                        data['final_report'],
-                        data['dropped']
-                    ];
-
+                        // Update chart safely
+                        // barChart.data.datasets[0].data = [
+                        //     counts.requistion_sent_hod,
+                        //     counts.study_entrusted,
+                        //     counts.draft_report,
+                        //     counts.draft_report_send,
+                        //     counts.minutes_of_metting
+                        // ];
                     // Update the chart
-                    barChart.update();
-                    $('.chartItems').css('display','block');
+                   // barChart.update();
+                    updateStageTable(data.dates, data.counts);
+
+                   // $('.chartItems').css('display','block');
                     },
                     error: function (xhr, status, error) {
                       alert(error);
@@ -482,6 +472,97 @@ $('#scheme_list').on('change', function () {
         } else {
              alert('Please select Scheme');
         }
-       });
+});
+
+function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-IN');
+}
+
+function updateStageTable(dates, counts) {
+
+    let tbody = $("#stageTableBody");
+    tbody.empty();
+
+    // 🔒 Safety checks
+    if (!Array.isArray(window.chartLabels)) {
+        console.warn("chartLabels not found or not an array", window.chartLabels);
+        tbody.html(`
+            <tr>
+                <td colspan="2" class="text-center text-muted">
+                    Labels not loaded
+                </td>
+            </tr>
+        `);
+        return;
+    }
+
+    dates = Array.isArray(dates) ? dates : [];
+    counts = counts || {};
+
+    let keys = [
+        'requistion_sent_hod',
+        'study_entrusted',
+        'draft_report',
+        'draft_report_send',
+        'minutes_of_metting'
+    ];
+
+    chartLabels.forEach((label, index) => {
+
+        let row = dates[index] || {};
+        let from = formatDate(row.from);
+        let to = formatDate(row.to);
+        let days = counts[keys[index]] || 0;
+
+        tbody.append(`
+            <tr>
+                <td>${label}</td>
+                <td>${from} - ${to}</td>
+                <td>${days} Days</td>
+            </tr>
+        `);
+    });
+}
+
+function safeCounts(data) {
+    return data && data.counts ? data.counts : {
+        requistion_sent_hod: 0,
+        study_entrusted: 0,
+        draft_report: 0,
+        draft_report_send: 0,
+        minutes_of_metting: 0
+    };
+}
+
+function safeDates(data) {
+    return data && data.dates ? data.dates : [];
+}
 </script>
+@if($user->welcome_popup)
+<script>
+ $(document).ready(function() {
+
+    let modal = $('#welcome-user');
+
+    modal.modal('show');
+
+    setTimeout(function () {
+
+        modal.modal('hide');
+
+        // ✅ Update DB after popup closes
+        $.ajax({
+            url: "{{ route('welcome.popup.seen') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}"
+            }
+        });
+
+    }, 3000); // 3 seconds
+});
+</script>
+@endif
 @endsection
