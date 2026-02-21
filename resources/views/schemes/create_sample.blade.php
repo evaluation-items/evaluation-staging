@@ -885,98 +885,72 @@
                                           </div>
                                           <!-- eighth_slide close -->
                                           <div class="tenth_slide otherslides col-xl-12" style="display:none;">
-                                              {{-- <form method="post" enctype="multipart/form-data" id="nineth_slide_form"> --}}
-                                              <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-                                             
-                                              <div class="row ">  
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+                                            
+                                            <div class="row">  
                                                 <div class="col-xl-12">
-                                                  <label>Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ)</label>
+                                                    <label class="font-weight-bold">Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ)</label>
+                                                    <hr>
                                                 </div>
-                                              </div>
-                                              <div class="row">
+                                            </div>
+
+                                            <div class="row">
                                                 <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small> </label>
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control word-limit pattern" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{old('coverage_beneficiaries_remarks')}}</textarea>
-                                                      <small class="word-message text-muted"></small>
+                                                    <div class="form-group">
+                                                        <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed text-danger"> * </span> : <small><b>Maximum 3000 words</b></small></label>
+                                                        <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('coverage_beneficiaries_remarks') }}</textarea>
+                                                        <small class="word-message text-muted"></small>
                                                     </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div style="margin-top: 10px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <!--begin::Input-->
-                                                  <div class="form-group">
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <input type="file" class="custom-file-input file_type_name" name="beneficiaries_coverage" id="beneficiaries_coverage" accept=".pdf,.docx,.xlsx"/>
-                                                      <label class="custom-file-label" for="customFile">Choose file</label>
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input file_type_name" name="beneficiaries_coverage" id="beneficiaries_coverage" accept=".pdf,.docx,.xlsx">
+                                                            <label class="custom-file-label" for="beneficiaries_coverage">Choose file (Beneficiary Coverage)</label>
+                                                        </div>
                                                     </div>
-                                                  </div>
-                                                  <!--end::Input-->
                                                 </div>
-                                              </div>
-                                              <div style="margin-top: 10px"></div>
-                                              <div class="row">
+                                            </div>
+
+                                            <div class="mt-4"></div>
+
+                                            <div class="row">
                                                 <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small> </label>
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                       <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control word-limit pattern" rows="2" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{old('training_capacity_remarks')}}</textarea>
-                                                       <small class="word-message text-muted"></small>
+                                                    <div class="form-group">
+                                                        <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ) <span class="required_filed text-danger"> * </span> : <small><b>Maximum 3000 words</b></small></label>
+                                                        <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('training_capacity_remarks') }}</textarea>
+                                                        <small class="word-message text-muted"></small>
                                                     </div>
-                                                  </div>
+
+                                                    <div class="form-group">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input file_type_name" name="training" id="training" accept=".pdf,.docx,.xlsx">
+                                                            <label class="custom-file-label" for="training">Choose file (Training)</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                              </div>
-                                              <div style="margin-top: 20px"></div>
-                                              <div class="row">
+                                            </div>
+
+                                            <div class="mt-4"></div>
+
+                                            <div class="row">
                                                 <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <!-- <label>Training/Capacity building of facilitators : </label> -->
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <input type="file" class="custom-file-input file_type_name" name="training" id="training" accept=".pdf,.docx,.xlsx"/>
-                                                      <label class="custom-file-label" for="customFile">Choose file</label>
+                                                    <div class="form-group">
+                                                        <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed text-danger"> * </span> : <small><b>Maximum 3000 words</b></small></label>
+                                                        <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('iec_activities_remarks') }}</textarea>
+                                                        <small class="word-message text-muted"></small>
                                                     </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div style="margin-top: 10px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small> </label>
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                     <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control word-limit pattern" rows="2" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{old('iec_activities_remarks')}}</textarea>
-                                                     <small class="word-message text-muted"></small>
+
+                                                    <div class="form-group">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input file_type_name" name="iec_file" id="iec" accept=".pdf,.docx,.xlsx">
+                                                            <label class="custom-file-label" for="iec">Choose file (IEC File)</label>
+                                                        </div>
                                                     </div>
-                                                  </div>
                                                 </div>
-                                              </div>
-                                              <div style="margin-top: 20px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <!--begin::Input-->
-                                                  <div class="form-group">
-                                                    <!-- <label>IEC activities : </label> -->
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <input type="file" class="custom-file-input file_type_name" name="iec_file" id="iec" accept=".pdf,.docx,.xlsx"/>
-                                                      <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    </div>
-                                                  </div>
-                                                  <!--end::Input-->
-                                                </div>
-                                              </div>
-                                              <button type="submit" id="btn_nineth_slide_submit" style="visibility: hidden;"></button>
-                                            {{-- </form> --}}
-                                          </div>
-                                          <!-- nineth_slide close -->
+                                            </div>
+                                            <button type="submit" id="btn_nineth_slide_submit" style="display: none;"></button>
+                                        </div>
+                                        <!-- nineth_slide close -->
 
                                           <div class="eleventh_slide otherslides col-xl-12" style="display:none">
                                               <div class="row ">
@@ -1029,26 +1003,18 @@
 
 
                                           <div class="twelth_slide otherslides col-xl-12" style="display:none">
-                                            {{-- <form method="post" enctype="multipart/form-data" id="eleventh_slide_form">
-                                            <input type="hidden" name="_token" id="eleventh_slide_form_csrf_token">
-                                            <input type="hidden" name="slide" value="eleventh"> --}}
                                                 <div class="row ">
                                                   <div class="col-xl-12">
-                                                    <label>Scheme Related all relevant Literature (યોજના સંબંધિત સાહિત્ય)</label> 
+                                                    <label>Scheme Related all relevant Literature (યોજના સંબંધિત સાહિત્ય)</label>
+                                                    <span style="color: #5b6064;margin-left:15px;">You can upload multiple files</span>
                                                   </div>
                                                 </div>
                                                 <div class="row mt-3">
                                                     <div class="col-xl-10">
                                                         <div class="form-group">
                                                             <label>GR (ઠરાવ) <span class="required_filed"> * </span>:</label>
-                                                            <span style="color: #5b6064;margin-left:15px;">You can upload multiple files</span>
-
                                                             <div id="gr_file_wrap">
                                                                 <div class="gr-row d-flex align-items-center mb-2">
-                                                                    {{-- <div class="custom-file">
-                                                                        <input type="file" class="file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" data-max="30" data-ext="pdf,doc,docx" />
-                                                                        <label class="custom-file-label">Choose file</label>
-                                                                    </div> --}}
                                                                     <div class="custom-file">
                                                                       <input type="file" class="custom-file-input file_type_name"  name="gr[]" accept=".pdf,.docx,.xlsx"  />
                                                                       <label class="custom-file-label" for="customFile">Choose file</label>
@@ -1070,7 +1036,7 @@
                                                   <div class="col-xl-6">
                                                     <!--begin::Input-->
                                                     <div class="form-group">
-                                                      <label>Notification (જાહેરનામાં) <span class="required_filed"> * </span> : </label> <span style="color: #5b6064; margin-left:15px;">You can uploaded multiple files</span>
+                                                      <label>Notification (જાહેરનામાં) <span class="required_filed"> * </span> : </label>
                                                       <div class="custom-file">
                                                         <input type="file" class="custom-file-input next_notification_files file_type_name" id="notification" name="notification[]" multiple accept=".pdf,.docx,.xlsx"   />
                                                         <label class="custom-file-label" for="customFile">Choose file</label>
@@ -1081,7 +1047,7 @@
                                                   <div class="col-xl-6">
                                                     <!--begin::Input-->
                                                     <div class="form-group">
-                                                      <label>Brochure (બ્રોશર) : </label><span style="color: #5b6064;margin-left:15px;">You can uploaded multiple files</span>
+                                                      <label>Brochure (બ્રોશર) : </label>
                                                       <div class="custom-file">
                                                         <input type="file" class="custom-file-input next_brochure_files file_type_name" id="brochure" name="brochure[]" multiple accept=".pdf,.docx,.xlsx"/>
                                                         <label class="custom-file-label" for="customFile">Choose file</label>
@@ -1140,7 +1106,7 @@
                                                         </div>
                                                       </div>
                                                       <div class="custom-file beneficiary_form" style="display: none;">
-                                                        <input type="file" class="custom-file-input beneficiary_filling_form file_type_name" id="beneficiary_filling_form" name="beneficiary_filling_form" accept=".pdf,.docx,.xlsx"/>
+                                                        <input type="file" class="custom-file-input beneficiary_filling_form file_type_name" id="beneficiary_filling_form" name="beneficiary_filling_form[]" accept=".pdf,.docx,.xlsx"/>
                                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                                       </div>
                                                     </div>
@@ -1158,18 +1124,20 @@
                                               <div class="row ">  
                                                 <div class="col-xl-12">
                                                   <label>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય)):</label> 
+                                                  <textarea name="major_indicator_hod" id="indicator_hod_id_0" class="form-control getindicator_hod word-limit pattern" rows="5" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('major_indicator_hod') }}</textarea>
+                                                 <small class="word-message text-muted"></small>
                                                 </div>
                                               </div>
-                                              <div class="row table-responsive">  
+                                              {{-- <div class="row table-responsive">  
                                                 <table class="table" id="indicator_table">
                                                   <tbody>
                                                     <tr><th class="borderless"><label>Indicator</label></th></tr>
                                                      <td class="borderless major_hod_indicator_td" width="95%"><input class="form-control getindicator_hod" id="indicator_hod_id_0" type="text" name="major_indicator_hod" value="{{old('major_indicator_hod')}}" /></td>
                                                       <td class="borderless" width="5%">
-                                                        {{-- <button type="button" class="btn btn-primary" id="addnewindicatorbtn" style="padding:2px;width:20px;height:auto;font-weight:bolder">+</button></td> --}}
+                                                        {{-- <button type="button" class="btn btn-primary" id="addnewindicatorbtn" style="padding:2px;width:20px;height:auto;font-weight:bolder">+</button></td> 
                                                   </tbody>
                                                 </table>
-                                              </div>
+                                              </div> --}}
                                             </div>
                                             <!-- twelth_slide close -->
 
@@ -2869,24 +2837,24 @@ function countIncrease(slideid){
                 }
     
       }else if(slideid == 11){
-        var next_benefit_to = $("#next_benefit_to").val();
-        console.log(next_benefit_to);
-        var countallconvergence = $(".countallconvergence").length;
+            var next_benefit_to = $("#next_benefit_to").val();
+            console.log(next_benefit_to);
+            var countallconvergence = $(".countallconvergence").length;
 
-        var all_convergence = [];
-        for (var i = 0; i < countallconvergence; i++) {
-            if ($('#convergence_row_' + i + ' select').val() != '') {
-            
-                all_convergence[i] = {
-                    'dept_id': $('#convergence_row_' + i + ' select').val(),
-                    'dept_remarks': $("#convergence_row_" + i + ' textarea').val()
-                };
+            var all_convergence = [];
+            for (var i = 0; i < countallconvergence; i++) {
+                if ($('#convergence_row_' + i + ' select').val() != '') {
+                
+                    all_convergence[i] = {
+                        'dept_id': $('#convergence_row_' + i + ' select').val(),
+                        'dept_remarks': $("#convergence_row_" + i + ' textarea').val()
+                    };
+                }
             }
-        }
 
       //  if (next_benefit_to != '') {
-        let nextSlide = countIncrease(slideid);
-        updateStepTitle(nextSlide);  
+            let nextSlide = countIncrease(slideid);
+            updateStepTitle(nextSlide);  
             $("#the_error_html").remove();
 
             $.ajax({
@@ -2929,55 +2897,38 @@ function countIncrease(slideid){
         //     $(".eleventh_slide").append(the_html);
         // }
 
-    }else if(slideid == 12){
-          let nextSlide = countIncrease(slideid);
-          updateStepTitle(nextSlide); 
+      }else if(slideid == 12){
+            let nextSlide = countIncrease(slideid);
+            updateStepTitle(nextSlide); 
             var tokenis = $("meta[name='csrf-token']").attr('content');
             var formData = new FormData();
             formData.append('_token', tokenis);
             formData.append('slide', 'twelth');
 
-            // --- GR multiple files ---
-            $('input[name="gr[]"]').each(function () {
-                let files = this.files;
-                if (files.length > 0) {
-                    for (let i = 0; i < files.length; i++) {
-                        formData.append('gr[]', files[i]);
+            // Helper function to append multiple files safely
+            function appendFiles(selector, paramName) {
+                let input = $(selector)[0];
+                if (input && input.files.length > 0) {
+                    for (let i = 0; i < input.files.length; i++) {
+                        formData.append(paramName, input.files[i]);
                     }
                 }
-            });
-
-            // --- Notification multiple files ---
-            let notificationFiles = $('#notification')[0].files;
-            for (let i = 0; i < notificationFiles.length; i++) {
-                formData.append('notification[]', notificationFiles[i]);
             }
 
-            // --- Brochure multiple files ---
-            let brochureFiles = $('#brochure')[0].files;
-            for (let i = 0; i < brochureFiles.length; i++) {
-                formData.append('brochure[]', brochureFiles[i]);
-            }
+            // Append all categories
+            appendFiles('input[name="gr[]"]', 'gr[]'); // Note: your loop used name selector here
+            appendFiles('#notification', 'notification[]');
+            appendFiles('#brochure', 'brochure[]');
+            appendFiles('#pamphlets', 'pamphlets[]');
+            appendFiles('#other_details_center_state', 'otherdetailscenterstate[]');
 
-            // --- Pamphlets multiple files ---
-            let pamphletsFiles = $('#pamphlets')[0].files;
-            for (let i = 0; i < pamphletsFiles.length; i++) {
-                formData.append('pamphlets[]', pamphletsFiles[i]);
-            }
-
-            // --- Other Details multiple files ---
-            let otherDetailsFiles = $('#other_details_center_state')[0].files;
-            for (let i = 0; i < otherDetailsFiles.length; i++) {
-                formData.append('otherdetailscenterstate[]', otherDetailsFiles[i]);
-            }
-
-            // --- Beneficiary Form (conditional) ---
+            // Beneficiary Form
             let fillingType = $('input[name="beneficiary_filling_form_type"]:checked').val();
             formData.append('beneficiary_filling_form_type', fillingType ?? '');
             if (fillingType === '0') {
-                let benFile = $('#beneficiary_filling_form')[0].files;
-                if (benFile.length > 0) {
-                    formData.append('beneficiary_filling_form', benFile[0]);
+                let benInput = $('#beneficiary_filling_form')[0];
+                if (benInput && benInput.files.length > 0) {
+                    formData.append('beneficiary_filling_form', benInput.files[0]);
                 }
             }
 
@@ -2987,8 +2938,13 @@ function countIncrease(slideid){
                 data: formData,
                 processData: false,
                 contentType: false,
+                beforeSend: function() {
+                    // Clear previous errors and show loader
+                    $("#the_error_html").remove();
+                    $("#next_btn").prop('disabled', true).text('Processing...');
+                },
                 success: function (response) {
-                    // ✅ Move to next slide
+                    $("#next_btn").prop('disabled', false).text('Next');
                     $(".otherslides").hide();
                     $(".thirteenth_slide").show();
                     $("#previous_btn").val(13).show();
@@ -2997,21 +2953,25 @@ function countIncrease(slideid){
                     $('.thirteenth_slide').addClass("active-slide");
                 },
                 error: function (xhr) {
-                      let message = 'Something went wrong';
+                    $("#next_btn").prop('disabled', false).text('Next');
+                    let message = 'Something went wrong';
+                    if (xhr.responseJSON) {
+                        message = xhr.responseJSON.error || xhr.responseJSON.message || "An error occurred";
+                    }
 
-                      if (xhr.responseJSON) {
-                          message =
-                              xhr.responseJSON.message ||
-                              xhr.responseJSON.error ||
-                              JSON.stringify(xhr.responseJSON);
-                      } else if (xhr.responseText) {
-                          message = xhr.responseText;
-                      }
-
-                      alert(message);
+                    // Inject the error message into the slide instead of just an alert
+                    var errorHtml = '<div class="row" id="the_error_html">' +
+                                    '<div class="col-12" style="color:red; font-weight:bold; margin-top:10px;">' + 
+                                    message + 
+                                    '</div></div>';
+                    
+                    $(".twelth_slide").append(errorHtml);
+                    
+                    // Also keep alert as a fallback if you prefer
+                    alert(message);
                 }
             });
-      }else if(slideid == 13){
+        }else if(slideid == 13){
             var indicator_values = $(".getindicator_hod").val();
            // if(indicator_values != '') {
                let nextSlide = countIncrease(slideid);
@@ -3044,88 +3004,88 @@ function countIncrease(slideid){
             //       $(".twelth_slide").append(the_html);
                 
             // }
-      }else if (slideid == 14){
-           var next_financial_progress_year = $(".next_financial_progress_year").val();
-           // var next_financial_progress_units = $(".next_financial_progress_units").val();
-            var next_financial_progress_target = $(".next_financial_progress_target").val();
-            var next_financial_progress_achivement = $(".next_financial_progress_achivement").val();
-            var next_financial_progress_allocation = $(".next_financial_progress_allocation").val();
-            var next_financial_progress_expenditure = $(".next_financial_progress_expenditure").val();
+        }else if (slideid == 14){
+            var next_financial_progress_year = $(".next_financial_progress_year").val();
+            // var next_financial_progress_units = $(".next_financial_progress_units").val();
+                var next_financial_progress_target = $(".next_financial_progress_target").val();
+                var next_financial_progress_achivement = $(".next_financial_progress_achivement").val();
+                var next_financial_progress_allocation = $(".next_financial_progress_allocation").val();
+                var next_financial_progress_expenditure = $(".next_financial_progress_expenditure").val();
 
-            
-            var next_financial_progress_selection = $(".next_financial_progress_selection").val();
-            var next_financial_progress_item  = $(".next_financial_progress_item").val();
-             
+                
+                var next_financial_progress_selection = $(".next_financial_progress_selection").val();
+                var next_financial_progress_item  = $(".next_financial_progress_item").val();
+                
 
-            var count_tr = $("#thisistbody tr").length;
-            if(next_financial_progress_year != ''  && next_financial_progress_target != '' && next_financial_progress_achivement != '' && next_financial_progress_allocation != '' && next_financial_progress_expenditure != '' && next_financial_progress_item  != '' && next_financial_progress_selection != '') {
-               //countIncrease(slideid);
-               
-                $("#the_error_html").remove();
-                var tr_array = [];
-                var count_blank_fields = 0;
-                for(var i=0;i<count_tr;i++) {
-                    var the_year = $(".next_fin_year_"+i).val();
-                    var the_target = $(".next_fin_target_"+i).val();
-                    var the_achievement = $(".next_fin_achivement_"+i).val();
-                    var the_allocation = $(".next_fin_allocation_"+i).val();
-                    var the_expenditure = $(".next_fin_expenditure_"+i).val();
-                  //  var the_units = $(".next_fin_units_"+i).val();
-
-                    var the_selection = $(".next_fin_selection_"+i).val();
-                 //   var the_items = $(".next_fin_item_"+i).val();
-
-                    if(the_selection != ''  && the_year != '' && the_target != '' && the_achievement != '' && the_allocation != '' && the_expenditure != '') {
-                        tr_array[i] = {'financial_year':$(".next_fin_year_"+i).val(), 
-                        'target':$(".next_fin_target_"+i).val(), 
-                        'achievement':$(".next_fin_achivement_"+i).val(), 
-                        'allocation':$(".next_fin_allocation_"+i).val(), 
-                        'expenditure':$(".next_fin_expenditure_"+i).val(), 
-                      //  'units':$(".next_fin_units_"+i).val(),
-                        'selection': $(".next_fin_selection_"+i).val(),
-                       // 'items': $(".next_fin_item_"+i).val()
-                      };
-                    } else {
-                        count_blank_fields++;
-                    }
-                }
-
-                if(count_blank_fields > 0) {
+                var count_tr = $("#thisistbody tr").length;
+                if(next_financial_progress_year != ''  && next_financial_progress_target != '' && next_financial_progress_achivement != '' && next_financial_progress_allocation != '' && next_financial_progress_expenditure != '' && next_financial_progress_item  != '' && next_financial_progress_selection != '') {
+                //countIncrease(slideid);
+                
                     $("#the_error_html").remove();
-                    var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Fill all the blank fields</div></div>';
-                   // $(".thirteenth_slide").append(the_html);
-                } else {
-                    var confsure = confirm('Are you sure Financial Progress is entered correctly ?');
-                    if(confsure == true) {
-                        var financial_progress_remarks = $("#financial_progress_remarks").val();
-                        $.ajax({
-                            type:'post',
-                            dataType:'json',
-                            url:"{{ route('schemes.add_scheme') }}",
-                            data:{'slide':'fourteenth','tr_array':tr_array, 'financial_progress_remarks':financial_progress_remarks},
-                            success:function(response) {
-                               $(".otherslides").hide();
-                               // $("#next_btn").val(14).show();
-                                $("#next_btn").hide();
-                                $('.last_btn').show();
+                    var tr_array = [];
+                    var count_blank_fields = 0;
+                    for(var i=0;i<count_tr;i++) {
+                        var the_year = $(".next_fin_year_"+i).val();
+                        var the_target = $(".next_fin_target_"+i).val();
+                        var the_achievement = $(".next_fin_achivement_"+i).val();
+                        var the_allocation = $(".next_fin_allocation_"+i).val();
+                        var the_expenditure = $(".next_fin_expenditure_"+i).val();
+                    //  var the_units = $(".next_fin_units_"+i).val();
 
-                                var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
+                        var the_selection = $(".next_fin_selection_"+i).val();
+                    //   var the_items = $(".next_fin_item_"+i).val();
 
-                                $("#div_next_btn").html(the_html_btn);
-                                 
-                            },
-                            error:function() {
-                                console.log('add_scheme ajax error');
-                            }
-                        });
+                        if(the_selection != ''  && the_year != '' && the_target != '' && the_achievement != '' && the_allocation != '' && the_expenditure != '') {
+                            tr_array[i] = {'financial_year':$(".next_fin_year_"+i).val(), 
+                            'target':$(".next_fin_target_"+i).val(), 
+                            'achievement':$(".next_fin_achivement_"+i).val(), 
+                            'allocation':$(".next_fin_allocation_"+i).val(), 
+                            'expenditure':$(".next_fin_expenditure_"+i).val(), 
+                        //  'units':$(".next_fin_units_"+i).val(),
+                            'selection': $(".next_fin_selection_"+i).val(),
+                        // 'items': $(".next_fin_item_"+i).val()
+                        };
+                        } else {
+                            count_blank_fields++;
+                        }
                     }
+
+                    if(count_blank_fields > 0) {
+                        $("#the_error_html").remove();
+                        var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Fill all the blank fields</div></div>';
+                    // $(".thirteenth_slide").append(the_html);
+                    } else {
+                        var confsure = confirm('Are you sure Financial Progress is entered correctly ?');
+                        if(confsure == true) {
+                            var financial_progress_remarks = $("#financial_progress_remarks").val();
+                            $.ajax({
+                                type:'post',
+                                dataType:'json',
+                                url:"{{ route('schemes.add_scheme') }}",
+                                data:{'slide':'fourteenth','tr_array':tr_array, 'financial_progress_remarks':financial_progress_remarks},
+                                success:function(response) {
+                                $(".otherslides").hide();
+                                // $("#next_btn").val(14).show();
+                                    $("#next_btn").hide();
+                                    $('.last_btn').show();
+
+                                    var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
+
+                                    $("#div_next_btn").html(the_html_btn);
+                                    
+                                },
+                                error:function() {
+                                    console.log('add_scheme ajax error');
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    $("#the_error_html").remove();
+                    var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
+                    $(".fourteenth_slide").append(the_html);
                 }
-            } else {
-                $("#the_error_html").remove();
-                var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
-                $(".fourteenth_slide").append(the_html);
-            }
-      }
+        }
     }
 // ✅ Reusable Error Display Function
 function showError(msg) {

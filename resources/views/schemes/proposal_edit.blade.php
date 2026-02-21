@@ -1057,152 +1057,148 @@
                                   </div>
                                  
                                   <!-- eighth_slide close -->
-                                  <div class="tenth_slide {{  ($currentSlide  == 10) ? 'active-slide' : '' }} otherslides" style="{{  ($currentSlide  == 10) ? 'display:block;' : 'display:none;' }}">
-                                     {{-- <form method="post" enctype="multipart/form-data" id="nineth_slide_form"> --}}
-                                             <input type="hidden" name="draft_id" id="next_draft_id" value="{{ $val->draft_id }}">
-                                            <input type="hidden" name="scheme_id" id="next_scheme_id" value="{{ $scheme_id }}">
-                                          {{-- @csrf
-                                          <input type="hidden" name="slide" value="nineth"> --}}
-                                              <div class="row ">  
-                                                <div class="col-xl-12">
-                                                  <label>Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ)</label>
-                                                </div>
-                                              </div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small> </label>
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control word-limit pattern" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{$val->coverage_beneficiaries_remarks}}</textarea>
-                                                      <small class="word-message text-muted"></small>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div style="margin-top: 10px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <!--begin::Input-->
-                                                  <div class="form-group">
-                                                    <div class="custom-file">
-                                                      <input type="file" class="custom-file-input file_type_name" name="beneficiaries_coverage" id="beneficiaries_coverage" accept=".pdf,.docx,.xlsx"/>
-                                                      <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    </div>
-                                                  </div>
-                                                  @if($val->beneficiaries_coverage)
-                                                  <div class="form-group">
-                                                      @php
-                                                        $extension = pathinfo($val->beneficiaries_coverage, PATHINFO_EXTENSION);
-                                                      @endphp
-                                                      @if($extension == 'pdf')
-                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->beneficiaries_coverage]) }}" target="_blank" title="{{ $val->beneficiaries_coverage }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                          @elseif ($extension == 'doc')
-                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->beneficiaries_coverage]) }}" download="{{ $val->beneficiaries_coverage }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+                                  <div class="tenth_slide {{ ($currentSlide == 10) ? 'active-slide' : '' }} otherslides" style="{{ ($currentSlide == 10) ? 'display:block;' : 'display:none;' }}">
+                                  <input type="hidden" name="draft_id" id="next_draft_id" value="{{ $val->draft_id }}">
+                                  <input type="hidden" name="scheme_id" id="next_scheme_id" value="{{ $scheme_id }}">
 
-                                                          @else
-                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->beneficiaries_coverage]) }}" download="{{ $val->beneficiaries_coverage }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                      @endif
-                                                  </div>
-                                                  @else
-                                                  No File
-                                                  @endif
-                                                  <!--end::Input-->
-                                                </div>
-                                              </div>
-                                              <div style="margin-top: 10px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control word-limit pattern" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ $val->training_capacity_remarks }}</textarea>
-                                                      <small class="word-message text-muted"></small>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <div style="margin-top: 20px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <!-- <label>Training/Capacity building of facilitators : </label> -->
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <input type="file" class="custom-file-input file_type_name" name="training" id="training" accept=".pdf,.docx,.xlsx"/>
-                                                      <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    </div>
-                                                  </div>
-                                                  @if($val->training)
-                                                  <div class="form-group">
-                                                      {{-- <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_training" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a> --}}
-                                                      @php
-                                                      $extension = pathinfo($val->training, PATHINFO_EXTENSION);
-                                                      @endphp
-                                                      @if($extension == 'pdf')
-                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->training]) }}" target="_blank" title="{{ $val->training }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                      @elseif ($extension == 'doc')
-                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->training]) }}" download="{{ $val->training }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+                                  <div class="row">
+                                      <div class="col-xl-12">
+                                          <label class="font-weight-bold">Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ)</label>
+                                      </div>
+                                  </div>
 
+                                  <div class="row">
+                                      <div class="col-xl-12">
+                                          <div class="form-group">
+                                              <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words</b></small></label>
+                                              <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000">{{$val->coverage_beneficiaries_remarks}}</textarea>
+                                              <small class="word-message text-muted"></small>
+                                          </div>
+                                          
+                                          <div class="form-group">
+                                              <div class="custom-file">
+                                                  <input type="file" class="custom-file-input file_type_name" name="beneficiaries_coverage" id="beneficiaries_coverage" accept=".pdf,.docx,.xlsx">
+                                                  <label class="custom-file-label" for="beneficiaries_coverage">
+                                                      {{ $val->beneficiaries_coverage ? $val->beneficiaries_coverage : 'Choose file' }}
+                                                  </label>
+                                              </div>
+
+                                              @if($val->beneficiaries_coverage)
+                                                  <div class="form-group mt-2">
+                                                      @php
+                                                          $extension = pathinfo($val->beneficiaries_coverage, PATHINFO_EXTENSION);
+                                                      @endphp
+
+                                                      @if($extension == 'pdf')
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->beneficiaries_coverage]) }}" target="_blank" title="{{ $val->beneficiaries_coverage }}">
+                                                              <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                          </a>
+                                                      @elseif ($extension == 'doc' || $extension == 'docx')
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->beneficiaries_coverage]) }}" download="{{ $val->beneficiaries_coverage }}">
+                                                              <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                          </a>
                                                       @else
-                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->training]) }}" download="{{ $val->training }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->beneficiaries_coverage]) }}" download="{{ $val->beneficiaries_coverage }}">
+                                                              <i class="fas fa-download fa-2x" style="color:green;"></i>
+                                                          </a>
                                                       @endif
                                                   </div>
-                                                  @else
-                                                  No File
-                                                  @endif
-                                                </div>
+                                              @else
+                                                  <div class="mt-2 text-muted">No File</div>
+                                              @endif
+                                          </div>
+                                     </div>
+                                  </div>
+                                  <hr>
+
+                                  <div class="row">
+                                      <div class="col-xl-12">
+                                          <div class="form-group">
+                                              <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words</b></small></label>
+                                              <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000">{{ $val->training_capacity_remarks }}</textarea>
+                                              <small class="word-message text-muted"></small>
+                                          </div>
+
+                                          <div class="form-group">
+                                              <div class="custom-file">
+                                                  <input type="file" class="custom-file-input file_type_name" name="training" id="training" accept=".pdf,.docx,.xlsx">
+                                                  <label class="custom-file-label" for="training">
+                                                      {{ $val->training ? $val->training : 'Choose file' }}
+                                                  </label>
                                               </div>
-                                              <div style="margin-top: 10px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <div class="form-group">
-                                                    <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
-                                                    <div></div>
-                                                    <div class="custom-file">
-                                                      <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control word-limit pattern" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ $val->iec_activities_remarks }}</textarea>
-                                                      <small class="word-message text-muted"></small>
-                                                    </div>
+
+                                              @if($val->training)
+                                                  <div class="form-group mt-2">
+                                                      @php
+                                                          $extension = pathinfo($val->training, PATHINFO_EXTENSION);
+                                                      @endphp
+
+                                                      @if($extension == 'pdf')
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->training]) }}" target="_blank" title="{{ $val->training }}">
+                                                              <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                          </a>
+                                                      @elseif ($extension == 'doc' || $extension == 'docx')
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->training]) }}" download="{{ $val->training }}">
+                                                              <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                          </a>
+                                                      @else
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->training]) }}" download="{{ $val->training }}">
+                                                              <i class="fas fa-download fa-2x" style="color:green;"></i>
+                                                          </a>
+                                                      @endif
                                                   </div>
-                                                </div>
+                                              @else
+                                                  <div class="mt-2 text-muted">No File</div>
+                                              @endif
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <hr>
+
+                                  <div class="row">
+                                      <div class="col-xl-12">
+                                          <div class="form-group">
+                                              <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words</b></small></label>
+                                              <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000">{{ $val->iec_activities_remarks }}</textarea>
+                                              <small class="word-message text-muted"></small>
+                                          </div>
+
+                                          <div class="form-group">
+                                              <div class="custom-file">
+                                                  <input type="file" class="custom-file-input file_type_name" name="iec_file" id="iec" accept=".pdf,.docx,.xlsx">
+                                                  <label class="custom-file-label" for="iec">
+                                                      {{ $val->iec ? $val->iec : 'Choose file' }}
+                                                  </label>
                                               </div>
-                                              <div style="margin-top: 20px"></div>
-                                              <div class="row">
-                                                <div class="col-xl-12">
-                                                  <!--begin::Input-->
-                                                  <div class="form-group">
-                                                    <!-- <label>IEC activities : </label> -->
-                                                    <div></div>
-                                                    <div class="custom-file"> 
-                                                      <input type="file" class="custom-file-input file_type_name" name="iec_file" id="iec" accept=".pdf,.docx,.xlsx"/>
-                                                      <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    </div>
-                                                  </div>
-                                                  @if($val->iec)
-                                                  <div class="form-group">
+
+                                              @if($val->iec)
+                                                  <div class="form-group mt-2">
                                                       @php
                                                           $extension = pathinfo($val->iec, PATHINFO_EXTENSION);
                                                       @endphp
-                                                      @if($extension == 'pdf')
-                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->iec]) }}" target="_blank" title="{{ $val->iec }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                      @elseif ($extension == 'doc')
-                                                      <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->iec]) }}" download="{{ $val->iec }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
 
+                                                      @if($extension == 'pdf')
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->iec]) }}" target="_blank" title="{{ $val->iec }}">
+                                                              <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                          </a>
+                                                      @elseif ($extension == 'doc' || $extension == 'docx')
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->iec]) }}" download="{{ $val->iec }}">
+                                                              <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                          </a>
                                                       @else
-                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->iec]) }}" download="{{ $val->iec }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                                                          <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->iec]) }}" download="{{ $val->iec }}">
+                                                              <i class="fas fa-download fa-2x" style="color:green;"></i>
+                                                          </a>
                                                       @endif
                                                   </div>
-                                                  @else
-                                                  No File.
-                                                  @endif
-                                              
-                                                  <!--end::Input-->
-                                                </div>
-                                              </div>
-                                              {{-- <button type="submit" id="btn_nineth_slide_submit" style="visibility: hidden;"></button>
-                                          </form> --}}
+                                              @else
+                                                  <div class="mt-2 text-muted">No File.</div>
+                                              @endif
+                                          </div>
+                                      </div>
                                   </div>
+                              </div>
 
                                     <!-- nineth_slide close -->
                                     <div class="eleventh_slide {{  ($currentSlide  == 11) ? 'active-slide' : '' }} otherslides" style="{{  ($currentSlide  == 11) ? 'display:block;' : 'display:none;' }}">
@@ -1283,11 +1279,9 @@
 
                                     <!-- tenth_slide close -->
                                     <div class="twelth_slide {{  ($currentSlide  == 12) ? 'active-slide' : '' }} otherslides" style="{{  ($currentSlide  == 12) ? 'display:block;' : 'display:none;' }}">
-                                       {{-- <form method="post" enctype="multipart/form-data" id="eleventh_slide_form"> --}}
                                           <input type="hidden" name="draft_id" id="next_draft_id" value="{{ $val->draft_id }}">
                                           <input type="hidden" name="scheme_id" id="next_scheme_id" value="{{ $scheme_id }}">
-                                           {{-- @csrf
-                                           <input type="hidden" name="slide" value="eleventh"> --}}
+                                          
                                             <div class="row ">
                                               <div class="col-xl-12">
                                                 <label>Scheme Related all relevant Literature (યોજના સંબંધિત સાહિત્ય)</label> 
@@ -1347,271 +1341,164 @@
                                                     </div>
                                                 </div>
                                               </div>
+                                              <div class="row">
+                                                  {{-- Notification Section --}}
+                                                  <div class="col-xl-6">
+                                                      <div class="form-group">
+                                                          <label>Notification (જાહેરનામાં) <span class="required_filed"> * </span> : </label>
+                                                          <div class="custom-file">
+                                                              <input type="file" class="custom-file-input next_notification_files" id="notification" name="notification[]" multiple accept=".pdf,.docx,.xlsx" />
+                                                              <label class="custom-file-label">Choose files</label>
+                                                          </div>
+                                                      </div>
+                                                      <div class="existing-notification-wrap">
+                                                          @foreach($val->notification_files as $file)
+                                                              <div class="existing-file d-flex align-items-center mb-2">
+                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-primary"></i>
+                                                                  <span class="small">{{ $file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                              </div>
+                                                          @endforeach
+                                                      </div>
+                                                  </div>
 
-                                                
-                                            {{-- <div class="row mt-3">
-                                              <div class="col-xl-4">
-                                                <!--begin::Input-->
-                                                <div class="form-group">
-                                                  <label>GR (ઠરાવો) <span class="required_filed"> * </span> : </label> <span style="color: #5b6064; margin-left:15px;">You can uploaded multiple files</span>
-                                                  <div class="custom-file">
-                                                    <input type="file" class="custom-file-input next_gr_files file_type_name" id="gr" name="gr[]" multiple accept=".pdf,.docx,.xlsx"/>
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                                  {{-- Brochure Section --}}
+                                                  <div class="col-xl-6">
+                                                      <div class="form-group">
+                                                          <label>Brochure (બ્રોશર) : </label>
+                                                          <div class="custom-file">
+                                                              <input type="file" class="custom-file-input next_brochure_files" id="brochure" name="brochure[]" multiple accept=".pdf,.docx,.xlsx"/>
+                                                              <label class="custom-file-label">Choose files</label>
+                                                          </div>
+                                                      </div>
+                                                      <div class="existing-brochure-wrap">
+                                                          @foreach($val->brochure_files as $file)
+                                                              <div class="existing-file d-flex align-items-center mb-2">
+                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-success"></i>
+                                                                  <span class="small">{{ $file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                              </div>
+                                                          @endforeach
+                                                      </div>
                                                   </div>
-                                                </div>
-                                                @if($gr_files->count())
-                                                <div class="form-group">
-                                                    @if($val->gr_file->count() > 0)
-                                                      @foreach($val->gr_file as $kgrs => $vgrs)
-                                                        @php
-                                                          $extension = pathinfo($vgrs->file_name, PATHINFO_EXTENSION);
-                                                        @endphp
-                                                        @if($extension == 'pdf')
-                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $vgrs->file_name]) }}" target="_blank" title="{{ $vgrs->file_name }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                        @elseif ($extension == 'doc')
-                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $vgrs->file_name]) }}" download="{{ $vgrs->file_name }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                        @else
-                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $vgrs->file_name]) }}" download="{{ $vgrs->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                        @endif
-                                                      
-                                                        @endforeach
-                                                     @endif
-                                                </div>
-                                                @endif
-                                                <!--end::Input-->
                                               </div>
-                                              {{-- @php
-                                                $gr_date = null;
-                                                $gr_number = null;
-                                                if($gr_files->count() > 0){
-                                                  $gr_date = $gr_files[0]['gr_date'];
-                                                  $gr_number = $gr_files[0]['gr_number'];
-                                                }
 
-                                              @endphp
-                                              <div class="col-xl-4">
-                                                <div class="form-group">
-                                                  <label for="gr_date">GR Date(ઠરાવો તારીખ ):</label>
-                                                    <input type="text" class="gr_date datepicker form-control pattern" id="gr_date" name="gr_date" value="{{$gr_date}}"/>
-                                                </div>
+                                              <div class="row mt-3">
+                                                  {{-- Pamphlets Section --}}
+                                                  <div class="col-xl-6">
+                                                      <div class="form-group">
+                                                          <label>Pamphlets (પેમ્ફલેટ્સ) : </label>
+                                                          <div class="custom-file">
+                                                              <input type="file" class="custom-file-input next_pamphlets_files" id="pamphlets" name="pamphlets[]" multiple accept=".pdf,.docx,.xlsx"/>
+                                                              <label class="custom-file-label">Choose files</label>
+                                                          </div>
+                                                      </div>
+                                                      <div class="existing-pamphlet-wrap">
+                                                          @foreach($val->pamphlets_files as $file)
+                                                              <div class="existing-file d-flex align-items-center mb-2">
+                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-warning"></i>
+                                                                  <span class="small">{{ $file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                              </div>
+                                                          @endforeach
+                                                      </div>
+                                                  </div>
+
+                                                  {{-- Other Details Section --}}
+                                                  <div class="col-xl-6">
+                                                      <div class="form-group">
+                                                          <label>Other Details (યોજનાને લાગતું અન્ય સાહિત્ય): </label>
+                                                          <div class="custom-file">
+                                                              <input type="file" class="custom-file-input next_otherdetailscenterstate" id="other_details_center_state" name="otherdetailscenterstate[]" multiple accept=".pdf,.docx,.xlsx"/>
+                                                              <label class="custom-file-label">Choose files</label>
+                                                          </div>
+                                                      </div>
+                                                      <div class="existing-other-wrap">
+                                                          @foreach($val->otherdetailscenterstate_files as $file)
+                                                              <div class="existing-file d-flex align-items-center mb-2">
+                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-info"></i>
+                                                                  <span class="small">{{ $file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                              </div>
+                                                          @endforeach
+                                                      </div>
+                                                  </div>
                                               </div>
-                                              <div class="col-xl-4">
-                                                <div class="form-group">
-                                                  <label for="gr_number">GR Number (ઠરાવો નંબર):</label>
-                                                    <input type="text" class="gr_number form-control pattern" id="gr_number" name="gr_number" value="{{$gr_number}}"/>
-                                                </div>
-                                              </div> 
-                                            
-                                            </div> --}}
+                                                                                          
                                             <div class="row">
-                                              <div class="col-xl-6">
-                                                <!--begin::Input-->
-                                                <div class="form-group">
-                                                  <label>Notification  (જાહેરનામાં)<span class="required_filed"> * </span> : </label><span style="color: #5b6064; margin-left:15px;">You can uploaded multiple files</span>
-                                                  
-                                                  <div class="custom-file">
-                                                    <input type="file" class="custom-file-input next_notification_files file_type_name" id="notification" name="notification[]" multiple accept=".pdf,.docx,.xlsx" />
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                  </div>
-                                                </div>
-                                                @if($notifications->count())
-                                                <div class="form-group">
-                                                    @if ($val->notification_files->count() > 0)
-                                                      @foreach($val->notification_files as $kgrs => $items)
-                                                        @php
-                                                          $extension = pathinfo($items->file_name, PATHINFO_EXTENSION);
-                                                        @endphp
-                                                        @if($extension == 'pdf')
-                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $items->file_name]) }}" target="_blank" title="{{ $items->file_name }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                        @elseif ($extension == 'doc')
-                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $items->file_name]) }}" download="{{ $items->file_name }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                        @else
-                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $items->file_name]) }}" download="{{ $items->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                        @endif
-                                                     
-                                                      @endforeach
-                                                    @endif
-                                                </div>
-                                                @endif
-                                                <!--end::Input-->
-                                              </div>
-                                              <div class="col-xl-6">
-                                                <!--begin::Input-->
-                                                <div class="form-group">
-                                                  <label>Brochure (બ્રોશર) : </label><span style="color: #5b6064; margin-left:15px;">You can uploaded multiple files</span>
-                                                  
-                                                  <div class="custom-file">
-                                                    <input type="file" class="custom-file-input next_brochure_files file_type_name" id="brochure" name="brochure[]" multiple accept=".pdf,.docx,.xlsx"/>
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                  </div>
-                                                </div>
-                                                @if($brochures->count())
-                                                <div class="form-group">
-                                                  @if($val->brochure_files->count() > 0)
-                                                      @foreach($val->brochure_files as $kgrs => $file)
-                                                        @php
-                                                          $extension = pathinfo($file->file_name, PATHINFO_EXTENSION);
-                                                        @endphp
-                                                        @if($extension == 'pdf')
-                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $file->file_name]) }}" target="_blank" title="{{ $file->file_name }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                        @elseif ($extension == 'doc')
-                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $file->file_name]) }}" download="{{ $file->file_name }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                        @else
-                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $file->file_name]) }}" download="{{ $file->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                        @endif
-                                                      @endforeach
-                                                  @endif
-                                                </div>
-                                                @endif
-                                                <!--end::Input-->
-                                              </div>
-                                            </div>
-                                            <div class="row">
-                                              <div class="col-xl-6">
-                                                <!--begin::Input-->
-                                                <div class="form-group"> <br>
-                                                  <label>Pamphlets (પેમ્ફલેટ્સ) : </label>
-                                                  <div class="custom-file">
-                                                    <input type="file" class="custom-file-input next_pamphlets_files file_type_name" id="pamphlets" name="pamphlets[]" multiple accept=".pdf,.docx,.xlsx"/>
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                  </div>
-                                                </div>
-                                                @if($pamphlets->count())
-                                                <div class="form-group">
-                                               
-                                                @if($val->pamphlets_files->count() > 0)
-                                                  @foreach($val->pamphlets_files as $kgrs => $pam_file)
-                                                    @php
-                                                      $extension = pathinfo($pam_file->file_name, PATHINFO_EXTENSION);
-                                                    @endphp
-                                                    @if($extension == 'pdf')
-                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $pam_file->file_name]) }}" target="_blank" title="{{ $pam_file->file_name }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                        @elseif ($extension == 'doc')
-                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $pam_file->file_name]) }}" download="{{ $pam_file->file_name }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                        @else
-                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $pam_file->file_name]) }}" download="{{ $pam_file->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                    @endif
-                                              
-                                                  @endforeach
-                                                @endif
-                                                </div>
-                                                @endif
-                                                <!--end::Input-->
-                                              </div>
-                                              <div class="col-xl-6">
-                                                <!--begin::Input-->
-                                                <div class="form-group">
-                                                  <label>Other Details of the Scheme (યોજનાને લાગતું અન્ય સાહિત્ય) <br>(Central–State Separate ): </label>
-                                                  <div></div>
-                                                  <div class="custom-file">
-                                                    <input type="file" class="custom-file-input next_otherdetailscenterstate file_type_name" id="other_details_center_state" name="otherdetailscenterstate[]" multiple accept=".pdf,.docx,.xlsx"/>
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                  </div>
-                                                </div>
-                                                @if($center_state->count())
-                                                <div class="form-group">
-                                                
-                                                @if($center_state->count() > 0)
-                                                    @foreach($val->otherdetailscenterstate_files as $kgrs => $other_file)
-                                                      @php
-                                                        $extension = pathinfo($other_file->file_name, PATHINFO_EXTENSION);
-                                                      @endphp
-                                                      @if($extension == 'pdf')
-                                                      <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $other_file->file_name]) }}" target="_blank" title="{{ $other_file->file_name }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                                      @elseif ($extension == 'doc')    
-                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $other_file->file_name]) }}" download="{{ $other_file->file_name }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-                                                      @else
-                                                      <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $other_file->file_name]) }}" download="{{ $other_file->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
-                                                      @endif
-                                                    {{-- <a href="{{ $replace_url }}/get_the_file/{{ $pval->scheme_id }}/otherdetailscenterstate_{{++$kgrs}}" target="_blank">
-                                                      <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                                                    </a> --}}
-                                                    @endforeach
-                                                  @endif
-                                                </div>
-                                                @endif
-                                                <!--end::Input-->
-                                              </div>
-                                            </div>
-                                            {{-- <button type="submit" id="btn_eleventh_slide_submit" style="visibility: hidden;"></button>
-                                        </form> --}}
-                                        <div class="row">
-                                            <div class="col-xl-6">
-                                                <div class="form-group"><br>
-                                                    <label>Beneficiary Filling form (લાભાર્થી ભરવાનું ફોર્મ):</label>
-                                                    <div class="form-group">
-                                                        <div class="row align-items-center">
-                                                            <div class="col-xl-3">
-                                                                <div class="radio-inline">
-                                                                    <label class="radio">
-                                                                        <input type="radio" name="beneficiary_filling_form_type" value="0" class="beneficiary_filling_form_type"
-                                                                            {{ isset($val->beneficiary_filling_form_type) && $val->beneficiary_filling_form_type == 0 ? 'checked' : '' }}>
-                                                                        Yes
-                                                                    </label>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group"><br>
+                                                        <label>Beneficiary Filling form (લાભાર્થી ભરવાનું ફોર્મ):</label>
+                                                        <div class="form-group">
+                                                            <div class="row align-items-center">
+                                                                <div class="col-xl-3">
+                                                                    <div class="radio-inline">
+                                                                        <label class="radio">
+                                                                            <input type="radio" name="beneficiary_filling_form_type" value="0" class="beneficiary_filling_form_type"
+                                                                                {{ isset($val->beneficiary_filling_form_type) && $val->beneficiary_filling_form_type == 0 ? 'checked' : '' }}>
+                                                                            Yes
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-xl-3">
-                                                                <div class="radio-inline">
-                                                                    <label class="radio">
-                                                                        <input type="radio" name="beneficiary_filling_form_type" value="1" class="beneficiary_filling_form_type"
-                                                                            {{ isset($val->beneficiary_filling_form_type) && $val->beneficiary_filling_form_type == 1 ? 'checked' : '' }}>
-                                                                        No
-                                                                    </label>
+                                                                <div class="col-xl-3">
+                                                                    <div class="radio-inline">
+                                                                        <label class="radio">
+                                                                            <input type="radio" name="beneficiary_filling_form_type" value="1" class="beneficiary_filling_form_type"
+                                                                                {{ isset($val->beneficiary_filling_form_type) && $val->beneficiary_filling_form_type == 1 ? 'checked' : '' }}>
+                                                                            No
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    {{-- File Upload Section --}}
-                                                    <div class="custom-file beneficiary_form"
-                                                        style="{{ isset($val->beneficiary_filling_form_type) && $val->beneficiary_filling_form_type == 0 ? '' : 'display: none;' }}">
-                                                        <input type="file"
-                                                            class="custom-file-input beneficiary_filling_form file_type_name"
-                                                            id="beneficiary_filling_form"
-                                                            name="beneficiary_filling_form"
-                                                            accept=".pdf,.docx,.xlsx" />
-                                                        <label class="custom-file-label" for="beneficiary_filling_form">Choose file</label>
-
-                                                        {{-- Show existing uploaded file if available --}}
-                                                        @if(!empty($val->beneficiary_filling_form))
-                                                            @php
-                                                                $ext = pathinfo($val->beneficiary_filling_form, PATHINFO_EXTENSION);
-                                                            @endphp
-                                                            <div class="mt-2 existing-beneficiary-file">
-                                                                <span>Existing File: </span>
-                                                                @if($ext == 'pdf')
-                                                                    <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" target="_blank" title="{{ $val->beneficiary_filling_form }}">
-                                                                        <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                                                                    </a>
-                                                                @elseif(in_array($ext, ['doc', 'docx']))
-                                                                    <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
-                                                                        <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
-                                                                    </a>
-                                                                @elseif(in_array($ext, ['xls', 'xlsx']))
-                                                                    <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
-                                                                        <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
-                                                                    </a>
-                                                                @endif
-                                                            </div>
-                                                        @endif
+                                                        {{-- File Upload Section --}}
+                                                        <div class="custom-file beneficiary_form"
+                                                            style="{{ isset($val->beneficiary_filling_form_type) && $val->beneficiary_filling_form_type == 0 ? '' : 'display: none;' }}">
+                                                            <input type="file" class="custom-file-input beneficiary_filling_form file_type_name" id="beneficiary_filling_form" name="beneficiary_filling_form[]" multiple accept=".pdf">
+                                                            <label class="custom-file-label" for="beneficiary_filling_form">Choose file</label>
+                                                            {{-- Show existing uploaded file if available --}}
+                                                            @if(!empty($val->beneficiary_filling_form))
+                                                                @php
+                                                                    $ext = pathinfo($val->beneficiary_filling_form, PATHINFO_EXTENSION);
+                                                                @endphp
+                                                                <div class="mt-2 existing-beneficiary-file">
+                                                                    <span>Existing File: </span>
+                                                                    @if($ext == 'pdf')
+                                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" target="_blank" title="{{ $val->beneficiary_filling_form }}">
+                                                                            <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                                        </a>
+                                                                    @elseif(in_array($ext, ['doc', 'docx']))
+                                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
+                                                                            <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                                        </a>
+                                                                    @elseif(in_array($ext, ['xls', 'xlsx']))
+                                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
+                                                                            <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
                                     </div>
                                     
                                     <!-- eleventh_slide close -->
                                     <div class="thirteenth_slide {{  ($currentSlide  == 13) ? 'active-slide' : '' }} otherslides" style="{{  ($currentSlide  == 13) ? 'display:block;' : 'display:none;' }}">
                                           <div class="row ">  
                                             <div class="col-xl-12">
-                                              <label>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય)) : </label> 
+                                              <label>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય)) : <small><b>Maximum 3000 words</b></small></label> 
+                                               <textarea name="major_indicator_hod" id="indicator_hod_id_0" class="form-control getindicator_hod word-limit pattern" rows="5" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('major_indicator_hod',$val->major_indicator_hod) }}</textarea>
+                                              <small class="word-message text-muted"></small>
                                             </div>
                                           </div>
-                                          <div class="row table-responsive">  
+                                        
+
+                                          {{-- <div class="row table-responsive">  
                                             <table class="table" id="indicator_table">
                                               <tbody>
-                                            
                                               @if(empty($val->major_indicator_hod))
                                                 <tr>
                                                   <th class="borderless"><label>Indicator :</label></th>
@@ -1620,25 +1507,25 @@
                                                   </td>
                                                   {{-- <td class="borderless" width="5%">
                                                     <button type="button" class="btn btn-primary" id="addnewindicatorbtn" style="padding:2px;width:20px;height:auto;font-weight:bolder">+</button>
-                                                  </td> --}}
+                                                  </td> 
                                                 </tr>
-                                              @else
+                                              {{-- @else
                                                     <tr class="indicator_tr_0">
                                                           <th class="borderless col-md-1"><label>Indicator:</label></th>
                                                           <td class="borderless major_hod_indicator_td" width="95%">
-                                                          <input class="form-control getindicator_hod" id="indicator_hod_id_0" type="text" name="major_indicator_hod[0][major_indicator_hod]" value="{{ $val->major_indicator_hod }}" /></td>
+                                                          <input class="form-control getindicator_hod" id="indicator_hod_id_0" type="text" name="major_indicator_hod[0][major_indicator_hod]" value="{{ $val->major_indicator_hod }}" /></td> --}}
                                                           {{-- <td class="borderless" width="5%">
                                                               @if($loop->last)
                                                                   <button type="button" class="btn btn-primary" id="addnewindicatorbtn" style="padding:2px;width:20px;height:auto;font-weight:bolder">+</button>
                                                               @else
                                                                   <button type="button" class="btn btn-primary" value="{{$khod}}" id="removeindicatorbtn" style="padding:2px;width:20px;height:auto;font-weight:bolder" onclick="removeindicatorrow(this.value)">-</button>
                                                               @endif
-                                                          </td> --}}
+                                                          </td> 
                                                       </tr>
                                                 @endif
                                               </tbody>
                                             </table>
-                                          </div>
+                                          </div> --}}
                                     </div>
                                     
                                     <!-- twelth_slide close -->
@@ -2681,7 +2568,7 @@ $(document).on('change', '.custom-file-input', function () {
     function getNextSlide(slideid) {
           var draft_id = $("#next_draft_id").val();
           var scheme_id = $("#next_scheme_id").val();
-            if (slideid == 1) {
+        if (slideid == 1) {
               let nextSlide = countIncrease(slideid);
               updateStepTitle(nextSlide); 
               // 🔹 Slide 1 fields
@@ -2718,7 +2605,7 @@ $(document).on('change', '.custom-file-input', function () {
               $("#step1tab").removeClass("active");
               $("#step2tab").addClass("active");
             
-          } else if(slideid == 2){
+        } else if(slideid == 2){
             let nextSlide = countIncrease(slideid);
             updateStepTitle(nextSlide); 
             // 🔹 Slide 1 fields (again for combined submission)
@@ -3299,7 +3186,7 @@ $(document).on('change', '.custom-file-input', function () {
               }
             }
 
-      // ===== VALIDATION =====
+      
             if (next_scheme_implementing_procedure === '' || beneficiariesGeoLocal === '' || implementing_procedure === '') {
                 $("#the_error_html").remove();
                 $(".nineth_slide").append(
@@ -3309,16 +3196,16 @@ $(document).on('change', '.custom-file-input', function () {
             }
 		
           // ===== APPEND DATA =====
-          formData.append('_token', "{{ csrf_token() }}");
-          formData.append('slide', 'nineth');
-          formData.append('scheme_implementing_procedure', next_scheme_implementing_procedure);
-          formData.append('beneficiariesGeoLocal', beneficiariesGeoLocal);
-          formData.append('otherbeneficiariesGeoLocal', next_otherbeneficiariesGeoLocal);
-          formData.append('draft_id', draft_id);
-          formData.append('scheme_id', scheme_id);
-          formData.append('implementing_procedure', implementing_procedure);
-          formData.append('taluka_id', taluka_id);
-          formData.append('geographical_coverage', geographical_coverage);
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('slide', 'nineth');
+            formData.append('scheme_implementing_procedure', next_scheme_implementing_procedure);
+            formData.append('beneficiariesGeoLocal', beneficiariesGeoLocal);
+            formData.append('otherbeneficiariesGeoLocal', next_otherbeneficiariesGeoLocal);
+            formData.append('draft_id', draft_id);
+            formData.append('scheme_id', scheme_id);
+            formData.append('implementing_procedure', implementing_procedure);
+            formData.append('taluka_id', taluka_id);
+            formData.append('geographical_coverage', geographical_coverage);
             states.forEach(v => formData.append('state_name[]', v));
             districts.forEach(v => formData.append('district_name[]', v));
             talukas.forEach(v => formData.append('taluka_name[]', v));
@@ -3329,52 +3216,6 @@ $(document).on('change', '.custom-file-input', function () {
             if (implementing_procedure_file) {
                 formData.append('implementing_procedure_file', implementing_procedure_file);
             }
-
-            // ===== AJAX =====
-			
-            // var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
-            // var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
-            // var thedistrictlist = $(".thedistrictlist").length;
-            // var talukas = [];
-            // var districts = [];
-            // var states = [];
-            // var districtList = $('#districtList').val();
-           // console.log($('#districtList').val());
-            // if(thedistrictlist > 0) {
-              // if(beneficiariesGeoLocal == 1) { //state
-                    // var i = 0;
-                    // $("input[name='state_name[]']:checked").each(function() {
-                        // var ss_state = this.value;
-                        // states[i] = ss_state.replace(/"/g,'');
-                        // i++;
-                    // });
-                // }else if(beneficiariesGeoLocal == 3 || beneficiariesGeoLocal == 7) { //Developing Taluka
-
-                  // var i = 0;
-                    // $("input[name='taluka_name[]']:checked").each(function() {
-                        // var ss_taluka = this.value;
-                        // talukas[i] = ss_taluka.replace(/"/g,'');
-                        // i++;
-                    // });
-                // } else { // District
-                    // var i = 0;
-                    // $("input[name='district_name[]']:checked").each(function() {
-                        // var ss_district = this.value;
-                        // districts[i] = ss_district.replace(/"/g,'');
-                        // i++;
-                    // });
-                // }
-            // }
-          // var next_scheme_implementing_procedure = $("#next_scheme_implementing_procedure").val();
-          // var beneficiariesGeoLocal = $('#beneficiariesGeoLocal').val();
-          // var next_otherbeneficiariesGeoLocal = $('#next_otherbeneficiariesGeoLocal').val();
-
-          // if (next_scheme_implementing_procedure !== '' && beneficiariesGeoLocal !== '') {
-              // let nextSlide = countIncrease(slideid);
-              // updateStepTitle(nextSlide); 
-                // $("#the_error_html").remove();
-
-
                 $.ajax({
                     type: 'POST',
                     url: "{{ route('schemes.update_scheme') }}",
@@ -3535,114 +3376,113 @@ $(document).on('change', '.custom-file-input', function () {
             //     $(".eleventh_slide").append(the_html);
             // }
         } else if(slideid == 12) {
-              var existing_gr_files = {{ $gr_files->count() ?? 0 }};
-              var existing_notification_files = {{ $notifications->count() ?? 0 }};
-              var existing_brochures_files = {{ $brochures->count() ?? 0 }};
-              var existing_pamphlets_files = {{ $pamphlets->count() ?? 0 }};
-              var existing_otherdetailscenterstate_files = {{ $center_state->count() ?? 0 }};
-              var next_gr_files = 0;
-                $('input[name="gr[]"]').each(function() {
-                    next_gr_files += this.files.length;
-                });
-              var next_notification_files = $('.next_notification_files')[0]?.files.length || 0;
-              var next_brochure_files = $(".next_brochure_files")[0]?.files.length || 0;
-              var next_pamphlets_files = $('.next_pamphlets_files')[0]?.files.length || 0;
-              var next_otherdetailscenterstate = $(".next_otherdetailscenterstate")[0]?.files.length || 0;
+              // Use the correct relationship names from your $val object
+              var existing_gr_files = {{ $val->gr_file->count() ?? 0 }};
+              var existing_notification_files = {{ $val->notification_files->count() ?? 0 }};
+              var existing_brochures_files = {{ $val->brochure_files->count() ?? 0 }};
+              var existing_pamphlets_files = {{ $val->pamphlets_files->count() ?? 0 }};
+              var existing_otherdetailscenterstate_files = {{ $val->otherdetailscenterstate_files->count() ?? 0 }};
 
-              // Validation: require at least GR or Notification file (new or existing)
-               if (next_gr_files > 0 || existing_gr_files > 0 || next_notification_files > 0 || existing_notification_files > 0) {
+              // 2. Calculate New (Next) files count from inputs
+              var next_gr_files = 0;
+              $('input[name="gr[]"]').each(function() { next_gr_files += this.files.length; });
+
+              var next_notification_files = 0;
+              $('.next_notification_files').each(function() { next_notification_files += this.files.length; });
+
+              var next_brochure_files = 0;
+              $('.next_brochure_files').each(function() { next_brochure_files += this.files.length; });
+
+              var next_pamphlets_files = 0;
+              $('.next_pamphlets_files').each(function() { next_pamphlets_files += this.files.length; });
+
+              var next_otherdetailscenterstate = 0;
+              $('.next_otherdetailscenterstate').each(function() { next_otherdetailscenterstate += this.files.length; });
+
+              // 3. Validation: Check if at least one GR or Notification exists (either old or new)
+              if (next_gr_files > 0 || existing_gr_files > 0 || next_notification_files > 0 || existing_notification_files > 0) {
 
                   $("#the_error_html").remove();
-                  let nextSlide = countIncrease(slideid);
+                  
+                  // UI Helpers (Assuming these functions are defined globally in your script)
+                  let nextSlide = countIncrease(slideid); 
                   updateStepTitle(nextSlide); 
 
-                  // --- Prepare FormData for upload ---
                   var tokenis = $("meta[name='csrf-token']").attr('content');
                   var formData = new FormData();
+                  
+                  // Basic Data
                   formData.append('_token', tokenis);
                   formData.append('slide', 'twelth');
                   formData.append('draft_id', draft_id);
                   formData.append('scheme_id', scheme_id);
 
-                  // --- GR multiple files ---
-                  $('input[name="gr[]"]').each(function () {
-                      let files = this.files;
-                      if (files.length > 0) {
-                          for (let i = 0; i < files.length; i++) {
-                              formData.append('gr[]', files[i]);
+                  // --- Helper function to append multiple files safely ---
+                  const appendFiles = (selector, appendName) => {
+                      let input = $(selector)[0];
+                      if (input && input.files) {
+                          for (let i = 0; i < input.files.length; i++) {
+                              formData.append(appendName, input.files[i]);
                           }
+                      }
+                  };
+
+                  // --- 1. GR Files (Special loop for repeatable rows) ---
+                  $('input[name="gr[]"]').each(function() {
+                      let files = this.files;
+                      for (let i = 0; i < files.length; i++) {
+                          formData.append('gr[]', files[i]);
                       }
                   });
 
-                  // --- Notification multiple files ---
-                  let notificationFiles = $('#notification')[0]?.files || [];
-                  for (let i = 0; i < notificationFiles.length; i++) {
-                      formData.append('notification[]', notificationFiles[i]);
-                  }
+                  // --- 2. Notification, Brochures, Pamphlets, Others (Using Helper) ---
+                  appendFiles('#notification', 'notification[]');
+                  appendFiles('#brochure', 'brochure[]');
+                  appendFiles('#pamphlets', 'pamphlets[]');
+                  appendFiles('#other_details_center_state', 'otherdetailscenterstate[]');
 
-                  // --- Brochure multiple files ---
-                  let brochureFiles = $('#brochure')[0]?.files || [];
-                  for (let i = 0; i < brochureFiles.length; i++) {
-                      formData.append('brochure[]', brochureFiles[i]);
-                  }
-
-                  // --- Pamphlets multiple files ---
-                  let pamphletsFiles = $('#pamphlets')[0]?.files || [];
-                  for (let i = 0; i < pamphletsFiles.length; i++) {
-                      formData.append('pamphlets[]', pamphletsFiles[i]);
-                  }
-
-                  // --- Other Details multiple files ---
-                  let otherDetailsFiles = $('#other_details_center_state')[0]?.files || [];
-                  for (let i = 0; i < otherDetailsFiles.length; i++) {
-                      formData.append('otherdetailscenterstate[]', otherDetailsFiles[i]);
-                  }
-
-                  // --- Beneficiary Form (conditional) ---
+                  // --- 3. Beneficiary Form Logic ---
                   let fillingType = $('input[name="beneficiary_filling_form_type"]:checked').val();
                   formData.append('beneficiary_filling_form_type', fillingType ?? '');
+
                   if (fillingType === '0') {
-                      let benFile = $('#beneficiary_filling_form')[0]?.files || [];
-                      if (benFile.length > 0) {
-                          formData.append('beneficiary_filling_form', benFile[0]);
-                      }
+                      appendFiles('#beneficiary_filling_form', 'beneficiary_filling_form[]');
                   }
 
-                  // --- Perform AJAX upload ---
+                  // --- 4. AJAX Upload ---
                   $.ajax({
                       type: 'POST',
                       url: "{{ route('schemes.update_scheme') }}",
                       data: formData,
                       processData: false,
                       contentType: false,
+                      beforeSend: function() {
+                          // Optional: Show a loader or disable the next button to prevent double-click
+                          $("#next_btn").prop('disabled', true).text('Uploading...');
+                      },
                       success: function (response) {
-                          // On success, move to next (thirteenth) slide
                           $(".otherslides").hide();
                           $(".thirteenth_slide").show();
                           $("#previous_btn").val(13).show();
-                          $("#next_btn").val(13).show();
+                          $("#next_btn").val(13).prop('disabled', false).text('Next').show();
+                          
                           $('.twelth_slide').removeClass("active-slide");
                           $('.thirteenth_slide').addClass("active-slide");
                       },
                       error: function (xhr) {
-                        let message = 'Something went wrong';
-
-                        if (xhr.responseJSON) {
-                            message =
-                                xhr.responseJSON.message ||
-                                xhr.responseJSON.error ||
-                                JSON.stringify(xhr.responseJSON);
-                        } else if (xhr.responseText) {
-                            message = xhr.responseText;
-                        }
-
-                        alert(message);
-                    }
+                          $("#next_btn").prop('disabled', false).text('Next');
+                          let message = 'Something went wrong';
+                          if (xhr.responseJSON) {
+                              message = xhr.responseJSON.message || xhr.responseJSON.error || JSON.stringify(xhr.responseJSON);
+                          }
+                          alert(message);
+                      }
                   });
+
               } else {
-                  // Validation error for missing GR/Notification
+                  // Validation Error UI
                   $("#the_error_html").remove();
-                  var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* GR  documents are required</div></div>';
+                  var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:16px;font-weight:bold;margin-top:10px;">Please upload at least one GR or Notification file.</div></div>';
                   $(".twelth_slide").append(the_html);
               }
         } else if(slideid == 13) {
@@ -3661,7 +3501,13 @@ $(document).on('change', '.custom-file-input', function () {
                         $(".otherslides").hide();
                         $(".fourteenth_slide").show();
                         $("#previous_btn").val(14).show();
-                        $("#next_btn").val(14).show();
+                       // $("#next_btn").val(14).show();
+                        $("#next_btn").hide();
+                        $('.last_btn').show();
+
+                        var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
+
+                        $("#div_next_btn").html(the_html_btn);
                         $('.thirteenth_slide').removeClass("active-slide");
                         $('.fourteenth_slide').addClass("active-slide");
                     },
@@ -3727,18 +3573,8 @@ $(document).on('change', '.custom-file-input', function () {
                             url:"{{ route('schemes.update_scheme') }}",
                             data:{'_token':"{{ csrf_token() }}", 'slide':'fourteenth','draft_id':draft_id,'scheme_id':scheme_id,'tr_array':tr_array, 'financial_progress_remarks':financial_progress_remarks},
                             success:function(response) {
-
-
                               $(".otherslides").hide();
                                // $("#next_btn").val(14).show();
-                                $("#next_btn").hide();
-                                $('.last_btn').show();
-
-                                var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
-
-                                $("#div_next_btn").html(the_html_btn);
-
-                               
                             },
                             error: function (xhr) {
                                   let message = 'Something went wrong';
