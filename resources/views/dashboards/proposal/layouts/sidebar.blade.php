@@ -212,12 +212,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
   $(document).ready(function(){
-    var evaldone = $("#evaldoneinpast").val();
-    if(evaldone == 'Yes') {
-      $(".evaldoneinpast_ifyes").show();
-    } else {
-      $(".evaldoneinpast_ifyes").hide();
-    }
+    // var evaldone = $("#evaldoneinpast").val();
+    // if(evaldone == 'Yes') {
+    //   $(".evaldoneinpast_ifyes").show();
+    // } else {
+    //   $(".evaldoneinpast_ifyes").hide();
+    // }
 
      $('.language-select').on('change', function () {
         const selectedLang = $(this).val();
@@ -239,34 +239,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   });
-  $(document).ready(function(){
-    $("#evaldoneinpast").change(function(){
-      var evaldoneis = $(this).val();
-      if(evaldoneis == 'Yes') {
-        $(".evaldoneinpast_ifyes").show();
-      } else {
-        $(".evaldoneinpast_ifyes").hide();
-      }
-    });
-  });
+  // $(document).ready(function(){
+  //   $("#evaldoneinpast").change(function(){
+  //     var evaldoneis = $(this).val();
+  //     if(evaldoneis == 'Yes') {
+  //       $(".evaldoneinpast_ifyes").show();
+  //     } else {
+  //       $(".evaldoneinpast_ifyes").hide();
+  //     }
+  //   });
+  // });
 
-  $(document).ready(function(){
-    $("#state_ratio, #central_ratio").keyup(function(e){
-      var state_ratio = $("#state_ratio").val();
-      var central_ratio = $("#central_ratio").val();
-      var plus_ratio = Number(state_ratio) + Number(central_ratio);
-      if(plus_ratio != 100) {
-          $("#state_ratio").css('border-color','red');
-          $("#central_ratio").css('border-color','red');
-          $("#ratio_error").remove();
-          $("#the_ratios").after("<p class='text-red' id='ratio_error'>State and central ratio must be 100 %</p>");
-      } else {
-          $("#state_ratio").css('border-color','#ced4da');
-          $("#central_ratio").css('border-color','#ced4da');
-          $("#ratio_error").remove();
-      }
-    });
-  });
+  // $(document).ready(function(){
+  //   $("#state_ratio, #central_ratio").keyup(function(e){
+  //     var state_ratio = $("#state_ratio").val();
+  //     var central_ratio = $("#central_ratio").val();
+  //     var plus_ratio = Number(state_ratio) + Number(central_ratio);
+  //     if(plus_ratio != 100) {
+  //         $("#state_ratio").css('border-color','red');
+  //         $("#central_ratio").css('border-color','red');
+  //         $("#ratio_error").remove();
+  //         $("#the_ratios").after("<p class='text-red' id='ratio_error'>State and central ratio must be 100 %</p>");
+  //     } else {
+  //         $("#state_ratio").css('border-color','#ced4da');
+  //         $("#central_ratio").css('border-color','#ced4da');
+  //         $("#ratio_error").remove();
+  //     }
+  //   });
+  // });
 
 $(function(){
 

@@ -237,7 +237,7 @@
                                                   <div class="form-group">
                                                       <label>Upload report (અહેવાલ અપલોડ કરવો.) <span class="required_filed"> * </span> :</label>
                                                       <div class="custom-file">
-                                                          <input type="file" class="custom-file-input file_type_name" id="eval_if_yes_upload_file" accept=".pdf">
+                                                          <input type="file" class="custom-file-input file_type_name" id="eval_if_yes_upload_file" accept=".pdf,.docx,.xls">
                                                           <label class="custom-file-label" for="eval_if_yes_upload_file">Choose File</label>
                                                       </div>
                                                   </div>
@@ -1509,18 +1509,18 @@ $(document).ready(function(){
     var maxUploads = 5;
     var currentUploads = 1;
 
-    $("#btn_add_gr_noti_bro").on("click", function () {
-      var ktcontent = $("#kt_content").height();
-    $(".content-wrapper").css('min-height',ktcontent+50);
-        if (currentUploads < maxUploads) {
-            var clonedRow = $(".file-upload-row:first").clone();
-            clonedRow.find('input[type="file"]').val(''); // Clear file input value
-            clonedRow.appendTo("#fileUploadContainer");
-            currentUploads++;
-        } else {
-            alert("You can add a maximum of 5 file upload sections.");
-        }
-    });
+    // $("#btn_add_gr_noti_bro").on("click", function () {
+    //   var ktcontent = $("#kt_content").height();
+    // $(".content-wrapper").css('min-height',ktcontent+50);
+    //     if (currentUploads < maxUploads) {
+    //         var clonedRow = $(".file-upload-row:first").clone();
+    //         clonedRow.find('input[type="file"]').val(''); // Clear file input value
+    //         clonedRow.appendTo("#fileUploadContainer");
+    //         currentUploads++;
+    //     } else {
+    //         alert("You can add a maximum of 5 file upload sections.");
+    //     }
+    // });
 
   $('#the_convergence_btn').click(function(){
     var ktcontent = $("#kt_content").height();
@@ -1552,49 +1552,118 @@ function fn_remove_the_convergence_div(after_conv_id) {
     $(".content-wrapper").css('min-height',ktcontent);
 }
 
-$(document).ready(function(){
-  var nextrownumberzero = 0;
-  $(".finprogressbtn").click(function(){
-    var rownumber = $(this).val();
-    var target = 'target';
-    var fiyear = 'financial_year';
-    var achivement = 'achivement';
-    var allocation = 'allocation';
-    var expenditure = 'expenditure';
-    var units = 'units';
-    var selection = 'selection';
-    var item = 'item';
-    nextrownumberzero++;
+// $(document).ready(function(){
+//   var nextrownumberzero = 0;
+//   $(".finprogressbtn").click(function(){
+//     var rownumber = $(this).val();
+//     var target = 'target';
+//     var fiyear = 'financial_year';
+//     var achivement = 'achivement';
+//     var allocation = 'allocation';
+//     var expenditure = 'expenditure';
+//     var units = 'units';
+//     var selection = 'selection';
+//     var item = 'item';
+//     nextrownumberzero++;
 
-    var count_thisistbody_tr = Number($("#thisistbody tr").length) - 1;
-    var entered_finyear = $('#thisistbody .next_financial_progress_year').eq(count_thisistbody_tr).val();
-   // var entered_units = $('#thisistbody .next_financial_progress_units').eq(count_thisistbody_tr).val();
-    var entered_target = $('#thisistbody .next_financial_progress_target').eq(count_thisistbody_tr).val();
-    var entered_achievement = $('#thisistbody .next_financial_progress_achivement').eq(count_thisistbody_tr).val();
-    var entered_fund = $('#thisistbody .next_financial_progress_allocation').eq(count_thisistbody_tr).val();
-    var entered_expenditure = $('#thisistbody .next_financial_progress_expenditure').eq(count_thisistbody_tr).val();
+//     var count_thisistbody_tr = Number($("#thisistbody tr").length) - 1;
+//     var entered_finyear = $('#thisistbody .next_financial_progress_year').eq(count_thisistbody_tr).val();
+//    // var entered_units = $('#thisistbody .next_financial_progress_units').eq(count_thisistbody_tr).val();
+//     var entered_target = $('#thisistbody .next_financial_progress_target').eq(count_thisistbody_tr).val();
+//     var entered_achievement = $('#thisistbody .next_financial_progress_achivement').eq(count_thisistbody_tr).val();
+//     var entered_fund = $('#thisistbody .next_financial_progress_allocation').eq(count_thisistbody_tr).val();
+//     var entered_expenditure = $('#thisistbody .next_financial_progress_expenditure').eq(count_thisistbody_tr).val();
 
-    var entered_selection = $('#thisistbody .next_financial_progress_selection').eq(count_thisistbody_tr).val();
-   // var entered_item = $('#thisistbody .next_financial_progress_item').eq(count_thisistbody_tr).val();
+//     var entered_selection = $('#thisistbody .next_financial_progress_selection').eq(count_thisistbody_tr).val();
+//    // var entered_item = $('#thisistbody .next_financial_progress_item').eq(count_thisistbody_tr).val();
 
-    if(rownumber == 0 && nextrownumberzero == 1) {
-      // var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_units next_fin_units_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+units+']" value="'+entered_units+'" maxlength="20" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']" value="'+entered_target+'" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']" value="'+entered_achievement+'" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']" value="'+entered_fund+'" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value="'+entered_expenditure+'" /></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="'+nextrownumberzero+'" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
-      // $("#thisistbody tr:last").after(addtr);
-         var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+rownumber+']['+fiyear+']"><option value="">Year</option> @foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option>  @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option> @endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
-         $("#thisistbody tr:last").after(addtr);
-    } else {
+//     if(rownumber == 0 && nextrownumberzero == 1) {
+    
+//          var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+rownumber+']['+fiyear+']"><option value="">Year</option> @foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option>  @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option> @endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
+//          $("#thisistbody tr:last").after(addtr);
+//     } else {
   
-      var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_progress_year_'+nextrownumberzero+' next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
-      $("#thisistbody tr:last").after(addtr);
+//       var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_progress_year_'+nextrownumberzero+' next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
+//       $("#thisistbody tr:last").after(addtr);
+//     }
+
+//     var ktcontent = $("#kt_content").height();
+//     $(".content-wrapper").css('min-height',ktcontent);
+
+//   });
+// });
+
+$(document).ready(function() {
+    var nextrownumberzero = 0;
+
+    // Helper to get the starting year from the Reference Year dropdown
+    function getReferenceStartYear() {
+        var fromYear = $('#next_reference_year').val(); // e.g., "2020-21"
+        if (fromYear) {
+            return parseInt(fromYear.split('-')[0]); // returns 2020
+        }
+        return 0; // Default if nothing selected
     }
 
-    var ktcontent = $("#kt_content").height();
-    $(".content-wrapper").css('min-height',ktcontent);
+    $(document).on('click', ".finprogressbtn", function() {
+        var rownumber = $(this).val();
+        var target = 'target';
+        var fiyear = 'financial_year';
+        var achivement = 'achivement';
+        var allocation = 'allocation';
+        var expenditure = 'expenditure';
+        var selection = 'selection';
+        
+        nextrownumberzero++;
 
-  });
+        // 1. Get the boundary year
+        var referenceStart = getReferenceStartYear();
+
+        // 2. Prepare the Year Options dynamically
+        // We take the PHP array and filter it based on the reference year
+        var yearOptions = '<option value="">Year</option>';
+        var allYears = @json($financial_years); 
+
+        allYears.forEach(function(year) {
+            var yearStart = parseInt(year.split('-')[0]);
+            // Only add years that are greater than or equal to the Reference Year
+            if (yearStart >= referenceStart) {
+                yearOptions += '<option value="' + year + '">' + year + '</option>';
+            }
+        });
+
+        // 3. Prepare Unit Options (reuse existing logic)
+        var unitOptions = '<option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option>';
+
+        // 4. Construct the New Row
+        var addtr = `
+            <tr class="finprogresstr_${nextrownumberzero}">
+                <td class="finprogresstd_${nextrownumberzero}">
+                    <select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${fiyear}]">
+                        ${yearOptions}
+                    </select>
+                </td>
+                <td class="finprogresstd_${nextrownumberzero}">
+                    <select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_${nextrownumberzero}" id="next_fin_selection_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${selection}]">
+                        ${unitOptions}
+                    </select>
+                </td>
+                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${target}]" /></td>
+                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${achivement}]" /></td>
+                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${allocation}]" /></td>
+                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${expenditure}]" /></td>
+                <td class="finprogresstd_${nextrownumberzero}">
+                    <button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(${nextrownumberzero})" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button>
+                </td>
+            </tr>`;
+
+        $("#thisistbody tr:last").after(addtr);
+
+        // Update layout height
+        var ktcontent = $("#kt_content").height();
+        $(".content-wrapper").css('min-height', ktcontent);
+    });
 });
-
-
 
     function hasDecimalPlace(value, x) {
         var pointIndex = value.indexOf('.');
@@ -1609,8 +1678,8 @@ function remove_financial_year(row) {
 
 
     $(document).ready(function(){
-        var ktcontent = $("#kt_content").height();
-        $(".content-wrapper").css('min-height',ktcontent);
+        // var ktcontent = $("#kt_content").height();
+        // $(".content-wrapper").css('min-height',ktcontent);
     });
 
     $(document).ready(function () {
@@ -1635,6 +1704,7 @@ function remove_financial_year(row) {
     }
     $(document).ready(function(){
         var defaultVal = $("#beneficiariesGeoLocal").val();
+        console.log(defaultVal);
         if(defaultVal) {
             fngetdist(defaultVal);
         }
@@ -1656,49 +1726,66 @@ function remove_financial_year(row) {
     });
 
     function fnSelectAll(checked) {
-       $('.thedistrictlist input[type="checkbox"]').prop('checked', checked);
+        $('.district_length').prop('checked', checked);
     }
+    // listener to uncheck "Select All" if one district is manually unchecked
+        $(document).on('change', '.district_length', function() {
+            if ($('.district_length:checked').length === $('.district_length').length) {
+                $('#selectAllCheckbox').prop('checked', true);
+            } else {
+                $('#selectAllCheckbox').prop('checked', false);
+            }
+        });
     function fngetdist(theval) {
+       // 1. Clear previous content immediately
         $(".thedistrictlist").remove();
         $("#beneficiariesGeoLocal_img").remove();
         $('#districtList').hide();
-        if (theval === 'all') {
-          // Handle the case when 'All' is selected
-          fnSelectAll(true);
-          return;
-      }
         $.ajax({
             type:'post',
             dataType:'json',
             url:"{{ route('districts') }}",
             data:{'district':theval},
-            beforeSend:function() {
-                $("#load_gif_img").html('<img id="beneficiariesGeoLocal_img" src="eval/public/loading.gif" style="max-width:200px;max-height:200px">');
+            beforeSend: function() {
+                $("#load_gif_img").html('<img id="beneficiariesGeoLocal_img" src="{{ asset("eval/public/loading.gif") }}" style="max-width:200px;max-height:200px">');
             },
-            complete:function() {
+            complete: function() {
                 $("#beneficiariesGeoLocal_img").remove();
-                var ktcontent = $("#kt_content").height();
-                $(".content-wrapper").css('min-height',ktcontent);
+                $(".content-wrapper").css('min-height', $("#kt_content").height());
             },
             success:function(response) {
-                var ktcontent = $("#kt_content").height();
-                $(".content-wrapper").css('min-height',ktcontent);
-
                 $(".thedistrictlist").remove();
-                $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px;font-size:20px'></div>");
+            
+                // 3. Create container
+                $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px; font-size:18px'></div>");
 
-                if(response.districts != '' && response.districts != undefined) {
-                    $('#districtList').hide();
-                    
-                    // Add "All" checkbox and make it CHECKED by default
-                    $(".thedistrictlist").append("<div class='col-xl-3'><input type='checkbox' id='selectAllCheckbox' checked onchange='fnSelectAll(this.checked)'> <strong>All</strong></div>");
-                    
-                    $.each(response.districts, function(reskey, resval){
-                        // Add 'checked' to each individual district checkbox
-                        $(".thedistrictlist").append("<div class='col-xl-3'><input class='district_length' type='checkbox' checked style='margin:3px' value='"+resval.dcode+"' name='district_name[]'>"+resval.name_e+"</div>");
-                    });
-                }
+                    if (response.districts && response.districts.length > 0) {
+                        
+                        // 4. Append Select All
+                        $(".thedistrictlist").append(
+                            "<div class='col-xl-12 mb-3'>" +
+                                "<input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> " +
+                                "<label for='selectAllCheckbox' style='cursor:pointer; margin-left:5px'><strong>Select All Districts</strong></label>" +
+                            "</div>"
+                        );
 
+                        // 5. Append individual districts
+                        $.each(response.districts, function(key, district) {
+                            $(".thedistrictlist").append(
+                                "<div class='col-xl-3'>" +
+                                    "<input class='district_length' type='checkbox' id='dist_" + district.dcode + "' style='margin:3px' value='" + district.dcode + "' name='district_name[]'>" +
+                                    "<label for='dist_" + district.dcode + "' style='cursor:pointer;'> " + district.name_e + "</label>" +
+                                "</div>"
+                            );
+                        });
+
+                        // 6. Handle the 'all' case AFTER checkboxes are created
+                        if (theval === 'all') {
+                            $('#selectAllCheckbox').prop('checked', true);
+                            fnSelectAll(true);
+                        }
+                    }
+        
                 // if(response.state != '' && response.state != undefined){
                 //     $('#districtList').hide();
                 //     // Add "All" for states and make it checked
@@ -1751,7 +1838,7 @@ function remove_financial_year(row) {
                 //   }
               
             },
-            error:function() {
+            error: function() {
                 console.log('districts ajax error');
             }
         });
@@ -1967,16 +2054,16 @@ function remove_financial_year(row) {
                 var eval_yes_data = $("#send_eval_yes_div").html();
                 $("#fourteenth_slide_form .form_eval_yes_div").append(eval_yes_data);
             }
-            var ktcontent = $("#kt_content").height();
-            $(".content-wrapper").css('min-height',ktcontent);
+            // var ktcontent = $("#kt_content").height();
+            // $(".content-wrapper").css('min-height',ktcontent);
         } else {
             $("#if_eval_yes_div").hide();
             $("#send_eval_yes_div").html('');
             var eval_yes_div = $(".form_eval_yes_div").html();
             $("#send_eval_yes_div").html(eval_yes_div).hide();
             $("#fourteenth_slide_form .form_eval_yes_div").html('');
-            var ktcontent = $("#kt_content").height();
-            $(".content-wrapper").css('min-height',ktcontent);
+            // var ktcontent = $("#kt_content").height();
+            // $(".content-wrapper").css('min-height',ktcontent);
         }
     }
 
@@ -2989,6 +3076,7 @@ function countIncrease(slideid){
                               $(".fourteenth_slide").show();
                               $("#previous_btn").val(14).show();
                               $("#next_btn").val(14).show();
+                              $("#next_btn").text("Finish").removeClass('btn-primary').addClass('btn-success');
                               $('.thirteenth_slide').removeClass("active-slide");
                               $('.fourteenth_slide').addClass("active-slide");
                     },
@@ -3065,13 +3153,14 @@ function countIncrease(slideid){
                                 data:{'slide':'fourteenth','tr_array':tr_array, 'financial_progress_remarks':financial_progress_remarks},
                                 success:function(response) {
                                 $(".otherslides").hide();
+                                finishSlides();
                                 // $("#next_btn").val(14).show();
-                                    $("#next_btn").hide();
-                                    $('.last_btn').show();
+                                   // $("#next_btn").hide();
+                                    // $('.last_btn').show();
 
-                                    var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
+                                    // var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
 
-                                    $("#div_next_btn").html(the_html_btn);
+                                    // $("#div_next_btn").html(the_html_btn);
                                     
                                 },
                                 error:function() {
@@ -3274,27 +3363,78 @@ function finishSlides() {
           $(".thirteenth_slide").show();
           $("#previous_btn").val(13).show();
           $("#the_error_html").remove();
-          $("#div_next_btn").empty();
-          var next_btn = '<button type="button" class="btn btn-primary font-weight-bold text-uppercase" data-wizard-type="action-next" value="13" onclick="getNextSlide(this.value)" id="next_btn">Next</button>';
-          $("#div_next_btn").html(next_btn);
+         $("#next_btn").text("Next").removeClass('btn-success').addClass('btn-primary');
+        //   $("#div_next_btn").empty();
+        //   var next_btn = '<button type="button" class="btn btn-primary font-weight-bold text-uppercase" data-wizard-type="action-next" value="13" onclick="getNextSlide(this.value)" id="next_btn">Next</button>';
+        //   $("#div_next_btn").html(next_btn);
       }
     }
 
   
     $(document).ready(function(){
-      $('#next_reference_year').change(function(){
-        var selectedValue = $(this).val();        
-        var selectedYear = parseInt(selectedValue.split('-')[0]);
+    //   $('#next_reference_year').change(function(){
+    //     var selectedValue = $(this).val();        
+    //     var selectedYear = parseInt(selectedValue.split('-')[0]);
 
-        $('#next_reference_year2 option').each(function(){
-            var year = parseInt($(this).val().split('-')[0]);
-            if(year < selectedYear){
+    //     $('#next_reference_year2 option').each(function(){
+    //         var year = parseInt($(this).val().split('-')[0]);
+    //         if(year < selectedYear){
+    //             $(this).hide();
+    //         } else {
+    //             $(this).show();
+    //         }
+    //     });
+    // });
+
+    $(document).on('change', '#next_reference_year', function() {
+    var selectedValue = $(this).val();
+    if (!selectedValue) return; // Exit if "Select Year" is picked
+
+    var referenceStart = parseInt(selectedValue.split('-')[0]);
+
+    // --- LOGIC 1: Filter Reference Year 2 (To) ---
+    $('#next_reference_year2 option').each(function() {
+        var optVal = $(this).val();
+        if (optVal != "") {
+            var optYear = parseInt(optVal.split('-')[0]);
+            if (optYear < referenceStart) {
                 $(this).hide();
             } else {
                 $(this).show();
             }
-        });
+        }
     });
+
+    // Reset Reference Year 2 if it's now invalid
+    var currentRef2 = $('#next_reference_year2').val();
+    if (currentRef2 && parseInt(currentRef2.split('-')[0]) < referenceStart) {
+        $('#next_reference_year2').val('');
+    }
+
+    // --- LOGIC 2: Filter the Financial Progress Table Rows ---
+    $('.next_financial_progress_year').each(function() {
+        var dropdown = $(this);
+        
+        dropdown.find('option').each(function() {
+            var optVal = $(this).val();
+            if (optVal != "") {
+                var optStart = parseInt(optVal.split('-')[0]);
+                if (optStart < referenceStart) {
+                    $(this).prop('disabled', true).hide();
+                } else {
+                    $(this).prop('disabled', false).show();
+                }
+            }
+        });
+
+        // Reset the table dropdown if the selected value is now invalid
+        var tableSelected = dropdown.val();
+        if (tableSelected && parseInt(tableSelected.split('-')[0]) < referenceStart) {
+            dropdown.val('');
+        }
+    });
+});
+
     $( ".datepicker" ).datepicker({
           format: 'dd/mm/yyyy', 
           changeMonth: true,
