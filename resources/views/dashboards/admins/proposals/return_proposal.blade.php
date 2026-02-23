@@ -74,7 +74,7 @@
                                               <td>{{(!empty($prop->return_eval_date)) ? date('d-M-y',strtotime( $prop->return_eval_date)) : '-'}}</td>
                                               <td width="23%">{{ $prop->remarks}}</td>
                                               <td width="10%">
-                                                <a href="{{ route('schemes.proposal_detail',[Crypt::encrypt($prop->draft_id),Crypt::encrypt($prop->id)]) }}" class="btn btn-xs btn-info" style="display: inline-block">View</a>
+                                                <a href="{{ route('schemes.newproposal_detail',[Crypt::encrypt($prop->draft_id),Crypt::encrypt($prop->id)]) }}" class="btn btn-xs btn-info" style="display: inline-block">View</a>
                                               </td>
                                             </tr>
                                             @endforeach

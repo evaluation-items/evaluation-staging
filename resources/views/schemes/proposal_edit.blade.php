@@ -1302,24 +1302,22 @@
                                                                     @endphp
                                                                     <div class="existing-file d-flex align-items-center mb-2">
                                                                         @if($extension == 'pdf')
-                                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $file->file_name]) }}" target="_blank" title="{{ $file->file_name }}">
+                                                                            <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $file->file_name]) }}" target="_blank" title="{{ $file->file_name }}">
                                                                                 <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
                                                                             </a>
                                                                         @elseif(in_array($extension, ['doc', 'docx']))
-                                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $file->file_name]) }}" download="{{ $file->file_name }}">
+                                                                            <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $file->file_name]) }}" download="{{ $file->file_name }}">
                                                                                 <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
                                                                             </a>
                                                                         @elseif(in_array($extension, ['xls', 'xlsx']))
-                                                                            <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $file->file_name]) }}" download="{{ $file->file_name }}">
+                                                                            <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $file->file_name]) }}" download="{{ $file->file_name }}">
                                                                                 <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
                                                                             </a>
                                                                         @endif
                                                                         <span class="ml-2">{{ $file->file_name }}</span>
                                                                         {{-- Option to delete this file (optional) --}}
-                                                                        <button type="button" class="btn btn-danger btn-sm ml-3 remove-existing-file"
-                                                                            data-file-id="{{ $file->id }}">
-                                                                            Remove
-                                                                        </button>
+                                                                        <button type="button" class="btn btn-danger btn-sm remove-existing-file" data-file-id="{{ $file->id }}" 
+                                                                                data-type="GR" data-couch-id="{{ $attachment_info->couch_doc_id }}" data-rev="{{ $attachment_info->couch_rev_id }}" data-filename="{{ $file->file_name }}"> Remove </button>
                                                                     </div>
                                                                 @endforeach
                                                             @endif
@@ -1352,11 +1350,26 @@
                                                           </div>
                                                       </div>
                                                       <div class="existing-notification-wrap">
-                                                          @foreach($val->notification_files as $file)
+                                                          @foreach($val->notification_files as $noti_file)
+                                                            @php
+                                                                $extension = pathinfo($noti_file->file_name, PATHINFO_EXTENSION);
+                                                            @endphp
                                                               <div class="existing-file d-flex align-items-center mb-2">
-                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-primary"></i>
-                                                                  <span class="small">{{ $file->file_name }}</span>
-                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                                     @if($extension == 'pdf')
+                                                                            <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $noti_file->file_name]) }}" target="_blank" title="{{ $noti_file->file_name }}">
+                                                                                <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                                            </a>
+                                                                        @elseif(in_array($extension, ['doc', 'docx']))
+                                                                            <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $noti_file->file_name]) }}" download="{{ $noti_file->file_name }}">
+                                                                                <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                                            </a>
+                                                                        @elseif(in_array($extension, ['xls', 'xlsx']))
+                                                                            <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $noti_file->file_name]) }}" download="{{ $noti_file->file_name }}">
+                                                                            <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
+                                                                            </a>
+                                                                        @endif
+                                                                  <span class="small">{{ $noti_file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $noti_file->id }}"  data-type="notification" data-couch-id="{{ $attachment_info->couch_doc_id }}" data-rev="{{ $attachment_info->couch_rev_id }}" data-filename="{{ $noti_file->file_name }}">Remove</button>
                                                               </div>
                                                           @endforeach
                                                       </div>
@@ -1372,11 +1385,26 @@
                                                           </div>
                                                       </div>
                                                       <div class="existing-brochure-wrap">
-                                                          @foreach($val->brochure_files as $file)
+                                                          @foreach($val->brochure_files as $bro_file)
+                                                                @php
+                                                                    $extension = pathinfo($bro_file->file_name, PATHINFO_EXTENSION);
+                                                                @endphp
                                                               <div class="existing-file d-flex align-items-center mb-2">
-                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-success"></i>
-                                                                  <span class="small">{{ $file->file_name }}</span>
-                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                                @if($extension == 'pdf')
+                                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $bro_file->file_name]) }}" target="_blank" title="{{ $bro_file->file_name }}">
+                                                                        <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                                    </a>
+                                                                @elseif(in_array($extension, ['doc', 'docx']))
+                                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $bro_file->file_name]) }}" download="{{ $bro_file->file_name }}">
+                                                                        <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                                    </a>
+                                                                @elseif(in_array($extension, ['xls', 'xlsx']))
+                                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $bro_file->file_name]) }}" download="{{ $bro_file->file_name }}">
+                                                                    <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
+                                                                    </a>
+                                                                @endif
+                                                                  <span class="small">{{ $bro_file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $bro_file->id }}"  data-type="brochure" data-couch-id="{{ $attachment_info->couch_doc_id }}" data-rev="{{ $attachment_info->couch_rev_id }}" data-filename="{{ $bro_file->file_name }}">Remove</button>
                                                               </div>
                                                           @endforeach
                                                       </div>
@@ -1394,11 +1422,26 @@
                                                           </div>
                                                       </div>
                                                       <div class="existing-pamphlet-wrap">
-                                                          @foreach($val->pamphlets_files as $file)
+                                                          @foreach($val->pamphlets_files as $pam_file)
+                                                                @php
+                                                                    $extension = pathinfo($pam_file->file_name, PATHINFO_EXTENSION);
+                                                                @endphp
                                                               <div class="existing-file d-flex align-items-center mb-2">
-                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-warning"></i>
-                                                                  <span class="small">{{ $file->file_name }}</span>
-                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                                @if($extension == 'pdf')
+                                                                    <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $pam_file->file_name]) }}" target="_blank" title="{{ $pam_file->file_name }}">
+                                                                        <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                                    </a>
+                                                                @elseif(in_array($extension, ['doc', 'docx']))
+                                                                    <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $pam_file->file_name]) }}" download="{{ $pam_file->file_name }}">
+                                                                        <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                                    </a>
+                                                                @elseif(in_array($extension, ['xls', 'xlsx']))
+                                                                    <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $pam_file->file_name]) }}" download="{{ $pam_file->file_name }}">
+                                                                    <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
+                                                                    </a>
+                                                                @endif
+                                                                  <span class="small">{{ $pam_file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $pam_file->id }}" data-type="pamphlets" data-couch-id="{{ $attachment_info->couch_doc_id }}" data-rev="{{ $attachment_info->couch_rev_id }}" data-filename="{{ $pam_file->file_name }}">Remove</button>
                                                               </div>
                                                           @endforeach
                                                       </div>
@@ -1414,11 +1457,26 @@
                                                           </div>
                                                       </div>
                                                       <div class="existing-other-wrap">
-                                                          @foreach($val->otherdetailscenterstate_files as $file)
+                                                          @foreach($val->otherdetailscenterstate_files as $other_file)
+                                                                @php
+                                                                    $extension = pathinfo($other_file->file_name, PATHINFO_EXTENSION);
+                                                                @endphp
                                                               <div class="existing-file d-flex align-items-center mb-2">
-                                                                  <i class="fas fa-file-alt fa-2x mr-2 text-info"></i>
-                                                                  <span class="small">{{ $file->file_name }}</span>
-                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $file->id }}">Remove</button>
+                                                                @if($extension == 'pdf')
+                                                                    <a href="{{route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $other_file->file_name]) }}" target="_blank" title="{{ $other_file->file_name }}">
+                                                                        <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                                                    </a>
+                                                                @elseif(in_array($extension, ['doc', 'docx']))
+                                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $other_file->file_name]) }}" download="{{ $other_file->file_name }}">
+                                                                        <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
+                                                                    </a>
+                                                                @elseif(in_array($extension, ['xls', 'xlsx']))
+                                                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $other_file->file_name]) }}" download="{{ $other_file->file_name }}">
+                                                                    <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
+                                                                    </a>
+                                                                @endif
+                                                                  <span class="small">{{ $other_file->file_name }}</span>
+                                                                  <button type="button" class="btn btn-danger btn-sm ml-auto remove-existing-file" data-file-id="{{ $other_file->id }}" data-type="otherdetails" data-couch-id="{{ $attachment_info->couch_doc_id }}" data-rev="{{ $attachment_info->couch_rev_id }}" data-filename="{{ $other_file->file_name }}">Remove</button>
                                                               </div>
                                                           @endforeach
                                                       </div>
@@ -1465,15 +1523,15 @@
                                                                 <div class="mt-2 existing-beneficiary-file">
                                                                     <span>Existing File: </span>
                                                                     @if($ext == 'pdf')
-                                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" target="_blank" title="{{ $val->beneficiary_filling_form }}">
+                                                                        <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $val->beneficiary_filling_form]) }}" target="_blank" title="{{ $val->beneficiary_filling_form }}">
                                                                             <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
                                                                         </a>
                                                                     @elseif(in_array($ext, ['doc', 'docx']))
-                                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
+                                                                        <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
                                                                             <i class="fas fa-file-word fa-2x" style="color:#007bff;"></i>
                                                                         </a>
                                                                     @elseif(in_array($ext, ['xls', 'xlsx']))
-                                                                        <a href="{{ route('schemes.get_the_file', [$val->scheme_id, $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
+                                                                        <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($val->scheme_id), $val->beneficiary_filling_form]) }}" download="{{ $val->beneficiary_filling_form }}">
                                                                             <i class="fas fa-file-excel fa-2x" style="color:green;"></i>
                                                                         </a>
                                                                     @endif
@@ -1753,26 +1811,36 @@ $(document).ready(function() {
 
 // Optional: Remove existing file (AJAX delete)
 $(document).on('click', '.remove-existing-file', function () {
-    let fileId = $(this).data('file-id');
-    let row = $(this).closest('.existing-file');
+    let btn = $(this);
+    let id = btn.data('id');           // SQL Primary Key
+    let couchId = btn.data('couch-id');// CouchDB Document ID
+    let rev = btn.data('rev');         // CouchDB Revision
+    let type = btn.data('type');       // GR, Notification, etc.
+    let filename = btn.data('filename');       // GR, Notification, etc.
+    let row = btn.closest('.existing-file');
 
-    if (confirm('Are you sure you want to delete this file?')) {
+    if (confirm(`Are you sure you want to delete this ${type}?`)) {
         $.ajax({
-            url: '/schemes/delete-gr-file/' + fileId, // route to handle file deletion
-            type: 'post',
+            url: "{{ route('schemes.delete_file') }}",
+            type: 'POST',
             data: {
                 _token: $('meta[name="csrf-token"]').attr('content'),
+                id: id,
+                couch_id: couchId,
+                rev: rev,
+                type: type,
+                filename:filename
             },
             success: function (res) {
                 if (res.success) {
-                    row.remove();
+                    row.fadeOut();
                 } else {
-                    alert('Error deleting file.');
+                    alert('Error: ' + res.message);
                 }
             },
             error: function () {
-                alert('Something went wrong.');
-            },
+                alert('Connection error.');
+            }
         });
     }
 });
@@ -1925,20 +1993,42 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
  
   });
 
-   $(document).on('change','.next_financial_progress_selection',function() {
-      var classValue = $(this).attr('id');
-      var type = $('#'+classValue).val();
-      var string  = classValue.split("_");
-      var txtVal = $(this).parent('.finprogresstd_'+parseInt(string[3])).next().find('.next_fin_item_'+parseInt(string[3]));
-      txtVal.val('');
-      if(type == 0){
-           if(txtVal.hasClass('allowonly2decimal')){
-              txtVal.removeClass('allowonly2decimal');
-            }
-      }else{
-          txtVal.addClass('allowonly2decimal');
-      }
-   });
+  $(document).on('change', '.next_financial_progress_selection', function() {
+    // 1. Get the value (e.g., "0" for Other)
+    var type = $(this).val();
+    
+    // 2. Find the row this select belongs to
+    var parentRow = $(this).closest('tr');
+    
+    // 3. Find the 'item' input within the same row
+    // Note: Use a class selector instead of searching by ID/Index
+    var txtVal = parentRow.find('.next_financial_progress_item'); 
+
+    // 4. Clear value on change
+    txtVal.val('');
+
+    // 5. Logic for 'Other' (type == 0)
+    if(type == "0") {
+        txtVal.removeClass('allowonly2decimal');
+    } else {
+        txtVal.addClass('allowonly2decimal');
+    }
+});
+
+//    $(document).on('change','.next_financial_progress_selection',function() {
+//       var classValue = $(this).attr('id');
+//       var type = $('#'+classValue).val();
+//       var string  = classValue.split("_");
+//       var txtVal = $(this).parent('.finprogresstd_'+parseInt(string[3])).next().find('.next_fin_item_'+parseInt(string[3]));
+//       txtVal.val('');
+//       if(type == 0){
+//            if(txtVal.hasClass('allowonly2decimal')){
+//               txtVal.removeClass('allowonly2decimal');
+//             }
+//       }else{
+//           txtVal.addClass('allowonly2decimal');
+//       }
+//    });
   
    $('.save_item').on('click',function(){
         var save_item = $(this).attr('data-slide-item');
@@ -2064,28 +2154,67 @@ function fn_remove_the_convergence_div(after_conv_id) {
 }
 
 $(document).ready(function() {
-    // Helper to get the starting year from the Reference Year dropdown
-    function getReferenceStartYear() {
-        var fromYear = $('#next_reference_year').val();
-        return fromYear ? parseInt(fromYear.split('-')[0]) : 0;
+    // 1. Run filtering immediately on load (Critical for Edit Mode)
+    var initialFromYear = $('#next_reference_year').val();
+    if (initialFromYear) {
+        filterAllTableRows(initialFromYear);
     }
 
-    // Add Row (+) Button Logic
+    // 2. Watch for Reference Year changes
+    $(document).on('change', '#next_reference_year', function() {
+        filterAllTableRows($(this).val());
+    });
+
+    // --- Helper: Filter existing and new rows ---
+    function filterAllTableRows(fromYearVal) {
+        if (!fromYearVal) return;
+        var referenceStart = parseInt(fromYearVal.split('-')[0]);
+
+        // Filter 'To' Year dropdown
+        $('#next_reference_year2 option').each(function() {
+            var optVal = $(this).val();
+            if (optVal != "") {
+                $(this).toggle(parseInt(optVal.split('-')[0]) >= referenceStart);
+            }
+        });
+
+        // Filter every Financial Year dropdown in the table
+        $('.next_financial_progress_year').each(function() {
+            var dropdown = $(this);
+            dropdown.find('option').each(function() {
+                var optVal = $(this).val();
+                if (optVal != "") {
+                    var optStart = parseInt(optVal.split('-')[0]);
+                    if (optStart < referenceStart) {
+                        $(this).prop('disabled', true).hide();
+                    } else {
+                        $(this).prop('disabled', false).show();
+                    }
+                }
+            });
+
+            // If existing data (Edit mode) is now out of range, clear it
+            if (dropdown.val() && parseInt(dropdown.val().split('-')[0]) < referenceStart) {
+                dropdown.val('');
+            }
+        });
+    }
+
+    // 3. Your "Add Row" (+) Logic (Slightly optimized for Edit Mode indices)
     $(document).on('click', ".finprogressbtn", function() {
-        var rownumber = $('#thisistbody tr').length;
+        // Use a timestamp or total length to ensure unique IDs during Edit mode
+        var rownumber = new Date().getTime(); 
         var referenceStart = getReferenceStartYear();
 
-        // 1. Calculate the NEXT consecutive year based on the last row
+        // Calculate Next Year
         var lastYear = $('#thisistbody .next_financial_progress_year:last').val();
         var autoSelectedYear = "";
         if (lastYear && lastYear.includes('-')) {
             var split = lastYear.split('-');
-            var nextStart = Number(split[0]) + 1;
-            var nextEnd = Number(split[1]) + 1;
-            autoSelectedYear = nextStart + '-' + nextEnd;
+            autoSelectedYear = (Number(split[0]) + 1) + '-' + (Number(split[1]) + 1);
         }
 
-        // 2. Generate Year Options (Filtered by Reference Year)
+        // Generate Year Options
         var allYears = @json($financial_years);
         var yearOptions = '<option value="">Year</option>';
         allYears.forEach(function(year) {
@@ -2096,7 +2225,7 @@ $(document).ready(function() {
             }
         });
 
-        // 3. Generate Unit Options
+        // Generate Unit Options (carry over selection from previous row)
         var unitsData = @json($units);
         var lastSelection = $('#thisistbody .next_financial_progress_selection:last').val();
         var unitOptions = '<option value="">Select Option</option>';
@@ -2106,34 +2235,39 @@ $(document).ready(function() {
         });
         unitOptions += `<option value="0" ${lastSelection == "0" ? 'selected' : ''}>Other</option>`;
 
-        // 4. Build the Row Template
         var addtr = `
             <tr class="finprogresstr_${rownumber}">
-                <td class="finprogresstd_${rownumber}">
-                    <select class="form-control next_financial_progress_year next_fin_year_${rownumber}" name="financial_progress[${rownumber}][financial_year]">
-                        ${yearOptions}
-                    </select>
-                </td>
-                <td class="finprogresstd_${rownumber}">
-                    <select class="form-control next_financial_progress_selection next_fin_selection_${rownumber}" name="financial_progress[${rownumber}][selection]">
-                        ${unitOptions}
-                    </select>
-                </td>
-                <td><input type="text" class="form-control allowonly2decimal next_fin_target_${rownumber}" name="financial_progress[${rownumber}][target]" /></td>
-                <td><input type="text" class="form-control allowonly2decimal next_fin_achivement_${rownumber}" name="financial_progress[${rownumber}][achivement]" /></td>
-                <td><input type="text" class="form-control allowonly2decimal next_fin_allocation_${rownumber}" name="financial_progress[${rownumber}][allocation]" /></td>
-                <td><input type="text" class="form-control allowonly2decimal next_fin_expenditure_${rownumber}" name="financial_progress[${rownumber}][expenditure]" /></td>
-                <td>
-                    <button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(${rownumber})" value="${rownumber}" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button>
-                </td>
+                <td><select class="form-control next_financial_progress_year" name="financial_progress[${rownumber}][financial_year]">${yearOptions}</select></td>
+                <td><select class="form-control next_financial_progress_selection" name="financial_progress[${rownumber}][selection]">${unitOptions}</select></td>
+                <td><input type="text" class="form-control next_financial_progress_target allowonly2decimal" name="financial_progress[${rownumber}][target]" /></td>
+                <td><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal" name="financial_progress[${rownumber}][achivement]" /></td>
+                <td><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal" name="financial_progress[${rownumber}][allocation]" /></td>
+                <td><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal" name="financial_progress[${rownumber}][expenditure]" /></td>
+                <td><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(${rownumber})">-</button></td>
             </tr>`;
 
         $("#thisistbody tr:last").after(addtr);
-        
-        // Match layout height
         $(".content-wrapper").css('min-height', $("#kt_content").height());
     });
+
+     $( ".datepicker" ).datepicker({
+          format: 'dd/mm/yyyy', 
+          changeMonth: true,
+          changeYear: true,
+        //  maxDate: new Date(),
+          yearRange: "-100:+0",
+          autoclose: true
+      });
 });
+
+function getReferenceStartYear() {
+    var fromYear = $('#next_reference_year').val();
+    return fromYear ? parseInt(fromYear.split('-')[0]) : 0;
+}
+
+// function remove_financial_year(id) {
+//     $('.finprogresstr_' + id).remove();
+// }
 
 // $(document).ready(function(){
 //   $(".finprogressbtn").click(function(){
@@ -3125,8 +3259,8 @@ $(document).on('change', '.custom-file-input', function () {
            // var existing_beneficiary_selection_criteria_file = $(".existing_beneficiary_selection_criteria_file").val() ?? null;
             if(beneficiaries != '') {
                 let nextSlide = countIncrease(slideid);
-              updateStepTitle(nextSlide); 
-              $("#the_error_html").remove();
+                updateStepTitle(nextSlide); 
+                $("#the_error_html").remove();
                 var next_beneficiary_selection_criterias = $(".next_beneficiary_selection_criterias").length;
                 // var beneficiaries = [];
                 // var j = 0;
@@ -3608,70 +3742,84 @@ $(document).on('change', '.custom-file-input', function () {
             var count_tr = $("#thisistbody tr").length;
             if(next_financial_progress_selection != "" && next_financial_progress_year != ''  && next_financial_progress_target != '' && next_financial_progress_achivement != '' && next_financial_progress_allocation != '' && next_financial_progress_expenditure != '') {
               let nextSlide = countIncrease(slideid);
-                updateStepTitle(nextSlide); 
-                $("#the_error_html").remove();
-                var tr_array = [];
-                var count_blank_fields = 0;
-                for(var i=0;i<count_tr;i++) {
-                    var the_year = $(".next_fin_year_"+i).val();
-                    var the_target = $(".next_fin_target_"+i).val();
-                    var the_achievement = $(".next_fin_achivement_"+i).val();
-                    var the_allocation = $(".next_fin_allocation_"+i).val();
-                    var the_expenditure = $(".next_fin_expenditure_"+i).val();
-                  //  var the_units = $(".next_fin_units_"+i).val();
+                    updateStepTitle(nextSlide); 
+                     $("#the_error_html").remove();
+                    var tr_array = [];
+                    var count_blank_fields = 0;
 
-                    var the_selection = $(".next_fin_selection_"+i).val();
-                 //   var the_items = $(".next_fin_item_"+i).val();
+                    // 1. Loop through every row in the table body using .each()
+                    $("#thisistbody tr").each(function(index, tr) {
+                        var row = $(tr);
+                        
+                        // Use the generic class names to find values within this specific row
+                        var the_year        = row.find(".next_financial_progress_year").val();
+                        var the_selection   = row.find(".next_financial_progress_selection").val();
+                        var the_target      = row.find(".next_financial_progress_target").val();
+                        var the_achievement = row.find(".next_financial_progress_achivement").val();
+                        var the_allocation  = row.find(".next_financial_progress_allocation").val();
+                        var the_expenditure = row.find(".next_financial_progress_expenditure").val();
 
-                    if(the_selection != ''  && the_year != '' && the_target != '' && the_achievement != '' && the_allocation != '' && the_expenditure != '') {
-                        tr_array[i] = {'financial_year':$(".next_fin_year_"+i).val(), 'target':$(".next_fin_target_"+i).val(), 'achievement':$(".next_fin_achivement_"+i).val(), 'allocation':$(".next_fin_allocation_"+i).val(), 'expenditure':$(".next_fin_expenditure_"+i).val(), 'selection': $(".next_fin_selection_"+i).val()};
+                        // 2. Validation: Check if all required fields in this row are filled
+                        if (the_selection != '' && the_year != '' && the_target != '' && 
+                            the_achievement != '' && the_allocation != '' && the_expenditure != '') {
+                            
+                            // Push the row data into the array
+                            tr_array.push({
+                                'financial_year': the_year,
+                                'target':         the_target,
+                                'achievement':    the_achievement,
+                                'allocation':     the_allocation,
+                                'expenditure':    the_expenditure,
+                                'selection':      the_selection
+                            });
+                        } else {
+                            count_blank_fields++;
+                        }
+                    });
+
+                    // 3. Handle the Submission Logic
+                    if (count_blank_fields > 0) {
+                        var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Fill all the blank fields</div></div>';
+                        $(".thirteenth_slide").append(the_html);
                     } else {
-                        count_blank_fields++;
+                        var confsure = confirm('Are you sure Financial Progress is entered correctly?');
+                        if (confsure == true) {
+                            // Disable button to prevent double-click
+                            $("#next_btn").prop('disabled', true).text("Submitting...");
+                            
+                            var financial_progress_remarks = $("#financial_progress_remarks").val();
+                            
+                            $.ajax({
+                                type: 'post',
+                                dataType: 'json',
+                                url: "{{ route('schemes.update_scheme') }}",
+                                data: {
+                                    '_token': "{{ csrf_token() }}",
+                                    'slide': 'fourteenth',
+                                    'draft_id': draft_id,
+                                    'scheme_id': scheme_id,
+                                    'tr_array': tr_array, // This now contains all rows correctly
+                                    'financial_progress_remarks': financial_progress_remarks
+                                },
+                                success: function(response) {
+                                    $(".otherslides").hide();
+                                    finishSlides();
+                                },
+                                error: function(xhr) {
+                                    // Re-enable button on error
+                                    $("#next_btn").prop('disabled', false).text("Finish");
+                                    
+                                    let message = 'Something went wrong';
+                                    if (xhr.responseJSON) {
+                                        message = xhr.responseJSON.message || xhr.responseJSON.error || JSON.stringify(xhr.responseJSON);
+                                    } else if (xhr.responseText) {
+                                        message = xhr.responseText;
+                                    }
+                                    alert(message);
+                                }
+                            });
+                        }
                     }
-                }
-
-                if(count_blank_fields > 0) {
-                    $("#the_error_html").remove();
-                    var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Fill all the blank fields</div></div>';
-                    $(".thirteenth_slide").append(the_html);
-                } else {
-                    var confsure = confirm('Are you sure Financial Progress is entered correctly ?');
-                    if(confsure == true) {
-                        $("#next_btn").prop('disabled', true).text("Submitting...");
-                        var financial_progress_remarks = $("#financial_progress_remarks").val();
-                        $.ajax({
-                            type:'post',
-                            dataType:'json',
-                            url:"{{ route('schemes.update_scheme') }}",
-                            data:{'_token':"{{ csrf_token() }}", 'slide':'fourteenth','draft_id':draft_id,'scheme_id':scheme_id,'tr_array':tr_array, 'financial_progress_remarks':financial_progress_remarks},
-                            success:function(response) {
-                                $(".otherslides").hide();
-                                finishSlides();
-                                // $("#next_btn").hide();
-                                // $('.last_btn').show();
-
-                                // var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
-
-                                // $("#div_next_btn").html(the_html_btn);
-                            },
-                            error: function (xhr) {
-                                $("#next_btn").prop('disabled', false).text("Finish");
-                                  let message = 'Something went wrong';
-
-                                  if (xhr.responseJSON) {
-                                      message =
-                                          xhr.responseJSON.message ||
-                                          xhr.responseJSON.error ||
-                                          JSON.stringify(xhr.responseJSON);
-                                  } else if (xhr.responseText) {
-                                      message = xhr.responseText;
-                                  }
-
-                                  alert(message);
-                            }
-                        });
-                    }
-                }
             } else {
                 $("#the_error_html").remove();
                 var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* All Fields are required</div></div>';
@@ -3807,77 +3955,6 @@ function showError(msg) {
     $(".active-slide").append(the_html);
 }
 
-$(document).ready(function(){
-    //   $('#next_reference_year').change(function(){
-    //     var selectedValue = $(this).val();        
-    //     var selectedYear = parseInt(selectedValue.split('-')[0]);
-
-    //     $('#next_reference_year2 option').each(function(){
-    //         var year = parseInt($(this).val().split('-')[0]);
-    //         if(year < selectedYear){
-    //             $(this).hide();
-    //         } else {
-    //             $(this).show();
-    //         }
-    //     });
-    // });
-    $(document).on('change', '#next_reference_year', function() {
-    var selectedValue = $(this).val();
-    if (!selectedValue) return; // Exit if "Select Year" is picked
-
-    var referenceStart = parseInt(selectedValue.split('-')[0]);
-
-    // --- LOGIC 1: Filter Reference Year 2 (To) ---
-    $('#next_reference_year2 option').each(function() {
-        var optVal = $(this).val();
-        if (optVal != "") {
-            var optYear = parseInt(optVal.split('-')[0]);
-            if (optYear < referenceStart) {
-                $(this).hide();
-            } else {
-                $(this).show();
-            }
-        }
-    });
-
-    // Reset Reference Year 2 if it's now invalid
-    var currentRef2 = $('#next_reference_year2').val();
-    if (currentRef2 && parseInt(currentRef2.split('-')[0]) < referenceStart) {
-        $('#next_reference_year2').val('');
-    }
-
-    // --- LOGIC 2: Filter the Financial Progress Table Rows ---
-    $('.next_financial_progress_year').each(function() {
-        var dropdown = $(this);
-        
-        dropdown.find('option').each(function() {
-            var optVal = $(this).val();
-            if (optVal != "") {
-                var optStart = parseInt(optVal.split('-')[0]);
-                if (optStart < referenceStart) {
-                    $(this).prop('disabled', true).hide();
-                } else {
-                    $(this).prop('disabled', false).show();
-                }
-            }
-        });
-
-        // Reset the table dropdown if the selected value is now invalid
-        var tableSelected = dropdown.val();
-        if (tableSelected && parseInt(tableSelected.split('-')[0]) < referenceStart) {
-            dropdown.val('');
-        }
-    });
-});
-     $( ".datepicker" ).datepicker({
-          format: 'dd/mm/yyyy', 
-          changeMonth: true,
-          changeYear: true,
-        //  maxDate: new Date(),
-          yearRange: "-100:+0",
-          autoclose: true
-      });
-});
 
 document.addEventListener('DOMContentLoaded', function () {
     const emailInputs = document.querySelectorAll('.email-input');

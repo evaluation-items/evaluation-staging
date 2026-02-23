@@ -1385,8 +1385,10 @@ class SchemeController extends Controller {
         ->where('status', true)
         ->orderByDesc('is_default')
         ->pluck('designation_name');
+        $attachment_info = Attachment::where('scheme_id', $val->scheme_id)->orderBy('id', 'desc') ->first();       
+       // dd($attachment_info);
        // dd($hod_office_data);
-        return view('schemes.proposal_edit',compact('units','year','val','departments','implementations','beneficiariesGeoLocal','dept','financial_years','goals','financial_progress','scheme_id','replace_url','gr_files','notifications','brochures','pamphlets','center_state','hod_office_data', 'designations'));
+        return view('schemes.proposal_edit',compact('attachment_info','units','year','val','departments','implementations','beneficiariesGeoLocal','dept','financial_years','goals','financial_progress','scheme_id','replace_url','gr_files','notifications','brochures','pamphlets','center_state','hod_office_data', 'designations'));
     }
 
     public function scheme_update(Request $request) {
@@ -1945,6 +1947,7 @@ class SchemeController extends Controller {
             Proposal::where('draft_id',$draft_id)->update($arr);
             return response()->json('updated successfully');
         } else if($slide == 'eighth') {
+          
             $filename = '';
             if(Session::has('scheme_id') && Session::has('draft_id')){
                 $scheme_id = Session::get('scheme_id');
@@ -2444,12 +2447,13 @@ class SchemeController extends Controller {
 
             // --- STEP 2: PROCESSING ---
             foreach ($fileCategories as $inputName => $model) {
+                
                 if($request->hasFile($inputName)) {
                     // Validate basic requirements
                     $request->validate(["$inputName.*" => 'file|mimes:pdf,docx,xlsx']);
                     
                     // Clean up old SQL records for this category
-                    $model::where('scheme_id', $scheme_id)->delete();
+                  // $model::where('scheme_id', $scheme_id)->delete();
                     
                     foreach($request->file($inputName) as $key => $file) {
                         $file_ext = $file->getClientOriginalExtension();
@@ -2792,6 +2796,7 @@ class SchemeController extends Controller {
             }
             return response()->json('updated successfully');
         } else if($slide == 'fourteenth') {
+          //  dd($request->all());
             $tr_array = $request->input('tr_array');
             $fin_progress_remarks = $request->input('financial_progress_remarks');
             $arr = array();
@@ -2826,20 +2831,60 @@ class SchemeController extends Controller {
         Activitylog::insert($act);
     }
 
-    public function deleteGrFile($id)
-    {
-        $file = DB::table('itransaction.gr_files_list')->find($id);
-        dd($file);
-        if ($file) {
-            $path = public_path('uploads/gr/' . $file->file_name);
-            if (file_exists($path)) {
-                unlink($path);
+public function deleteFile(Request $request) {
+    $id = $request->id;             // The Primary Key (ID) of the file record (e.g., 25)
+    $couchId = $request->couch_id;   // The CouchDB Document ID (e.g., "scheme_33")
+    $filename = $request->filename; // The actual filename (e.g., "scheme_33_gr_1.pdf")
+    $type = $request->type;         // The category (GR, notification, etc.)
+
+    try {
+        $extended = new Couchdb();
+        $extended->InitConnection();
+
+        // 1. Fetch the absolute latest revision from CouchDB to prevent 409 Conflicts
+        $docResponse = $extended->getDocument($this->envirment['database'], $couchId);
+        $document = json_decode($docResponse, true);
+
+        if (isset($document['_rev'])) {
+            // 2. Delete the specific attachment from CouchDB
+            $path = sprintf('/%s/%s/%s?rev=%s', 
+                    $this->envirment['database'], $couchId, $filename, $document['_rev']);
+            
+            $delete_response = $extended->executeCustomDelete($path);
+            $resArray = json_decode($delete_response, true);
+
+            if (isset($resArray['ok']) && $resArray['ok']) {
+                $newRev = $resArray['rev']; // New revision after attachment is gone
+
+                // 3. REMOVE FROM DATABASE (Specific File List)
+                $fileModelMap = [
+                    'GR'           => GrFilesList::class,
+                    'notification' => NotificationFileList::class,
+                    'brochure'     => BrochureFileList::class,
+                    'pamphlets'    => PamphletFileList::class,
+                    'otherdetails' => CenterStateFiles::class,
+                ];
+                
+                if (array_key_exists($type, $fileModelMap)) {
+                    // Delete the specific row from the category table (e.g., itransaction.gr_files_list)
+                    $fileModelMap[$type]::where('id', $id)->delete();
+                }
+
+                // 4. UPDATE MASTER ATTACHMENT TABLE
+                // This keeps your CouchDB metadata in sync for the next operation
+                \DB::table('itransaction.attachments')
+                    ->where('couch_doc_id', $couchId)
+                    ->update(['couch_rev_id' => $newRev]);
+
+                return response()->json(['success' => true]);
             }
-            $file->delete();
-            return response()->json(['success' => true]);
         }
-        return response()->json(['success' => false]);
+        return response()->json(['success' => false, 'message' => 'CouchDB Error', 'details' => $resArray]);
+
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
     }
+}
     public function onreload(Request $request) {
         Session::forget('scheme_id');
         Session::forget('draft_id');

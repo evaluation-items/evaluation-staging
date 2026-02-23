@@ -369,4 +369,29 @@ class Couchdb
      $response = curl_exec ( $this->_curl_initialization );
      return $response;
  }
+    public function executeCustomDelete($path) {
+        // Ensure you use the full URL property (e.g., $this->server_api_url) 
+        // instead of just the username
+        $url = $this->server_api_url . $path; 
+
+        curl_setopt($this->_curl_initialization, CURLOPT_URL, $url);
+        curl_setopt($this->_curl_initialization, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        curl_setopt($this->_curl_initialization, CURLOPT_RETURNTRANSFER, TRUE);
+        
+        // Add this to see what went wrong if it fails
+        curl_setopt($this->_curl_initialization, CURLOPT_FAILONERROR, false); 
+        
+        if ($this->_my_db_password && $this->_my_db_username) {
+            curl_setopt($this->_curl_initialization, CURLOPT_USERPWD, $this->_my_db_username . ':' . $this->_my_db_password);
+        }
+        
+        $response = curl_exec($this->_curl_initialization);
+        
+        // Check for cURL errors
+        if ($response === false) {
+            return json_encode(['ok' => false, 'error' => curl_error($this->_curl_initialization)]);
+        }
+        
+        return $response;
+    }
 }

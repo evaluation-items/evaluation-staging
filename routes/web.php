@@ -173,6 +173,7 @@ Route::post('/welcome-popup/seen', function () {
     Route::post('save_last_item',[SchemeController::class,'saveLastitem'])->name('save_last_item');
     Route::get('proposal_edit/{id}',[SchemeController::class,'proposaledit'])->name('schemes.proposal_edit');
     Route::get('/schemes/{scheme_id}/get_the_file/{filename}', [SchemeController::class,'getthefile'])->name('schemes.get_the_file');
+    Route::post('/schemes/delete-file', [SchemeController::class, 'deleteFile'])->name('schemes.delete_file');
 
     Route::post('update_scheme',[SchemeController::class,'scheme_update'])->name('schemes.update_scheme');
     Route::post('onreload',[SchemeController::class,'onreload'])->name('schemes.onreload');

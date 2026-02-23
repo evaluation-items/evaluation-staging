@@ -80,7 +80,7 @@
                           <td>{{ hod_name($prop->draft_id) }}</td>
                           <td width="20%" class="text-center">{{!is_null($prop->evaluation_sent_date) ? date('d-M-y',strtotime($prop->evaluation_sent_date)) :  date('d-M-y',strtotime($prop->created_at)) }}</td>
                           <td width="28%">
-                            <a href="{{ route('schemes.proposal_detail',[Crypt::encrypt($prop->draft_id),Crypt::encrypt($prop->id)]) }}" class="btn btn-xs btn-info">{{ __('message.view') }}</a>
+                            <a href="{{ route('schemes.newproposal_detail',[Crypt::encrypt($prop->draft_id),Crypt::encrypt($prop->id)]) }}" class="btn btn-xs btn-info">{{ __('message.view') }}</a>
                             <button type="button" class="btn btn-xs btn-success text-wrap approved_btn" data-id="{{Crypt::encrypt($prop->id)}}" data-draft-id="{{Crypt::encrypt($prop->draft_id)}}" data-dept-id="{{ Crypt::encrypt($prop->dept_id)}}" style="display:inline-block">{{ __('message.branch_send_to_jd')}}</button>
                           </td>
                           </tr>

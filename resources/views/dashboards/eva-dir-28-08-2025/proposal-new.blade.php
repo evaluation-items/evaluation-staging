@@ -61,7 +61,7 @@
                   <td>{{ $prop->dept_name }}</td>
                   <td  width="20%">{{date('M d Y',strtotime( $prop->created_at))}}</td>
                   <td width="23%">
-                  <a href="{{ route('schemes.proposal_detail',[Crypt::encrypt($prop->draft_id),Crypt::encrypt($prop->id)]) }}" class="btn btn-xs btn-info">View</a>
+                  <a href="{{ route('schemes.newproposal_detail',[Crypt::encrypt($prop->draft_id),Crypt::encrypt($prop->id)]) }}" class="btn btn-xs btn-info">View</a>
                     @if(auth()->user()->role == 2)
                     <button type="button" class="btn btn-xs btn-danger"  onclick="add_team('{{ $prop->draft_id }}','{{ $prop->id }}','{{ $prop->dept_id }}')"  style="display:inline-block">Assign to DD</button>
                     <button type="button" class="btn btn-xs btn-danger" onclick="fn_backward_modal('{{ $prop->draft_id }}','{{ $prop->id }}','{{ $prop->dept_id }}')" style="display:inline-block">Backwrd to GAD</button>

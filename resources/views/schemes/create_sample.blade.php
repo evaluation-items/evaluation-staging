@@ -95,7 +95,7 @@
 @section('content')
                                      
 <!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content" style="">
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
             <!--begin::Subheader-->
             <div class="subheader py-2 py-lg-6  subheader-solid " id="kt_subheader">
               <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -564,7 +564,7 @@
                                               <div class="col-xl-6" style="margin-top: 4%;">
                                                   <div class="form-group">
                                                     <label>Email of Nodal Officer(HOD)  (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)<span class="required_filed"> * </span> </label>
-                                                     <input type="text" name="nodal_officer_email" class="form-control pattern" maxlength="100" id="nodal_email" value="{{old('nodal_officer_email')}}">
+                                                     <input type="text" name="nodal_officer_email" class="form-control email-input pattern" maxlength="100" id="nodal_email" value="{{old('nodal_officer_email')}}">
                                                   </div>
                                               </div>
                                             </div>
@@ -1365,20 +1365,41 @@ $(document).ready(function() {
       });
 
    
-   $(document).on('change','.next_financial_progress_selection',function() {
-      var classValue = $(this).attr('id');
-      var type = $('#'+classValue).val();
-      var string  = classValue.split("_");
-      var txtVal = $(this).parent('.finprogresstd_'+parseInt(string[3])).next().find('.next_fin_item_'+parseInt(string[3]));
-      txtVal.val('');
-      if(type == 0){
-           if(txtVal.hasClass('allowonly2decimal')){
-              txtVal.removeClass('allowonly2decimal');
+      $(document).on('change', '.next_financial_progress_selection', function() {
+            // 1. Get the value (e.g., "0" for Other)
+            var type = $(this).val();
+            
+            // 2. Find the row this select belongs to
+            var parentRow = $(this).closest('tr');
+            
+            // 3. Find the 'item' input within the same row
+            // Note: Use a class selector instead of searching by ID/Index
+            var txtVal = parentRow.find('.next_financial_progress_item'); 
+
+            // 4. Clear value on change
+            txtVal.val('');
+
+            // 5. Logic for 'Other' (type == 0)
+            if(type == "0") {
+                txtVal.removeClass('allowonly2decimal');
+            } else {
+                txtVal.addClass('allowonly2decimal');
             }
-      }else{
-          txtVal.addClass('allowonly2decimal');
-      }
-   });
+    });
+//    $(document).on('change','.next_financial_progress_selection',function() {
+//       var classValue = $(this).attr('id');
+//       var type = $('#'+classValue).val();
+//       var string  = classValue.split("_");
+//       var txtVal = $(this).parent('.finprogresstd_'+parseInt(string[3])).next().find('.next_fin_item_'+parseInt(string[3]));
+//       txtVal.val('');
+//       if(type == 0){
+//            if(txtVal.hasClass('allowonly2decimal')){
+//               txtVal.removeClass('allowonly2decimal');
+//             }
+//       }else{
+//           txtVal.addClass('allowonly2decimal');
+//       }
+//    });
 
      // Add event listener to both input fields
     //  $('.state_per').on('input', function () {
@@ -1523,8 +1544,8 @@ $(document).ready(function(){
     // });
 
   $('#the_convergence_btn').click(function(){
-    var ktcontent = $("#kt_content").height();
-    $(".content-wrapper").css('min-height',ktcontent+50);
+    // var ktcontent = $("#kt_content").height();
+    // $(".content-wrapper").css('min-height',ktcontent+50);
     var after_convergencewithotherscheme_iterate = convergencewithotherscheme_iterate+1;
     $.ajax({
       type:'post',
@@ -1548,8 +1569,8 @@ $(document).ready(function(){
 
 function fn_remove_the_convergence_div(after_conv_id) {
     $("#convergence_row_"+after_conv_id).remove();
-    var ktcontent = $("#kt_content").height();
-    $(".content-wrapper").css('min-height',ktcontent);
+    // var ktcontent = $("#kt_content").height();
+    // $(".content-wrapper").css('min-height',ktcontent);
 }
 
 // $(document).ready(function(){
@@ -1598,86 +1619,110 @@ $(document).ready(function() {
 
     // Helper to get the starting year from the Reference Year dropdown
     function getReferenceStartYear() {
-        var fromYear = $('#next_reference_year').val(); // e.g., "2020-21"
+        var fromYear = $('#next_reference_year').val();
         if (fromYear) {
-            return parseInt(fromYear.split('-')[0]); // returns 2020
+            return parseInt(fromYear.split('-')[0]);
         }
-        return 0; // Default if nothing selected
+        return 0;
     }
 
+    // --- FUNCTION: The core filtering logic ---
+    function applyYearFilters() {
+        var selectedValue = $('#next_reference_year').val();
+        if (!selectedValue) return;
+
+        var referenceStart = parseInt(selectedValue.split('-')[0]);
+
+        // 1. Filter Reference Year 2 (To)
+        $('#next_reference_year2 option').each(function() {
+            var optVal = $(this).val();
+            if (optVal != "") {
+                var optYear = parseInt(optVal.split('-')[0]);
+                if (optYear < referenceStart) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            }
+        });
+
+        // 2. Filter the Financial Progress Table Rows
+        $('.next_financial_progress_year').each(function() {
+            var dropdown = $(this);
+            dropdown.find('option').each(function() {
+                var optVal = $(this).val();
+                if (optVal != "") {
+                    var optStart = parseInt(optVal.split('-')[0]);
+                    if (optStart < referenceStart) {
+                        $(this).prop('disabled', true).hide();
+                    } else {
+                        $(this).prop('disabled', false).show();
+                    }
+                }
+            });
+
+            // Reset if current selection is invalid
+            var tableSelected = dropdown.val();
+            if (tableSelected && parseInt(tableSelected.split('-')[0]) < referenceStart) {
+                dropdown.val('');
+            }
+        });
+    }
+
+    // --- EVENT: Run when Reference Year changes ---
+    $(document).on('change', '#next_reference_year', function() {
+        applyYearFilters();
+    });
+
+    // --- INITIALIZE: Run immediately on page load (Create/Edit mode) ---
+    applyYearFilters();
+
+    // --- EVENT: Add Row (+) Button ---
     $(document).on('click', ".finprogressbtn", function() {
-        var rownumber = $(this).val();
-        var target = 'target';
-        var fiyear = 'financial_year';
-        var achivement = 'achivement';
-        var allocation = 'allocation';
-        var expenditure = 'expenditure';
-        var selection = 'selection';
-        
+        var referenceStart = getReferenceStartYear();
+        var allYears = @json($financial_years); 
         nextrownumberzero++;
 
-        // 1. Get the boundary year
-        var referenceStart = getReferenceStartYear();
-
-        // 2. Prepare the Year Options dynamically
-        // We take the PHP array and filter it based on the reference year
+        // Build Year Options for new row
         var yearOptions = '<option value="">Year</option>';
-        var allYears = @json($financial_years); 
-
         allYears.forEach(function(year) {
             var yearStart = parseInt(year.split('-')[0]);
-            // Only add years that are greater than or equal to the Reference Year
             if (yearStart >= referenceStart) {
                 yearOptions += '<option value="' + year + '">' + year + '</option>';
             }
         });
 
-        // 3. Prepare Unit Options (reuse existing logic)
         var unitOptions = '<option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option>';
 
-        // 4. Construct the New Row
         var addtr = `
             <tr class="finprogresstr_${nextrownumberzero}">
-                <td class="finprogresstd_${nextrownumberzero}">
-                    <select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${fiyear}]">
-                        ${yearOptions}
-                    </select>
-                </td>
-                <td class="finprogresstd_${nextrownumberzero}">
-                    <select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_${nextrownumberzero}" id="next_fin_selection_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${selection}]">
-                        ${unitOptions}
-                    </select>
-                </td>
-                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${target}]" /></td>
-                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${achivement}]" /></td>
-                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${allocation}]" /></td>
-                <td class="finprogresstd_${nextrownumberzero}"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_${nextrownumberzero}" name="financial_progress[${nextrownumberzero}][${expenditure}]" /></td>
-                <td class="finprogresstd_${nextrownumberzero}">
-                    <button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(${nextrownumberzero})" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button>
-                </td>
+                <td><select class="form-control next_financial_progress_year" name="financial_progress[${nextrownumberzero}][financial_year]">${yearOptions}</select></td>
+                <td><select class="form-control next_financial_progress_selection" name="financial_progress[${nextrownumberzero}][selection]">${unitOptions}</select></td>
+                <td><input type="text" class="form-control next_financial_progress_target  allowonly2decimal" name="financial_progress[${nextrownumberzero}][target]" /></td>
+                <td><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal" name="financial_progress[${nextrownumberzero}][achivement]" /></td>
+                <td><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal" name="financial_progress[${nextrownumberzero}][allocation]" /></td>
+                <td><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal" name="financial_progress[${nextrownumberzero}][expenditure]" /></td>
+                <td><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(${nextrownumberzero})">-</button></td>
             </tr>`;
 
         $("#thisistbody tr:last").after(addtr);
-
-        // Update layout height
-        var ktcontent = $("#kt_content").height();
-        $(".content-wrapper").css('min-height', ktcontent);
     });
 });
 
-    function hasDecimalPlace(value, x) {
-        var pointIndex = value.indexOf('.');
-        return  pointIndex >= 0 && pointIndex < value.length - x;
-    }
+function hasDecimalPlace(value, x) {
+    var pointIndex = value.indexOf('.');
+    return  pointIndex >= 0 && pointIndex < value.length - x;
+}
 
 function remove_financial_year(row) {
   $("table #thisistbody .finprogresstr_"+row).remove();
-    var ktcontent = $("#kt_content").height();
-    $(".content-wrapper").css('min-height',ktcontent);
+    // var ktcontent = $("#kt_content").height();
+    // $(".content-wrapper").css('min-height',ktcontent);
 }
 
 
     $(document).ready(function(){
+    
         // var ktcontent = $("#kt_content").height();
         // $(".content-wrapper").css('min-height',ktcontent);
     });
@@ -1751,7 +1796,7 @@ function remove_financial_year(row) {
             },
             complete: function() {
                 $("#beneficiariesGeoLocal_img").remove();
-                $(".content-wrapper").css('min-height', $("#kt_content").height());
+                //$(".content-wrapper").css('min-height', $("#kt_content").height());
             },
             success:function(response) {
                 $(".thedistrictlist").remove();
@@ -1765,7 +1810,7 @@ function remove_financial_year(row) {
                         $(".thedistrictlist").append(
                             "<div class='col-xl-12 mb-3'>" +
                                 "<input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> " +
-                                "<label for='selectAllCheckbox' style='cursor:pointer; margin-left:5px'><strong>Select All Districts</strong></label>" +
+                                "<label for='selectAllCheckbox' style='cursor:pointer; margin-left:5px'><strong>All</strong></label>" +
                             "</div>"
                         );
 
@@ -3099,71 +3144,67 @@ function countIncrease(slideid){
                 var next_financial_progress_achivement = $(".next_financial_progress_achivement").val();
                 var next_financial_progress_allocation = $(".next_financial_progress_allocation").val();
                 var next_financial_progress_expenditure = $(".next_financial_progress_expenditure").val();
-
-                
                 var next_financial_progress_selection = $(".next_financial_progress_selection").val();
                 var next_financial_progress_item  = $(".next_financial_progress_item").val();
-                
-
                 var count_tr = $("#thisistbody tr").length;
                 if(next_financial_progress_year != ''  && next_financial_progress_target != '' && next_financial_progress_achivement != '' && next_financial_progress_allocation != '' && next_financial_progress_expenditure != '' && next_financial_progress_item  != '' && next_financial_progress_selection != '') {
                 //countIncrease(slideid);
                 
-                    $("#the_error_html").remove();
+                   $("#the_error_html").remove();
                     var tr_array = [];
                     var count_blank_fields = 0;
-                    for(var i=0;i<count_tr;i++) {
-                        var the_year = $(".next_fin_year_"+i).val();
-                        var the_target = $(".next_fin_target_"+i).val();
-                        var the_achievement = $(".next_fin_achivement_"+i).val();
-                        var the_allocation = $(".next_fin_allocation_"+i).val();
-                        var the_expenditure = $(".next_fin_expenditure_"+i).val();
-                    //  var the_units = $(".next_fin_units_"+i).val();
 
-                        var the_selection = $(".next_fin_selection_"+i).val();
-                    //   var the_items = $(".next_fin_item_"+i).val();
+                    // 1. Loop through every row inside the table body
+                    $("#thisistbody tr").each(function(index, tr) {
+                        var row = $(tr);
+                        
+                        // Find values relative to this specific row using classes
+                        var the_year = row.find(".next_financial_progress_year").val();
+                        var the_selection = row.find(".next_financial_progress_selection").val();
+                        var the_target = row.find(".next_financial_progress_target").val();
+                        var the_achievement = row.find(".next_financial_progress_achivement").val();
+                        var the_allocation = row.find(".next_financial_progress_allocation").val();
+                        var the_expenditure = row.find(".next_financial_progress_expenditure").val();
 
-                        if(the_selection != ''  && the_year != '' && the_target != '' && the_achievement != '' && the_allocation != '' && the_expenditure != '') {
-                            tr_array[i] = {'financial_year':$(".next_fin_year_"+i).val(), 
-                            'target':$(".next_fin_target_"+i).val(), 
-                            'achievement':$(".next_fin_achivement_"+i).val(), 
-                            'allocation':$(".next_fin_allocation_"+i).val(), 
-                            'expenditure':$(".next_fin_expenditure_"+i).val(), 
-                        //  'units':$(".next_fin_units_"+i).val(),
-                            'selection': $(".next_fin_selection_"+i).val(),
-                        // 'items': $(".next_fin_item_"+i).val()
-                        };
+                        // 2. Validation Check for this row
+                        if(the_selection != '' && the_year != '' && the_target != '' && the_achievement != '' && the_allocation != '' && the_expenditure != '') {
+                            tr_array.push({
+                                'financial_year': the_year,
+                                'target': the_target,
+                                'achievement': the_achievement,
+                                'allocation': the_allocation,
+                                'expenditure': the_expenditure,
+                                'selection': the_selection
+                            });
                         } else {
                             count_blank_fields++;
                         }
-                    }
+                    });
 
+                    // 3. Final Validation and AJAX
                     if(count_blank_fields > 0) {
-                        $("#the_error_html").remove();
                         var the_html = '<div class="row" id="the_error_html"><div class="col-xl-12" style="color:red;font-size:20px">* Fill all the blank fields</div></div>';
-                    // $(".thirteenth_slide").append(the_html);
+                        $(".fourteenth_slide").append(the_html);
+                    } else if (tr_array.length === 0) {
+                        alert("Please add at least one financial record.");
                     } else {
-                        var confsure = confirm('Are you sure Financial Progress is entered correctly ?');
+                        var confsure = confirm('Are you sure Financial Progress is entered correctly?');
                         if(confsure == true) {
                             var financial_progress_remarks = $("#financial_progress_remarks").val();
                             $.ajax({
-                                type:'post',
-                                dataType:'json',
-                                url:"{{ route('schemes.add_scheme') }}",
-                                data:{'slide':'fourteenth','tr_array':tr_array, 'financial_progress_remarks':financial_progress_remarks},
-                                success:function(response) {
-                                $(".otherslides").hide();
-                                finishSlides();
-                                // $("#next_btn").val(14).show();
-                                   // $("#next_btn").hide();
-                                    // $('.last_btn').show();
-
-                                    // var the_html_btn = '<button type="button" class="btn btn-success font-weight-bold text-uppercase last_btn" data-wizard-type="action-next" value="1" onclick="finishSlides()" id="next_btn"> Finish </button>';
-
-                                    // $("#div_next_btn").html(the_html_btn);
-                                    
+                                type: 'post',
+                                dataType: 'json',
+                                url: "{{ route('schemes.add_scheme') }}",
+                                data: {
+                                    'slide': 'fourteenth',
+                                    'tr_array': tr_array, 
+                                    'financial_progress_remarks': financial_progress_remarks
                                 },
-                                error:function() {
+                                success: function(response) {
+                                    $(".otherslides").hide();
+                                    finishSlides();
+                                },
+                                error: function() {
                                     console.log('add_scheme ajax error');
                                 }
                             });
@@ -3386,54 +3427,54 @@ function finishSlides() {
     //     });
     // });
 
-    $(document).on('change', '#next_reference_year', function() {
-    var selectedValue = $(this).val();
-    if (!selectedValue) return; // Exit if "Select Year" is picked
+//     $(document).on('change', '#next_reference_year', function() {
+//     var selectedValue = $(this).val();
+//     if (!selectedValue) return; // Exit if "Select Year" is picked
 
-    var referenceStart = parseInt(selectedValue.split('-')[0]);
+//     var referenceStart = parseInt(selectedValue.split('-')[0]);
 
-    // --- LOGIC 1: Filter Reference Year 2 (To) ---
-    $('#next_reference_year2 option').each(function() {
-        var optVal = $(this).val();
-        if (optVal != "") {
-            var optYear = parseInt(optVal.split('-')[0]);
-            if (optYear < referenceStart) {
-                $(this).hide();
-            } else {
-                $(this).show();
-            }
-        }
-    });
+//     // --- LOGIC 1: Filter Reference Year 2 (To) ---
+//     $('#next_reference_year2 option').each(function() {
+//         var optVal = $(this).val();
+//         if (optVal != "") {
+//             var optYear = parseInt(optVal.split('-')[0]);
+//             if (optYear < referenceStart) {
+//                 $(this).hide();
+//             } else {
+//                 $(this).show();
+//             }
+//         }
+//     });
 
-    // Reset Reference Year 2 if it's now invalid
-    var currentRef2 = $('#next_reference_year2').val();
-    if (currentRef2 && parseInt(currentRef2.split('-')[0]) < referenceStart) {
-        $('#next_reference_year2').val('');
-    }
+//     // Reset Reference Year 2 if it's now invalid
+//     var currentRef2 = $('#next_reference_year2').val();
+//     if (currentRef2 && parseInt(currentRef2.split('-')[0]) < referenceStart) {
+//         $('#next_reference_year2').val('');
+//     }
 
-    // --- LOGIC 2: Filter the Financial Progress Table Rows ---
-    $('.next_financial_progress_year').each(function() {
-        var dropdown = $(this);
+//     // --- LOGIC 2: Filter the Financial Progress Table Rows ---
+//     $('.next_financial_progress_year').each(function() {
+//         var dropdown = $(this);
         
-        dropdown.find('option').each(function() {
-            var optVal = $(this).val();
-            if (optVal != "") {
-                var optStart = parseInt(optVal.split('-')[0]);
-                if (optStart < referenceStart) {
-                    $(this).prop('disabled', true).hide();
-                } else {
-                    $(this).prop('disabled', false).show();
-                }
-            }
-        });
+//         dropdown.find('option').each(function() {
+//             var optVal = $(this).val();
+//             if (optVal != "") {
+//                 var optStart = parseInt(optVal.split('-')[0]);
+//                 if (optStart < referenceStart) {
+//                     $(this).prop('disabled', true).hide();
+//                 } else {
+//                     $(this).prop('disabled', false).show();
+//                 }
+//             }
+//         });
 
-        // Reset the table dropdown if the selected value is now invalid
-        var tableSelected = dropdown.val();
-        if (tableSelected && parseInt(tableSelected.split('-')[0]) < referenceStart) {
-            dropdown.val('');
-        }
-    });
-});
+//         // Reset the table dropdown if the selected value is now invalid
+//         var tableSelected = dropdown.val();
+//         if (tableSelected && parseInt(tableSelected.split('-')[0]) < referenceStart) {
+//             dropdown.val('');
+//         }
+//     });
+// });
 
     $( ".datepicker" ).datepicker({
           format: 'dd/mm/yyyy', 

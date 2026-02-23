@@ -135,7 +135,7 @@
                          
                           <td>{{ !empty($prop->created_at) ?  date('M d Y',strtotime($prop->created_at)) : '-'}}</td> 
                           <td width="23%">
-                            {{-- <a href="{{ route('schemes.proposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View Scheme</a> --}}
+                            {{-- <a href="{{ route('schemes.newproposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View Scheme</a> --}}
                            @if(App\Models\Stage::where('scheme_id',$prop->scheme_id)->latest()->first())
                             <a href="{{ route('stages.show', ['stage' => $prop->scheme_id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View Stage</a>
                             @endif
@@ -192,7 +192,7 @@
                           <td style="text-align:justify;line-height:1.5">{{ $prop->scheme_objective }}</td>
                           <td width="23%">{{ $prop->remarks }}</td>
                           <td width="23%">
-                            <a href="{{ route('schemes.proposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View</a>
+                            <a href="{{ route('schemes.newproposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View</a>
                           </td>
                         </tr>
                         @endif
@@ -250,7 +250,7 @@
                           <td style="text-align:justify;line-height:1.5">{{ $prop->scheme_objective }}</td>
                           <td  width="20%">{{date('M d Y',strtotime( $prop->created_at))}}</td>
                           <td width="23%">
-                            <a href="{{ route('schemes.proposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View</a>
+                            <a href="{{ route('schemes.newproposal_detail',[$prop->draft_id,$prop->id]) }}" class="btn btn-xs btn-info" style="display: inline-block">View</a>
                             <a href="{{ route('schemes.proposal_edit',Crypt::encrypt($prop->draft_id)) }}" class="btn btn-xs btn-primary">Edit</a>
                             <button type="button" class="btn btn-xs btn-success" onclick="fn_forward_modal('{{$prop->draft_id}}','{{$prop->id}}')">Forward</button>
                           </td>
