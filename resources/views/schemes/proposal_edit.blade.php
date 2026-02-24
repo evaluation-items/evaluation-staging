@@ -798,17 +798,20 @@
                                             <div class="form-group">
                                               <label>Present status with coverage of scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)<span class="required_filed"> * </span> :</label>
                                               <div class="radio-inline">
-                                                <label class="radio radio-rounded">
-                                                    <input type="radio" name="scheme_status" value="Y" checked />
-                                                    <span></span>
-                                                    Operational (કાર્યરત)
-                                                </label>
-                                                <label class="radio radio-rounded">
-                                                    <input type="radio" name="scheme_status" value="N"/>
-                                                    <span></span>
-                                                    Non-operational (બિન-કાર્યરત)
-                                                </label>
-                                              </div>
+                                                    <label class="radio radio-rounded">
+                                                        <input type="radio" name="scheme_status" value="Y"
+                                                            {{ old('scheme_status', $val->scheme_status) == 'Y' ? 'checked' : '' }} />
+                                                        <span></span>
+                                                        Operational (કાર્યરત)
+                                                    </label>
+
+                                                    <label class="radio radio-rounded">
+                                                        <input type="radio" name="scheme_status" value="N"
+                                                            {{ old('scheme_status', $val->scheme_status) == 'N' ? 'checked' : '' }} />
+                                                        <span></span>
+                                                        Non-operational (બિન-કાર્યરત)
+                                                    </label>
+                                                </div>
                                             </div>
                                             <!--end::Input-->
                                           </div>
@@ -1230,11 +1233,23 @@
                                             <div class="form-group">
                                               <label>Benefit (લાભ) <span class="required_filed"> * </span> : </label>
                                               <select name="benefit_to" id="next_benefit_to" class="form-control">
-                                                  <option value="">Select Beneficiary Group</option>
-                                                  <option value="Individual" @if($val->benefit_to == 'Individual') selected @endif >Individual - વ્યક્તિગત</option>
-                                                  <option value="Community" @if($val->benefit_to == 'Community') selected @endif>Community - સમુદાય</option>
-                                                  <option value="Both" @if($val->benefit_to == 'Both') selected @endif>Both</option>
-                                              </select>
+                                                <option value="">Select Benefit</option>
+
+                                                <option value="Individual"
+                                                    {{ old('benefit_to', $val->benefit_to ?? '') == 'Individual' ? 'selected' : '' }}>
+                                                    Individual - વ્યક્તિગત
+                                                </option>
+
+                                                <option value="Community"
+                                                    {{ old('benefit_to', $val->benefit_to ?? '') == 'Community' ? 'selected' : '' }}>
+                                                    Community - સમુદાય
+                                                </option>
+
+                                                <option value="Both"
+                                                    {{ old('benefit_to', $val->benefit_to ?? '') == 'Both' ? 'selected' : '' }}>
+                                                    Both
+                                                </option>
+                                            </select>
                                             </div>
                                             <!--end::Input-->
                                           </div>
@@ -3350,7 +3365,7 @@ $(document).on('change', '.custom-file-input', function () {
                 $.ajax({
                     type:'post',
                     dataType:'json',
-                    url:"{{ route('schemes.add_scheme') }}",
+                    url:"{{ route('schemes.update_scheme') }}",
                     data:{'slide':'eighth','major_benefits_text':major_text,'draft_id':draft_id,'scheme_id':scheme_id,'_token':"{{ csrf_token() }}"},
                     success:function(response) {
                         $(".otherslides").hide();
@@ -3657,35 +3672,28 @@ $(document).on('change', '.custom-file-input', function () {
                   formData.append('scheme_id', scheme_id);
 
                   // --- Helper function to append multiple files safely ---
-                  const appendFiles = (selector, appendName) => {
-                      let input = $(selector)[0];
-                      if (input && input.files) {
-                          for (let i = 0; i < input.files.length; i++) {
-                              formData.append(appendName, input.files[i]);
-                          }
-                      }
-                  };
-
-                  // --- 1. GR Files (Special loop for repeatable rows) ---
-                  $('input[name="gr[]"]').each(function() {
-                      let files = this.files;
-                      for (let i = 0; i < files.length; i++) {
-                          formData.append('gr[]', files[i]);
-                      }
-                  });
-
+                const appendFiles = (selector, appendName) => {
+                    $(selector).each(function () {
+                        if (this.files && this.files.length > 0) {
+                            for (let i = 0; i < this.files.length; i++) {
+                                formData.append(appendName + '[]', this.files[i]);
+                            }
+                        }
+                    });
+                };
                   // --- 2. Notification, Brochures, Pamphlets, Others (Using Helper) ---
-                  appendFiles('#notification', 'notification[]');
-                  appendFiles('#brochure', 'brochure[]');
-                  appendFiles('#pamphlets', 'pamphlets[]');
-                  appendFiles('#other_details_center_state', 'otherdetailscenterstate[]');
+                appendFiles('input[name="gr[]"]', 'gr');
+                appendFiles('input[name="notification[]"]', 'notification');
+                appendFiles('input[name="brochure[]"]', 'brochure');
+                appendFiles('input[name="pamphlets[]"]', 'pamphlets');
+                appendFiles('input[name="otherdetailscenterstate[]"]', 'otherdetailscenterstate');
 
                   // --- 3. Beneficiary Form Logic ---
                   let fillingType = $('input[name="beneficiary_filling_form_type"]:checked').val();
                   formData.append('beneficiary_filling_form_type', fillingType ?? '');
 
                   if (fillingType === '0') {
-                      appendFiles('#beneficiary_filling_form', 'beneficiary_filling_form[]');
+                     appendFiles('#beneficiary_filling_form', 'beneficiary_filling_form');
                   }
 
                   // --- 4. AJAX Upload ---

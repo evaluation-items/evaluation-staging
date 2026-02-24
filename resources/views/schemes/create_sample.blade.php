@@ -968,11 +968,23 @@
                                                   <div class="form-group">
                                                     <label>Benefit (લાભ) <span class="required_filed"> * </span> : </label>
                                                     <select name="benefit_to" id="next_benefit_to" class="form-control">
-                                                        <option value="">Select Benefit</option>
-                                                         <option value="{{ old('benefit_to') == 'Individual' ? 'selected' : '' }}">Individual - વ્યક્તિગત</option>
-                                                        <option value="{{ old('benefit_to') == 'Community' ? 'selected' : '' }}">Community - સમુદાય</option>
-                                                        <option value="{{ old('benefit_to') == 'Both' ? 'selected' : '' }} ">Both</option>
-                                                    </select>
+                                                            <option value="">Select Benefit</option>
+
+                                                            <option value="Individual"
+                                                                {{ old('benefit_to') == 'Individual' ? 'selected' : '' }}>
+                                                                Individual - વ્યક્તિગત
+                                                            </option>
+
+                                                            <option value="Community"
+                                                                {{ old('benefit_to') == 'Community' ? 'selected' : '' }}>
+                                                                Community - સમુદાય
+                                                            </option>
+
+                                                            <option value="Both"
+                                                                {{ old('benefit_to') == 'Both' ? 'selected' : '' }}>
+                                                                Both
+                                                            </option>
+                                                        </select>
                                                   </div>
                                                   <!--end::Input-->
                                                 </div>
@@ -2570,10 +2582,10 @@ function countIncrease(slideid){
 
 
       }else if (slideid == 6){
-             var commencement_year = $('#commencement_year').val();
+            var commencement_year = $('#commencement_year').val();
             var scheme_status = $("input[name='scheme_status']:checked").val();
             var is_sdg = $('input[name="sustainable_goals[]"]:checked').length;
-            console.log(is_sdg);
+            console.log(scheme_status);
             if(commencement_year != '' && scheme_status != '' && is_sdg > 0) {
               let nextSlide = countIncrease(slideid);
 
@@ -3048,21 +3060,22 @@ function countIncrease(slideid){
             formData.append('slide', 'twelth');
 
             // Helper function to append multiple files safely
-            function appendFiles(selector, paramName) {
-                let input = $(selector)[0];
-                if (input && input.files.length > 0) {
-                    for (let i = 0; i < input.files.length; i++) {
-                        formData.append(paramName, input.files[i]);
+            const appendFiles = (selector, appendName) => {
+                $(selector).each(function () {
+                    if (this.files && this.files.length > 0) {
+                        for (let i = 0; i < this.files.length; i++) {
+                            formData.append(appendName + '[]', this.files[i]);
+                        }
                     }
-                }
-            }
+                });
+            };
 
             // Append all categories
-            appendFiles('input[name="gr[]"]', 'gr[]'); // Note: your loop used name selector here
-            appendFiles('#notification', 'notification[]');
-            appendFiles('#brochure', 'brochure[]');
-            appendFiles('#pamphlets', 'pamphlets[]');
-            appendFiles('#other_details_center_state', 'otherdetailscenterstate[]');
+            appendFiles('input[name="gr[]"]', 'gr');
+            appendFiles('input[name="notification[]"]', 'notification');
+            appendFiles('input[name="brochure[]"]', 'brochure');
+            appendFiles('input[name="pamphlets[]"]', 'pamphlets');
+            appendFiles('input[name="otherdetailscenterstate[]"]', 'otherdetailscenterstate');
 
             // Beneficiary Form
             let fillingType = $('input[name="beneficiary_filling_form_type"]:checked').val();

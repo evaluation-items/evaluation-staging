@@ -1869,7 +1869,7 @@ class SchemeController extends Controller {
             $arr = [
                 "implementing_office" => $implementing_office,
                 "both_ration" => $request->both_ration,
-                "goals" => $request->other_ratio,
+                "other_ratio" => $request->other_ratio,
                 "nodal_officer_name" => $request->nodal_officer_name,
                 "nodal_officer_designation" => $request->nodal_officer_designation,
                 "nodal_officer_contact" => $request->nodal_officer_contact,
@@ -2475,6 +2475,7 @@ class SchemeController extends Controller {
              Proposal::where('draft_id',$draft_id)->update($arr);
             return response()->json('updated successfully');
         } else if($slide == 'twelth'){
+            //dd($request->all());
             if(Session::has('scheme_id') && Session::has('draft_id')){
                 $scheme_id = Session::get('scheme_id');
                 $draft_id = Session::get('draft_id');
@@ -2526,7 +2527,7 @@ class SchemeController extends Controller {
             }
 
             // Check Beneficiary Form Security
-            if ($request->input('beneficiary_filling_form_type') === '0' && $request->hasFile('beneficiary_filling_form')) {
+            if ($request->input('beneficiary_filling_form_type') === '0' &&     $request->hasFile('beneficiary_filling_form')) {
                 foreach ($request->file('beneficiary_filling_form') as $ben_file) {
                     if ($ben_file->getClientOriginalExtension() == 'pdf') {
                         if (!PdfSecurityService::check($ben_file, false)) {
