@@ -114,7 +114,7 @@
                       </tr>
                     
                       <tr>
-                        <th>Designation of the Nodal Officer (નોડલ અધિકારી નો હોદ્દો)</th>
+                        <th>Designation of the Nodal Officer (નોડલ અધિકારીનો હોદ્દો)</th>
                         @php
                         if($pval->convener_designation == 'ds'){
                           $name = 'Deputy Secretary';
@@ -131,19 +131,19 @@
                         </td>
                       </tr>
                       <tr>
-                        <th>Contact Number of the Nodal Officer (નોડલ અધિકારીના સંપર્ક નંબર)</th>
+                        <th>Contact Number of the Nodal Officer (નોડલ અધિકારીનો સંપર્ક નંબર)</th>
                         <td>
                           {{ $pval->convener_phone }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Mobile Number of the Nodal Officer (નોડલ અધિકારીના મોબાઇલ નંબર)</th>
+                        <th>Mobile Number of the Nodal Officer (નોડલ અધિકારીનો મોબાઇલ નંબર)</th>
                         <td>
                           {{ $pval->convener_mobile }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Email Address of the Nodal Officer (નોડલ અધિકારીનું ઇમેઇલ સરનામું)</th>
+                        <th>Email Address of the Nodal Officer (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</th>
                         <td>
                           {{ $pval->convener_email }}
                         </td>
@@ -157,35 +157,35 @@
                       <tr>
                         <th>Short Name of the scheme/ Programme to be evaluated (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ):</th>
                         <td>
-                          {{ $pval->scheme_short_name }}
+                          {{ $pval->scheme_short_name ?? '-' }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Name of the Financial Adviser (નાણાકીય સલાહકાર નું નામ):</th>
+                        <th>Name of the Financial Adviser (નાણાકીય સલાહકારનું નામ):</th>
                         <td>
                           {{ $pval->financial_adviser_name }}
                         </td>
                       </tr>
-                      <tr>
-                        <th>Designation of the Financial Adviser (નાણાકીય સલાહકાર નો હોદ્દો)</th>
+                      {{-- <tr>
+                        <th>Designation of the Financial Adviser (નાણાકીય સલાહકારનો હોદ્દો)</th>
                         <td>
                           {{ $pval->financial_adviser_designation }}
                         </td>
-                      </tr>
+                      </tr> --}}
                       <tr>
-                        <th>Contact Number of the Financial Adviser (નાણાકીય સલાહકાર  ના સંપર્ક નંબર)</th>
+                        <th>Contact Number of the Financial Adviser (નાણાકીય સલાહકારનો સંપર્ક નંબર)</th>
                         <td>
                           {{ $pval->financial_adviser_phone }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Mobile Number of the Financial Adviser (નાણાકીય સલાહકાર ના મોબાઇલ નંબર) </th>
+                        <th>Mobile Number of the Financial Adviser (નાણાકીય સલાહકારનો મોબાઇલ નંબર) </th>
                         <td>
                           {{ $pval->financial_adviser_mobile }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Email Address of the Financial Adviser (નાણાકીય સલાહકારનું ઇમેઇલ સરનામું) </th>
+                        <th>Email Address of the Financial Adviser (નાણાકીય સલાહકારનું ઇમેઇલ એડ્રેસ) </th>
                         <td>
                           {{ $pval->financial_adviser_email }}
                         </td>
@@ -253,7 +253,7 @@
                         $hod_mobile = array_map('trim', explode(',', $pval->hod_mobile ?? ''));
                       @endphp
                       <tr>
-                          <th>Name of the HOD / Branch (કચેરીનું નામ)</th>
+                          <th>Name of the HOD / Branch (કચેરી/શાખાનું નામ)</th>
                           <td>{{ hod_name($pval->draft_id) }}</td>
                       </tr>
 
@@ -277,31 +277,31 @@
                      
                       @endforeach
                       <tr>
-                        <th>Name of the Nodal Officer (HOD) (નોડલ અધિકારી નું નામ)</th>
+                        <th>Name of the Nodal Officer (HOD) (નોડલ અધિકારીનું નામ)</th>
                         <td>
                           {{ $pval->nodal_officer_name }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Designation of Nodal Officer(HOD) (નોડલ અધિકારી નો હોદ્દો)</th>
+                        <th>Designation of Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)</th>
                         <td>
                           {{ $pval->nodal_officer_designation }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Contact Number of the Nodal Officer (HOD) (નોડલ અધિકારી ના સંપર્ક નંબર)</th>
+                        <th>Contact Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો સંપર્ક નંબર)</th>
                         <td>
                           {{ $pval->nodal_officer_contact }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Mobile Number of the Nodal Officer (HOD) (નોડલ અધિકારી ના મોબાઇલ નંબર)</th>
+                        <th>Mobile Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો મોબાઇલ નંબર)</th>
                         <td>
                           {{ $pval->nodal_officer_mobile }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Email of Nodal Officer(HOD) (નોડલ અધિકારી નું ઇમેઇલ)</th>
+                        <th>Email Address of Nodal Officer(HOD) (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</th>
                         <td>
                           {{ $pval->nodal_officer_email }}
                         </td>
@@ -318,6 +318,20 @@
                           {{ $pval->state_ratio }} %
                         </td>
                       </tr>
+                      <tr>
+                        <th>Fund Flow State Govt. (યોજના માટેનો નાણાકીય સ્ત્રોત્ર અન્ય: __%)</th>
+                        <td>
+                          {{ $pval->other_ratio ?? 0 }} %
+                        </td>
+                      </tr>
+                      @if (!empty($pval->both_ration))
+                        <tr>
+                          <th>Remarks</th>
+                          <td>
+                            {{ $pval->both_ration }} 
+                          </td>
+                        </tr>
+                      @endif
                       <tr>
                         <th>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય)</th>
                         <td>
@@ -397,16 +411,16 @@
                      <tr>
                       <th>Present status with coverage of scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)</th>
                       <td>
-                        {{ $pval->scheme_status }}
+                        {{ ($pval->scheme_status == 'Y' ? ' Operational (કાર્યરત)' : 'Non-operational (બિન-કાર્યરત)') }}
                       </td>
                     </tr>
                       <tr>
-                      <th>Sustainable Development Goals (SDG) (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ)</th>
+                      <th>Sustainable Development Goals (SDG): Which specific goal(s) does this scheme follow? (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ (SDG): આ યોજના કયા ચોક્કસ લક્ષ્યાંકોને અનુસરે છે?)</th>
                       <td>
                       @if($entered_goals != 'no data')
                         @foreach($goals as $k => $g)
                           @if(in_array($g->goal_id,$entered_goals))
-                            <p>{{ $g->goal_name }}</p>
+                            <p>{{ $g->goal_name }} ({{ $g->goal_name_guj }})</p>
                           @endif
                         @endforeach
                       @endif
@@ -467,7 +481,29 @@
                     <tr>
                       <th>Implementing procedure of the Scheme (યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)</th>
                       <td>
-                        {{ $pval->scheme_implementing_procedure }}
+                        {{ $pval->scheme_implementing_procedure }} <br><br>
+                        
+                          @if($pval->scheme_implement_file == '')
+                              No File
+                          @else
+                              @php  
+                                  $extension = pathinfo($pval->scheme_implement_file, PATHINFO_EXTENSION);
+                              @endphp
+
+                              @if($extension == 'pdf')
+                                  <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_implement_file]) }}" target="_blank" title="{{ $pval->scheme_implement_file }}">
+                                      <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
+                                  </a>
+                              @elseif($extension == 'doc')
+                                  <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_implement_file]) }}" download="{{ $pval->scheme_implement_file }}">
+                                      <i class="fas fa-download fa-2x" style="color:#007bff;"></i>
+                                  </a>
+                              @else
+                                  <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_implement_file]) }}" download="{{ $pval->scheme_implement_file }}">
+                                      <i class="fas fa-download fa-2x" style="color:green;"></i>
+                                  </a>
+                              @endif
+                          @endif 
                       </td>
                     </tr>
  			              <tr>
@@ -755,9 +791,10 @@
                           </td>
                         </tr>
                       <tr>
+                      
                       <th>Beneficiary Filling form( લાભાર્થી ભરવાનું ફોર્મ)</th>
                       <td>
-                          {{($pval->beneficiary_filling_form_type == 0) ? 'Yes' : 'No'}}
+                          {{(!empty($pval->beneficiary_filling_form_type) && $pval->beneficiary_filling_form_type == 0) ? 'Yes' : 'No'}}
                       </td>
                     </tr>
                     <tr>

@@ -279,7 +279,7 @@ class SchemeController extends Controller {
 
                 if($request->hasFile('eval_upload_report')) {
                     $request->validate([
-                        'eval_upload_report' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'eval_upload_report' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     $eval_upload_report = $request->file('eval_upload_report');
                     PdfSecurityService::check($eval_upload_report);
@@ -398,7 +398,7 @@ class SchemeController extends Controller {
                     $eval_report_file_name = '';
                     if ($request->hasFile('eval_upload_report')) {
                           $request->validate([
-                            'eval_upload_report' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                            'eval_upload_report' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                         ]);
                         $eval_upload_report = $request->file('eval_upload_report');
                         PdfSecurityService::check($eval_upload_report);
@@ -492,7 +492,7 @@ class SchemeController extends Controller {
             $major_objective_file_name = '';
             if($request->has('major_objective_file')) {
                 $request->validate([
-                    'major_objective_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'major_objective_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $major_objective_file = $request->file('major_objective_file');
                 PdfSecurityService::check($major_objective_file);
@@ -540,7 +540,7 @@ class SchemeController extends Controller {
             $draft_id = Session::get('draft_id');
             if($request->has('major_indicator_file')) {
                 $request->validate([
-                    'major_indicator_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'major_indicator_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $major_indicator_file = $request->file('major_indicator_file');
                 PdfSecurityService::check($major_indicator_file);
@@ -592,7 +592,7 @@ class SchemeController extends Controller {
             $filename = "";
             if($request->hasFile('next_scheme_overview_file')) {
                 $request->validate([
-                    'next_scheme_overview_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'next_scheme_overview_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $document = $request->file('next_scheme_overview_file');                
                 PdfSecurityService::check($document);
@@ -632,7 +632,7 @@ class SchemeController extends Controller {
             $filetype = "";
             if($request->hasFile('scheme_objective_file')) {
                 $request->validate([
-                    'scheme_objective_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'scheme_objective_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $document = $request->file('scheme_objective_file');             
                 PdfSecurityService::check($document);
@@ -671,7 +671,7 @@ class SchemeController extends Controller {
             $filecomponent = "";
             if($request->hasFile('next_scheme_components_file')) {
                 $request->validate([
-                    'next_scheme_components_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'next_scheme_components_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $document = $request->file('next_scheme_components_file');
                 PdfSecurityService::check($document);
@@ -737,6 +737,7 @@ class SchemeController extends Controller {
                  $arr = [
                     "implementing_office" => $implementing_office,
                     "both_ration" => $request->both_ration,
+                    "other_ratio" => $request->other_ratio,
                     "nodal_officer_name" => $request->nodal_officer_name,
                     "nodal_officer_designation" => $request->nodal_officer_designation,
                     "nodal_officer_contact" => $request->nodal_officer_contact,
@@ -789,7 +790,7 @@ class SchemeController extends Controller {
             $filename = "";
             if($request->hasFile('beneficiary_selection_criteria_file')) {
                 $request->validate([
-                    'beneficiary_selection_criteria_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'beneficiary_selection_criteria_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $document = $request->file('beneficiary_selection_criteria_file');
                 PdfSecurityService::check($document);
@@ -842,7 +843,7 @@ class SchemeController extends Controller {
             $major_benefits_text = $request->input('major_benefits_text');
             if($request->hasFile('major_benefits')) {
                 $request->validate([
-                    'major_benefits' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'major_benefits' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $document = $request->file('major_benefits');
                 PdfSecurityService::check($document);
@@ -886,6 +887,7 @@ class SchemeController extends Controller {
 
             $geographical_coverage_file     = null;
             $implementing_procedure_file   = null;
+            $scheme_implement_file = null;
 
             /* ================= COUCHDB INIT ================= */
             $extended = new Couchdb();
@@ -911,7 +913,7 @@ class SchemeController extends Controller {
             /* ================= IMPLEMENTING PROCEDURE FILE ================= */
             if ($request->hasFile('implementing_procedure_file')) {
 				$request->validate([
-						'implementing_procedure_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+						'implementing_procedure_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
 					]);
                 $document = $request->file('implementing_procedure_file');
 				PdfSecurityService::check($document);
@@ -939,10 +941,40 @@ class SchemeController extends Controller {
                 $implementing_procedure_file = $path['name'];
             }
 
+            if ($request->hasFile('scheme_implement_file')) {
+				$request->validate([
+						'scheme_implement_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
+					]);
+                $document = $request->file('scheme_implement_file');
+				PdfSecurityService::check($document);
+                $path = [
+                    'id'        => 'scheme_implement_file',
+                    'tmp_name'  => $document->getRealPath(),
+                    'extension' => $document->getClientOriginalExtension(),
+                    'name'      => $doc_id . '_scheme_implement_file.' . $document->getClientOriginalExtension()
+                ];
+
+                $out = $extended->createAttachmentDocument(
+                    $this->envirment['database'],
+                    $doc_id,
+                    $rev,
+                    $path
+                );
+
+                $array = json_decode($out, true);
+
+                if (!empty($array['rev'])) {
+                    $rev = $array['rev'];
+                    Attachment::where('scheme_id', $scheme_id)->update(['couch_rev_id' => $rev]);
+                }
+
+                $scheme_implement_file = $path['name'];
+            }
+
             /* ================= GEOGRAPHICAL COVERAGE FILE ================= */
             if ($request->hasFile('geographical_coverage')) {
 					$request->validate([
-						'geographical_coverage' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+						'geographical_coverage' => 'file|mimes:pdf,doc,docx,xls,xlsx',
 					]);
                 // $document = $request->file('geographical_coverage');
                 
@@ -983,6 +1015,7 @@ class SchemeController extends Controller {
                 'taluka_id'                     => $taluka_id,
                 'otherbeneficiariesGeoLocal'    => $otherbeneficiariesGeoLocal,
                 'implementing_procedure_file'   => $implementing_procedure_file,
+                'scheme_implement_file' => $scheme_implement_file,
                 'geographical_coverage'         => $geographical_coverage_file
             ];
 
@@ -1005,7 +1038,7 @@ class SchemeController extends Controller {
 
             // if($request->hasFile('geographical_coverage')) {
                 // $request->validate([
-                    // 'geographical_coverage' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    // 'geographical_coverage' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 // ]);
                 // $document = $request->file('geographical_coverage');
                 // PdfSecurityService::check($document);
@@ -1050,7 +1083,7 @@ class SchemeController extends Controller {
             $beneficiaries_coverage_file_name = '';
             if($request->has('beneficiaries_coverage')) {
                 $request->validate([
-                    'beneficiaries_coverage' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'beneficiaries_coverage' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $beneficiaries_coverage = $request->file('beneficiaries_coverage');
                 PdfSecurityService::check($beneficiaries_coverage);
@@ -1090,7 +1123,7 @@ class SchemeController extends Controller {
             if($request->has('training')) {
                 $training = $request->file('training');
                  $request->validate([
-                    'training' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'training' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 PdfSecurityService::check($training);
                 $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
@@ -1115,7 +1148,7 @@ class SchemeController extends Controller {
             if($request->has('iec_file')) {
                 $iec_file = $request->file('iec_file');
                  $request->validate([
-                    'iec_file' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                    'iec_file' => 'file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 PdfSecurityService::check($iec_file);
                 $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
@@ -1451,7 +1484,7 @@ class SchemeController extends Controller {
 
                 if ($request->hasFile('eval_upload_report')) {
                     $request->validate([
-                        'eval_upload_report' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'eval_upload_report' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                     $eval_upload_report = $request->file('eval_upload_report');
@@ -1516,7 +1549,7 @@ class SchemeController extends Controller {
             // ✅ Handle new file upload (optional)
             if ($request->hasFile('major_objective_file')) {
                 $request->validate([
-                        'major_objective_file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'major_objective_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                 ]);
                 $major_objective_file = $request->file('major_objective_file');
                 PdfSecurityService::check($major_objective_file);
@@ -1599,7 +1632,7 @@ class SchemeController extends Controller {
                 // ✅ Handle file upload (if a new one provided)
                 if ($request->hasFile('major_indicator_file')) {
                     $request->validate([
-                        'major_indicator_file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'major_indicator_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                     $major_indicator_file = $request->file('major_indicator_file');
@@ -1677,7 +1710,7 @@ class SchemeController extends Controller {
            $filename = "";
             if($request->hasFile('next_scheme_overview_file')) {
                     $request->validate([
-                        'next_scheme_overview_file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'next_scheme_overview_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                     $document = $request->file('next_scheme_overview_file');
@@ -1720,7 +1753,7 @@ class SchemeController extends Controller {
             $filetype = "";
             if($request->hasFile('scheme_objective_file')) {
                     $request->validate([
-                        'scheme_objective_file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'scheme_objective_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                     $document = $request->file('scheme_objective_file');
@@ -1763,7 +1796,7 @@ class SchemeController extends Controller {
             $filecomponent = "";
             if($request->hasFile('next_scheme_components_file')) {
                     $request->validate([
-                        'next_scheme_components_file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'next_scheme_components_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                     $document = $request->file('next_scheme_components_file');
@@ -1836,6 +1869,7 @@ class SchemeController extends Controller {
             $arr = [
                 "implementing_office" => $implementing_office,
                 "both_ration" => $request->both_ration,
+                "goals" => $request->other_ratio,
                 "nodal_officer_name" => $request->nodal_officer_name,
                 "nodal_officer_designation" => $request->nodal_officer_designation,
                 "nodal_officer_contact" => $request->nodal_officer_contact,
@@ -1897,7 +1931,7 @@ class SchemeController extends Controller {
             $filename = "";
             if($request->hasFile('beneficiary_selection_criteria_file')) {
                   $request->validate([
-                        'beneficiary_selection_criteria_file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'beneficiary_selection_criteria_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                     $document = $request->file('beneficiary_selection_criteria_file');
@@ -1959,7 +1993,7 @@ class SchemeController extends Controller {
             $major_benefits_text = $request->input('major_benefits_text');
             if($request->hasFile('major_benefits')) {
                  $request->validate([
-                        'major_benefits' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'major_benefits' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                 $document = $request->file('major_benefits');
@@ -2020,11 +2054,12 @@ class SchemeController extends Controller {
             $taluka_id = $request->taluka_id ?? null;
 
             $implementing_procedure_file = null;
+            $scheme_implement_file = null;
 
             /* ================= FILE UPLOAD ================= */
             if ($request->hasFile('implementing_procedure_file')) {
 				$request->validate([
-                        'implementing_procedure_file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'implementing_procedure_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                 $document = $request->file('implementing_procedure_file');
 				PdfSecurityService::check($document);
@@ -2072,12 +2107,64 @@ class SchemeController extends Controller {
 
                 $implementing_procedure_file = $path['name'];
             }
+
+            if ($request->hasFile('scheme_implement_file')) {
+				$request->validate([
+                        'scheme_implement_file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
+                    ]);
+                $document = $request->file('scheme_implement_file');
+				PdfSecurityService::check($document);
+                $rev = Attachment::where('scheme_id', $scheme_id)->value('couch_rev_id');
+
+                $extended = new Couchdb();
+                $extended->InitConnection();
+
+                $doc_id = "scheme_" . $scheme_id;
+                $docid  = 'scheme_implement_file';
+
+                $path = [
+                    'id'        => $docid,
+                    'tmp_name'  => $document->getRealPath(),
+                    'extension' => $document->getClientOriginalExtension(),
+                    'name'      => $doc_id . '_' . $docid . '.' . $document->getClientOriginalExtension()
+                ];
+
+                if (!$rev) {
+                    $out = $extended->createDocument(['scheme_id' => $doc_id], $this->envirment['database'], $doc_id);
+                    $array = json_decode($out, true);
+
+                    Attachment::create([
+                        'scheme_id'    => $scheme_id,
+                        'couch_doc_id' => $array['id'] ?? null,
+                        'couch_rev_id' => $array['rev'] ?? null
+                    ]);
+
+                    $rev = $array['rev'] ?? null;
+                }
+
+                $out = $extended->createAttachmentDocument(
+                    $this->envirment['database'],
+                    $doc_id,
+                    $rev,
+                    $path
+                );
+
+                $array = json_decode($out, true);
+
+                if (!empty($array['rev'])) {
+                    Attachment::where('scheme_id', $scheme_id)
+                        ->update(['couch_rev_id' => $array['rev']]);
+                }
+
+                $scheme_implement_file = $path['name'];
+            }
+
             $filename = '';
 
             if($request->hasFile('geographical_coverage')) {
 				
 					$request->validate([
-                        'geographical_coverage' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'geographical_coverage' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                  $document = $request->file('geographical_coverage');
@@ -2134,6 +2221,12 @@ class SchemeController extends Controller {
                     $arr['implementing_procedure_file'] = $request->existing_implementing_procedure_file ?? null;
                 }
 
+                if ($scheme_implement_file) {
+                    $arr['scheme_implement_file'] = $scheme_implement_file;
+                }else{
+                    $arr['scheme_implement_file'] = $request->existing_scheme_implement_file ?? null;
+                }
+
                 if ($filename) {
                     $arr['geographical_coverage'] = $filename;
                 }
@@ -2161,7 +2254,7 @@ class SchemeController extends Controller {
 
             // if($request->hasFile('geographical_coverage')) {
                 // $request->validate([
-                        // 'geographical_coverage' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        // 'geographical_coverage' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     // ]);
                     
                 // $document = $request->file('geographical_coverage');
@@ -2241,7 +2334,7 @@ class SchemeController extends Controller {
             $beneficiaries_coverage_file_name = '';
             if($request->has('beneficiaries_coverage')) {
                 $request->validate([
-                        'beneficiaries_coverage' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
+                        'beneficiaries_coverage' => 'required|file|mimes:pdf,doc,docx,xls,xlsx',
                     ]);
                     
                 $beneficiaries_coverage = $request->file('beneficiaries_coverage');
@@ -2486,7 +2579,7 @@ class SchemeController extends Controller {
             // 3. Handle Beneficiary Filling Form (Multi-file support)
             $beneficiaryType = $request->input('beneficiary_filling_form_type');
             if ($beneficiaryType === '0' && $request->hasFile('beneficiary_filling_form')) {
-                $request->validate(['beneficiary_filling_form.*' => 'file|max:10240|mimes:pdf,docx,xlsx']);
+                $request->validate(['beneficiary_filling_form.*' => 'file|mimes:pdf,docx,xlsx']);
                 
                 $beneficiaryFileNames = [];
                 foreach($request->file('beneficiary_filling_form') as $key => $ben_file) {
@@ -2599,7 +2692,7 @@ class SchemeController extends Controller {
         //         $gr_files = $request->file('gr');
         //             $request->validate([
         //                 'gr' => 'array',
-        //                 'gr.*' => 'file|max:10240|mimes:pdf',
+        //                 'gr.*' => 'file|mimes:pdf',
         //             ]);
               
         //         GrFilesList::where('scheme_id',$scheme_id)->delete();
@@ -2630,7 +2723,7 @@ class SchemeController extends Controller {
         //         $notification_files = $request->file('notification');
         //             $request->validate([
         //                 'notification' => 'array',
-        //                 'notification.*' => 'file|max:10240|mimes:pdf',
+        //                 'notification.*' => 'file|mimes:pdf',
         //             ]);
               
                 
@@ -2654,7 +2747,7 @@ class SchemeController extends Controller {
         //         $brochure_files = $request->file('brochure');
         //          $request->validate([
         //                 'brochure' => 'array',
-        //                 'brochure.*' => 'file|max:10240|mimes:pdf',
+        //                 'brochure.*' => 'file|mimes:pdf',
         //             ]);
         //         BrochureFileList::where('scheme_id',$scheme_id)->delete();
         //         foreach($brochure_files as $brochurekey => $brochure_val) {
@@ -2676,7 +2769,7 @@ class SchemeController extends Controller {
         //         $pamphlets_files = $request->file('pamphlets');
         //         $request->validate([
         //                 'pamphlets' => 'array',
-        //                 'pamphlets.*' => 'file|max:10240|mimes:pdf',
+        //                 'pamphlets.*' => 'file|mimes:pdf',
         //             ]);
                 
         //         PamphletFileList::where('scheme_id',$scheme_id)->delete();
@@ -2699,7 +2792,7 @@ class SchemeController extends Controller {
         //         $otherdetailscenterstate_files = $request->file('otherdetailscenterstate');
         //          $request->validate([
         //                 'otherdetailscenterstate' => 'array',
-        //                 'otherdetailscenterstate.*' => 'file|max:10240|mimes:pdf',
+        //                 'otherdetailscenterstate.*' => 'file|mimes:pdf',
         //             ]);
                 
                
@@ -2727,7 +2820,7 @@ class SchemeController extends Controller {
         //             $doc_id = "scheme_" . $scheme_id;
         //             $document = $request->file('beneficiary_filling_form');
         //             $request->validate([
-        //                 'beneficiary_filling_form' => 'file|max:10240|mimes:pdf',
+        //                 'beneficiary_filling_form' => 'file|mimes:pdf',
         //             ]);
         //             PdfSecurityService::check($document);
         //             $rev = Attachment::where('scheme_id', $scheme_id)->value('couch_rev_id');
@@ -2835,7 +2928,7 @@ public function deleteFile(Request $request) {
     $id = $request->id;             // The Primary Key (ID) of the file record (e.g., 25)
     $couchId = $request->couch_id;   // The CouchDB Document ID (e.g., "scheme_33")
     $filename = $request->filename; // The actual filename (e.g., "scheme_33_gr_1.pdf")
-    $type = $request->type;         // The category (GR, notification, etc.)
+    $type = strtolower(trim($request->type));
 
     try {
         $extended = new Couchdb();
@@ -2847,8 +2940,7 @@ public function deleteFile(Request $request) {
 
         if (isset($document['_rev'])) {
             // 2. Delete the specific attachment from CouchDB
-            $path = sprintf('/%s/%s/%s?rev=%s', 
-                    $this->envirment['database'], $couchId, $filename, $document['_rev']);
+            $path = sprintf('/%s/%s/%s?rev=%s',  $this->envirment['database'], $couchId, $filename, $document['_rev']);
             
             $delete_response = $extended->executeCustomDelete($path);
             $resArray = json_decode($delete_response, true);
@@ -2857,19 +2949,34 @@ public function deleteFile(Request $request) {
                 $newRev = $resArray['rev']; // New revision after attachment is gone
 
                 // 3. REMOVE FROM DATABASE (Specific File List)
-                $fileModelMap = [
-                    'GR'           => GrFilesList::class,
+                 $fileModelMap = [
+                    'gr'           => GrFilesList::class,
                     'notification' => NotificationFileList::class,
                     'brochure'     => BrochureFileList::class,
                     'pamphlets'    => PamphletFileList::class,
                     'otherdetails' => CenterStateFiles::class,
                 ];
+
+                if (!isset($fileModelMap[$type])) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Invalid file type'
+                    ]);
+                }
                 
                 if (array_key_exists($type, $fileModelMap)) {
-                    // Delete the specific row from the category table (e.g., itransaction.gr_files_list)
-                    $fileModelMap[$type]::where('id', $id)->delete();
-                }
+                     $fileModel = $fileModelMap[$type];
 
+                    $deleted = $fileModel::where('id', $id)->delete();
+
+                    if ($deleted == 0) {
+                        return response()->json([
+                                'success' => false,
+                                'message' => 'Record not found in database'
+                            ]);
+
+                    }
+                }
                 // 4. UPDATE MASTER ATTACHMENT TABLE
                 // This keeps your CouchDB metadata in sync for the next operation
                 \DB::table('itransaction.attachments')

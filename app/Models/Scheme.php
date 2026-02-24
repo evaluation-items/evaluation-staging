@@ -21,10 +21,10 @@ class Scheme extends Model {
     protected $primaryKey = 'scheme_id';
 
     protected $casts = [
-        'major_objective' => 'array',
-        'major_indicator' => 'array',
-        'major_indicator_hod' => 'array',
-        'financial_progress' => 'array'
+        // 'major_objective' => 'array',
+        // 'major_indicator' => 'array',
+        // 'major_indicator_hod' => 'array',
+        // 'financial_progress' => 'array'
     ];
 
     protected $guarded = [

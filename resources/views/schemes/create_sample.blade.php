@@ -589,7 +589,7 @@
                                                   <div class="col-xl-3 col-md-3">
                                                       <div class="form-group mb-0">
                                                           <label>Other Govt.(%) (અન્ય: %)</label>
-                                                          <input type="text" id="other_ratio" class="form-control bg-light" value="{{old('other_ratio')}}" readonly>
+                                                          <input type="text" name="other_ratio" id="other_ratio" class="form-control bg-light" value="{{old('other_ratio')}}" readonly>
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-3 col-md-3">
@@ -837,10 +837,14 @@
                                                       <small class="word-message text-muted"></small>
                                                     </div>
                                                     <!--end::Input-->
+                                                    <div class="custom-file" style="margin:20px 0px">
+                                                          <input type="file" class="custom-file-input file_type_name" name="scheme_implement_file" id="scheme_implement_file" accept=".pdf,.docx,.xlsx"/>
+                                                          <label class="custom-file-label" for="customFile">Choose file</label>
+                                                    </div>
                                                   </div>
                                                 </div> 
 										
-												                        <div class="row">
+												<div class="row">
                                                     <div class="col-xl-12">
                                                       <!--begin::Input-->
                                                       <div class="form-group">
@@ -849,7 +853,7 @@
                                                         <small class="word-message text-muted"></small>
                                                       </div>
                                                       <!--end::Input-->
-                                                      <div class="custom-file" style="margin:20px 0px">
+                                                        <div class="custom-file" style="margin:20px 0px">
                                                           <input type="file" class="custom-file-input file_type_name" name="implementing_procedure_file" id="implementing_procedure_file" accept=".pdf,.docx,.xlsx"/>
                                                           <label class="custom-file-label" for="customFile">Choose file</label>
                                                         </div>
@@ -2446,6 +2450,7 @@ function countIncrease(slideid){
 
         var implementing_office = $("#implementing_office").val() || [];
         var both_ration = $("#both_ration").val();
+        var other_ratio = $("#other_ratio").val();
         var nodal_id = $('#nodal_id').val();
         var nodal_designation = $("#nodal_designation").val();
         var nodal_contact = $("#nodal_contact").val();
@@ -2513,6 +2518,7 @@ function countIncrease(slideid){
         implementing_office.forEach(o => formData.append('implementing_office[]', o));
         formData.append('hod_office', JSON.stringify(hod_office));
         formData.append('both_ration', both_ration);
+        formData.append('other_ratio', other_ratio);
         formData.append('nodal_officer_name', nodal_id);
         formData.append('nodal_officer_designation', nodal_designation);
         formData.append('nodal_officer_contact', nodal_contact);
@@ -2798,10 +2804,14 @@ function countIncrease(slideid){
 
             // FILES 🔥
             let implementingFile = $("#implementing_procedure_file")[0]?.files[0];
+            let schemeImplementFile = $("#scheme_implement_file")[0]?.files[0];
             let geoFile = $("#geographical_coverage")[0]?.files[0];
 
             if (implementingFile) {
                 formData.append('implementing_procedure_file', implementingFile);
+            }
+            if (schemeImplementFile) {
+                formData.append('scheme_implement_file', schemeImplementFile);
             }
 
             if (geoFile) {
@@ -3632,12 +3642,14 @@ $(document).on('input', '.word-limit', function () {
         messageBox.addClass('text-muted')
                   .text(words + " / " + maxWords + " words");
 
-    } else if (words <= maxWords) {
+    } 
+    // else if (words <= maxWords) {
 
-        messageBox.addClass('text-warning')
-                  .text(words + " / " + maxWords + " words (Approaching limit)");
+    //     messageBox.addClass('text-warning')
+    //               .text(words + " / " + maxWords + " words (Approaching limit)");
 
-    } else if (words <= hardLimit) {
+    // } 
+    else if (words <= hardLimit) {
 
         let extra = words - maxWords;
 
