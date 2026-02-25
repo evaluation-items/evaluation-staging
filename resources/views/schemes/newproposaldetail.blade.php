@@ -1,4 +1,4 @@
-@extends(Auth::user()->role_manage == 1  ? 'dashboards.gad-sec.layouts.gadsec-dash-layout'  : (Auth::user()->role_manage == 2  ? 'dashboards.eva-dir.layouts.evaldir-dash-layout'  : (Auth::user()->role_manage == 3 || Auth::user()->role_manage == 4   ? 'dashboards.eva-dd.layouts.evaldd-dash-layout' : 'dashboards.proposal.layouts.sidebar')))
+@extends( Auth::user()->role == 25  ? 'dashboards.admins.layouts.admin-dash-layout' : ( Auth::user()->role_manage == 1    ? 'dashboards.gad-sec.layouts.gadsec-dash-layout'  : ( Auth::user()->role_manage == 2 ? 'dashboards.eva-dir.layouts.evaldir-dash-layout' : ( Auth::user()->role_manage == 3 || Auth::user()->role_manage == 4 ? 'dashboards.eva-dd.layouts.evaldd-dash-layout' : 'dashboards.proposal.layouts.sidebar'))))
 @section('title','Proposals - Detail')
 <style>
   .borderless {

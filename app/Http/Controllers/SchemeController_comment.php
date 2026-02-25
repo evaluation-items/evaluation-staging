@@ -241,9 +241,19 @@ class SchemeController extends Controller {
         return response()->json($departments);
     }
  
+    // public function getNodal(Request $request){
+    //     $data['nodals'] = Nodal::where('imid',$request->imid)->get(['nodalid','nodal_name']);
+    //     return response()->json($data);
+    // }
+
+    // public function getConvener(Request $request){
+    //     $data['conveners'] = Convener::where('con_id',$request->conid)->get(['convener_name','convener_designation','convener_phone_no','convener_mobile_no','convener_email']);
+    //     return response()->json($data);
+    // }
+
     public function add_scheme(Request $request) {
-        $slide = $request->input('slide'); 
-        if($slide == 'first' && Session::has('scheme_id')) {
+        $slide = $request->input('slide'); //if($slide == 'fourteenth') {
+         if($slide == 'first' && Session::has('scheme_id')) {
                 // 🔹 Existing Scheme: Update both scheme and proposal
                 $scheme_id = Session::get('scheme_id');
                 $draft_id = Session::get('draft_id');
@@ -2465,6 +2475,7 @@ class SchemeController extends Controller {
              Proposal::where('draft_id',$draft_id)->update($arr);
             return response()->json('updated successfully');
         } else if($slide == 'twelth'){
+            //dd($request->all());
             if(Session::has('scheme_id') && Session::has('draft_id')){
                 $scheme_id = Session::get('scheme_id');
                 $draft_id = Session::get('draft_id');
@@ -2603,7 +2614,262 @@ class SchemeController extends Controller {
             Proposal::where('draft_id', $draft_id)->update($arr);
 
             return response()->json('updated successfully');
-      
+        // if('twelth_duplicate _21_02_2026') {
+          
+        //     if(Session::has('scheme_id') && Session::has('draft_id')){
+        //         $scheme_id = Session::get('scheme_id');
+        //         $draft_id = Session::get('draft_id');
+        //     }else{
+        //         $scheme_id = $request->scheme_id;
+        //         $draft_id = $request->draft_id;
+        //     }
+        //     $data = $request->all();
+        //     unset($data['_token']);
+        //     unset($data['slide']);
+           
+        //     $documents = $request->file();
+        //     $extended = new Couchdb();
+        //     $extended->InitConnection();
+        //     $status = $extended->isRunning();
+        //     $doc_id = "scheme_".$scheme_id;
+        //     $j = 1;
+        //     foreach ($documents as $docid => $document) {
+
+        //         if (is_array($document)) {
+        //             foreach ($document as $documentis) {
+
+        //                 if (!PdfSecurityService::check($documentis, false)) {
+        //                     return response()->json([
+        //                         'error' => 'Uploaded PDF contains scripts and is not allowed'
+        //                     ], 422);
+        //                 }
+
+        //                 $file = Attachment::where('scheme_id', $scheme_id)->first();
+        //                 $rev  = $file?->couch_rev_id ?? null;
+
+        //                 if (!$rev) {
+        //                     $out = $extended->createDocument(
+        //                         ['scheme_id' => $doc_id],
+        //                         $this->envirment['database'],
+        //                         $doc_id
+        //                     );
+        //                     $array = json_decode($out, true);
+        //                     $rev = $array['rev'] ?? null;
+
+        //                     Attachment::create([
+        //                         'scheme_id' => $scheme_id,
+        //                         'couch_doc_id' => $doc_id,
+        //                         'couch_rev_id' => $rev,
+        //                     ]);
+        //                 }
+
+        //                 $path = [
+        //                     'id' => $docid,
+        //                     'tmp_name' => $documentis->getRealPath(),
+        //                     'extension' => $documentis->getClientOriginalExtension(),
+        //                     'name' => "{$doc_id}_{$docid}_{$j}.{$documentis->getClientOriginalExtension()}",
+        //                 ];
+
+        //                 $out = $extended->createAttachmentDocument(
+        //                     $this->envirment['database'],
+        //                     $doc_id,
+        //                     $rev,
+        //                     $path
+        //                 );
+
+        //                 $array = json_decode($out, true);
+        //                 if (!empty($array['rev'])) {
+        //                     Attachment::where('scheme_id', $scheme_id)
+        //                         ->update(['couch_rev_id' => $array['rev']]);
+        //                 }
+
+        //                 $j++;
+        //             }
+        //         }
+        //     }
+
+
+        //     if($request->hasFile('gr')) {
+        //         $gr_files = $request->file('gr');
+        //             $request->validate([
+        //                 'gr' => 'array',
+        //                 'gr.*' => 'file|mimes:pdf',
+        //             ]);
+              
+        //         GrFilesList::where('scheme_id',$scheme_id)->delete();
+        //         foreach($gr_files as $grkey => $gr_val) {
+        //            if (!PdfSecurityService::check($gr_val, false)) {
+        //                 return response()->json([
+        //                 'error' => 'Uploaded GR PDF contains scripts and is not allowed'
+        //             ], 422);
+        //             }
+        //             $file_ext = $gr_val->getClientOriginalExtension();
+        //             $file_name = $doc_id.'_'.'gr_'.++$grkey.'.'.$file_ext;
+        //              $gr_arr = [
+        //                     'file_name' => $file_name,
+        //                     'scheme_id' => $scheme_id,
+        //                     'created_at' => now(),
+        //                 ];
+        //             GrFilesList::insert($gr_arr);
+        //         }
+        //     }else{
+        //             $gr_arr = [
+        //                     'scheme_id' => $scheme_id,
+        //                     'created_at' => now(),
+        //                 ];
+        //         GrFilesList::where('scheme_id',$scheme_id)->update($gr_arr);
+        //     }
+
+        //     if($request->hasFile('notification')) {
+        //         $notification_files = $request->file('notification');
+        //             $request->validate([
+        //                 'notification' => 'array',
+        //                 'notification.*' => 'file|mimes:pdf',
+        //             ]);
+              
+                
+        //         NotificationFileList::where('scheme_id',$scheme_id)->delete();
+        //         foreach($notification_files as $notificationkey => $notification_val) {
+        //             if (!PdfSecurityService::check($notification_val, false)) {
+        //                 continue;
+        //             }
+        //             $file_ext = $notification_val->getClientOriginalExtension();
+        //             $file_name = $doc_id.'_'.'notification_'.++$notificationkey.'.'.$file_ext;
+        //                 $notification_arr = [
+        //                     'file_name' => $file_name,
+        //                     'scheme_id' => $scheme_id,
+        //                     'created_at' => now(),
+        //                 ];
+        //             DB::table('itransaction.notification_files_list')->insert($notification_arr);
+        //         }
+        //     }
+
+        //     if($request->hasFile('brochure')) {
+        //         $brochure_files = $request->file('brochure');
+        //          $request->validate([
+        //                 'brochure' => 'array',
+        //                 'brochure.*' => 'file|mimes:pdf',
+        //             ]);
+        //         BrochureFileList::where('scheme_id',$scheme_id)->delete();
+        //         foreach($brochure_files as $brochurekey => $brochure_val) {
+        //             if (!PdfSecurityService::check($brochure_val, false)) {
+        //                     continue;
+        //                 }
+        //             $file_ext = $brochure_val->getClientOriginalExtension();
+        //             $file_name = $doc_id.'_'.'brochure_'.++$brochurekey.'.'.$file_ext;
+        //             $brochure_arr = [
+        //                     'file_name' => $file_name,
+        //                     'scheme_id' => $scheme_id,
+        //                     'created_at' => now(),
+        //                 ];
+        //             BrochureFileList::insert($brochure_arr);
+        //         }
+        //     }
+
+        //     if($request->hasFile('pamphlets')) {
+        //         $pamphlets_files = $request->file('pamphlets');
+        //         $request->validate([
+        //                 'pamphlets' => 'array',
+        //                 'pamphlets.*' => 'file|mimes:pdf',
+        //             ]);
+                
+        //         PamphletFileList::where('scheme_id',$scheme_id)->delete();
+        //         foreach($pamphlets_files as $pamphletskey => $pamphlets_val) {
+        //             if (!PdfSecurityService::check($pamphlets_val, false)) {
+        //                 continue;
+        //             }
+        //             $file_ext = $pamphlets_val->getClientOriginalExtension();
+        //             $file_name = $doc_id.'_'.'pamphlets_'.++$pamphletskey.'.'.$file_ext;
+        //             $pamphlets_arr = [
+        //                     'file_name' => $file_name,
+        //                     'scheme_id' => $scheme_id,
+        //                     'created_at' => now(),
+        //                 ];
+        //             PamphletFileList::insert($pamphlets_arr);
+        //         }
+        //     }
+
+        //     if($request->hasFile('otherdetailscenterstate')) {
+        //         $otherdetailscenterstate_files = $request->file('otherdetailscenterstate');
+        //          $request->validate([
+        //                 'otherdetailscenterstate' => 'array',
+        //                 'otherdetailscenterstate.*' => 'file|mimes:pdf',
+        //             ]);
+                
+               
+        //         CenterStateFiles::where('scheme_id',$scheme_id)->delete();
+        //         foreach($otherdetailscenterstate_files as $otherdetailscenterstatekey => $otherdetailscenterstate_val) {
+        //             if (!PdfSecurityService::check($otherdetailscenterstate_val, false)) {
+        //                 continue;
+        //             }
+        //             $file_ext = $otherdetailscenterstate_val->getClientOriginalExtension();
+        //             $file_name = $doc_id.'_'.'otherdetailscenterstate_'.++$otherdetailscenterstatekey.'.'.$file_ext;
+        //             $otherdetailscenterstate_arr = [
+        //                     'file_name' => $file_name,
+        //                     'scheme_id' => $scheme_id,
+        //                     'created_at' => now(),
+        //                 ];
+        //             CenterStateFiles::insert($otherdetailscenterstate_arr);
+        //         }
+        //     }
+        //         // ✅ Handle Beneficiary Filling Form Type + File
+        //         $beneficiaryType = $request->input('beneficiary_filling_form_type');
+        //         $beneficiaryFileName = ''; 
+        //         $j = 1;
+
+        //         if ($beneficiaryType === '0' && $request->hasFile('beneficiary_filling_form')) {
+        //             $doc_id = "scheme_" . $scheme_id;
+        //             $document = $request->file('beneficiary_filling_form');
+        //             $request->validate([
+        //                 'beneficiary_filling_form' => 'file|mimes:pdf',
+        //             ]);
+        //             PdfSecurityService::check($document);
+        //             $rev = Attachment::where('scheme_id', $scheme_id)->value('couch_rev_id');
+
+        //             $path['id'] = 'beneficiary_filling_form';
+        //             $path['tmp_name'] = $document->getRealPath();
+        //             $path['extension'] = $document->getClientOriginalExtension();
+        //             $path['name'] = $doc_id . '_' . $path['id'] . '_' . $j . '.' . $path['extension'];
+
+        //             if (is_null($rev)) {
+        //                 $dummy_data = ['scheme_id' => $doc_id];
+        //                 $out = $extended->createDocument($dummy_data, $this->envirment['database'], $doc_id);
+        //                 $array = json_decode($out, true);
+        //                 $id = $array['id'] ?? null ?? null;
+        //                 $rev = $array['rev'] ?? null ?? null;
+
+        //                 Attachment::create([
+        //                     'scheme_id' => $scheme_id,
+        //                     'couch_doc_id' => $id,
+        //                     'couch_rev_id' => $rev,
+        //                 ]);
+        //             }
+
+        //             // Upload to CouchDB
+        //             $out = $extended->createAttachmentDocument($this->envirment['database'], $doc_id, $rev, $path);
+        //             $array = json_decode($out, true);
+        //             $rev = $array['rev'] ?? null ?? null;
+
+        //             if ($rev) {
+        //                 Attachment::where('scheme_id', $scheme_id)->update(['couch_rev_id' => $rev]);
+        //             }
+
+        //             $beneficiaryFileName = $path['name'];
+        //             $j++;
+        //         } else {
+        //             // Keep existing file name if editing and no new file is uploaded
+        //             $beneficiaryFileName = $request->existing_beneficiary_filling_form ?? null;
+        //         }
+
+        //         // ✅ Merge into $arr update data
+        //         $arr['beneficiary_filling_form_type'] = $beneficiaryType;
+        //         $arr['beneficiary_filling_form'] = $beneficiaryFileName;
+
+        //         // ✅ Finally, update your main tables
+        //         Scheme::where('scheme_id', $scheme_id)->update($arr);
+        //         Proposal::where('draft_id', $draft_id)->update($arr);
+        //     return response()->json('updated successfully');
+        // } 
         }else if($slide == 'thirteenth') {
             $data = $request->all();
             unset($data['_token']);
@@ -2624,6 +2890,7 @@ class SchemeController extends Controller {
             }
             return response()->json('updated successfully');
         } else if($slide == 'fourteenth') {
+          //  dd($request->all());
             $tr_array = $request->input('tr_array');
             $fin_progress_remarks = $request->input('financial_progress_remarks');
             $arr = array();
@@ -2658,79 +2925,161 @@ class SchemeController extends Controller {
         Activitylog::insert($act);
     }
 
-    public function deleteFile(Request $request) {
-        $id = $request->id;             // The Primary Key (ID) of the file record (e.g., 25)
-        $couchId = $request->couch_id;   // The CouchDB Document ID (e.g., "scheme_33")
-        $filename = $request->filename; // The actual filename (e.g., "scheme_33_gr_1.pdf")
-        $type = strtolower(trim($request->type));
+public function deleteFile(Request $request) {
+    $id = $request->id;             // The Primary Key (ID) of the file record (e.g., 25)
+    $couchId = $request->couch_id;   // The CouchDB Document ID (e.g., "scheme_33")
+    $filename = $request->filename; // The actual filename (e.g., "scheme_33_gr_1.pdf")
+    $type = strtolower(trim($request->type));
 
-        try {
-            $extended = new Couchdb();
-            $extended->InitConnection();
+    try {
+        $extended = new Couchdb();
+        $extended->InitConnection();
 
-            // 1. Fetch the absolute latest revision from CouchDB to prevent 409 Conflicts
-            $docResponse = $extended->getDocument($this->envirment['database'], $couchId);
-            $document = json_decode($docResponse, true);
+        // 1. Fetch the absolute latest revision from CouchDB to prevent 409 Conflicts
+        $docResponse = $extended->getDocument($this->envirment['database'], $couchId);
+        $document = json_decode($docResponse, true);
 
-            if (isset($document['_rev'])) {
-                // 2. Delete the specific attachment from CouchDB
-                $path = sprintf('/%s/%s/%s?rev=%s',  $this->envirment['database'], $couchId, $filename, $document['_rev']);
-                
-                $delete_response = $extended->executeCustomDelete($path);
-                $resArray = json_decode($delete_response, true);
+        if (isset($document['_rev'])) {
+            // 2. Delete the specific attachment from CouchDB
+            $path = sprintf('/%s/%s/%s?rev=%s',  $this->envirment['database'], $couchId, $filename, $document['_rev']);
+            
+            $delete_response = $extended->executeCustomDelete($path);
+            $resArray = json_decode($delete_response, true);
 
-                if (isset($resArray['ok']) && $resArray['ok']) {
-                    $newRev = $resArray['rev']; // New revision after attachment is gone
+            if (isset($resArray['ok']) && $resArray['ok']) {
+                $newRev = $resArray['rev']; // New revision after attachment is gone
 
-                    // 3. REMOVE FROM DATABASE (Specific File List)
-                    $fileModelMap = [
-                        'gr'           => GrFilesList::class,
-                        'notification' => NotificationFileList::class,
-                        'brochure'     => BrochureFileList::class,
-                        'pamphlets'    => PamphletFileList::class,
-                        'otherdetails' => CenterStateFiles::class,
-                    ];
+                // 3. REMOVE FROM DATABASE (Specific File List)
+                 $fileModelMap = [
+                    'gr'           => GrFilesList::class,
+                    'notification' => NotificationFileList::class,
+                    'brochure'     => BrochureFileList::class,
+                    'pamphlets'    => PamphletFileList::class,
+                    'otherdetails' => CenterStateFiles::class,
+                ];
 
-                    if (!isset($fileModelMap[$type])) {
-                        return response()->json([
-                            'success' => false,
-                            'message' => 'Invalid file type'
-                        ]);
-                    }
-                    
-                    if (array_key_exists($type, $fileModelMap)) {
-                        $fileModel = $fileModelMap[$type];
-
-                        $deleted = $fileModel::where('id', $id)->delete();
-
-                        if ($deleted == 0) {
-                            return response()->json([
-                                    'success' => false,
-                                    'message' => 'Record not found in database'
-                                ]);
-
-                        }
-                    }
-                    // 4. UPDATE MASTER ATTACHMENT TABLE
-                    // This keeps your CouchDB metadata in sync for the next operation
-                    \DB::table('itransaction.attachments')
-                        ->where('couch_doc_id', $couchId)
-                        ->update(['couch_rev_id' => $newRev]);
-
-                    return response()->json(['success' => true]);
+                if (!isset($fileModelMap[$type])) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Invalid file type'
+                    ]);
                 }
+                
+                if (array_key_exists($type, $fileModelMap)) {
+                     $fileModel = $fileModelMap[$type];
+
+                    $deleted = $fileModel::where('id', $id)->delete();
+
+                    if ($deleted == 0) {
+                        return response()->json([
+                                'success' => false,
+                                'message' => 'Record not found in database'
+                            ]);
+
+                    }
+                }
+                // 4. UPDATE MASTER ATTACHMENT TABLE
+                // This keeps your CouchDB metadata in sync for the next operation
+                \DB::table('itransaction.attachments')
+                    ->where('couch_doc_id', $couchId)
+                    ->update(['couch_rev_id' => $newRev]);
+
+                return response()->json(['success' => true]);
             }
-            return response()->json(['success' => false, 'message' => 'CouchDB Error', 'details' => $resArray]);
-
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
-    }
+        return response()->json(['success' => false, 'message' => 'CouchDB Error', 'details' => $resArray]);
 
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
     public function onreload(Request $request) {
         Session::forget('scheme_id');
         Session::forget('draft_id');
         return response()->json('success');
+    }
+
+    public function newproposaldetail_09_01_26($draft_id, Request $request)
+    {
+        $draft_id = Crypt::decrypt($draft_id);
+
+        $proposal_list = Proposal::with([
+            'gr_file',
+            'notification_files',
+            'brochure_files',
+            'pamphlets_files',
+            'otherdetailscenterstate_files',
+            'department:id,dept_id,dept_name',
+            'implementation',
+            'financialProgress'
+        ])
+        ->where('draft_id', $draft_id)
+        ->get();
+
+        if ($proposal_list->isEmpty()) {
+            abort(404);
+        }
+
+        $proposal = $proposal_list->first();
+        $scheme_id = $proposal->scheme_id;
+
+        /* ---------- SDG ---------- */
+        $goals = Sdggoals::where('status',1)->get()->keyBy('goal_id');
+        $entered_goals = json_decode($proposal->is_sdg ?? '[]', true);
+
+        /* ---------- Districts & Talukas ---------- */
+        $district_ids = json_decode($proposal->districts ?? '[]', true);
+        $taluka_ids   = json_decode($proposal->talukas ?? '[]', true);
+
+        $district_names = Districts::whereIn('dcode', $district_ids)->pluck('name_e')->toArray();
+        $taluka_names   = Taluka::whereIn('tcode', $taluka_ids)->pluck('tname_e')->toArray();
+
+        /* ---------- Convergence ---------- */
+        $the_convergence = [];
+        if ($proposal->all_convergence) {
+            $conv = json_decode($proposal->all_convergence);
+            $dept_ids = collect($conv)->pluck('dept_id')->unique();
+            $dept_map = Department::whereIn('dept_id', $dept_ids)->pluck('dept_name','dept_id');
+
+            foreach ($conv as $c) {
+                $the_convergence[] = [
+                    'dept_name' => $dept_map[$c->dept_id] ?? 'No Department',
+                    'remarks'   => $c->dept_remarks
+                ];
+            }
+        }
+
+        /* ---------- File counts (ONLY ONCE) ---------- */
+        $files = [
+            'bencovfile' => $this->getthefilecount($scheme_id,'_beneficiaries_coverage'),
+            'trainingfile' => $this->getthefilecount($scheme_id,'_training'),
+            'iecfile' => $this->getthefilecount($scheme_id,'_iec'),
+            'eval_report' => $this->getthefilecount($scheme_id,'_eval_report_'),
+            'gr_files' => $this->getthefilecount($scheme_id,'_gr_'),
+            'notification_files' => $this->getthefilecount($scheme_id,'_notification'),
+            'brochure_files' => $this->getthefilecount($scheme_id,'_brochure'),
+            'pamphlets_files' => $this->getthefilecount($scheme_id,'_pamphlets'),
+            'otherdetailscenterstate_files' => $this->getthefilecount($scheme_id,'_otherdetailscenterstate'),
+        ];
+
+        Activitylog::create([
+            'userid' => Auth::id(),
+            'ip' => $request->ip(),
+            'activity' => 'Scheme Detail Page',
+            'officecode' => Auth::user()->dept_id,
+            'pagereferred' => $request->url()
+        ]);
+
+        return view('schemes.newproposaldetail', compact(
+            'proposal',
+            'proposal_list',
+            'district_names',
+            'taluka_names',
+            'goals',
+            'entered_goals',
+            'the_convergence',
+            'files'
+        ));
     }
 
     public function newproposaldetail($draft_id,Request $request) {
@@ -2937,6 +3286,503 @@ class SchemeController extends Controller {
         return view('schemes.proposaldetail',compact('proposal_list','dept_name','major_objectives','major_indicators','imdept','major_indicator_hod','financial_progress','replace_url','scheme_id','beneficiariesGeoLocal','bencovfile','trainingfile','iecfile','district_names','dept_names','taluka_names','conv_dept_remarks','goals','entered_goals','eval_report','gr_files','notification_files','brochure_files','pamphlets_files','otherdetailscenterstate_files','the_convergence'));
     }
 
+  
+
+    // public function schemedetail($scheme_id) {
+    //     $goals = Sdggoals::where('status','1')->orderBy('goal_id','desc')->get();
+    //     $schemes = Scheme::where('scheme_id',$scheme_id)->get();
+    //     $replace_url = URL::to('/');
+    //     $dept_name = '';
+    //     $convener = array();
+    //     $major_objectives = array();
+    //     $imdept = array();
+    //     $adviseris = array();
+    //     $major_indicator_hod = array();
+    //     $financial_progress = array();
+    //     $beneficiariesGeoLocal = beneficiariesGeoLocal();
+    //     $bencovfile = $this->getthefilecount($scheme_id,'_beneficiaries_coverage');
+    //     $trainingfile = $this->getthefilecount($scheme_id,'_training');
+    //     $iecfile = $this->getthefilecount($scheme_id,'_iec');
+    //     $eval_report = $this->getthefilecount($scheme_id,'_eval_report_');
+    //     $gr_files = $this->getthefilecount($scheme_id,'_gr');
+    //     $notification_files = $this->getthefilecount($scheme_id,'_notification');
+    //     $brochure_files = $this->getthefilecount($scheme_id,'_brochure');
+    //     $pamphlets_files = $this->getthefilecount($scheme_id,'_pamphlets');
+    //     $otherdetailscenterstate_files = $this->getthefilecount($scheme_id,'_otherdetailscenterstate');
+    //     $district_ids = array();
+    //     $taluka_ids = array();
+    //     $dept_name = array();
+    //     $conv_dept_ids = array();
+    //     $conv_dept_remarks = array();
+    //     $entered_goals = array();
+    //     $all_convergence = array();
+    //     foreach($schemes as $key=>$value) {
+    //         $dept_name = Department::where('dept_id',$value->dept_id)->value('dept_name');
+    //         $major_objectives = $value->major_objective;
+    //         $major_indicators = $value->major_indicator;
+    //         $imdept = Implementation::where('id',$value->im_id)->get();
+    //         $major_indicator_hod = $value->major_indicator_hod;
+    //         $financial_progress = FinancialProgress::where('scheme_id',$value->scheme_id)->get();
+    //         if($value->districts != 'null' or $value->districts != '') {
+    //             $district_ids = json_decode($value->districts);
+    //         }
+    //         if($value->talukas != 'null' or $value->talukas != '') {
+    //             $taluka_ids = json_decode($value->talukas);
+    //         }
+    //         if($value->is_sdg) {
+    //             $entered_goals = json_decode($value->is_sdg);
+    //         }
+    //         if($value->all_convergence) {
+    //             $all_convergence = json_decode($value->all_convergence);
+    //         }
+    //     }
+    //     $the_convergence = array();
+    //     if(!empty($all_convergence)) {
+    //         foreach($all_convergence as $kc => $vc) {
+    //             $dept_name = Department::where('dept_id',$vc->dept_id)->value('dept_name');
+    //             if($dept_name == '') {
+    //                 $dept_name = 'no department';
+    //             }
+    //             $the_convergence[] = array('dept_name'=>$dept_name,'remarks'=>$vc->dept_remarks);
+    //         }
+    //     }
+    //     $district_names = array();
+    //     if(!empty($district_ids)) {
+    //         foreach($district_ids as $dkey=>$dval) {
+    //             $district_names[] = Districts::where('dcode',$dval)->value('name_e');
+    //         }
+    //     }
+    //     $taluka_names = array();
+    //     if(!empty($taluka_ids)) {
+    //         foreach($taluka_ids as $dkey=>$dval) {
+    //             $taluka_names[] = Taluka::where('tcode',$dval)->value('tname_e');
+    //         }
+    //     }
+    //     $dept_names = array();
+    //     if(count($conv_dept_ids) > 0) {
+    //         foreach($conv_dept_ids as $convkey=>$conval) {
+    //             $dept_is = Department::select('dept_id','dept_name')->where('dept_id',$conval)->get();
+    //             $dept_names[] = $dept_is->toArray();
+    //         }
+    //     }
+    //     return view('schemes.schemedetail',compact('schemes','dept_name','major_objectives','major_indicators','imdept','major_indicator_hod','financial_progress','replace_url','scheme_id','beneficiariesGeoLocal','bencovfile','trainingfile','iecfile','district_names','dept_names','taluka_names','conv_dept_remarks','goals','entered_goals','eval_report','gr_files','notification_files','brochure_files','pamphlets_files','otherdetailscenterstate_files','the_convergence'));
+    // }
+
+    // public function meetings() {
+    //     $user_id = Auth::user()->id;
+    //     $user_role_id = Auth::user()->role;
+    //     $schemes = SchemeSend::select('proposals.draft_id','proposals.scheme_name','proposals.scheme_id')->leftjoin('itransaction.proposals','scheme_send.draft_id','=','proposals.draft_id')->where('scheme_send.status_id','24')->orWhere('scheme_send.status_id','26')->where('scheme_send.forward_btn_show','1')->orderBy('scheme_send.id','desc')->get();
+    //     $schemelist = array();
+    //     $i = 0;
+    //     $j = 0;
+    //     foreach($schemes as $sc) {
+    //         if($j == 0) {
+    //             $schemelist[] = array('draft_id'=>$sc->draft_id,'scheme_name'=>$sc->scheme_name,'scheme_id'=>$sc->scheme_id);
+    //         } else {
+    //             $plucked_arr = Arr::pluck($schemelist,'draft_id');
+    //             if(!in_array($sc->draft_id,$plucked_arr)) {
+    //                 $schemelist[] = array('draft_id'=>$sc->draft_id,'scheme_name'=>$sc->scheme_name,'scheme_id'=>$sc->scheme_id);
+    //                 $i++;
+    //             }
+    //         }
+    //         $j++;
+    //     }
+    //     $departments = Department::orderBy('dept_name','asc')->get();
+    //     $meetings = Meetinglog::where('user_id',$user_id)->where('user_role_id',$user_role_id)->orderBy('mid','desc')->get();
+    //     $attendees = User::select('id','name')->where('role','3')->orWhere('role','4')->get();
+    //     $implementations = Implementation::all();
+    //     $aftermeeting = Aftermeeting::orderBy('amid','desc')->get();
+    //     $replace_url = URL::to('/');
+    //     return view('schemes.meetings',compact('meetings','attendees','schemelist','departments','implementations','aftermeeting','replace_url'));
+    // }
+
+    // public function addmeeting(Request $request) {
+    //     $validate = Validator::make($request->all(),[
+    //         'draft_id' => 'required|numeric',
+    //         'subject' => 'required|string|max:100',
+    //         'description' => 'required|string|max:990',
+    //         'chairperson' => 'required|string|max:100',
+    //         'date' => 'required|date',
+    //         'time' => 'required|date_format:H:i',
+    //         'venue' => 'required|max:50',
+    //         'attendees' => 'required',
+    //         'document' => 'required|mimes:docx,pdf,xlsx',
+    //     ]);
+    //     if($validate->fails()) {
+    //         return redirect()->back()->withInput()->withErrors($validate->errors());
+    //     } else {
+    //         if($request->input('venue') == '' and $request->input('venue_of_meeting_text') == '') {
+    //             return redirect()->back();
+    //         }
+    //         $venue = '';
+    //         if($request->input('venue_of_meeting_text') == '') {
+    //             $venue = $request->input('venue');
+    //         }  else {
+    //             $venue = $request->input('venue_of_meeting_text');
+    //         }
+    //         $draft_id = $request->input('draft_id');
+    //         $scheme_id = Proposal::where('draft_id',$draft_id)->value('scheme_id');
+    //         $dept_id = Proposal::where('draft_id',$draft_id)->value('dept_id');
+    //         $scheme_name = Scheme::where('scheme_id',$draft_id)->value('scheme_name');
+    //         $subject = $request->input('subject');
+    //         $description = $request->input('description');
+    //         $chairperson = $request->input('chairperson');
+    //         $date = $request->input('date');
+    //         $time = $request->input('time');
+    //         $created_at = Carbon::now();
+    //         $attendees = $request->input('attendees');
+        
+
+    //         $attendees_emails = User::whereIn('id',$request->input('attendees'))->pluck('email');
+
+    //         $details = array('draft_id'=>$draft_id, 'dept_id'=>$dept_id,'scheme_name'=>$scheme_name,'subject'=>$subject,'description'=>$subject,'description'=>$description,'venue'=>$venue,'chairperson'=>$chairperson,'attendees'=>$attendees,'date'=>$date,'time'=>$time,'created_at'=>$created_at);
+
+    //         $path = array();
+    //         $document = $request->file();
+    //         $rev = '';
+    //         $flname = '';
+    //         foreach($document as $dkey=>$dval) {
+    //             $doc_id= 'scheme_'.$scheme_id;
+    //             $extended = new Couchdb();
+    //             $extended->InitConnection();
+    //             $status = $extended->isRunning();
+    //             $file = Attachment::where('couch_doc_id',$doc_id)->first();
+    //             $file_data = json_decode($file,true);
+    //             $rev = $file_data['couch_rev_id'];
+    //             $path['id'] = $doc_id;
+    //             $path['tmp_name'] = $dval->getRealPath();
+    //             $path['extension']  = $dval->getClientOriginalExtension();
+    //             $path['name'] = $doc_id.'_setmeeting_'.$path['extension'];
+    //             $flname = $path['name'];
+    //             $details['filename'] = $flname;
+    //             $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+    //             $array = json_decode($out, true);
+    //             if(array_key_exists('error',$array)) {
+    //                 echo $rev;
+    //                 print_r($array);
+    //                 die();
+    //             } else {
+    //                 $id = $array['id'] ?? null;
+    //                 $rev = $array['rev'] ?? null;
+    //                 $data['couch_rev_id'] = $rev;
+    //                 $attachment = Attachment::where('scheme_id',$scheme_id)->update($data);
+    //             }
+    //         }
+    //         $user_id = Auth::user()->id;
+    //         $user_role_id = Auth::user()->role;
+    //         $insertQRY = array('draft_id'=>$draft_id,'scheme_id'=>$scheme_id,'dept_id'=>$dept_id,'subject'=>$subject,'description'=>$subject,'description'=>$description,'chairperson'=>$chairperson,'attendees'=>$attendees,'date'=>$date,'time'=>$time, 'venue'=>$venue, 'filename'=>$flname,'created_at'=>$created_at,'user_id'=>$user_id,'user_role_id'=>$user_role_id);
+    //         if(isset($rev)) {
+    //             $result = Attachment::where('couch_doc_id',$doc_id)->update(['couch_rev_id'=>$rev]);
+    //             if($result) {
+    //                 Meetinglog::insert($insertQRY);
+    //                 $act['userid'] = Auth::user()->id;
+    //                 $act['ip'] = $request->ip();
+    //                 $act['activity'] = 'Meeting added by Eval Director';
+    //                 $act['officecode'] = $dept_id;
+    //                 $act['pagereferred'] = $request->url();
+    //                 Activitylog::insert($act);
+    //                 return redirect()->back()->withSuccess('Email Sent & Meeting Schedule successfully Created !');
+    //             } else {
+    //                 return redirect()->back()->withError('Error: Meeting 402, Contact NIC.');
+    //             }
+    //         } else {
+    //             return redirect()->back()->withError('Error: Meeting 402, Contact NIC.');
+    //         }
+
+    //         return redirect()->back();
+    //     }
+    // }
+
+    // public function postpone_meeting(Request $request) {
+    //     $validate = Validator::make($request->all(),[
+    //         'postpone_mid' => 'required|numeric',
+    //         'postpone_date' => 'required|date',
+    //         'postpone_time' => 'required|date_format:H:i'
+    //     ]);
+    //     if($validate->fails($validate->errors())) {
+    //         return redirect()->back()->withInput()->withErrors($validate->errors());
+    //     } else {
+    //         $mid = $request->get('postpone_mid');
+    //         $date = $request->get('postpone_date');
+    //         $time = $request->get('postpone_time');
+    //         $thetime = array('date'=>$date,'time'=>$time);
+    //         Meetinglog::where('mid',$mid)->update($thetime);
+
+    //         $data = Meetinglog::where('mid',$mid)->get();
+    //         $detaildata = $data->toArray();
+    //         $dept_id = 0;
+    //         if(count($detaildata) > 0) {
+    //             $details = $detaildata[0];
+    //             $scheme_id = $detaildata[0]['draft_id'];
+    //             $scheme_name = Scheme::where('scheme_id',$scheme_id)->value('scheme_name');
+    //             $details['venue'] = Meetinglog::where('draft_id',$scheme_id)->value('venue');
+    //             $details['scheme_name'] = $scheme_name;
+    //             $attendees = array();
+    //                 $att = json_decode($details['attendees'],true);
+    //                 foreach($att as $attkey=>$attval) {
+    //                     $attendees[] = $attval;
+    //                 }
+    //             $dept_id = $detaildata[0]['dept_id'];
+    //             if(count($attendees)) {
+    //                 $attendees_ids = $attendees[0];
+    //                 $attendees_emails = User::whereIn('id',$attendees_ids)->pluck('email');
+    //             }
+    //         }
+    //         $act['userid'] = Auth::user()->id;
+    //         $act['ip'] = $request->ip();
+    //         $act['activity'] = 'Meeting updated by Eval Director';
+    //         $act['officecode'] = $dept_id;
+    //         $act['pagereferred'] = $request->url();
+    //         Activitylog::insert($act);
+    //         return redirect()->back()->with('postpone_msg','Meeting postponed successfully !!!!!');
+    //     }
+    // }
+
+    // public function finishmeeting(Request $request) {
+    //     $mid = $request->get('mid');
+      
+    //     $fmeeting = Meetinglog::leftjoin('itransaction.proposals','meetinglogs.draft_id','=','proposals.draft_id')
+    //                     ->leftjoin('imaster.departments','departments.dept_id','=','meetinglogs.dept_id')
+    //                     ->where('meetinglogs.mid',$mid)
+    //                     ->get();
+    //     $attendees_table_id = User::select('id')->where('role','3')->orWhere('role','4')->get();
+    //     $att_arr = array();
+    //     if($attendees_table_id->isNotEmpty()) {
+    //         $attendees_toarray = $attendees_table_id->toArray();
+    //         foreach($attendees_toarray as $at_tokey => $at_toval) {
+    //             $att_arr[] = $at_toval['id'];
+    //         }
+    //     }
+    //     $attendees_ids = array();
+    //     if($fmeeting->isNotEmpty()) {
+    //         $ss = json_decode($fmeeting[0]['attendees']);
+    //         foreach($ss->users as $skey=>$sval) {
+    //             if(in_array($sval,$att_arr)) {
+    //                 $attendees_ids[] = $sval;
+    //             }
+    //         }
+    //     }
+    //     $attendees = User::select('id','name')->whereIn('id',$attendees_ids)->get();
+    //     $arr = array('mid'=>$mid,'fmeeting'=>$fmeeting,'attendees'=>$attendees);
+    //     return response()->json($arr);
+    // }
+
+    // public function updatemeeting(Request $request) {
+    //     $validate = Validator::make($request->all(),[
+    //         'mid' => 'required|numeric',
+    //         'draft_id' => 'required|numeric',
+    //         'subject' => 'required|string|max:100',
+    //         'description' => 'required|string|max:990',
+    //         'chairperson' => 'required|string|max:100',
+    //         'date' => 'required|date',
+    //         'time' => 'required|date_format:H:i',
+    //         'venue' => 'required|string',
+    //         'attendees' => 'required',
+    //         'meeting_minutes' => 'required|mimes:pdf,docx,xlsx',
+    //         'meeting_attendance' => 'required|mimes:pdf,docx,xlsx'
+    //     ]);
+    //     if($validate->fails()) {
+    //         return redirect()->back()->withInput()->withErrors($validate->errors());
+    //     } else {
+    //         $mid = $request->input('mid');
+    //         $draft_id = $request->input('draft_id');
+    //         $dept_id = Proposal::where('draft_id',$draft_id)->value('dept_id');
+    //         $scheme_id = Proposal::where('draft_id',$draft_id)->value('scheme_id');
+    //         $scheme_name = Scheme::where('scheme_id',$scheme_id)->value('scheme_name');
+    //         $subject = $request->input('subject');
+    //         $description = $request->input('description');
+    //         $chairperson = $request->input('chairperson');
+    //         $date = $request->input('date');
+    //         $time = $request->input('time');
+    //         $venue = $request->input('venue');
+    //         $created_at = Carbon::now();
+    //         $attendees = json_encode(array('users'=>$request->input('attendees')));
+       
+    //         $attendees_emails = User::whereIn('id',$request->input('attendees'))->pluck('email');
+
+    //         $details = array('filesare'=>'multiple','draft_id'=>$draft_id,'scheme_id'=>$scheme_id,'dept_id'=>$dept_id,'scheme_name'=>$scheme_name,'subject'=>$subject,'description'=>$subject,'description'=>$description,'venue'=>$venue,'chairperson'=>$chairperson,'attendees'=>$attendees,'date'=>$date,'time'=>$time, 'mid'=>$mid, 'created_at'=>$created_at);
+    //         $flname = array();
+    //         $path = array();
+    //         $i = 0;
+    //         $details['filename'] = array();
+    //         if($request->hasFile('meeting_minutes')) {
+    //             $meeting_minutes = $request->file('meeting_minutes');
+    //             $rev = '';
+    //             $doc_id= 'scheme_'.$scheme_id;
+    //             $extended = new Couchdb();
+    //             $extended->InitConnection();
+    //             $status = $extended->isRunning();
+    //             $file = Attachment::where('couch_doc_id',$doc_id)->first();
+    //             $file_data = json_decode($file,true);
+    //             $rev = $file_data['couch_rev_id'];
+    //             $path['id'] = $doc_id;
+    //             $path['tmp_name'] = $meeting_minutes->getRealPath();
+    //             $path['extension']  = $meeting_minutes->getClientOriginalExtension();
+    //             $path['name'] = $doc_id.'_'.'meeting_minutes_'.$mid.'_aftermeeting'.'.'.$path['extension'];
+    //             $flname[] = $path['name'];
+    //             $details['filename'][$i] = $path['name'];
+
+    //             $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+    //             $array = json_decode($out, true);
+    //             if(array_key_exists('error',$array)) {
+    //                 echo 'rev error <br>';
+    //                 $rev = '';
+    //                 print_r($array);
+    //                 die();
+    //             } else {
+    //                 $rev = $array['rev'] ?? null;
+    //                 $result = Attachment::where('couch_doc_id',$doc_id)->update(['couch_rev_id'=>$rev]);
+    //             }
+    //             $i++;
+    //         }
+    //         if($request->hasFile('meeting_attendance')) {
+    //             $meeting_attendance = $request->file('meeting_attendance');
+    //             $rev = '';
+    //             $doc_id= 'scheme_'.$scheme_id;
+    //             $extended = new Couchdb();
+    //             $extended->InitConnection();
+    //             $status = $extended->isRunning();
+    //             $file = Attachment::where('couch_doc_id',$doc_id)->first();
+    //             $file_data = json_decode($file,true);
+    //             $rev = $file_data['couch_rev_id'];
+          
+    //             $path['id'] = $doc_id;
+    //             $path['tmp_name'] = $meeting_attendance->getRealPath();
+    //             $path['extension']  = $meeting_attendance->getClientOriginalExtension();
+    //             $path['name'] = $doc_id.'_'.'meeting_attendance_'.$mid.'_aftermeeting'.'.'.$path['extension'];
+    //             $flname[] = $path['name'];
+    //             $details['filename'][$i] = $path['name'];
+
+    //             $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+    //             $array = json_decode($out, true);
+    //             if(array_key_exists('error',$array)) {
+    //                 echo 'rev error <br>';
+    //                 $rev = '';
+    //                 print_r($array);
+    //                 die();
+    //             } else {
+    //                 $rev = $array['rev'] ?? null;
+    //                 $result = Attachment::where('couch_doc_id',$doc_id)->update(['couch_rev_id'=>$rev]);
+    //             }
+    //             $i++;
+    //         }
+    //         $theflnames = implode(',',$flname);
+    //         $insertQRY = array('draft_id'=>$draft_id, 'scheme_id'=>$scheme_id, 'dept_id'=>$dept_id, 'subject'=>$subject, 'description'=>$subject, 'description'=>$description, 'chairperson'=>$chairperson, 'attendees'=>$attendees, 'date'=>$date, 'time'=>$time, 'venue'=>$venue, 'mid'=>$mid, 'filename'=>$theflnames, 'created_at'=>$created_at);
+    //         if(isset($rev)) {
+    //             Aftermeeting::insert($insertQRY);
+    //             Meetinglog::where('mid',$mid)->update(['status'=>'1']);
+    //             $act['userid'] = Auth::user()->id;
+    //             $act['ip'] = $request->ip();
+    //             $act['activity'] = 'Meeting conducted by Eval Director';
+    //             $act['officecode'] = $dept_id;
+    //             $act['pagereferred'] = $request->url();
+    //             Activitylog::insert($act);
+    //             return redirect()->back()->withSuccess('Email Sent & Meeting Schedule successfully Created !');
+    //         } else {
+    //             return redirect()->back()->withError('Error: Meeting 402, Contact NIC.');
+    //         }
+    //     }
+    //     return redirect()->back();
+    // }
+
+    // public function communication() {
+    //     $dept_id = Auth::user()->dept_id;
+    //     $get_study_ids = Eval_activity_status::distinct('study_id')->pluck('study_id');
+    //     $studies = Proposal::select('draft_id','scheme_name')->whereIn('draft_id',$get_study_ids)->where('proposals.dept_id',$dept_id)->orderBy('scheme_name')->get();
+    //     $topics = CommunicationTopics::orderBy('id','desc')->get();
+    //     $communication = Communication::select('communication.*','proposals.scheme_name','communication_topics.topic as topic_name', 'departments.dept_name')->leftjoin('itransaction.proposals','proposals.draft_id','=','communication.study_id')->leftjoin('imaster.communication_topics','communication.topic_id','=','communication_topics.id')->orderBy('communication.id','desc')->leftjoin('imaster.departments','communication.dept_id','=','departments.dept_id')->where('communication.dept_id',$dept_id)->get();
+    //     $communication_arr = array();
+    //     foreach($communication as $key => $val) {
+    //         $study_id = $val->study_id;
+    //         $topic_id = '';
+    //         if($val->topic_id != 0) {
+    //             $topic_id = $val->topic_id;
+    //         }
+    //         $topic_text = $val->topic_text;
+    //         $remarks = $val->remarks;
+    //         $document = $val->document;
+    //         $document_count = $this->getthefilecount($val->scheme_id,$document);
+    //         $file_type = '';
+    //         if($document_count > 0) {
+    //             $file_type = pathinfo($document, PATHINFO_EXTENSION);
+    //         }
+    //         $dept_id = $val->dept_id;
+    //         $scheme_id = $val->scheme_id;
+    //         $scheme_name = $val->scheme_name;
+    //         $topic_name = $val->topic_name;
+    //         $dept_name = $val->dept_name;
+    //         $arr = array('study_id'=>$study_id,'topic_id'=>$topic_id,'topic_text'=>$topic_text,'remarks'=>$remarks,'document_count'=>$document_count,'document'=>$document,'dept_id'=>$dept_id,'scheme_id'=>$scheme_id,'scheme_name'=>$scheme_name,'topic_name'=>$topic_name,'dept_name'=>$dept_name,'file_type'=>$file_type);
+    //         $communication_arr[] = $arr;
+    //     }
+    //     return view('schemes.communication',compact('topics','studies','communication_arr'));
+    // }
+
+    // public function addcommunication(Request $request) {
+    //     $validate = Validator::make($request->all(),[
+    //         'study_id' => 'required|numeric',
+    //         'topic_id' => 'nullable|numeric',
+    //         'topic_text' => 'nullable|string',
+    //         'remarks' => 'required|string|max:500',
+    //         'document' => 'nullable|mimes:docx,xlsx,pdf'
+    //     ]);
+    //     if($validate->fails()) {
+    //         return response()->json('validation_error');
+    //     } else {
+    //         $study_id = $request->input('study_id');
+    //         $scheme_id = Proposal::where('draft_id',$study_id)->value('scheme_id');
+    //         $dept_id = Proposal::where('draft_id',$study_id)->value('dept_id');
+    //         if($request->input('topic_id') != 0) {
+    //             $topic_id = $request->input('topic_id');
+    //         } else {
+    //             $topic_id = 0;
+    //         }
+    //         $user_id = Auth::user()->id;
+    //         $user_role = Auth::user()->role;
+    //         $commu = new Communication;
+    //         $commu->study_id = $study_id;
+    //         $commu->topic_id = $topic_id;
+    //         $commu->topic_text = $request->input('topic_text');
+    //         $commu->remarks = $request->input('remarks');
+    //         $commu->dept_id = $dept_id;
+    //         $commu->scheme_id = $scheme_id;
+    //         $commu->user_id = $user_id;
+    //         $commu->user_role = $user_role;
+    //         $commu->save();
+    //         $last_id = $commu->id;
+    //         if($request->hasFile('document')) {
+    //             $document = $request->file('document');
+    //             $rev = Attachment::where('scheme_id',$scheme_id)->value('couch_rev_id');
+    //             $extended = new Couchdb();
+    //             $extended->InitConnection();
+    //             $status = $extended->isRunning();
+    //             $doc_id = "scheme_".$scheme_id;
+    //             $docid = 'communication_userid_'.Auth::user()->id.'_role_'.Auth::user()->role.'_id_'.$last_id.'_file';
+    //             $path['id'] = $docid;
+    //             $path['tmp_name'] = $document->getRealPath();
+    //             $path['extension']  = $document->getClientOriginalExtension();
+    //             $path['name'] = $doc_id.'_'.$path['id'].'.'.$path['extension'];
+    //             $out = $extended->createAttachmentDocument($this->envirment['database'],$doc_id,$rev,$path);
+    //             $array = json_decode($out, true);
+    //             $rev = $array['rev'] ?? null;
+    //             if(isset($rev)) {
+    //                 $result = Attachment::where('scheme_id',$scheme_id)->update(['couch_rev_id'=>$rev]);
+    //             }                    
+    //             $filename_exp = explode('scheme_'.$scheme_id.'_',$path['name']);
+    //             $filename = $filename_exp[1];
+    //             Communication::where('id',$last_id)->update(['document'=>$filename]);
+    //         }
+    //         $act['userid'] = Auth::user()->id;
+    //         $act['ip'] = $request->ip();
+    //         $act['activity'] = 'Communication Added by Eval Director';
+    //         $act['officecode'] = Auth::user()->dept_id;
+    //         $act['pagereferred'] = $request->url();
+    //         Activitylog::insert($act);
+
+    //         return response()->json('successfully_saved');
+    //     }
+    // }
+
+
     public function getthefile($id,$scheme) {
         $id = 'scheme_'.Crypt::decrypt($id);
        
@@ -2977,6 +3823,41 @@ class SchemeController extends Controller {
         }
     }
 
+    // public function getmeetingfile($id,$scheme) {
+    //     $id = 'scheme_'.$id;
+    //     $extended = new Couchdb();
+    //     $extended->InitConnection();
+    //     $status = $extended->isRunning();
+    //     $out = $extended->getDocument($this->envirment['database'],$id);
+    //     $arrays = json_decode($out, true);
+    //     if(isset($arrays)) {
+    //         $attachments = $arrays['_attachments'];
+    //     } else {
+    //         return "no data";
+    //     }
+    //     foreach($attachments as $attachment_name => $attachment) {
+    //         $at_name[] = $attachment_name;
+    //     }
+    //     if(count($at_name) > 0) {
+    //         $filename = Meetinglog::where('mid',$id)->value('filename');
+    //         if($filename == '') {
+    //             $filename = Aftermeeting::where('amid',$id)->value('filename');
+    //         }
+    //         foreach($at_name as $atkey=>$atvalue) {
+    //             if(strpos($atvalue,$filename) !== false) {
+    //                 $cont = file_get_contents($this->envirment['url'].$id."/".$atvalue);
+    //                 if($cont) {
+    //                     return response($cont)->withHeaders(['Content-type'=>'application/pdf']);
+    //                 } else {
+    //                     return "Error fetching the document. Contact NIC";
+    //                 }
+    //             }
+    //         }
+    //     } else {
+    //         return 'Document not found !';
+    //     }
+    // }
+
     public function getthefilecount($id, $scheme) {
        
             $id = 'scheme_' . $id;
@@ -3009,7 +3890,7 @@ class SchemeController extends Controller {
             }
  
             return (count($countfiles) > 0) ? $countfiles : 'no data';
-    }
+        }
 
     public function customItems(Request $request)
     {
@@ -3111,7 +3992,6 @@ class SchemeController extends Controller {
 
       
     }
-
     public function customdeptItems(Request $request)
     {
 
@@ -3214,7 +4094,6 @@ class SchemeController extends Controller {
 
       
     }
-
     public function destory(Request $request,$draft_id)
     {
         try {
@@ -3255,7 +4134,7 @@ class SchemeController extends Controller {
         }
     }
     
-    public function uploadToCouchAndSql(Request $request) 
+   public function uploadToCouchAndSql(Request $request) 
     {
         $schemeId = $request->input('scheme_id');
         $tableName = $request->input('target_table');
@@ -3320,10 +4199,10 @@ class SchemeController extends Controller {
 
         return ["status" => false, "message" => "Upload failed", "couch_response" => $out];
     }
-
     public function beneficiariesDetails(Request $request)
     {
       
+
         $distname = $request->input('beneficiariesGeoLocal');
         $scheme_id = $request->input('scheme_id');
        
@@ -3399,46 +4278,105 @@ class SchemeController extends Controller {
         // } 
     }
   
-    public function downloadFinalReportPdf($scheme_id)
-    {
-        $scheme_id = Crypt::decrypt($scheme_id);
+public function downloadFinalReportPdf($scheme_id)
+{
+     $scheme_id = Crypt::decrypt($scheme_id);
 
-        $proposal = Proposal::with([
-            'gr_file',
-            'notification_files',
-            'brochure_files',
-            'pamphlets_files',
-            'otherdetailscenterstate_files'
-        ])->where('scheme_id', $scheme_id)->firstOrFail();
-        dd([
-            'gr_file' => $proposal->gr_file->pluck('id')->all(),
-            'notification_files' => $proposal->notification_files->pluck('id')->all(),
-            'brochure_files' => $proposal->brochure_files->pluck('id')->all(),
-            'pamphlets_files' => $proposal->pamphlets_files->pluck('id')->all(),
-            'otherdetailscenterstate_files' => $proposal->otherdetailscenterstate_files->pluck('id')->all(),
-        ]);
+    $proposal = Proposal::with([
+        'gr_file',
+        'notification_files',
+        'brochure_files',
+        'pamphlets_files',
+        'otherdetailscenterstate_files'
+    ])->where('scheme_id', $scheme_id)->firstOrFail();
+dd([
+    'gr_file' => $proposal->gr_file->pluck('id')->all(),
+    'notification_files' => $proposal->notification_files->pluck('id')->all(),
+    'brochure_files' => $proposal->brochure_files->pluck('id')->all(),
+    'pamphlets_files' => $proposal->pamphlets_files->pluck('id')->all(),
+    'otherdetailscenterstate_files' => $proposal->otherdetailscenterstate_files->pluck('id')->all(),
+]);
+//   $financial_progress = FinancialProgress::where('scheme_id', $scheme_id)
+//     ->get()
+//     ->keyBy('id'); // or 'im_id' if you are using im_id
 
-        $dept_name = 'Agriculture & Co-Operation Department';
 
-        $html = view('pdf.final-report', compact(
-            'proposal',
+    $dept_name = 'Agriculture & Co-Operation Department';
+
+    $html = view('pdf.final-report', compact(
+        'proposal',
+        'dept_name',
+       
+    ))->render();
+
+    $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => storage_path('app/mpdf'),
+        'autoScriptToLang' => true,
+        'autoLangToFont' => true,
+        'default_font' => 'notosansgujarati'
+    ]);
+
+    $mpdf->WriteHTML($html);
+
+    return response(
+        $mpdf->Output($proposal->scheme_name . '.pdf', 'D')
+    )->header('Content-Type', 'application/pdf');
+
+}
+
+
+public function downloadFinalReportPdf1($scheme_id)
+{
+    $scheme_id = Crypt::decrypt($scheme_id);
+
+    // 1️⃣ Fetch SAME DATA as your view page
+    $proposal_list = Proposal::with([
+        'gr_file',
+        'notification_files',
+        'brochure_files',
+        'pamphlets_files',
+        'otherdetailscenterstate_files'
+    ])->where('scheme_id', $scheme_id)->get();
+
+    $dept_name = 'Agriculture & Co-Operation Department';
+    //dd($dept_name);
+    $goals = Sdggoals::where('status', 1)->get();
+    $financial_progress = FinancialProgress::where('scheme_id', $scheme_id)->get();
+    // 2️⃣ Render PDF-specific blade
+    $html = view(
+        'pdf.final-report',
+        compact(
+            'proposal_list',
             'dept_name',
-        
-        ))->render();
+            'goals',
+            'financial_progress'
+        )
+    )->render();
 
-        $mpdf = new \Mpdf\Mpdf([
-            'tempDir' => storage_path('app/mpdf'),
-            'autoScriptToLang' => true,
-            'autoLangToFont' => true,
-            'default_font' => 'notosansgujarati'
-        ]);
+    // 3️⃣ mPDF
+    $mpdf = new Mpdf([
+        'mode' => 'utf-8',
+        'tempDir' => storage_path('app/mpdf'),
+        'autoScriptToLang' => true,
+        'autoLangToFont' => true,
+        'default_font' => 'notosansgujarati',
+    ]);
 
-        $mpdf->WriteHTML($html);
+    $mpdf->WriteHTML($html);
 
-        return response(
-            $mpdf->Output($proposal->scheme_name . '.pdf', 'D')
-        )->header('Content-Type', 'application/pdf');
-    }
+    // Gujarati filename
+    $schemeName = optional($proposal_list->first())->scheme_name ?? 'Final_Report';
+    $filename = $schemeName . '.pdf';
+
+    // 4️⃣ Correct UTF-8 filename download
+    $pdfContent = $mpdf->Output('', 'S');
+
+    return response($pdfContent, 200, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' =>
+            "attachment; filename*=UTF-8''" . rawurlencode($filename)
+    ]);
+}
 
 }
 ?>

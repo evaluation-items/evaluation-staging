@@ -306,13 +306,19 @@ label.error {
                         @csrf
                     <div class="form-group">
                         <label for="email">Email ID <span class="required_filed"> * </span></label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="testevl@gujevl.com" required>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="testevl@gujevl.com">
+                        @if ($errors->has('message'))
+								<span class="text-danger">{{ $errors->first('message') }}</span>
+						@endif
+						@if ($errors->has('email'))
+							<span class="text-danger">{{ $errors->first('email') }}</span>
+						@endif
                     </div>
 
                     <div class="form-group">
                         <label for="password">Password <span class="required_filed"> * </span></label>
                         <div class="password-field-container">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="********" required>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="********">
                             <span class="toggle-password">
                                 <i class="fa fa-eye"></i>
                             </span>
@@ -329,7 +335,13 @@ label.error {
                             </button>
                             <a href="{{ route('password.request') }}" class="forgot-link">Forgot Password</a>
                         </div>
-                        <input id="captcha" name="captcha" type="text" class="form-control mt-2" placeholder="Enter Captcha" required>
+                        <input id="captcha" name="captcha" type="text" class="form-control mt-2" placeholder="Enter Captcha">
+                        @if ($errors->has('message'))
+							<span class="text-danger">{{ $errors->first('message') }}</span>
+						@endif
+						@if ($errors->has('captcha'))
+							<span class="text-danger">{{ $errors->first('captcha') }}</span>
+						@endif
                     </div>
                     <div class="form-group form-check d-flex align-items-center mb-3">
                         <input type="checkbox" name="remember" id="remember" class="form-check-input">
