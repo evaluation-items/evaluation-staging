@@ -30,6 +30,18 @@
     max-width: 1250px !important; 
   }
 }
+@media (max-width: 1200px) {
+    .thedistrictlist .col {
+        flex: 0 0 33.33% !important; /* Switch to 3 columns on tablets */
+        max-width: 33.33% !important;
+    }
+}
+@media (max-width: 768px) {
+    .thedistrictlist .col {
+        flex: 0 0 50% !important; /* Switch to 2 columns on mobile */
+        max-width: 50% !important;
+    }
+}
  .step-container {
         width: 100%;
         display: flex;
@@ -1056,7 +1068,7 @@
                                                   <div class="col-xl-6">
                                                     <!--begin::Input-->
                                                     <div class="form-group">
-                                                      <label>Notification (જાહેરનામાં) <span class="required_filed"> * </span> : </label>
+                                                      <label>Notification (જાહેરનામું) <span class="required_filed"> * </span> : </label>
                                                       <div class="custom-file">
                                                         <input type="file" class="custom-file-input next_notification_files file_type_name" id="notification" name="notification[]" multiple accept=".pdf,.docx,.xlsx"   />
                                                         <label class="custom-file-label" for="customFile">Choose file</label>
@@ -1652,24 +1664,55 @@ $(document).ready(function() {
 
     // --- FUNCTION: The core filtering logic ---
     function applyYearFilters() {
-        var selectedValue = $('#next_reference_year').val();
-        if (!selectedValue) return;
+           var fromYearVal = $('#next_reference_year').val(); // From Year (e.g., 2020-21)
+            var toValue = $('#next_reference_year2').val();  // To Year (e.g., 2023-24)
+             var commValue = $('#commencement_year').val();  // The "Commencement" Year
 
-        var referenceStart = parseInt(selectedValue.split('-')[0]);
+            if (!fromYearVal) return;
 
-        // 1. Filter Reference Year 2 (To)
-        $('#next_reference_year2 option').each(function() {
-            var optVal = $(this).val();
-            if (optVal != "") {
-                var optYear = parseInt(optVal.split('-')[0]);
-                if (optYear < referenceStart) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
+            var fromYearStart = parseInt(fromYearVal.split('-')[0]);
+
+            // 1. Filter and manage the "To" year options
+            $('#next_reference_year2 option').each(function() {
+                var optVal = $(this).val();
+                if (optVal != "") {
+                    var optYearStart = parseInt(optVal.split('-')[0]);
+
+                    // Hide options that are earlier than the "From" year
+                    if (optYearStart < fromYearStart) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                }
+            });
+            $('#commencement_year option').each(function() {
+                var optVal = $(this).val();
+                if (optVal != "") {
+                    var optYearStart = parseInt(optVal.split('-')[0]);
+                    // Hide options that are earlier than the "From" year
+                    if (optYearStart > fromYearStart) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                }
+            });
+
+            // 2. VALIDATION CHECK:
+            // If a "To" year was already selected, check if it's still valid
+            if (toValue != "") {
+                var selectedToYearStart = parseInt(toValue.split('-')[0]);
+
+                // If the selected "To" year is now earlier than the new "From" year, reset it
+                if (selectedToYearStart < fromYearStart) {
+                    $('#next_reference_year2').val('').trigger('change'); 
+                    // Triggering change ensures any dependent validation/UI updates happen
                 }
             }
-        });
-
+            if (commValue && parseInt(commValue.split('-')[0]) > fromYearStart) {
+                $('#commencement_year').val('').trigger('change');
+            }
         // 2. Filter the Financial Progress Table Rows
         $('.next_financial_progress_year').each(function() {
             var dropdown = $(this);
@@ -1677,7 +1720,7 @@ $(document).ready(function() {
                 var optVal = $(this).val();
                 if (optVal != "") {
                     var optStart = parseInt(optVal.split('-')[0]);
-                    if (optStart < referenceStart) {
+                    if (optStart < fromYearStart) {
                         $(this).prop('disabled', true).hide();
                     } else {
                         $(this).prop('disabled', false).show();
@@ -1687,7 +1730,7 @@ $(document).ready(function() {
 
             // Reset if current selection is invalid
             var tableSelected = dropdown.val();
-            if (tableSelected && parseInt(tableSelected.split('-')[0]) < referenceStart) {
+            if (tableSelected && parseInt(tableSelected.split('-')[0]) < fromYearStart) {
                 dropdown.val('');
             }
         });
@@ -1823,37 +1866,64 @@ function remove_financial_year(row) {
             },
             success:function(response) {
                 $(".thedistrictlist").remove();
-            
+
                 // 3. Create container
-                $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px; font-size:18px'></div>");
+                $("#beneficiariesGeoLocal").after("<div class='row thedistrictlist' style='margin:20px; font-size:16px'></div>");
 
-                    if (response.districts && response.districts.length > 0) {
-                        
-                        // 4. Append Select All
-                        $(".thedistrictlist").append(
-                            "<div class='col-xl-12 mb-3'>" +
-                                "<input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> " +
-                                "<label for='selectAllCheckbox' style='cursor:pointer; margin-left:5px'><strong>All</strong></label>" +
-                            "</div>"
-                        );
+                if (response.districts && response.districts.length > 0) {
+                    
+                    // Create the "All" checkbox HTML
+                    var allCheckboxHtml = 
+                        "<div class='mb-2'>" +
+                            "<input type='checkbox' id='selectAllCheckbox' onchange='fnSelectAll(this.checked)'> " +
+                            "<label for='selectAllCheckbox' style='cursor:pointer; margin-right:8px'>All</label>" +
+                        "</div>";
 
-                        // 5. Append individual districts
-                        $.each(response.districts, function(key, district) {
-                            $(".thedistrictlist").append(
-                                "<div class='col-xl-3'>" +
-                                    "<input class='district_length' type='checkbox' id='dist_" + district.dcode + "' style='margin:3px' value='" + district.dcode + "' name='district_name[]'>" +
-                                    "<label for='dist_" + district.dcode + "' style='cursor:pointer;'> " + district.name_e + "</label>" +
-                                "</div>"
-                            );
+                    // 5. Logic for 5 vertical columns
+                    // We add +1 to the total count for the "All" checkbox
+                    var totalItems = response.districts.length + 1; 
+                    var itemsPerCol = Math.ceil(totalItems / 5); // Automatically balances 7-8 items per col
+                    
+                    // Create an array of all district HTML items
+                    var allItemsHtml = [];
+                    allItemsHtml.push(allCheckboxHtml); // Put "All" at the very beginning
+
+                    $.each(response.districts, function(key, district) {
+                        // Format name to Sentence Case (Ahmedabad)
+                        var formattedName = district.name_e.toLowerCase().replace(/\b\w/g, function(l) { 
+                            return l.toUpperCase(); 
                         });
 
-                        // 6. Handle the 'all' case AFTER checkboxes are created
-                        if (theval === 'all') {
-                            $('#selectAllCheckbox').prop('checked', true);
-                            fnSelectAll(true);
-                        }
+                        var itemHtml = 
+                            "<div class='mb-2'>" +
+                                "<input class='district_length' type='checkbox' id='dist_" + district.dcode + "' style='margin-right:8px' value='" + district.dcode + "' name='district_name[]'>" +
+                                "<label for='dist_" + district.dcode + "' style='cursor:pointer; font-weight:normal;'> " + formattedName + "</label>" +
+                            "</div>";
+                        
+                        allItemsHtml.push(itemHtml);
+                    });
+
+                    // 6. Append items into 5 equal columns
+                    for (var i = 0; i < 5; i++) {
+                        var colHtml = $("<div class='col' style='flex: 0 0 20%; max-width: 20%;'></div>");
+                        
+                        var start = i * itemsPerCol;
+                        var end = start + itemsPerCol;
+                        var columnSlice = allItemsHtml.slice(start, end);
+
+                        $.each(columnSlice, function(index, htmlSnippet) {
+                            colHtml.append(htmlSnippet);
+                        });
+
+                        $(".thedistrictlist").append(colHtml);
                     }
-        
+
+                    // 7. Handle the 'all' state
+                    if (theval === 'all') {
+                        $('#selectAllCheckbox').prop('checked', true);
+                        fnSelectAll(true);
+                    }
+                }
                 // if(response.state != '' && response.state != undefined){
                 //     $('#districtList').hide();
                 //     // Add "All" for states and make it checked
@@ -1916,7 +1986,7 @@ function remove_financial_year(row) {
 
     $(document).ready(function(){
         
-        $('.allowonly2decimal__test').keypress(function (e) {
+        $('.allowonly2decimal_test').keypress(function (e) {
             var character = String.fromCharCode(e.keyCode)
             var newValue = this.value + character;
             if (isNaN(newValue) || hasDecimalPlace(newValue, 3)) {
@@ -2108,10 +2178,6 @@ function remove_financial_year(row) {
   })
     });
 
-    function hasDecimalPlace(value, x) {
-        var pointIndex = value.indexOf('.');
-        return  pointIndex >= 0 && pointIndex < value.length - x;
-    }
 
     function fn_show_if_eval(value_val) {
         // 1. Identify the container
@@ -2177,7 +2243,8 @@ function countIncrease(slideid){
   $('.save_item').attr('data-slide-item',nextSlide);
       return nextSlide;
 }
-  function updateStepTitle(slideNo) {
+
+function updateStepTitle(slideNo) {
       let titles = {
           3: 'Major Objectives Details',
           4: 'Major Indicator Details',
@@ -3268,10 +3335,8 @@ function countPrevious(prevslide){
       return previousSlide;
 }
 function finishSlides() {
-
     let message = "Your Proposal has been completed.";
     let isRole20 = false;
-
     if (userRole == 20) {
         message = "Your Proposal has been completed. This Proposal is sent to Evaluation department";
         isRole20 = true;

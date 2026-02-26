@@ -263,7 +263,7 @@
                           <td>{{ $name ?: '-' }}</td>
                       </tr>
                       <tr>
-                          <th>Email</th>
+                          <th>Email Address</th>
                           <td>{{ $emails[$i] ?? '-' }}</td>
                       </tr>
                       <tr>
@@ -283,7 +283,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <th>Designation of Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)</th>
+                        <th>Designation of the Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)</th>
                         <td>
                           {{ $pval->nodal_officer_designation }}
                         </td>
@@ -301,7 +301,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <th>Email Address of Nodal Officer(HOD) (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</th>
+                        <th>Email Address of the Nodal Officer(HOD) (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</th>
                         <td>
                           {{ $pval->nodal_officer_email }}
                         </td>
@@ -378,13 +378,13 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Name of Sub-schemes/components (પેટા યોજનાનું નામ અને ઘટકો)</th>
+                      <th>Name of Sub-schemes/components (પેટા યોજનાનું નામ/ઘટકો)</th>
                       <td>
                         {{ $pval->sub_scheme }}
                       </td>
                     </tr>
                     <tr>
-                      <th>Name of Sub-schemes/components File (પેટા યોજનાનું નામ અને ઘટકો અહેવાલ.)</th>
+                      <th>Name of Sub-schemes/components File (પેટા યોજનાનું નામ/ઘટકો અહેવાલ.)</th>
                       <td>
                          @if($pval->next_scheme_components_file == '')
                             No File
@@ -403,13 +403,13 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Year of actual commencement of the scheme (યોજનાનું ખરેખર અમલીકરણ શરૂ કર્યા વર્ષ)</th>
+                      <th>Year of actual commencement of the scheme (યોજનાનું ખરેખર અમલીકરણ શરૂ થયા વર્ષ)</th>
                       <td>
                         {{ $pval->commencement_year }}
                       </td>
                     </tr>
                      <tr>
-                      <th>Present status with coverage of scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)</th>
+                      <th>Present status of the scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)</th>
                       <td>
                         {{ ($pval->scheme_status == 'Y' ? ' Operational (કાર્યરત)' : 'Non-operational (બિન-કાર્યરત)') }}
                       </td>
@@ -454,13 +454,13 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Expected Major Benefits Derived from the Scheme (યોજના ના અપેક્ષિત મુખ્ય લાભો) <br> Major Benefit</th>
+                      <th>Expected Major Benefits Derived from the Scheme (યોજનાના અપેક્ષિત મુખ્ય લાભો) <br> Major Benefit</th>
                       <td>
                         {{ $pval->major_benefits_text }}
                       </td>
                     </tr>
                     <tr>
-                      <th>Expected Major Benefits Derived from the Scheme File (યોજના ના અપેક્ષિત મુખ્ય લાભો અહેવાલ.) <br> Major Benefit File</th>
+                      <th>Expected Major Benefits Derived from the Scheme File (યોજનાના અપેક્ષિત મુખ્ય લાભો અહેવાલ.) <br> Major Benefit File</th>
                       <td>
                          @if($pval->major_benefits == '')
                             No File
@@ -675,7 +675,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <th>Notification (જાહેરનામાં)</th>
+                          <th>Notification (જાહેરનામું)</th>
                           <td>
                             {{-- @if($notification_files == 'no data')
                               No File
