@@ -61,20 +61,30 @@ if (!function_exists('is_gujarati')) {
     // ];
   }
 
-  function financialyears() {
-    $current_year = date('Y');
+ function financialyears() {
     $financialyearlist = array();
-    $thisyear = date('y');
-    $next_year = $thisyear+1;
-    $financialyearlist[] = $current_year.'-'.$next_year;
-    for($i=1;$i<64;$i++) {
-      $cur_year = $current_year-$i;
-      $next = $i-1;
-      $next_year = date('y',strtotime("-$next year"));
-      $financialyearlist[] = $cur_year.'-'.$next_year;
+    
+    // Get current month and year
+    $currentMonth = date('n'); // 1 to 12
+    $currentYear = date('Y');
+    
+    // Determine the "Base" year for the current FY
+    // If month is Jan, Feb, or March (1, 2, 3), the FY started last year
+    if ($currentMonth <= 3) {
+        $startBase = $currentYear - 1;
+    } else {
+        $startBase = $currentYear;
     }
+
+    // Loop from the current FY down to 1960
+    // 1960-61 is the target end point
+    for ($y = $startBase; $y >= 1960; $y--) {
+        $nextYearTwoDigit = date('y', mktime(0, 0, 0, 1, 1, $y + 1));
+        $financialyearlist[] = $y . '-' . $nextYearTwoDigit;
+    }
+    
     return $financialyearlist;
-  }
+}
 
   function Commencementyear(){
     $startingyear = 1961;

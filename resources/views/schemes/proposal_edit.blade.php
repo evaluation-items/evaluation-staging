@@ -25,7 +25,18 @@
   .container {
     max-width: 1250px !important;
   }
-} .step-container {
+} 
+/* Hide the day headers and days if they accidentally appear */
+/* Hide the day-selection table */
+.ui-datepicker-calendar {
+    display: none;
+}
+
+/* Hide the 'Today' button as it selects a specific day */
+.ui-datepicker-current {
+    display: none;
+}
+.step-container {
         width: 100%;
         display: flex;
         font-weight: bold;
@@ -166,98 +177,97 @@
                                 <div>
                                     @php
                                         $currentSlide = $val->save_last_item ?? 1; // default to 1 if null
-                                        
                                     @endphp
                                     <div class="first_slide col-xl-12 {{ ($currentSlide  == 1) ? 'active-slide' : '' }}  otherslides" style="{{  ($currentSlide  == 1) ? 'display:block;' : 'display:none;' }}">
-                                          {{-- <form method="post" id="fourteenth_slide_form" enctype="multipart/form-data"> --}}
+                                            {{-- <form method="post" id="fourteenth_slide_form" enctype="multipart/form-data"> --}}
                                             <input type="hidden" name="draft_id" id="next_draft_id" value="{{ $val->draft_id }}">
                                             <input type="hidden" name="scheme_id" id="next_scheme_id" value="{{ $scheme_id }}">
-                                              {{-- @csrf --}}
-                                              <input type="hidden" name="slide" value="first">
-                                              <div class="row ">
+                                                {{-- @csrf --}}
+                                                <input type="hidden" name="slide" value="first">
+                                                <div class="row ">
                                                 <div class="col-xl-12">
-                                                  <div class="form-group">
+                                                    <div class="form-group">
                                                     <label>Whether evaluation of this scheme already done in past? (આ યોજનાનું મૂલ્યાંકન અગાઉ થઈ ચૂકેલ છે?) <span class="required_filed"> * </span> :</label>
                                                     <div></div>
                                                     <div class="radio-inline">
-                                                      <label class="radio radio-rounded">
-                                                          <input type="radio" name="is_evaluation" id="is_evaluation_yes" value="Y" class="is_evaluation" onclick="fn_show_if_eval(this.value)" {{ old('is_evaluation', $val->is_evaluation) === 'Y' ? 'checked' : '' }}  />
-                                                          <span></span>
-                                                          Yes (હા)
-                                                      </label>
-                                                      <label class="radio radio-rounded">
-                                                          <input type="radio" name="is_evaluation" id="is_evaluation_no" value="N" class="is_evaluation" onclick="fn_show_if_eval(this.value)" {{ old('is_evaluation', $val->is_evaluation) === 'N' ? 'checked' : '' }} />
-                                                          <span></span>
-                                                          No (ના)
-                                                      </label>
+                                                        <label class="radio radio-rounded">
+                                                            <input type="radio" name="is_evaluation" id="is_evaluation_yes" value="Y" class="is_evaluation" onclick="fn_show_if_eval(this.value)" {{ old('is_evaluation', $val->is_evaluation) === 'Y' ? 'checked' : '' }}  />
+                                                            <span></span>
+                                                            Yes (હા)
+                                                        </label>
+                                                        <label class="radio radio-rounded">
+                                                            <input type="radio" name="is_evaluation" id="is_evaluation_no" value="N" class="is_evaluation" onclick="fn_show_if_eval(this.value)" {{ old('is_evaluation', $val->is_evaluation) === 'N' ? 'checked' : '' }} />
+                                                            <span></span>
+                                                            No (ના)
+                                                        </label>
                                                     </div>
-                                                  </div>
+                                                    </div>
                                                 </div>                
-                                              </div>
-                                              <div class="form_eval_yes_div">
-                                              <div class="row" id="if_eval_yes_div" style="{{ $val->is_evaluation == 'Y' ? 'display:block;' : 'display:none;' }}">
-                                                  <div class="col-xl-12">
-                                                      <div class="form-group">
+                                                </div>
+                                                <div class="form_eval_yes_div">
+                                                <div class="row" id="if_eval_yes_div" style="{{ $val->is_evaluation == 'Y' ? 'display:block;' : 'display:none;' }}">
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group">
                                                         <label>By Whom? (કોના દ્વારા?) <span class="required_filed"> * </span> :</label>
-                                                      <input type="text" name="eval_scheme_bywhom" id="eval_by_whom" class="form-control pattern" value="{{ old('eval_scheme_bywhom', $val->eval_scheme_bywhom) }}">
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-xl-12">
-                                                      <div class="form-group">
+                                                        <input type="text" name="eval_scheme_bywhom" id="eval_by_whom" class="form-control pattern" value="{{ old('eval_scheme_bywhom', $val->eval_scheme_bywhom) }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group">
                                                         <label>When? (ક્યારે?) <span class="required_filed"> * </span> :</label>
-                                                        <input type="text" id="eval_when" name="eval_scheme_when" class="form-control datepicker" autocomplete="off" placeholder="dd/mm/yyyy" value="{{ old('eval_scheme_when', $val->eval_scheme_when) }}">
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-xl-12">
-                                                      <div class="form-group">
+                                                        <input type="text" id="eval_when" name="eval_scheme_when" class="form-control datepicker" autocomplete="off" placeholder="mm/yyyy" value="{{ old('eval_scheme_when', $val->eval_scheme_when) }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group">
                                                         <label>Geographical coverage of Beneficiaries (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર) <span class="required_filed"> * </span> :</label>
-                                                          <textarea name="eval_scheme_geo_cov_bene" class="form-control word-limit" rows="5" data-max-count="200"  data-warning-count="180"  data-hard-count="230" id="eval_geographical_coverage_beneficiaries">{{ old('eval_scheme_geo_cov_bene', $val->eval_scheme_geo_cov_bene) }}</textarea>
+                                                            <textarea name="eval_scheme_geo_cov_bene" class="form-control word-limit" rows="5" data-max-count="200"  data-warning-count="180"  data-hard-count="230" id="eval_geographical_coverage_beneficiaries">{{ old('eval_scheme_geo_cov_bene', $val->eval_scheme_geo_cov_bene) }}</textarea>
 
                                                             <small class="word-message text-muted"></small>
                                                             {{-- <input type="text" name="eval_scheme_geo_cov_bene" class="form-control pattern" id="eval_geographical_coverage_beneficiaries" value="{{ old('eval_scheme_geo_cov_bene', $val->eval_scheme_geo_cov_bene) }}"> --}}
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-xl-12">
-                                                      <div class="form-group">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group">
                                                         <label>No. of beneficiaries in sample (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા)<span class="required_filed"> * </span> :</label>
                                                         <input type="text" name="eval_scheme_no_of_bene" class="form-control numberonly pattern" id="eval_number_of_beneficiaries"  value="{{ old('eval_scheme_no_of_bene', $val->eval_scheme_no_of_bene) }}">
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-xl-12">
-                                                      <div class="form-group">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group">
                                                         <label>Major recommendations (મુખ્ય ભલામણો.) <span class="required_filed"> * </span> :</label>
                                                         <textarea name="eval_scheme_major_recommendation" class="form-control word-limit" rows="5" data-max-count="200"  data-warning-count="180"  data-hard-count="230" id="eval_major_recommendation">{{ old('eval_scheme_major_recommendation', $val->eval_scheme_major_recommendation) }}</textarea>
 
                                                         <small class="word-message text-muted"></small>
                                                         {{-- <input type="text" name="eval_scheme_major_recommendation" class="form-control pattern" id="eval_major_recommendation" value="{{ old('eval_scheme_major_recommendation', $val->eval_scheme_major_recommendation) }}"> --}}
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-xl-12">
-                                                      <div class="form-group">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="form-group">
                                                         <label>Upload report (અહેવાલ અપલોડ કરવો.) <span class="required_filed"> * </span> :</label>
                                                         <div></div>
-                                                          <div class="custom-file">
-                                                              <input type="file" class="custom-file-input file_type_name" name="eval_upload_report" id="eval_if_yes_upload_file" accept=".pdf,.docx,.xls">
-                                                              <label class="custom-file-label" for="eval_if_yes_upload_file">Choose File</label>
-                                                          </div>
-                                                      </div>
-                                                      @if($val->eval_scheme_report)
-                                                          <div class="form-group">
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input file_type_name" name="eval_upload_report" id="eval_if_yes_upload_file" accept=".pdf,.docx,.xls">
+                                                                <label class="custom-file-label" for="eval_if_yes_upload_file">Choose File</label>
+                                                            </div>
+                                                        </div>
+                                                        @if($val->eval_scheme_report)
+                                                            <div class="form-group">
                                                             @php
-                                                              $extension = pathinfo($val->eval_scheme_report, PATHINFO_EXTENSION);
+                                                                $extension = pathinfo($val->eval_scheme_report, PATHINFO_EXTENSION);
                                                             @endphp
                                                             @if($extension == 'pdf')
                                                                 <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->eval_scheme_report]) }}" target="_blank" title="{{ $val->eval_scheme_report }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>    
                                                             @endif
-                                                          </div>
-                                                      @endif
-                                                  </div>
-                                              </div>
-                                              </div>
-                                              
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                
                                             {{-- <button type="submit" style="visibility: hidden;" id="btn_fourteenth_slide_submit"></button>
-                                          </form>
-                                      <div id="send_eval_yes_div" style="display:none"></div> --}}
+                                            </form>
+                                        <div id="send_eval_yes_div" style="display:none"></div> --}}
                                     </div>
 
                                   <!--begin::Input-->
@@ -346,7 +356,7 @@
                                               <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                      <label>Name of the scheme/ Programme to be evaluated <br> (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજના/કાર્યક્રમનું નામ) <span class="required_filed"> * </span> :</label>
+                                                      <label>Name of the scheme/ Programme to be evaluated <br> (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજની/કાર્યક્રમનું નામ) <span class="required_filed"> * </span> :</label>
                                                       <input type="text" id="form_scheme_name" class="form-control pattern @error('scheme_name') is-invalid @enderror" name="scheme_name" value="{{ $val->scheme_name }}" />
                                                         @error('scheme_name')
                                                           <div class="text-danger">* {{ $message }}</div>
@@ -445,15 +455,14 @@
                                     <div class="row ">  
                                           <div class="col-xl-12">
                                               <div class="form-group major_objective_parent_div">
-                                                <label> Major Objective of the Evaluation study (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label><br>
+                                                <label> Major Objective of the Evaluation study (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label><br>
                                                   <div class="room_fields_0">
                                                     <textarea  class="form-control word-limit next_major_objectives @error('major_objective') is-invalid @enderror"
                                                     id="next_major_objective_textarea"
                                                     name="major_objective"
-                                                    rows="8"
-                                                    data-max-count="3000"
-                                                    data-warning-count="2800"
-                                                    data-hard-count="3200">{{ old('major_objective', $val->major_objective) }}</textarea>
+                                                    rows="5"
+                                                    data-max-count="2000"
+                                                    data-hard-count="2200">{{ old('major_objective', $val->major_objective) }}</textarea>
                                                     <small class="word-message text-muted"></small>
                                                      @error('major_objective')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -495,11 +504,11 @@
                                     <div class="row ">  
                                         <div class="col-xl-12">
                                             <div class="form-group major_indicator_parent_div">
-                                              <label>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો) <span class="required_filed"> * </span>: <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label><br>
+                                              <label>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો) <span class="required_filed"> * </span>: <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label><br>
                                               
                                                 <div class="indicator_fields_0">
-                                                    <textarea class="form-control word-limit next_major_indicators @error('major_indicator') is-invalid @enderror" id="next_major_indicator_textarea" name="major_indicator" rows="8" data-max-count="3000" data-warning-count="2800"
-                                                    data-hard-count="3200">{{ old('major_indicator', $val->major_indicator) }}</textarea>
+                                                    <textarea class="form-control word-limit next_major_indicators @error('major_indicator') is-invalid @enderror" id="next_major_indicator_textarea" name="major_indicator" rows="5" data-max-count="2000" 
+                                                    data-hard-count="2200">{{ old('major_indicator', $val->major_indicator) }}</textarea>
 
                                                     <small class="word-message text-muted"></small>
                                                     @error('major_indicator')
@@ -549,7 +558,7 @@
                                       <div class="row ">
                                         <div class="col-xl-12">
                                           <div class="form-group" style="margin-top: 32px;">
-                                            <label>Name of the HOD/Branch.(કચેરી/શાખાનું નામ)<span class="required_filed"> * </span> :</label>
+                                            <label>Select of the HOD/Branch.(કચેરી/શાખા પસંદ કરો)<span class="required_filed"> * </span> :</label>
                                             <select name="implementing_office[]" class="form-control implementing_office" id="implementing_office" multiple="multiple">
                                               <option value="">Select HOD</option>
                                                 @foreach (department_hod_name(Auth::user()->dept_id) as $key => $item)
@@ -583,7 +592,7 @@
                                                       <tr>
                                                           <th>SR No</th>
                                                           <th>Name</th>
-                                                          <th>Email</th>
+                                                          <th>Email Address</th>
                                                           <th>Contact No</th>
                                                           <th>Mobile No</th>
                                                           <th width="60">Action</th>
@@ -596,7 +605,7 @@
                                                               <td><input type="text" class="form-control only-text hod_officer_name" name="hod_officer_name[]" value="{{ explode(',', $val->hod_officer_name)[$index] ?? '' }}"></td>
                                                               <td><input type="email" class="form-control email-input-td hod_email" name="hod_email[]" value="{{ explode(',', $val->hod_email)[$index] ?? '' }}"></td>
                                                               <td><input type="text" class="form-control implementing_office_contact" name="implementing_office_contact[]" value="{{ explode(',', $val->implementing_office_contact)[$index] ?? '' }}"></td>
-                                                              <td><input type="text" class="form-control hod_mobile" name="hod_mobile[]" value="{{ explode(',', $val->hod_mobile)[$index] ?? '' }}"></td>
+                                                              <td><input type="text" class="form-control mobile_number hod_mobile" name="hod_mobile[]" value="{{ explode(',', $val->hod_mobile)[$index] ?? '' }}"></td>
                                                               <td><button type="button" class="btn btn-danger btn-sm removeRow">X</button></td>
                                                           </tr>
                                                       @endforeach
@@ -614,7 +623,7 @@
                                         </div>
                                         <div class="col-xl-6">
                                               <div class="form-group">
-                                                <label>Designation of Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)<span class="required_filed"> * </span> </label>
+                                                <label>Designation of the Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)<span class="required_filed"> * </span> </label>
                                                   <input type="text" name="nodal_officer_designation" class="form-control only-text pattern" value="{{$val->nodal_officer_designation}}" maxlength="100" id="nodal_designation">
                                               </div>
                                         </div>
@@ -632,10 +641,10 @@
                                               <input type="text" name="nodal_officer_mobile" class="form-control mobile_number pattern" maxlength="10" id="nodal_mobile" value="{{$val->nodal_officer_mobile}}">
                                             </div>
                                         </div>
-                                        <div class="col-xl-6" style="margin-top: 4%;">
+                                        <div class="col-xl-6">
                                             <div class="form-group">
-                                              <label>Email of Nodal Officer(HOD)  (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)<span class="required_filed"> * </span> </label>
-                                              <input type="text" name="nodal_officer_email" class="form-control pattern" maxlength="100" id="nodal_email" value="{{$val->nodal_officer_email}}">
+                                              <label>Email Address of the Nodal Officer(HOD) <br> (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)<span class="required_filed"> * </span> : </label>
+                                              <input type="text" name="nodal_officer_email" class="form-control email-input pattern" maxlength="100" id="nodal_email" value="{{$val->nodal_officer_email}}" style="margin-top: 25px;">
                                             </div>
                                         </div>
                                       </div>
@@ -659,14 +668,14 @@
 
                                                   <div class="col-xl-3 col-md-3">
                                                       <div class="form-group mb-0">
-                                                          <label>Other Govt.(%) (અન્ય: %)</label>
-                                                          <input type="text" name="other_ratio" id="other_ratio" class="form-control bg-light" value="{{$val->other_ratio}}" readonly>
+                                                          <label>Other(%) (અન્ય: %)</label>
+                                                          <input type="text" name="other_ratio" id="other_ratio" class="form-control bg-light" value="{{$val->other_ratio}}">
                                                       </div>
                                                   </div>
                                                   <div class="col-xl-3 col-md-3">
                                                       <div class="form-group">
                                                           <label>Remarks</label>
-                                                          <textarea name="both_ration" class="form-control pattern" id="both_ration" maxlength="200" style="height: 38px; resize: vertical;">{{$val->both_ration}}</textarea>
+                                                          <textarea name="both_ration" class="form-control pattern" id="both_ration" maxlength="100" style="height: 38px; resize: vertical;">{{$val->both_ration}}</textarea>
                                                       </div>
                                                   </div>
 
@@ -679,8 +688,8 @@
                                       </div>
                                       <div class="row">
                                         <div class="col-xl-12">
-                                          <label>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
-                                          <textarea class="form-control word-limit pattern" id="next_scheme_overview" name="scheme_overview" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('scheme_overview', $val->scheme_overview) }}</textarea>
+                                          <label>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label>
+                                          <textarea class="form-control word-limit pattern" id="next_scheme_overview" name="scheme_overview" rows="5" data-max-count="2000"  data-hard-count="2200">{{ old('scheme_overview', $val->scheme_overview) }}</textarea>
                                           <small class="word-message text-muted"></small>
 
                                         </div>
@@ -711,8 +720,8 @@
                                       <!--begin::Input-->
                                      
                                         <div class="form-group">
-                                          <label>Objectives of the scheme (યોજનાના હેતુઓ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
-                                          <textarea class="form-control word-limit pattern" id="next_scheme_objective" name="scheme_objective" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{old('scheme_objective', $val->scheme_objective)}}</textarea>
+                                          <label>Objectives of the scheme (યોજનાના હેતુઓ) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label>
+                                          <textarea class="form-control word-limit pattern" id="next_scheme_objective" name="scheme_objective" rows="5" data-max-count="2000"  data-hard-count="2200">{{old('scheme_objective', $val->scheme_objective)}}</textarea>
                                          <small class="word-message text-muted"></small>
 
                                         </div>
@@ -743,8 +752,8 @@
                                       <!--end::Input-->
                                       <!--begin::Input-->
                                       <div class="form-group">
-                                        <label>Name of Sub-schemes/components (પેટા યોજનાનું નામ અને ઘટકો) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
-                                        <textarea class="form-control word-limit pattern" id="next_scheme_components" name="sub_scheme" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('sub_scheme', $val->sub_scheme) }}</textarea>
+                                        <label>Name of the Sub-schemes/components (પેટા યોજનાનું નામ/ઘટકો) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label>
+                                        <textarea class="form-control word-limit pattern" id="next_scheme_components" name="sub_scheme" rows="5" data-max-count="2000"  data-hard-count="2200">{{ old('sub_scheme', $val->sub_scheme) }}</textarea>
                                         <small class="word-message text-muted"></small>
                                       </div>
                                       <div class="row" style="margin-top:20px;">
@@ -780,7 +789,7 @@
                                           <div class="col-xl-4 col-sm-4">
                                             <!--begin::Input-->
                                             <div class="form-group">
-                                              <label>Year of actual commencement of the scheme (યોજનાનું ખરેખર અમલીકરણ શરૂ કર્યા વર્ષ) <span class="required_filed"> * </span> :</label>
+                                              <label>Year of actual commencement of the scheme (યોજનાનું ખરેખર અમલીકરણ શરૂ થયા વર્ષ) <span class="required_filed"> * </span> :</label>
                                               <select name="commencement_year" class="form-control" id="commencement_year">
                                                   <option>Select year</option>
                                                   @foreach ($financial_years as $year_item)
@@ -796,7 +805,7 @@
                                           <div class="col-xl-7 col-sm-7">
                                             <!--begin::Input-->
                                             <div class="form-group">
-                                              <label>Present status with coverage of scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)<span class="required_filed"> * </span> :</label>
+                                              <label>Present status of the scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)<span class="required_filed"> * </span> :</label>
                                               <div class="radio-inline">
                                                     <label class="radio radio-rounded">
                                                         <input type="radio" name="scheme_status" value="Y"
@@ -878,10 +887,10 @@
                                             <div class="col-xl-12">
                                               <!--begin::Input-->
                                               <div class="form-group">
-                                                <label>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
+                                                <label>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label>
                                               </div>
                                               <div class="form-group" id="beneficiary_selection_div_0">
-                                                <textarea class="form-control word-limit next_beneficiary_selection_criterias pattern" id="next_beneficiary_selection_criteria" name="beneficiary_selection_criteria[0][beneficiary_selection_criteria]" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('beneficiary_selection_criteria', $val->scheme_beneficiary_selection_criteria) }}</textarea>
+                                                <textarea class="form-control word-limit next_beneficiary_selection_criterias pattern" id="next_beneficiary_selection_criteria" name="beneficiary_selection_criteria[0][beneficiary_selection_criteria]" rows="5" data-max-count="2000"  data-hard-count="2200">{{ old('beneficiary_selection_criteria', $val->scheme_beneficiary_selection_criteria) }}</textarea>
                                                 <small class="word-message text-muted"></small>
                                               </div>
                                             </div>
@@ -923,12 +932,12 @@
                                             <div class="col-xl-12">
                                               <!--begin::Input-->
                                               <div class="form-group">
-                                                <label>Expected Major Benefits Derived from the Scheme (યોજના ના અપેક્ષિત મુખ્ય લાભો)<span class="required_filed"> * </span> :   <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
+                                                <label>Expected Major Benefits Derived from the Scheme (યોજનાના અપેક્ષિત મુખ્ય લાભો)<span class="required_filed"> * </span> :   <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label>
                                               </div>
                                               <!--end::Input-->
                                                 <div class="form-group" id="major_benefits_div_0">
                                                   <div>
-                                                    <textarea class="form-control word-limit major_benefit_textareas pattern" name="major_benefits_text" id="major_benefit_textarea_0" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ $val->major_benefits_text }}</textarea>
+                                                    <textarea class="form-control word-limit major_benefit_textareas pattern" name="major_benefits_text" id="major_benefit_textarea_0" rows="5" data-max-count="2000"  data-hard-count="2200">{{ $val->major_benefits_text }}</textarea>
                                                     <small class="word-message text-muted"></small>
                                                   </div>
                                                 </div>
@@ -978,8 +987,8 @@
                                           <div class="col-xl-12">
                                             <!--begin::Input-->
                                             <div class="form-group">
-                                              <label>Implementation procedure of the Scheme (યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)<span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
-                                              <textarea class="form-control word-limit pattern" id="next_scheme_implementing_procedure" name="scheme_implementing_procedure" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('scheme_implementing_procedure', $val->scheme_implementing_procedure) }}</textarea>
+                                              <label>Implementation procedure of the Scheme (યોજનાના અમલીકરણ માટેની પ્રક્રિયા.)<span class="required_filed"> * </span> : <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label>
+                                              <textarea class="form-control word-limit pattern" id="next_scheme_implementing_procedure" name="scheme_implementing_procedure" rows="5" data-max-count="2000"  data-hard-count="2200">{{ old('scheme_implementing_procedure', $val->scheme_implementing_procedure) }}</textarea>
                                               <small class="word-message text-muted"></small>
                                             </div>
                                             <!--end::Input-->
@@ -1006,8 +1015,8 @@
                                           <div class="col-xl-12">
                                             <!--begin::Input-->
                                             <div class="form-group">
-                                              <label>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words (વધુમાં વધુ 3000 શબ્દોમાં)</b></small></label>
-                                              <textarea class="form-control word-limit pattern" id="implementing_procedure" name="implementing_procedure" rows="8" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('implementing_procedure', $val->implementing_procedure) }}</textarea>
+                                              <label>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words (વધુમાં વધુ ૨૦૦૦ શબ્દોમાં)</b></small></label>
+                                              <textarea class="form-control word-limit pattern" id="implementing_procedure" name="implementing_procedure" rows="5" data-max-count="2000"  data-hard-count="2200">{{ old('implementing_procedure', $val->implementing_procedure) }}</textarea>
                                               <small class="word-message text-muted"></small>
                                             </div>
                                             <!--end::Input-->
@@ -1050,11 +1059,11 @@
                                             <!-- <input type="text" name="otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage" class="form-control"> -->
                                             <textarea name="otherbeneficiariesGeoLocal" id="next_otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage areas or Remarks" class="form-control pattern" rows="2">{{$val->otherbeneficiariesGeoLocal}}</textarea>
                                             <div></div>
-                                              <div class="custom-file" style="margin:20px 0px">
+                                              {{-- <div class="custom-file" style="margin:20px 0px">
                                                 <input type="file" class="custom-file-input file_type_name" name="geographical_coverage" id="geographical_coverage" accept=".pdf,.docx,.xlsx"/>
                                                 <label class="custom-file-label" for="customFile">Choose file</label>
-                                              </div>
-                                              @if($val->geographical_coverage)
+                                              </div> --}}
+                                              {{-- @if($val->geographical_coverage)
                                                   @php
                                                     $extension = pathinfo($val->geographical_coverage, PATHINFO_EXTENSION);
                                                   @endphp
@@ -1066,10 +1075,8 @@
                                                       @else
                                                       <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($scheme_id), $val->geographical_coverage]) }}" download="{{ $val->geographical_coverage }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                                                   @endif
-                                              @endif
-                                              {{-- @if($val->geographical_coverage)
-                                                <a href="{{ $replace_url }}/get_the_file/{{ $scheme_id }}/_geographical_coverage" target="_blank"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
                                               @endif --}}
+                                           
                                           </div>
                                         </div>
                                       {{-- </div> --}}
@@ -1090,8 +1097,8 @@
                                         <div class="row">
                                             <div class="col-xl-12">
                                                 <div class="form-group">
-                                                    <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words</b></small></label>
-                                                    <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000">{{$val->coverage_beneficiaries_remarks}}</textarea>
+                                                    <label>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words</b></small></label>
+                                                    <textarea name="coverage_beneficiaries_remarks" id="next_coverage_beneficiaries_remarks" class="form-control word-limit pattern" rows="5" data-max-count="2000">{{$val->coverage_beneficiaries_remarks}}</textarea>
                                                     <small class="word-message text-muted"></small>
                                                 </div>
                                                 
@@ -1134,8 +1141,8 @@
                                         <div class="row">
                                             <div class="col-xl-12">
                                                 <div class="form-group">
-                                                    <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words</b></small></label>
-                                                    <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000">{{ $val->training_capacity_remarks }}</textarea>
+                                                    <label>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words</b></small></label>
+                                                    <textarea name="training_capacity_remarks" id="next_training_capacity_remarks" class="form-control word-limit pattern" rows="5" data-max-count="2000">{{ $val->training_capacity_remarks }}</textarea>
                                                     <small class="word-message text-muted"></small>
                                                 </div>
 
@@ -1179,8 +1186,8 @@
                                         <div class="row">
                                             <div class="col-xl-12">
                                                 <div class="form-group">
-                                                    <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 3000 words</b></small></label>
-                                                    <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control word-limit pattern" rows="5" data-max-count="3000">{{ $val->iec_activities_remarks }}</textarea>
+                                                    <label>IEC activities (પ્રચાર પ્રસારની કામગીરી) <span class="required_filed"> * </span> : <small><b>Maximum 2000 words</b></small></label>
+                                                    <textarea name="iec_activities_remarks" id="next_iec_activities_remarks" class="form-control word-limit pattern" rows="5" data-max-count="2000">{{ $val->iec_activities_remarks }}</textarea>
                                                     <small class="word-message text-muted"></small>
                                                 </div>
 
@@ -1579,8 +1586,8 @@
                                     <div class="thirteenth_slide {{  ($currentSlide  == 13) ? 'active-slide' : '' }} otherslides" style="{{  ($currentSlide  == 13) ? 'display:block;' : 'display:none;' }}">
                                           <div class="row ">  
                                             <div class="col-xl-12">
-                                              <label>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય)) : <small><b>Maximum 3000 words</b></small></label> 
-                                               <textarea name="major_indicator_hod" id="indicator_hod_id_0" class="form-control getindicator_hod word-limit pattern" rows="5" data-max-count="3000" data-warning-count="2800" data-hard-count="3200">{{ old('major_indicator_hod',$val->major_indicator_hod) }}</textarea>
+                                              <label>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય)) : <small><b>Maximum 2000 words</b></small></label> 
+                                               <textarea name="major_indicator_hod" id="indicator_hod_id_0" class="form-control getindicator_hod word-limit pattern" rows="5" data-max-count="2000"  data-hard-count="2200">{{ old('major_indicator_hod',$val->major_indicator_hod) }}</textarea>
                                               <small class="word-message text-muted"></small>
                                             </div>
                                           </div>
@@ -1623,7 +1630,7 @@
                                         <div class="row ">
                                           <div class="col-xl-12">
                                             {{-- <label> Financial & Physical Progress (component wise) of Last Five Year (છેલ્લા પાંચ વર્ષની વર્ષવાર નાણાકીય અને ભૌતિક પ્રગતિ (કમ્પોનેટ વાઇઝ))  <span class="required_filed"> * </span>:</label> --}}
-                                              <label> Financial & Physical Progress  (component wise) of the Last Five Years/Beginning of the Plan (યોજના ની શરૂઆત/છેલ્લા પાંચ વર્ષની વર્ષવાર નાણાકીય અને ભૌતિક પ્રગતિ (કમ્પોનેટ વાઇઝ)) <span class="required_filed"> * </span>:</label>
+                                              <label> Financial & Physical Progress  (component wise) of the Last Five Years/Beginning of the Plan (યોજનાની શરૂઆત/છેલ્લા પાંચ વર્ષની વર્ષવાર નાણાકીય અને ભૌતિક પ્રગતિ (કમ્પોનેટ વાઇઝ)) <span class="required_filed"> * </span>:</label>
                                           </div>
                                         </div>
                                         <div class="row">
@@ -1941,7 +1948,7 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
                           <input type="text" name="implementing_office_contact[]" class="form-control implementing_office_contact" maxlength="12" required>
                       </td>
                       <td>
-                          <input type="text" name="hod_mobile[]" class="form-control hod_mobile" maxlength="10" required>
+                          <input type="text" name="hod_mobile[]" class="form-control mobile_number hod_mobile" maxlength="10" required>
                       </td>
                       <td>
                           <button type="button" class="btn btn-danger btn-sm removeRow">X</button>
@@ -1982,17 +1989,21 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
     }
   })
 
-  $('.is_evaluation').on('click', function() {
-    var eval = $(".is_evaluation:checked").val();
-    if(eval == 'Y'){
-      $(".by_whome").css("display", "block");
-      $(".by_when").css("display", "block");
+   var existingVal = $(".is_evaluation:checked").val();
+    if (existingVal) {
+        fn_show_if_eval(existingVal);
     }
-    else{
-      $(".by_whome").css("display", "none");
-      $(".by_when").css("display", "none");
-    }
-  });
+//   $('.is_evaluation').on('click', function() {
+//     var eval = $(".is_evaluation:checked").val();
+//     if(eval == 'Y'){
+//       $(".by_whome").css("display", "block");
+//       $(".by_when").css("display", "block");
+//     }
+//     else{
+//       $(".by_whome").css("display", "none");
+//       $(".by_when").css("display", "none");
+//     }
+//   });
 
   $('.next_financial_progress_item').on('input', function () {
     var checkId = $(this).data('id');
@@ -2091,56 +2102,56 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
 });
 
 
-$(document).ready(function() {
-    // Listen for inputs on Central and State fields specifically
-    $('#center_ratio, #state_ratio').on('input', function () {
-        var center = parseFloat($('#center_ratio').val()) || 0;
-        var state = parseFloat($('#state_ratio').val()) || 0;
+// $(document).ready(function() {
+//     // Listen for inputs on Central and State fields specifically
+//     $('#center_ratio, #state_ratio').on('input', function () {
+//         var center = parseFloat($('#center_ratio').val()) || 0;
+//         var state = parseFloat($('#state_ratio').val()) || 0;
         
-        // 1. Validate individual input
-        var currentInput = parseFloat($(this).val()) || 0;
-        if (currentInput < 0 || currentInput > 100) {
-            alert('Please enter a valid percentage between 0 and 100.');
-            $(this).val(0);
-            return;
-        }
+//         // 1. Validate individual input
+//         var currentInput = parseFloat($(this).val()) || 0;
+//         if (currentInput < 0 || currentInput > 100) {
+//             alert('Please enter a valid percentage between 0 and 100.');
+//             $(this).val(0);
+//             return;
+//         }
 
-        // 2. Calculate the sum of the first two
-        var subTotal = center + state;
+//         // 2. Calculate the sum of the first two
+//         var subTotal = center + state;
 
-        if (subTotal > 100) {
-            alert('The sum of Central and State cannot exceed 100%.');
-            $(this).val(0); // Reset the field that broke the rule
-            subTotal = (parseFloat($('#center_ratio').val()) || 0) + (parseFloat($('#state_ratio').val()) || 0);
-        }
+//         if (subTotal > 100) {
+//             alert('The sum of Central and State cannot exceed 100%.');
+//             $(this).val(0); // Reset the field that broke the rule
+//             subTotal = (parseFloat($('#center_ratio').val()) || 0) + (parseFloat($('#state_ratio').val()) || 0);
+//         }
 
-        // 3. Automatically set the remainder in the 'Other' field
-        var remaining = 100 - subTotal;
-        $('#other_ratio').val(remaining.toFixed(2)); // Use toFixed for clean decimals
+//         // 3. Automatically set the remainder in the 'Other' field
+//         var remaining = 100 - subTotal;
+//         $('#other_ratio').val(remaining.toFixed(2)); // Use toFixed for clean decimals
         
-        updateTotalDisplay();
-    });
+//         updateTotalDisplay();
+//     });
 
-    // Handle manual changes to 'Other' field
-    $('#other_ratio').on('input', function() {
-        var center = parseFloat($('#center_ratio').val()) || 0;
-        var state = parseFloat($('#state_ratio').val()) || 0;
-        var other = parseFloat($(this).val()) || 0;
+//     // Handle manual changes to 'Other' field
+//     $('#other_ratio').on('input', function() {
+//         var center = parseFloat($('#center_ratio').val()) || 0;
+//         var state = parseFloat($('#state_ratio').val()) || 0;
+//         var other = parseFloat($(this).val()) || 0;
 
-        if (center + state + other > 100) {
-            alert('Total cannot exceed 100%. Adjusting Other to fit.');
-            $(this).val(100 - (center + state));
-        }
-        updateTotalDisplay();
-    });
+//         if (center + state + other > 100) {
+//             alert('Total cannot exceed 100%. Adjusting Other to fit.');
+//             $(this).val(100 - (center + state));
+//         }
+//         updateTotalDisplay();
+//     });
 
-    function updateTotalDisplay() {
-        var total = (parseFloat($('#center_ratio').val()) || 0) + 
-                    (parseFloat($('#state_ratio').val()) || 0) + 
-                    (parseFloat($('#other_ratio').val()) || 0);
-        $('#total_display').text(total.toFixed(0));
-    }
-});
+//     function updateTotalDisplay() {
+//         var total = (parseFloat($('#center_ratio').val()) || 0) + 
+//                     (parseFloat($('#state_ratio').val()) || 0) + 
+//                     (parseFloat($('#other_ratio').val()) || 0);
+//         $('#total_display').text(total.toFixed(0));
+//     }
+// });
 
 function fn_convergencewithotherscheme(value) {
   if(value == 'Other_Department') {
@@ -2282,16 +2293,44 @@ $(document).ready(function() {
         $(".content-wrapper").css('min-height', $("#kt_content").height());
     });
 
-     $( ".datepicker" ).datepicker({
-          format: 'dd/mm/yyyy', 
-          changeMonth: true,
-          changeYear: true,
-        //  maxDate: new Date(),
-          yearRange: "-100:+0",
-          autoclose: true
-      });
-});
+     var currentYear = new Date().getFullYear(); // This is 2026 right now
 
+        $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm/yy',
+            
+            // This makes it work for 2027 automatically when the year changes
+            yearRange: "1960:" + currentYear, 
+            maxDate: new Date(currentYear, 11, 31),
+
+            beforeShow: function(input, inst) {
+                setTimeout(function() {
+                    reverseYearDropdown();
+                }, 0);
+            },
+            onChangeMonthYear: function(year, month, inst) {
+                setTimeout(function() {
+                    reverseYearDropdown();
+                }, 0);
+            },
+            onClose: function(dateText, inst) { 
+                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                $(this).datepicker('setDate', new Date(year, month, 1));
+            }
+        });
+
+
+});
+// Helper function to sort years descending
+function reverseYearDropdown() {
+    var select = $(".ui-datepicker-year");
+    select.html(select.find('option').sort(function(a, b) {
+        return b.value - a.value;
+    }));
+}
 function getReferenceStartYear() {
     var fromYear = $('#next_reference_year').val();
     return fromYear ? parseInt(fromYear.split('-')[0]) : 0;
@@ -2752,15 +2791,30 @@ $(document).on('change', '.custom-file-input', function () {
     }
 
     function fn_show_if_eval(value_val) {
-        if(value_val == 'Y') {
-            $("#if_eval_yes_div").show();
-            var ktcontent = $("#kt_content").height();
-            $(".content-wrapper").css('min-height',ktcontent);
+        // 1. Identify the container
+        var $detailContainer = $("#if_eval_yes_div");
+
+        if (value_val === 'Y') {
+            // Show the details
+            $detailContainer.fadeIn(); 
         } else {
-            $("#if_eval_yes_div").hide();
-            var ktcontent = $("#kt_content").height();
-            $(".content-wrapper").css('min-height',ktcontent);
+            // Hide the details
+            $detailContainer.fadeOut();
+
+            // SMART MOVE: Clear all inputs inside this div when hidden
+            // This ensures no "old" data is sent via AJAX when No is selected
+            $detailContainer.find('input[type="text"], textarea').val('');
+            
+            // Specifically reset the file input and label
+            $detailContainer.find('input[type="file"]').val('');
+            $detailContainer.find('.custom-file-label').text('Choose File');
         }
+
+        // Adjust page height (Metronic/KT logic)
+        setTimeout(function() {
+            var ktcontent = $("#kt_content").height();
+            $(".content-wrapper").css('min-height', ktcontent);
+        }, 200); // small delay to allow animation to finish
     }
 
     // function checkPosition() {
@@ -4051,6 +4105,7 @@ $(document).on('input', '.mobile_number', function () {
 
     toggleNextButton();
 });
+
 $(document).on('input', '.landline', function () {
     let value = this.value.replace(/[^0-9]/g, '');
     this.value = value.slice(0, 11);
@@ -4073,24 +4128,41 @@ $(document).on('input', '.email-input', function () {
 
     let value = this.value.trim().toLowerCase();
     let $this = $(this);
-    let $group = $this.closest('.form-group');
+    let $group = $this.closest('.form-group')
 
-    $group.find('.email-error').remove();
+    $group.find('.email-error, .unique-error').remove();
+    $this.removeClass('is-invalid');
 
     let emailRegex = /^[a-z0-9._%+-]+@([a-z0-9-]+\.)*gujarat\.gov\.in$/;
 
-    if (value.length > 0 && !emailRegex.test(value)) {
+    if (value.length > 0) {
 
-        $this.addClass('is-invalid');
-        $this.after('<div class="text-danger email-error">Only gujarat.gov.in email is allowed</div>');
-
-    } else {
-
-        $this.removeClass('is-invalid');
-    }
+       if (!emailRegex.test(value)) {
+            $this.addClass('is-invalid');
+            $this.after('<div class="text-danger email-error">Only gujarat.gov.in email is allowed</div>');
+        } 
+        // 2. Check Uniqueness within the form
+        else if (isDuplicateEmail(value, $this)) {
+            $this.addClass('is-invalid');
+            $this.after('<div class="text-danger unique-error">This email is already used in another field</div>');
+        }
+    } 
 
     toggleNextButton();
 });
+// Helper function to check if email exists in other fields
+function isDuplicateEmail(currentValue, $currentInput) {
+    let isDuplicate = false;
+    
+    $('.email-input').not($currentInput).each(function() {
+        if ($(this).val().trim().toLowerCase() === currentValue && currentValue !== "") {
+            isDuplicate = true;
+            return false; // Break loop
+        }
+    });
+    
+    return isDuplicate;
+}
 
 $(document).on('blur', '.email-input-td', function () {
     let value = this.value.trim();
@@ -4121,68 +4193,58 @@ document.addEventListener("input", function (e) {
     }
 });
 $(document).ready(function () {
-   $('.word-limit').trigger('input');
+    // EDIT TIME LOGIC: 
+    // This runs once when the page finishes loading.
+    // It checks every field that has existing text from the database.
+    $('.word-limit').each(function() {
+        $(this).trigger('input'); 
+    });
 });
 
+// CREATE & TYPING LOGIC:
+// This runs every time a user types, deletes, or pastes text.
 $(document).on('input', '.word-limit', function () {
+    let $el = $(this);
+    let text = $el.val().trim();
+    
+    // Works for Gujarati & English by splitting at spaces/newlines
+    let wordsArr = text ? text.split(/\s+/) : [];
+    let words = (wordsArr.length === 1 && wordsArr[0] === "") ? 0 : wordsArr.length;
 
-    let text = $(this).val().trim();
-    let words = text ? text.match(/\b\S+\b/g).length : 0;
+    let maxWords = parseInt($el.data('max-count'));
+    let messageBox = $el.siblings('.word-message');
+    
+    messageBox.removeClass('text-danger text-muted');
 
-    let maxWords = parseInt($(this).data('max-count'));
-    let warningLimit = parseInt($(this).data('warning-count'));
-    let hardLimit = parseInt($(this).data('hard-count'));
-
-    let messageBox = $(this).next('.word-message');
-    messageBox.removeClass('text-danger text-warning text-muted');
-
-    if (words <= warningLimit) {
-
-        messageBox.addClass('text-muted')
-                  .text(words + " / " + maxWords + " words");
-
-    }
-    //  else if (words <= maxWords) {
-
-    //     messageBox.addClass('text-warning')
-    //               .text(words + " / " + maxWords + " words (Approaching limit)");
-
-    // } 
-    else if (words <= hardLimit) {
-
-        let extra = words - maxWords;
-
-        messageBox.addClass('text-danger')
-                  .text("Exceeded by " + extra + " words. Please reduce.");
-
+    if (words <= maxWords) {
+        messageBox.addClass('text-muted').text(words + " / " + maxWords + " words");
     } else {
-
-        let extra = words - hardLimit;
-
-        messageBox.addClass('text-danger')
-                  .text("Hard limit exceeded. Remove " + extra + " words immediately.");
+        let extra = words - maxWords;
+        messageBox.addClass('text-danger').text("Exceeded by " + extra + " words. Please reduce.");
     }
 
-    // ✅ MULTIPLE FIELD SAFE BUTTON LOGIC
+    // Always check if the "Next" button should be disabled
+    validateNextButton();
+});
+
+// SHARED BUTTON LOGIC:
+function validateNextButton() {
     let hasError = false;
 
-      $('.word-limit').each(function () {
-
+    $('.word-limit').each(function () {
         let text = $(this).val().trim();
-        let wordsArr = text.match(/\b\S+\b/g);
-        let words = wordsArr ? wordsArr.length : 0;
-
+        let wordsArr = text ? text.split(/\s+/) : [];
+        let words = (wordsArr.length === 1 && wordsArr[0] === "") ? 0 : wordsArr.length;
         let maxWords = parseInt($(this).data('max-count'));
 
         if (words > maxWords) {
             hasError = true;
-            return false;
+            return false; // Stop checking other fields if one has an error
         }
     });
 
     $('#next_btn').prop('disabled', hasError);
-
-});
+}
 </script>
 
 
