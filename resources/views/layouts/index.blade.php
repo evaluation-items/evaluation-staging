@@ -271,7 +271,7 @@
         <div id="slider1 ">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}
-                    <img src="{{ asset('img/vidhansabha.avif') }}" alt="Directorate of Evaluation" style="min-width: 100%;object-fit: fill;height: 500px;">
+                    <img src="{{ asset('img/main/final.png') }}" alt="Directorate of Evaluation" style="min-width: 100%;object-fit: fill;height: 500px;">
 
                    {{--<li><img src="{{asset('img/slider-img-2.png')}}" alt="Slide 2"></li>
                {{-- <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>

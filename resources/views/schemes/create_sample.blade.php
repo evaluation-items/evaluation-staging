@@ -1609,46 +1609,46 @@ function fn_remove_the_convergence_div(after_conv_id) {
     $(".content-wrapper").css('min-height',ktcontent);
 }
 
-// $(document).ready(function(){
-//   var nextrownumberzero = 0;
-//   $(".finprogressbtn").click(function(){
-//     var rownumber = $(this).val();
-//     var target = 'target';
-//     var fiyear = 'financial_year';
-//     var achivement = 'achivement';
-//     var allocation = 'allocation';
-//     var expenditure = 'expenditure';
-//     var units = 'units';
-//     var selection = 'selection';
-//     var item = 'item';
-//     nextrownumberzero++;
+$(document).ready(function(){
+  var nextrownumberzero = 0;
+  $(".finprogressbtn").click(function(){
+    var rownumber = $(this).val();
+    var target = 'target';
+    var fiyear = 'financial_year';
+    var achivement = 'achivement';
+    var allocation = 'allocation';
+    var expenditure = 'expenditure';
+    var units = 'units';
+    var selection = 'selection';
+    var item = 'item';
+    nextrownumberzero++;
 
-//     var count_thisistbody_tr = Number($("#thisistbody tr").length) - 1;
-//     var entered_finyear = $('#thisistbody .next_financial_progress_year').eq(count_thisistbody_tr).val();
-//    // var entered_units = $('#thisistbody .next_financial_progress_units').eq(count_thisistbody_tr).val();
-//     var entered_target = $('#thisistbody .next_financial_progress_target').eq(count_thisistbody_tr).val();
-//     var entered_achievement = $('#thisistbody .next_financial_progress_achivement').eq(count_thisistbody_tr).val();
-//     var entered_fund = $('#thisistbody .next_financial_progress_allocation').eq(count_thisistbody_tr).val();
-//     var entered_expenditure = $('#thisistbody .next_financial_progress_expenditure').eq(count_thisistbody_tr).val();
+    var count_thisistbody_tr = Number($("#thisistbody tr").length) - 1;
+    var entered_finyear = $('#thisistbody .next_financial_progress_year').eq(count_thisistbody_tr).val();
+   // var entered_units = $('#thisistbody .next_financial_progress_units').eq(count_thisistbody_tr).val();
+    var entered_target = $('#thisistbody .next_financial_progress_target').eq(count_thisistbody_tr).val();
+    var entered_achievement = $('#thisistbody .next_financial_progress_achivement').eq(count_thisistbody_tr).val();
+    var entered_fund = $('#thisistbody .next_financial_progress_allocation').eq(count_thisistbody_tr).val();
+    var entered_expenditure = $('#thisistbody .next_financial_progress_expenditure').eq(count_thisistbody_tr).val();
 
-//     var entered_selection = $('#thisistbody .next_financial_progress_selection').eq(count_thisistbody_tr).val();
-//    // var entered_item = $('#thisistbody .next_financial_progress_item').eq(count_thisistbody_tr).val();
+    var entered_selection = $('#thisistbody .next_financial_progress_selection').eq(count_thisistbody_tr).val();
+   // var entered_item = $('#thisistbody .next_financial_progress_item').eq(count_thisistbody_tr).val();
 
-//     if(rownumber == 0 && nextrownumberzero == 1) {
+    if(rownumber == 0 && nextrownumberzero == 1) {
     
-//          var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+rownumber+']['+fiyear+']"><option value="">Year</option> @foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option>  @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option> @endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
-//          $("#thisistbody tr:last").after(addtr);
-//     } else {
+         var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+rownumber+']['+fiyear+']"><option value="">Year</option> @foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option>  @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option> @endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value="" /></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
+         $("#thisistbody tr:last").after(addtr);
+    } else {
   
-//       var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_progress_year_'+nextrownumberzero+' next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
-//       $("#thisistbody tr:last").after(addtr);
-//     }
+      var addtr = '<tr class="finprogresstr_'+nextrownumberzero+'"><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_year next_fin_year_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+fiyear+']"><option value="">Year</option>@foreach($financial_years as $year) <option value="{{ $year }}">{{ $year }}</option> @endforeach</select></td><td class="finprogresstd_'+nextrownumberzero+'"><select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_'+nextrownumberzero+'" id="next_fin_selection_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+selection+']"><option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option></select></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_target allowonly2decimal next_progress_year_'+nextrownumberzero+' next_fin_target_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+target+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal next_fin_achivement_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+achivement+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal next_fin_allocation_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+allocation+']"  value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal next_fin_expenditure_'+nextrownumberzero+'" name="financial_progress['+nextrownumberzero+']['+expenditure+']" value=""/></td><td class="finprogresstd_'+nextrownumberzero+'"><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(this.value)" value="" style="padding:2px;width:20px;height:auto;font-weight:bolder;">-</button></td></tr>';
+      $("#thisistbody tr:last").after(addtr);
+    }
 
-//     var ktcontent = $("#kt_content").height();
-//     $(".content-wrapper").css('min-height',ktcontent);
+    var ktcontent = $("#kt_content").height();
+    $(".content-wrapper").css('min-height',ktcontent);
 
-//   });
-// });
+  });
+});
 
 $(document).ready(function() {
     var nextrownumberzero = 0;
@@ -1714,26 +1714,26 @@ $(document).ready(function() {
                 $('#commencement_year').val('').trigger('change');
             }
         // 2. Filter the Financial Progress Table Rows
-        $('.next_financial_progress_year').each(function() {
-            var dropdown = $(this);
-            dropdown.find('option').each(function() {
-                var optVal = $(this).val();
-                if (optVal != "") {
-                    var optStart = parseInt(optVal.split('-')[0]);
-                    if (optStart < fromYearStart) {
-                        $(this).prop('disabled', true).hide();
-                    } else {
-                        $(this).prop('disabled', false).show();
-                    }
-                }
-            });
+        // $('.next_financial_progress_year').each(function() {
+        //     var dropdown = $(this);
+        //     dropdown.find('option').each(function() {
+        //         var optVal = $(this).val();
+        //         if (optVal != "") {
+        //             var optStart = parseInt(optVal.split('-')[0]);
+        //             if (optStart < fromYearStart) {
+        //                 $(this).prop('disabled', true).hide();
+        //             } else {
+        //                 $(this).prop('disabled', false).show();
+        //             }
+        //         }
+        //     });
 
-            // Reset if current selection is invalid
-            var tableSelected = dropdown.val();
-            if (tableSelected && parseInt(tableSelected.split('-')[0]) < fromYearStart) {
-                dropdown.val('');
-            }
-        });
+        //     // Reset if current selection is invalid
+        //     var tableSelected = dropdown.val();
+        //     if (tableSelected && parseInt(tableSelected.split('-')[0]) < fromYearStart) {
+        //         dropdown.val('');
+        //     }
+        // });
     }
 
     // --- EVENT: Run when Reference Year changes ---
@@ -1745,35 +1745,54 @@ $(document).ready(function() {
     applyYearFilters();
 
     // --- EVENT: Add Row (+) Button ---
-    $(document).on('click', ".finprogressbtn", function() {
-        var referenceStart = getReferenceStartYear();
-        var allYears = @json($financial_years); 
-        nextrownumberzero++;
+    // $(document).on('click', ".finprogressbtn", function() {
+    //     var referenceStart = getReferenceStartYear();
+    //     nextrownumberzero++;
 
-        // Build Year Options for new row
-        var yearOptions = '<option value="">Year</option>';
-        allYears.forEach(function(year) {
-            var yearStart = parseInt(year.split('-')[0]);
-            if (yearStart >= referenceStart) {
-                yearOptions += '<option value="' + year + '">' + year + '</option>';
-            }
-        });
+      
+    //     var lastYear = $('#thisistbody .next_financial_progress_year:last').val();
 
-        var unitOptions = '<option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach<option value="0">Other</option>';
+    //     // 2. Calculate the Auto-Selected Year (going backwards)
+    //     var autoSelectedYear = "";
+    //     if (lastYear && lastYear.includes('-')) {
+    //         var split = lastYear.split('-');
+    //         // Example: if last was 2025-26, autoSelected becomes 2024-25
+    //         autoSelectedYear = (Number(split[0]) - 1) + '-' + (Number(split[1]) - 1);
+    //     }
 
-        var addtr = `
-            <tr class="finprogresstr_${nextrownumberzero}">
-                <td><select class="form-control next_financial_progress_year" name="financial_progress[${nextrownumberzero}][financial_year]">${yearOptions}</select></td>
-                <td><select class="form-control next_financial_progress_selection" name="financial_progress[${nextrownumberzero}][selection]">${unitOptions}</select></td>
-                <td><input type="text" class="form-control next_financial_progress_target  allowonly2decimal" name="financial_progress[${nextrownumberzero}][target]" /></td>
-                <td><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal" name="financial_progress[${nextrownumberzero}][achivement]" /></td>
-                <td><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal" name="financial_progress[${nextrownumberzero}][allocation]" /></td>
-                <td><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal" name="financial_progress[${nextrownumberzero}][expenditure]" /></td>
-                <td><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(${nextrownumberzero})">-</button></td>
-            </tr>`;
+    //     // 3. Build Year Options for new row
+    //     var allYears = @json($financial_years);            
+    //     var yearOptions = '<option value="">Year</option>';
 
-        $("#thisistbody tr:last").after(addtr);
-    });
+    //     allYears.forEach(function(year) {
+    //         var yearStart = parseInt(year.split('-')[0]);
+            
+    //         // Only show years within the allowed reference range
+    //         if (yearStart >= referenceStart) {
+                
+    //             // LOGIC: Hide the last year and set the auto-selected year
+    //             if (year !== lastYear) {
+    //                 var selected = (year === autoSelectedYear) ? 'selected' : '';
+    //                 yearOptions += '<option value="' + year + '" ' + selected + '>' + year + '</option>';
+    //             }
+    //         }
+    //     });
+
+    //     var unitOptions = '<option value="">Select Option</option>@foreach($units as $unit_item)<option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option>@endforeach';
+
+    //     var addtr = `
+    //         <tr class="finprogresstr_${nextrownumberzero}">
+    //             <td><select class="form-control next_financial_progress_year" name="financial_progress[${nextrownumberzero}][financial_year]">${yearOptions}</select></td>
+    //             <td><select class="form-control next_financial_progress_selection" name="financial_progress[${nextrownumberzero}][selection]">${unitOptions}</select></td>
+    //             <td><input type="text" class="form-control next_financial_progress_target  allowonly2decimal" name="financial_progress[${nextrownumberzero}][target]" /></td>
+    //             <td><input type="text" class="form-control next_financial_progress_achivement allowonly2decimal" name="financial_progress[${nextrownumberzero}][achivement]" /></td>
+    //             <td><input type="text" class="form-control next_financial_progress_allocation allowonly2decimal" name="financial_progress[${nextrownumberzero}][allocation]" /></td>
+    //             <td><input type="text" class="form-control next_financial_progress_expenditure allowonly2decimal" name="financial_progress[${nextrownumberzero}][expenditure]" /></td>
+    //             <td><button type="button" class="btn btn-primary finprogressbtnremove" onclick="remove_financial_year(${nextrownumberzero})">-</button></td>
+    //         </tr>`;
+
+    //     $("#thisistbody tr:last").after(addtr);
+    // });
 });
 
 function hasDecimalPlace(value, x) {
@@ -3240,7 +3259,7 @@ function updateStepTitle(slideNo) {
                 
             // }
         }else if (slideid == 14){
-            var next_financial_progress_year = $(".next_financial_progress_year").val();
+                var next_financial_progress_year = $(".next_financial_progress_year").val();
             // var next_financial_progress_units = $(".next_financial_progress_units").val();
                 var next_financial_progress_target = $(".next_financial_progress_target").val();
                 var next_financial_progress_achivement = $(".next_financial_progress_achivement").val();
@@ -3513,68 +3532,6 @@ function finishSlides() {
 
   
     $(document).ready(function(){
-    //   $('#next_reference_year').change(function(){
-    //     var selectedValue = $(this).val();        
-    //     var selectedYear = parseInt(selectedValue.split('-')[0]);
-
-    //     $('#next_reference_year2 option').each(function(){
-    //         var year = parseInt($(this).val().split('-')[0]);
-    //         if(year < selectedYear){
-    //             $(this).hide();
-    //         } else {
-    //             $(this).show();
-    //         }
-    //     });
-    // });
-
-//     $(document).on('change', '#next_reference_year', function() {
-//     var selectedValue = $(this).val();
-//     if (!selectedValue) return; // Exit if "Select Year" is picked
-
-//     var referenceStart = parseInt(selectedValue.split('-')[0]);
-
-//     // --- LOGIC 1: Filter Reference Year 2 (To) ---
-//     $('#next_reference_year2 option').each(function() {
-//         var optVal = $(this).val();
-//         if (optVal != "") {
-//             var optYear = parseInt(optVal.split('-')[0]);
-//             if (optYear < referenceStart) {
-//                 $(this).hide();
-//             } else {
-//                 $(this).show();
-//             }
-//         }
-//     });
-
-//     // Reset Reference Year 2 if it's now invalid
-//     var currentRef2 = $('#next_reference_year2').val();
-//     if (currentRef2 && parseInt(currentRef2.split('-')[0]) < referenceStart) {
-//         $('#next_reference_year2').val('');
-//     }
-
-//     // --- LOGIC 2: Filter the Financial Progress Table Rows ---
-//     $('.next_financial_progress_year').each(function() {
-//         var dropdown = $(this);
-        
-//         dropdown.find('option').each(function() {
-//             var optVal = $(this).val();
-//             if (optVal != "") {
-//                 var optStart = parseInt(optVal.split('-')[0]);
-//                 if (optStart < referenceStart) {
-//                     $(this).prop('disabled', true).hide();
-//                 } else {
-//                     $(this).prop('disabled', false).show();
-//                 }
-//             }
-//         });
-
-//         // Reset the table dropdown if the selected value is now invalid
-//         var tableSelected = dropdown.val();
-//         if (tableSelected && parseInt(tableSelected.split('-')[0]) < referenceStart) {
-//             dropdown.val('');
-//         }
-//     });
-// });
 
         var currentYear = new Date().getFullYear(); // This is 2026 right now
 
