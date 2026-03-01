@@ -72,7 +72,9 @@
                           <td width="23%">
                             <a href="{{ route('schemes.newproposal_detail',Crypt::encrypt($prop->draft_id)) }}" class="btn btn-xs btn-info" style="display:inline-block">{{ __('message.view') }}</a>
                             <a href="{{ route('schemes.proposal_edit',Crypt::encrypt($prop->draft_id)) }}" class="btn btn-xs btn-primary">{{ __('message.edit') }}</a>
+                            @if($prop->flag == 1)
                             <button type="button" class="btn btn-xs btn-success" onclick="fn_new_forward_modal('{{Crypt::encrypt($prop->draft_id)}}','{{Crypt::encrypt($prop->id)}}')">{{ __('message.forward') }}</button>
+                            @endif
                             <a href="#myModal" class="btn btn-xs btn-danger trigger-btn" data-id= "{{$prop->draft_id}}"data-bs-toggle="modal">{{ __('message.delete') }}</a>
 
                           </td>

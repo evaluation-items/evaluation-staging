@@ -1323,14 +1323,12 @@ class SchemeController extends Controller {
                 $fn_year = $tr['financial_year'];
                 $arr[] = array('scheme_id'=>$scheme_id,'financial_year'=>$tr['financial_year'], 'target'=>$tr['target'],'achievement'=>$tr['achievement'], 'allocation'=>$tr['allocation'], 'expenditure'=>$tr['expenditure'],'selection' => $tr['selection']);
             }
-            if($fn_year == '' or $scheme_id == '') {
-
-            } else if($scheme_id != '' and $fn_year != '') {
+            if($scheme_id != '' and $fn_year != '') {
                 FinancialProgress::where('scheme_id',$scheme_id)->delete();
                 FinancialProgress::insert($arr);
-                Scheme::where('scheme_id',$scheme_id)->update(['fin_progress_remarks'=>$fin_progress_remarks]);
+                Scheme::where('scheme_id',$scheme_id)->update(['fin_progress_remarks'=>$fin_progress_remarks,'flag' => 1]);
                 $draft_id = Session::get('draft_id');
-                Proposal::where('draft_id',$draft_id)->update(['fin_progress_remarks'=>$fin_progress_remarks]);
+                Proposal::where('draft_id',$draft_id)->update(['fin_progress_remarks'=>$fin_progress_remarks,'flag' => 1]);
                 return response()->json('added successfully');
             }
         } 
@@ -2639,14 +2637,11 @@ class SchemeController extends Controller {
                 $fn_year = $tr['financial_year'];
                 $arr[] = array('scheme_id'=>$scheme_id,'financial_year'=>$tr['financial_year'], 'target'=>$tr['target'],'achievement'=>$tr['achievement'], 'allocation'=>$tr['allocation'], 'expenditure'=>$tr['expenditure'],'selection' => $tr['selection']);
             }
-
-            if($fn_year == '' or $scheme_id == '' or $draft_id == '') {
-
-            } else if($scheme_id != '' and $fn_year != '' and $draft_id != '') {
+            if($scheme_id != '' and $fn_year != '' and $draft_id != '') {
                 FinancialProgress::where('scheme_id',$scheme_id)->delete();
                 FinancialProgress::insert($arr);
-                Scheme::where('scheme_id',$scheme_id)->update(['fin_progress_remarks'=>$fin_progress_remarks]);
-                Proposal::where('draft_id',$draft_id)->update(['fin_progress_remarks'=>$fin_progress_remarks]);
+                Scheme::where('scheme_id',$scheme_id)->update(['fin_progress_remarks'=>$fin_progress_remarks,'flag' => 1]);
+                Proposal::where('draft_id',$draft_id)->update(['fin_progress_remarks'=>$fin_progress_remarks,'flag' => 1]);
                 return response()->json('added successfully');
             }
         } 

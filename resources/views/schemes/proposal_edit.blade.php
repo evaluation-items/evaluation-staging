@@ -259,8 +259,8 @@
                                                         <label>Upload report (અહેવાલ અપલોડ કરવો.) <span class="required_filed"> * </span> :</label>
                                                         <div></div>
                                                             <div class="custom-file">
-                                                                <input type="file" class="custom-file-input file_type_name" name="eval_upload_report" id="eval_if_yes_upload_file" accept=".pdf,.docx,.xls">
-                                                                <label class="custom-file-label" for="eval_if_yes_upload_file">Choose File</label>
+                                                                <input type="file" class="custom-file-input max_file_size  file_type_name" name="eval_upload_report" id="eval_if_yes_upload_file" accept=".pdf,.docx,.xls">
+                                                                <label class="custom-file-label" for="eval_if_yes_upload_file">Choose File (max 5 MB)</label>
                                                             </div>
                                                         </div>
                                                         @if($val->eval_scheme_report)
@@ -486,8 +486,8 @@
                                             <!--begin::Input-->
                                             <div class="form-group">
                                               <div class="custom-file">
-                                                <input type="file" class="custom-file-input file_type_name" name="major_objective_file" id="major_objective_file" accept=".pdf,.docx,.xlsx"/>
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                                <input type="file" class="custom-file-input max_file_size  file_type_name" name="major_objective_file" id="major_objective_file" accept=".pdf,.docx,.xlsx"/>
+                                                <label class="custom-file-label" for="customFile">Choose File (max 5 MB)</label>
                                               </div>
                                             </div>
                                             @if($val->major_objective_file)
@@ -535,8 +535,8 @@
                                             <!--begin::Input-->
                                             <div class="form-group">
                                               <div class="custom-file">
-                                                <input type="file" class="custom-file-input file_type_name" name="major_indicator_file" id="major_indicator_file" accept=".pdf,.docx,.xlsx"/>
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                                <input type="file" class="custom-file-input max_file_size  file_type_name" name="major_indicator_file" id="major_indicator_file" accept=".pdf,.docx,.xlsx"/>
+                                                <label class="custom-file-label" for="customFile">Choose File (max 5 MB)</label>
                                               </div>
                                             </div>
                                             @if($val->major_indicator_file)
@@ -710,8 +710,8 @@
                                         <div class="col-xl-12">
                                           <div class="form-group">
                                             <div class="custom-file">
-                                              <input type="file" class="custom-file-input next_scheme_overview_file max_file_size file_type_name" name="next_scheme_overview_file" id="next_scheme_overview_file" accept=".pdf" />
-                                              <label class="custom-file-label" for="next_scheme_overview_file">Choose file (max 5 MB)</label>
+                                              <input type="file" class="custom-file-input   next_scheme_overview_file max_file_size file_type_name" name="next_scheme_overview_file" id="next_scheme_overview_file" accept=".pdf" />
+                                              <label class="custom-file-label" for="next_scheme_overview_file">Choose File (max 5 MB)</label>
                                             </div>
                                           </div>
                                         </div>
@@ -742,8 +742,8 @@
                                         <div class="col-xl-12">
                                           <div class="form-group">
                                             <div class="custom-file">
-                                              <input type="file" class="custom-file-input scheme_objective_file max_file_size file_type_name" name="scheme_objective_file" id="scheme_objective_file" accept=".pdf" />
-                                              <label class="custom-file-label" for="scheme_objective_file">Choose file (max 5 MB)</label>
+                                              <input type="file" class="custom-file-input  scheme_objective_file max_file_size file_type_name" name="scheme_objective_file" id="scheme_objective_file" accept=".pdf" />
+                                              <label class="custom-file-label" for="scheme_objective_file">Choose File (max 5 MB)</label>
                                             </div>
                                           </div>
                                         </div>
@@ -772,8 +772,8 @@
                                         <div class="col-xl-12">
                                           <div class="form-group">
                                             <div class="custom-file">
-                                              <input type="file" class="custom-file-input next_scheme_components_file max_file_size file_type_name" name="next_scheme_components_file" id="next_scheme_components_file" accept=".pdf" />
-                                              <label class="custom-file-label" for="next_scheme_components_file">Choose file (max 5 MB)</label>
+                                              <input type="file" class="custom-file-input   next_scheme_components_file max_file_size file_type_name" name="next_scheme_components_file" id="next_scheme_components_file" accept=".pdf" />
+                                              <label class="custom-file-label" for="next_scheme_components_file">Choose File (max 5 MB)</label>
                                             </div>
                                           </div>
                                         </div>
@@ -911,8 +911,8 @@
                                             <div class="col-xl-12">
                                               <div class="form-group">
                                                 <div class="custom-file">
-                                                  <input type="file" class="custom-file-input beneficiary_selection_criteria_file max_file_size file_type_name" name="beneficiary_selection_criteria_file" id="beneficiary_selection_criteria_file" accept=".pdf" />
-                                                  <label class="custom-file-label" for="beneficiary_selection_criteria_file">Choose file (max 5 MB)</label>
+                                                  <input type="file" class="custom-file-input   beneficiary_selection_criteria_file max_file_size file_type_name" name="beneficiary_selection_criteria_file" id="beneficiary_selection_criteria_file" accept=".pdf" />
+                                                  <label class="custom-file-label" for="beneficiary_selection_criteria_file">Choose File (max 5 MB)</label>
                                                 </div>
                                               </div>
                                             </div>
@@ -961,8 +961,8 @@
                                               <div class="col-xl-12">
                                                 <div class="form-group">
                                                   <div class="custom-file">
-                                                    <input type="file" class="custom-file-input next_major_benefits_file file_type_name" name="major_benefits" id="customFile" accept=".pdf,.docx,.xlsx" />
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                                    <input type="file" class="custom-file-input max_file_size  next_major_benefits_file file_type_name" name="major_benefits" id="customFile" accept=".pdf,.docx,.xlsx" />
+                                                    <label class="custom-file-label" for="customFile">Choose File (max 5 MB)</label>
                                                   </div>
                                                 </div>
                                                 <div class="form-group">
@@ -1005,8 +1005,8 @@
                                             </div>
                                             <!--end::Input-->
                                             <div class="custom-file" style="margin:20px 0px">
-                                                <input type="file" class="custom-file-input file_type_name" name="scheme_implement_file" id="scheme_implement_file" accept=".pdf,.docx,.xlsx"/>
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                                <input type="file" class="custom-file-input max_file_size  file_type_name" name="scheme_implement_file" id="scheme_implement_file" accept=".pdf,.docx,.xlsx"/>
+                                                <label class="custom-file-label" for="customFile">Choose File (max 5 MB)</label>
                                             </div>
                                              @if($val->scheme_implement_file)
                                                   @php
@@ -1033,8 +1033,8 @@
                                             </div>
                                             <!--end::Input-->
                                             <div class="custom-file" style="margin:20px 0px">
-                                                <input type="file" class="custom-file-input file_type_name" name="implementing_procedure_file" id="implementing_procedure_file" accept=".pdf,.docx,.xlsx"/>
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                                <input type="file" class="custom-file-input max_file_size  file_type_name" name="implementing_procedure_file" id="implementing_procedure_file" accept=".pdf,.docx,.xlsx"/>
+                                                <label class="custom-file-label" for="customFile">Choose File (max 5 MB)</label>
                                             </div>
                                                @if($val->implementing_procedure_file)
                                                   @php
@@ -1072,8 +1072,8 @@
                                             <textarea name="otherbeneficiariesGeoLocal" id="next_otherbeneficiariesGeoLocal" placeholder="other Geographical beneficiaries coverage areas or Remarks" class="form-control pattern" rows="2">{{$val->otherbeneficiariesGeoLocal}}</textarea>
                                             <div></div>
                                               {{-- <div class="custom-file" style="margin:20px 0px">
-                                                <input type="file" class="custom-file-input file_type_name" name="geographical_coverage" id="geographical_coverage" accept=".pdf,.docx,.xlsx"/>
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                                <input type="file" class="custom-file-input max_file_size  file_type_name" name="geographical_coverage" id="geographical_coverage" accept=".pdf,.docx,.xlsx"/>
+                                                <label class="custom-file-label" for="customFile">Choose File (max 5 MB)</label>
                                               </div> --}}
                                               {{-- @if($val->geographical_coverage)
                                                   @php
@@ -1116,9 +1116,9 @@
                                                 
                                                 <div class="form-group">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input file_type_name" name="beneficiaries_coverage" id="beneficiaries_coverage" accept=".pdf,.docx,.xlsx">
+                                                        <input type="file" class="custom-file-input max_file_size  file_type_name" name="beneficiaries_coverage" id="beneficiaries_coverage" accept=".pdf,.docx,.xlsx">
                                                         <label class="custom-file-label" for="beneficiaries_coverage">
-                                                            {{ $val->beneficiaries_coverage ? $val->beneficiaries_coverage : 'Choose file' }}
+                                                            {{ $val->beneficiaries_coverage ? $val->beneficiaries_coverage : 'Choose File (max 5 MB)' }}
                                                         </label>
                                                     </div>
 
@@ -1160,9 +1160,9 @@
 
                                                 <div class="form-group">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input file_type_name" name="training" id="training" accept=".pdf,.docx,.xlsx">
+                                                        <input type="file" class="custom-file-input max_file_size  file_type_name" name="training" id="training" accept=".pdf,.docx,.xlsx">
                                                         <label class="custom-file-label" for="training">
-                                                            {{ $val->training ? $val->training : 'Choose file' }}
+                                                            {{ $val->training ? $val->training : 'Choose File (max 5 MB)' }}
                                                         </label>
                                                     </div>
 
@@ -1205,9 +1205,9 @@
 
                                                 <div class="form-group">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input file_type_name" name="iec_file" id="iec" accept=".pdf,.docx,.xlsx">
+                                                        <input type="file" class="custom-file-input max_file_size  file_type_name" name="iec_file" id="iec" accept=".pdf,.docx,.xlsx">
                                                         <label class="custom-file-label" for="iec">
-                                                            {{ $val->iec ? $val->iec : 'Choose file' }}
+                                                            {{ $val->iec ? $val->iec : 'Choose File (max 5 MB)' }}
                                                         </label>
                                                     </div>
 
@@ -1376,8 +1376,8 @@
                                                             {{-- New upload inputs (initial one) --}}
                                                             <div class="gr-row d-flex align-items-center mb-2">
                                                                 <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input file_type_name" name="gr[]" accept=".pdf,.doc,.docx,.xlsx" />
-                                                                    <label class="custom-file-label">Choose file</label>
+                                                                    <input type="file" class="custom-file-input max_file_size  file_type_name" name="gr[]" accept=".pdf,.doc,.docx,.xlsx" />
+                                                                    <label class="custom-file-label">Choose File (max 5 MB)</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1396,8 +1396,8 @@
                                                       <div class="form-group">
                                                           <label>Notification (જાહેરનામું) <span class="required_filed"> * </span> : </label>
                                                           <div class="custom-file">
-                                                              <input type="file" class="custom-file-input next_notification_files" id="notification" name="notification[]" multiple accept=".pdf,.docx,.xlsx" />
-                                                              <label class="custom-file-label">Choose files</label>
+                                                              <input type="file" class="custom-file-input max_file_size  next_notification_files" id="notification" name="notification[]" multiple accept=".pdf,.docx,.xlsx" />
+                                                              <label class="custom-file-label">Choose File (max 5 MB)s</label>
                                                           </div>
                                                       </div>
                                                       <div class="existing-notification-wrap">
@@ -1431,8 +1431,8 @@
                                                       <div class="form-group">
                                                           <label>Brochure (બ્રોશર) : </label>
                                                           <div class="custom-file">
-                                                              <input type="file" class="custom-file-input next_brochure_files" id="brochure" name="brochure[]" multiple accept=".pdf,.docx,.xlsx"/>
-                                                              <label class="custom-file-label">Choose files</label>
+                                                              <input type="file" class="custom-file-input max_file_size  next_brochure_files" id="brochure" name="brochure[]" multiple accept=".pdf,.docx,.xlsx"/>
+                                                              <label class="custom-file-label">Choose File (max 5 MB)s</label>
                                                           </div>
                                                       </div>
                                                       <div class="existing-brochure-wrap">
@@ -1468,8 +1468,8 @@
                                                       <div class="form-group">
                                                           <label>Pamphlets (પેમ્ફલેટ્સ) : </label>
                                                           <div class="custom-file">
-                                                              <input type="file" class="custom-file-input next_pamphlets_files" id="pamphlets" name="pamphlets[]" multiple accept=".pdf,.docx,.xlsx"/>
-                                                              <label class="custom-file-label">Choose files</label>
+                                                              <input type="file" class="custom-file-input max_file_size  next_pamphlets_files" id="pamphlets" name="pamphlets[]" multiple accept=".pdf,.docx,.xlsx"/>
+                                                              <label class="custom-file-label">Choose File (max 5 MB)s</label>
                                                           </div>
                                                       </div>
                                                       <div class="existing-pamphlet-wrap">
@@ -1503,8 +1503,8 @@
                                                       <div class="form-group">
                                                           <label>Other Details (યોજનાને લાગતું અન્ય સાહિત્ય): </label>
                                                           <div class="custom-file">
-                                                              <input type="file" class="custom-file-input next_otherdetailscenterstate" id="other_details_center_state" name="otherdetailscenterstate[]" multiple accept=".pdf,.docx,.xlsx"/>
-                                                              <label class="custom-file-label">Choose files</label>
+                                                              <input type="file" class="custom-file-input max_file_size  next_otherdetailscenterstate" id="other_details_center_state" name="otherdetailscenterstate[]" multiple accept=".pdf,.docx,.xlsx"/>
+                                                              <label class="custom-file-label">Choose File (max 5 MB)s</label>
                                                           </div>
                                                       </div>
                                                       <div class="existing-other-wrap">
@@ -1564,8 +1564,8 @@
                                                         {{-- File Upload Section --}}
                                                         <div class="custom-file beneficiary_form"
                                                             style="{{ isset($val->beneficiary_filling_form_type) && $val->beneficiary_filling_form_type == 0 ? '' : 'display: none;' }}">
-                                                            <input type="file" class="custom-file-input beneficiary_filling_form file_type_name" id="beneficiary_filling_form" name="beneficiary_filling_form[]" multiple accept=".pdf">
-                                                            <label class="custom-file-label" for="beneficiary_filling_form">Choose file</label>
+                                                            <input type="file" class="custom-file-input max_file_size  beneficiary_filling_form file_type_name" id="beneficiary_filling_form" name="beneficiary_filling_form[]" multiple accept=".pdf">
+                                                            <label class="custom-file-label" for="beneficiary_filling_form">Choose File (max 5 MB)</label>
                                                             {{-- Show existing uploaded file if available --}}
                                                             @if(!empty($val->beneficiary_filling_form))
                                                                 @php
@@ -1845,8 +1845,8 @@ $(document).ready(function() {
     let newFileInput = `
         <div class="gr-row d-flex align-items-center mb-2">
             <div class="custom-file" style="flex: 1;">
-                <input type="file" class="custom-file-input file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" />
-                <label class="custom-file-label">Choose file</label>
+                <input type="file" class="custom-file-input max_file_size  file_type_name" name="gr[]" accept=".pdf,.docx,.xlsx" />
+                <label class="custom-file-label">Choose File (max 5 MB)</label>
             </div>
             <button type="button" class="btn btn-danger btn-sm remove_gr_file ml-2">Remove</button>
         </div>
@@ -1906,7 +1906,7 @@ $(document).on('change', '.beneficiary_filling_form_type', function () {
         // No selected → hide and clear file input
         $('.beneficiary_form').hide();
         $('.beneficiary_filling_form').val('');
-       $('.beneficiary_form .custom-file-label').text('Choose file');
+       $('.beneficiary_form .custom-file-label').text('Choose File (max 5 MB)');
     }
 });
 
@@ -2827,7 +2827,7 @@ $(document).on('change', '.custom-file-input', function () {
             badFiles.join('\n')
         );
         $input.val('');
-        $input.next('.custom-file-label').text('Choose file');
+        $input.next('.custom-file-label').text('Choose File (max 5 MB)');
         return;
     }
 
@@ -2893,7 +2893,7 @@ $(document).on('change', '.custom-file-input', function () {
             
             // Specifically reset the file input and label
             $detailContainer.find('input[type="file"]').val('');
-            $detailContainer.find('.custom-file-label').text('Choose File');
+            $detailContainer.find('.custom-file-label').text('Choose File (max 5 MB)');
         }
 
         // Adjust page height (Metronic/KT logic)
