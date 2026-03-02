@@ -3330,11 +3330,24 @@ class SchemeController extends Controller {
             return response()->json($states);
            
         }else if($distname == 2) { //District
+            // $entered_districts = Scheme::where('scheme_id', $scheme_id)->value('districts');
+            // $dist_arr = json_decode($entered_districts); 
+            // $district = Districts::select('dcode', 'name_e')->whereIn('dcode',$dist_arr)->orderBy('name_e', 'asc')->get();
+            // $districts = array('districts' => $district, 'entered_values' => $dist_arr);
+            // return response()->json($districts);
             $entered_districts = Scheme::where('scheme_id', $scheme_id)->value('districts');
             $dist_arr = json_decode($entered_districts); 
-            $district = Districts::select('dcode', 'name_e')->whereIn('dcode',$dist_arr)->orderBy('name_e', 'asc')->get();
-            $districts = array('districts' => $district, 'entered_values' => $dist_arr);
-            return response()->json($districts);
+
+            // 1. Fetch ALL districts (not just the selected ones)
+            $all_districts = Districts::select('dcode', 'name_e')
+                ->orderBy('name_e', 'asc')
+                ->get();
+
+            // 2. Return both the full list and the saved selection
+            return response()->json([
+                'districts' => $all_districts, // Full list for the checkboxes
+                'entered_values' => $dist_arr   // Saved dcodes to trigger "checked" status
+            ]);
             
         }else if($distname == 3) { //Talukas
             $entered_districts = Scheme::where('scheme_id', $scheme_id)->pluck('talukas','taluka_id');

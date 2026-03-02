@@ -1279,10 +1279,6 @@
                                         <label class="col-xl-12">Convergence with other scheme (અન્ય યોજનાઓ સાથે યોજનાનું જોડાણ)</label>
                                         @foreach($convergences as $kconv => $vconv)
                                           <div class="row countallconvergence" id="convergence_row_{{$kconv}}">
-                                            <div class="col-xl-6">
-                                              <label></label>
-                                              <textarea placeholder="Convergence Process" name="convergence_text[]" id="next_convergence_text" rows="1" class="form-control pattern">{{ $vconv->dept_remarks }}</textarea>
-                                            </div>
                                             <div class="col-xl-5">
                                               <label></label>
                                               <select name="convergence_dept_ids[]" id="next_convergence_dept_id" class="form-control">
@@ -1292,6 +1288,11 @@
                                                 @endforeach
                                               </select>
                                             </div>
+                                            <div class="col-xl-6">
+                                              <label></label>
+                                              <textarea placeholder="Convergence Process" name="convergence_text[]" id="next_convergence_text" rows="1" class="form-control pattern">{{ $vconv->dept_remarks }}</textarea>
+                                            </div>
+                                            
                                             <div class="col-xl-1">
                                                 @if($kconv > 0)
                                                     <p></p>

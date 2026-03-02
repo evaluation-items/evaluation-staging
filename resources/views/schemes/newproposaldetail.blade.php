@@ -10,6 +10,20 @@
   #convergence_table tbody tr td {
     width: 70% !important;
   }
+  /* Custom style for read-only checkboxes */
+/* Add this to your style block */
+.geo-coverage-header {
+    width: 30%;
+    vertical-align: top;
+    border-right: 1px solid #dee2e6; /* The vertical line */
+    padding: 20px;
+    background-color: #fcfcfc;
+}
+
+.thedistrictlist .col-md-3 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 </style>
 @section('content')
 @php
@@ -87,7 +101,7 @@
                         <td>{{$pval->eval_scheme_major_recommendation}}</td>
                       </tr>
                       <tr>
-                        <th>Upload report (અહેવાલ અપલોડ કરવો.)</th>
+                        <th>Upload report (અહેવાલ.)</th>
                         <td> 
                           @if($pval->eval_upload_report == '')
                             No File
@@ -199,14 +213,7 @@
                       <td>
                           {{ $pval->major_objective }}
                           {!! '<br>' !!}
-                      </td>
-                    </tr>
-                     <tr>
-                        <th>Major Objective of the Evaluation study (અહેવાલ અપલોડ કરવો.)</th>
-                        <td> 
-                          @if($pval->major_objective_file == '')
-                            No File
-                          @else
+                          @if($pval->major_objective_file != '')
                             @php  
                               $extension = pathinfo($pval->major_objective_file, PATHINFO_EXTENSION);
                             @endphp
@@ -217,22 +224,16 @@
                                 @else
                                 <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->major_objective_file]) }}" download="{{ $pval->major_objective_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                             @endif
-                          @endif  
-                        </td>
-                      </tr>
+                          @endif
+                      </td>
+                    </tr>
                       <tr>
-                        <th>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડૉ)</th>
+                        <th>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો)</th>
                         <td>
                             {{ $pval->major_indicator }}
                             {!! '<br>' !!}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>Major Monitoring Indicators for scheme to be evaluated File (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડૉ અહેવાલ.)</th>
-                        <td> 
-                          @if($pval->major_indicator_file == '')
-                            No File
-                          @else
+                          @if($pval->major_indicator_file != '')
+
                             @php  
                               $extension = pathinfo($pval->major_indicator_file, PATHINFO_EXTENSION);
                             @endphp
@@ -324,29 +325,21 @@
                           {{ $pval->other_ratio ?? 0 }} %
                         </td>
                       </tr>
-                      @if (!empty($pval->both_ration))
-                        <tr>
-                          <th>Remarks</th>
-                          <td>
-                            {{ $pval->both_ration }} 
-                          </td>
-                        </tr>
-                      @endif
+                      <tr>
+                        <th>Remarks</th>
+                        <td>
+                          {{ $pval->both_ration ?? '-' }} 
+                        </td>
+                      </tr>
                       <tr>
                         <th>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય)</th>
                         <td>
                           {{ $pval->scheme_overview }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>Overview of the scheme/Background of the scheme File (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય અહેવાલ.)</th>
-                        <td> 
-                          @if($pval->next_scheme_overview_file == '')
-                            No File
-                          @else
-                            @php  
-                              $extension = pathinfo($pval->next_scheme_overview_file, PATHINFO_EXTENSION);
-                            @endphp
+                          <br>
+                          @if($pval->next_scheme_overview_file != '')
+                              @php  
+                                $extension = pathinfo($pval->next_scheme_overview_file, PATHINFO_EXTENSION);
+                              @endphp
                             @if($extension == 'pdf')
                                 <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->next_scheme_overview_file]) }}" target="_blank" title="{{ $pval->next_scheme_overview_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
                               @elseif($extension == 'doc')
@@ -357,36 +350,32 @@
                           @endif
                         </td>
                       </tr>
+                      
                     <tr>
                       <th>Objectives of the scheme (યોજનાના હેતુઓ)</th>
                       <td>
                         {{ $pval->scheme_objective }}
+                        <br>
+                        @if($pval->scheme_objective_file != '')
+                          @php  
+                            $extension = pathinfo($pval->scheme_objective_file, PATHINFO_EXTENSION);
+                          @endphp
+                            @if($extension == 'pdf')
+                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_objective_file]) }}" target="_blank" title="{{ $pval->scheme_objective_file }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
+                              @elseif($extension == 'doc')
+                              <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_objective_file]) }}" download="{{ $pval->scheme_objective_file }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
+                                @else
+                                <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->scheme_objective_file]) }}" download="{{ $pval->scheme_objective_file }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
+                            @endif
+                          @endif
                       </td>
                     </tr>
-                    <tr>
-                      <th>Objectives of the scheme File (યોજનાના હેતુઓ અહેવાલ.)</th>
-                      <td>
-                         @if($pval->scheme_objective_file == '')
-                            No File
-                          @else
-                            <x-file-link
-                              :file="$pval->scheme_objective_file"
-                              :scheme-id="$pval->scheme_id"
-                          />
-
-                         @endif
-                      </td>
-                    </tr>
+                    
                     <tr>
                       <th>Name of Sub-schemes/components (પેટા યોજનાનું નામ/ઘટકો)</th>
                       <td>
-                        {{ $pval->sub_scheme }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Name of Sub-schemes/components File (પેટા યોજનાનું નામ/ઘટકો અહેવાલ.)</th>
-                      <td>
-                         @if($pval->next_scheme_components_file == '')
+                        {{ $pval->sub_scheme }} <br>
+                        @if($pval->next_scheme_components_file == '')
                             No File
                           @else
                             @php  
@@ -402,6 +391,7 @@
                            @endif
                       </td>
                     </tr>
+                   
                     <tr>
                       <th>Year of actual commencement of the scheme (યોજનાનું ખરેખર અમલીકરણ શરૂ થયા વર્ષ)</th>
                       <td>
@@ -429,9 +419,8 @@
                     <tr>
                       <th>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો)</th>
                       <td>
-                          @if($pval->scheme_beneficiary_selection_criteria)
-                          <p>{{ $pval->scheme_beneficiary_selection_criteria ?? '' }}</p>
-                         @endif
+                          {{ $pval->scheme_beneficiary_selection_criteria ?? '-' }}
+                        
                       </td>
                     </tr>
                     <tr>
@@ -454,17 +443,11 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Expected Major Benefits Derived from the Scheme (યોજનાના અપેક્ષિત મુખ્ય લાભો) <br> Major Benefit</th>
+                      <th>Expected Major Benefits Derived from the Scheme(યોજનાના અપેક્ષિત મુખ્ય લાભો)</th>
                       <td>
                         {{ $pval->major_benefits_text }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Expected Major Benefits Derived from the Scheme File (યોજનાના અપેક્ષિત મુખ્ય લાભો અહેવાલ.) <br> Major Benefit File</th>
-                      <td>
-                         @if($pval->major_benefits == '')
-                            No File
-                          @else
+                        <br>
+                        @if($pval->major_benefits != '')
                             @php  
                               $extension = pathinfo($pval->major_benefits, PATHINFO_EXTENSION);
                             @endphp
@@ -478,14 +461,14 @@
                           @endif
                       </td>
                     </tr>
+                    
                     <tr>
                       <th>Implementing procedure of the Scheme (યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)</th>
                       <td>
                         {{ $pval->scheme_implementing_procedure }} <br><br>
                         
-                          @if($pval->scheme_implement_file == '')
-                              No File
-                          @else
+                          @if($pval->scheme_implement_file != '')
+                            
                               @php  
                                   $extension = pathinfo($pval->scheme_implement_file, PATHINFO_EXTENSION);
                               @endphp
@@ -528,29 +511,34 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Geographical Coverage: From State to beneficiaries (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ)</th>
-                      <td>
-                        @foreach($beneficiariesGeoLocal as $benkey => $benval)
-                          @if($pval->beneficiariesGeoLocal == $benval->id) {{ $benval->name }} @endif
-                        @endforeach
-                         <hr>
-                        {{-- Dynamic items will load here --}}
-                        <div class="row districtList"></div>
+                      <th style="width: 30%; vertical-align: top; border-right: 1px solid #dee2e6; padding: 20px; background-color: #f8f9fa;">
+                          <h5 style="font-weight: bold; line-height: 1.4; font-size: 1rem; color: #333;">
+                              Geographical Coverage: From State to beneficiaries <br>
+                              (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ)
+                          </h5>
+                      </th>
+
+                      <td style="padding: 20px; vertical-align: top;">
+                          <div style="margin-bottom: 5px;">
+                              @foreach($beneficiariesGeoLocal as $benkey => $benval)
+                                  @if($pval->beneficiariesGeoLocal == $benval->id) 
+                                      {{ $benval->name }}
+                                  @endif
+                              @endforeach
+                          </div>
+                          <hr style="margin-top: 5px; margin-bottom: 20px; border-top: 1px solid #eee;">
+                          
+                          <div class="row thedistrictlist" style="margin: 0; font-size: 15px;">
+                              {{-- Dynamic items will load here --}}
+                          </div>
                       </td>
-                      
-                    </tr>
+                  </tr>
                      <tr>
                       <th>Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ) <br>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ)</th>
                       <td>
                           {{$pval->coverage_beneficiaries_remarks}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ)</th>
-                      <td>
-                        @if($bencovfile == 'no data')
-                          No File
-                        @else
+                          <br>
+                           @if($bencovfile != 'no data')
                           @php  
                             $extension = pathinfo($pval->beneficiaries_coverage, PATHINFO_EXTENSION);
                           @endphp
@@ -561,22 +549,15 @@
                               @else
                               <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->beneficiaries_coverage]) }}" download="{{ $pval->beneficiaries_coverage }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                           @endif
-                       
                         @endif
                       </td>
-                    </tr> 
+                    </tr>
+                    
                     <tr>
                       <th>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી)</th>
                       <td>
-                          {{$pval->training_capacity_remarks}}
-                      </td>
-                    </tr>    
-                    <tr>
-                      <th>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી)</th>
-                      <td>
-                        @if($trainingfile == 'no data')
-                          No File
-                        @else
+                        {{$pval->training_capacity_remarks ?? '-'}} <br>
+                        @if($trainingfile != 'no data')
                         @php
                           $extension = pathinfo($pval->training, PATHINFO_EXTENSION);
                         @endphp
@@ -588,24 +569,16 @@
                             @else
                             <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->training]) }}" download="{{ $pval->training }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                         @endif
-                        {{-- <a href="{{ $replace_url }}/get_the_file/{{ $$pval->scheme_id }}/_training" target="_blank">
-                          <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                        </a> --}}
                         @endif
                       </td>
-                    </tr>
+                    </tr>    
+                    
                     <tr>
                       <th>IEC activities (પ્રચાર પ્રસારની કામગીરી)</th>
                       <td>
-                          {{$pval->iec_activities_remarks}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>IEC activities (પ્રચાર પ્રસારની કામગીરી)</th>
-                      <td>
-                        @if($iecfile == 'no data')
-                          No File
-                        @else
+                          {{$pval->iec_activities_remarks}}<br>
+                          @if($iecfile != 'no data')
+                         
                         @php
                           $extension = pathinfo($pval->iec, PATHINFO_EXTENSION);
                         @endphp
@@ -617,12 +590,11 @@
                             @else
                             <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->iec]) }}" download="{{ $pval->iec }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                         @endif
-                        {{-- <a href="{{ $replace_url }}/get_the_file/{{ $$pval->scheme_id }}/_iec" target="_blank">
-                          <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                        </a> --}}
+                        
                         @endif
                       </td>
                     </tr>
+                    
                     <tr>
                       <th>Asset/Service creation & its maintenance plan if any (યોજના દ્વારા ઊભી થયેલ સંપત્તિ/સેવા અને તેની જાળવણી, જો હોય તો)</th>
                       <td>
@@ -636,7 +608,7 @@
                           @if($pval->all_convergence)
                             @foreach($the_convergence as $kc => $vc)
                               <tr>
-                                <th>Department Name and Remarks</th>
+                                <th>Convergence with other scheme (અન્ય યોજનાઓ સાથે યોજનાનું જોડાણ)</th>
                                 <td>
                                   <p>{{$vc['dept_name']}}</p>
                                   <p>{{$vc['remarks']}}</p>
@@ -644,13 +616,9 @@
                               </tr>
                             @endforeach
                           @endif
-                    
                         <tr>
                           <th>GR (ઠરાવો)</th>
                           <td>
-                            {{-- @if($gr_files == 'no data')
-                              No File
-                            @else --}}
                             @if($pval->gr_file->count() > 0)
                               @foreach($pval->gr_file as $kgrs => $vgrs)
                                 @php
@@ -658,28 +626,14 @@
                                 @endphp
                                 @if($extension == 'pdf')
                                     <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $vgrs->file_name]) }}" target="_blank" title="{{ $vgrs->file_name }}"><i class="fas fa-file-pdf fa-2x" style="color:red;"></i></a>
-                                @elseif ($extension == 'doc')
-                                  <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $vgrs->file_name]) }}" download="{{ $vgrs->file_name }}"><i class="fas fa-download fa-2x" style="color:#007bff;"></i></a>
-
-                                @else
-                                    <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $vgrs->file_name]) }}" download="{{ $vgrs->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                                 @endif
-                              {{-- <a href="{{ $replace_url }}/get_the_file/{{ $pval->scheme_id }}/_gr_{{++$kgrs}}" target="_blank">
-                                <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                              </a> --}}
                               @endforeach
-                              @else
-                                No File
                               @endif
-                            {{-- @endif --}}
                           </td>
                         </tr>
                         <tr>
                           <th>Notification (જાહેરનામું)</th>
                           <td>
-                            {{-- @if($notification_files == 'no data')
-                              No File
-                            @else --}}
                             @if ($pval->notification_files->count() > 0)
                               @foreach($pval->notification_files as $kgrs => $items)
                                 @php
@@ -693,22 +647,14 @@
                                     @else
                                     <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $items->file_name]) }}" download="{{ $items->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                                 @endif
-                              {{-- <a href="{{ $replace_url }}/get_the_file/{{ $pval->scheme_id }}/_notification_{{++$kgrs}}" target="_blank">
-                                <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                              </a> --}}
                               @endforeach
-                              @else
-                                No File
                             @endif
-                            {{-- @endif --}}
+                            
                           </td>
                         </tr>
                         <tr>
                           <th>Brochure (બ્રોશર)</th>
                           <td>
-                            {{-- @if($brochure_files == 'no data')
-                              No File
-                            @else --}}
                             @if($pval->brochure_files->count() > 0)
                               @foreach($pval->brochure_files as $kgrs => $file)
                               @php
@@ -722,22 +668,14 @@
                               @else
                                   <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $file->file_name]) }}" download="{{ $file->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                               @endif
-                              {{-- <a href="{{ $replace_url }}/get_the_file/{{ $pval->scheme_id }}/_brochure_{{++$kgrs}}" target="_blank">
-                                <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                              </a> --}}
                               @endforeach
-                              @else
-                                No File
                             @endif
-                            {{-- @endif --}}
+                            
                           </td>
                         </tr>
                         <tr>
                           <th>Pamphlets (પેમ્ફલેટ્સ)</th>
                           <td>
-                            {{-- @if($pamphlets_files == 'no data')
-                              No File
-                            @else --}}
                               @if($pval->pamphlets_files->count() > 0)
                                 @foreach($pval->pamphlets_files as $kgrs => $pam_file)
                                   @php
@@ -751,22 +689,14 @@
                                       @else
                                       <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pam_file->file_name]) }}" download="{{ $pam_file->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                                   @endif
-                                {{-- <a href="{{ $replace_url }}/get_the_file/{{ $pval->scheme_id }}/_pamphlets_{{++$kgrs}}" target="_blank">
-                                  <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                                </a> --}}
                                 @endforeach
-                                @else
-                                  No File
                               @endif
-                            {{-- @endif --}}
+                           
                           </td>
                         </tr>
                         <tr>
-                          <th>Other Details of the Scheme (યોજનાને લાગતું અન્ય સાહિત્ય) ( Central–State Separate )</th>
+                          <th>Other Details of the Scheme (યોજનાને લાગતું અન્ય સાહિત્ય)</th>
                           <td>
-                            {{-- @if($otherdetailscenterstate_files == 'no data')
-                              No File
-                            @else --}}
                               @if($pval->otherdetailscenterstate_files->count() > 0)
                                 @foreach($pval->otherdetailscenterstate_files as $kgrs => $other_file)
                                   @php
@@ -780,29 +710,20 @@
                                       @else
                                       <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $other_file->file_name]) }}" download="{{ $other_file->file_name }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                                   @endif
-                                {{-- <a href="{{ $replace_url }}/get_the_file/{{ $pval->scheme_id }}/otherdetailscenterstate_{{++$kgrs}}" target="_blank">
-                                  <i class="fas fa-file-pdf fa-2x" style="color:red;"></i>
-                                </a> --}}
+                               
                                 @endforeach
                               @else
                                  No File
                               @endif
-                            {{-- @endif --}}
                           </td>
                         </tr>
                       <tr>
-                      
-                      <th>Beneficiary Filling form( લાભાર્થી ભરવાનું ફોર્મ)</th>
-                      <td>
+                        <th>Beneficiary Filling form( લાભાર્થી ભરવાનું ફોર્મ)</th>
+                        <td>
                           {{(!empty($pval->beneficiary_filling_form_type) && $pval->beneficiary_filling_form_type == 0) ? 'Yes' : 'No'}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Beneficiary Filling form File( લાભાર્થી ભરવાનું ફોર્મ)</th>
-                      <td>
-                        @if($pval->beneficiary_filling_form == '')
-                          No File
-                        @else
+                          <br>
+                           @if($pval->beneficiary_filling_form != '')
+                         
                             @php
                               $extension = pathinfo($pval->beneficiary_filling_form, PATHINFO_EXTENSION);
                             @endphp
@@ -815,15 +736,14 @@
                                 <a href="{{ route('schemes.get_the_file', [Crypt::encrypt($pval->scheme_id), $pval->beneficiary_filling_form]) }}" download="{{ $pval->beneficiary_filling_form }}"><i class="fas fa-download fa-2x" style="color:green;"></i></a>
                             @endif
                         @endif
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય))</th>
-                      <td>{{$pval->major_indicator_hod}}</td>
-                    </tr>
+                       </td>
+                      </tr>
+                      <tr>
+                        <th>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય))</th>
+                        <td>{{$pval->major_indicator_hod}}</td>
+                      </tr>
                     @endforeach
                   </table>
-
 
                   <table class="table table-bordered table-hover table-stripped table-responsive" style="margin-top:-20px;">
                     <tr>
@@ -886,7 +806,7 @@
                 scheme_id: scheme_id
             },
             beforeSend: function () {
-                $('.districtList').html(
+                $('.thedistrictlist').html(
                     '<div class="col-12 text-center">' +
                     '<img src="loading.gif" style="max-width:80px">' +
                     '</div>'
@@ -894,46 +814,64 @@
             },
             success: function (response) {
 
-                $('.districtList').empty();
+               
 
                 // ✅ DISTRICTS
-                if (response.districts && response.districts.length > 0) {
-                    $.each(response.districts, function (i, item) {
-                        $('.districtList').append(
-                            `<div class="col-xl-3 col-md-4 col-sm-6 mb-2">
-                                • ${item.name_e}
-                            </div>`
-                        );
-                    });
-                }
+                // if (response.districts && response.districts.length > 0) {
+                //     $.each(response.districts, function (i, item) {
+                //         $('.districtList').append(
+                //             `<div class="col-xl-3 col-md-4 col-sm-6 mb-2">
+                //                 • ${item.name_e}
+                //             </div>`
+                //         );
+                //     });
+                // }
+                  var container = $(".thedistrictlist");
+    container.empty(); 
 
-                // ✅ STATES
-                else if (response.states && response.states.length > 0) {
-                    $.each(response.states, function (i, item) {
-                        $('.districtList').append(
-                            `<div class="col-xl-3 col-md-4 col-sm-6 mb-2">
-                                • ${item.name}
-                            </div>`
-                        );
-                    });
-                }
+    let enteredDistricts = Array.isArray(response.entered_values) ? response.entered_values.map(String) : [];
+    let allDistricts = response.districts; 
 
-                // ✅ TALUKAS
-                else if (response.talukas && response.talukas.length > 0) {
-                    $.each(response.talukas, function (i, item) {
-                        $('.districtList').append(
-                            `<div class="col-xl-3 col-md-4 col-sm-6 mb-2">
-                                • ${item.tname_e}
-                            </div>`
-                        );
-                    });
-                }
+    if (allDistricts && allDistricts.length > 0) {
+        var itemsHtml = [];
 
-                else {
-                    $('.districtList').html(
-                        '<div class="col-12 text-muted">No data available</div>'
-                    );
-                }
+        $.each(allDistricts, function(key, district) {
+    var dcode = String(district.dcode);
+    var isChecked = enteredDistricts.includes(dcode) ? 'checked' : '';
+    
+    // Formatting: AHMEDABAD -> Ahmedabad
+    var name = district.name_e.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+
+    itemsHtml.push(`
+        <div style="margin-bottom: 12px; display: flex; align-items: center;">
+            <input type="checkbox" 
+                   class="district_length" 
+                   ${isChecked} 
+                   onclick="return false;" 
+                   style="width: 18px; height: 18px; margin-right: 12px; cursor: default; accent-color: #007bff;">
+            <label style="margin-bottom: 0; font-weight: 500; color: #333; cursor: default;">
+                ${name}
+            </label>
+        </div>
+    `);
+});
+
+        // 4-column logic
+        var totalCols = 4;
+        var itemsPerCol = Math.ceil(itemsHtml.length / totalCols);
+
+        for (var i = 0; i < totalCols; i++) {
+            var columnDiv = $("<div class='col-md-3' style='padding: 0 5px;'></div>");
+            var slice = itemsHtml.slice(i * itemsPerCol, (i + 1) * itemsPerCol);
+            
+            $.each(slice, function(idx, html) {
+                columnDiv.append(html);
+            });
+            container.append(columnDiv);
+        }
+    } else {
+        container.html("<div class='col-12 text-muted'>No districts found.</div>");
+    }
             },
             error: function () {
                 console.log('districts ajax error');
