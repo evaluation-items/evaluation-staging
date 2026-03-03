@@ -368,7 +368,7 @@
                                               <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                      <label>Name of the scheme/ Programme to be evaluated <br> (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજની/કાર્યક્રમનું નામ) <span class="required_filed"> * </span> :</label>
+                                                      <label>Name of the scheme/ Programe to be evaluated <br> (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજની/કાર્યક્રમનું નામ) <span class="required_filed"> * </span> :</label>
                                                       <input type="text" id="form_scheme_name" class="form-control pattern @error('scheme_name') is-invalid @enderror" name="scheme_name" value="{{ $val->scheme_name }}" />
                                                         @error('scheme_name')
                                                           <div class="text-danger">* {{ $message }}</div>
@@ -377,7 +377,7 @@
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                      <label>Short Name of the scheme/ Programme to be evaluated <br> (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)  :</label>
+                                                      <label>Short Name of the scheme/ Programe to be evaluated <br> (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)  :</label>
                                                       <input type="text" id="form_scheme_short_name" class="form-control pattern @error('scheme_short_name') is-invalid @enderror" name="scheme_short_name" value="{{ $val->scheme_short_name }}" />
                                                         @error('scheme_short_name')
                                                           <div class="text-danger">* {{ $message }}</div>
@@ -1502,7 +1502,7 @@
                                                   {{-- Other Details Section --}}
                                                   <div class="col-xl-6">
                                                       <div class="form-group">
-                                                          <label>Other Details (યોજનાને લાગતું અન્ય સાહિત્ય): </label>
+                                                          <label>Other Details (યોજનાને લાગતું અન્ય વિગત ): </label>
                                                           <div class="custom-file">
                                                               <input type="file" class="custom-file-input max_file_size  next_otherdetailscenterstate" id="other_details_center_state" name="otherdetailscenterstate[]" multiple accept=".pdf,.docx,.xlsx"/>
                                                               <label class="custom-file-label">Choose File (max 5 MB)s</label>
@@ -3374,6 +3374,7 @@ $(document).on('change', '.custom-file-input', function () {
             
         } else if(slideid == 6) {
             var commencement_year = $('#commencement_year').val();
+            alert(commencement_year);
             var scheme_status = $("input[name='scheme_status']").val();
             var is_sdg = $('input[name="is_sdg[]"]:checked').length;
             if(commencement_year != '' && scheme_status != '' && is_sdg > 0) {

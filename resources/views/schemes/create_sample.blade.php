@@ -346,7 +346,7 @@
                                       <div class="row">
                                         <div class="col-xl-6">
                                             <div class="form-group">
-                                                <label>Name of the scheme/ Programme to be evaluated <br> (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેની યોજના/કાર્યક્રમનું નામ) <span class="required_filed"> * </span> :</label>
+                                                <label>Name of the scheme/ Programe to be evaluated <br> (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેની યોજના/કાર્યક્રમનું નામ) <span class="required_filed"> * </span> :</label>
                                                 <input type="text" id="form_scheme_name" class="form-control pattern @error('scheme_name') is-invalid @enderror" name="scheme_name" value="{{ old('scheme_name') }}" />
                                                 @error('scheme_name')
                                                   <div class="text-danger">* {{ $message }}</div>
@@ -355,7 +355,7 @@
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group">
-                                              <label>Short Name of the scheme/ Programme to be evaluated <br> (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)  :</label>
+                                              <label>Short Name of the scheme/ Programe to be evaluated <br> (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)  :</label>
                                               <input type="text" id="form_scheme_short_name" class="form-control pattern" name="scheme_short_name" value="{{ old('scheme_short_name') }}" />
                                                 
                                             </div>
@@ -1103,7 +1103,7 @@
                                                   <div class="col-xl-6">
                                                     <!--begin::Input-->
                                                     <div class="form-group">
-                                                      <label>Other Details of the Scheme (યોજનાને લાગતું અન્ય સાહિત્ય) <br>(Central–State Separate ): </label>
+                                                      <label>Other Details(યોજનાને લાગતું અન્ય વિગત) <br>(Central–State Separate ): </label>
                                                       <div class="custom-file">
                                                         <input type="file" class="custom-file-input next_otherdetailscenterstate file_type_name" id="other_details_center_state" name="otherdetailscenterstate[]" multiple accept=".pdf,.docx,.xlsx"/>
                                                         <label class="custom-file-label" for="customFile">Choose file</label>
@@ -1209,10 +1209,9 @@
                                                            <td class="finprogresstd_{{$i}}">
                                                             <select style="padding:2px" class="form-control next_financial_progress_selection next_fin_selection_{{$i}}" id="next_fin_selection_{{$i}}" name="financial_progress[{{ $i }}][selection]">
                                                             <option value="">Select Option</option>
-                                                            @foreach($units as $unit_item) 
-                                                                <option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option> 
-                                                            @endforeach 
-                                                            <option value="0">Other</option> 
+                                                                @foreach($units as $unit_item) 
+                                                                    <option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option> 
+                                                                @endforeach 
                                                             </select>
                                                         </td>
                                                           {{-- <td class="finprogresstd_{{$i}}"><input type="text" class="form-control next_financial_progress_units next_fin_units_{{$i}}" name="financial_progress[{{ $i }}][units]" maxlength="20" /></td> --}}

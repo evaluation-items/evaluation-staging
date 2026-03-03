@@ -104,8 +104,7 @@
                         <th>Upload report (અહેવાલ.)</th>
                         <td> 
                           @if($pval->eval_upload_report == '')
-                            No File
-                          @else
+                          
                             @php  
                               $extension = pathinfo($pval->eval_upload_report, PATHINFO_EXTENSION);
                             @endphp
@@ -163,13 +162,13 @@
                         </td>
                       </tr>
                       <tr>
-                        <th>Name of the scheme/ Programme to be evaluated (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજના/કાર્યક્રમનું નામ)</th>
+                        <th>Name of the scheme/ Programe to be evaluated (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજના/કાર્યક્રમનું નામ)</th>
                         <td>
                           {{ $pval->scheme_name }}
                         </td>
                       </tr>
                       <tr>
-                        <th>Short Name of the scheme/ Programme to be evaluated (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ):</th>
+                        <th>Short Name of the scheme/ Programe to be evaluated (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ):</th>
                         <td>
                           {{ $pval->scheme_short_name ?? '-' }}
                         </td>
@@ -376,8 +375,7 @@
                       <td>
                         {{ $pval->sub_scheme }} <br>
                         @if($pval->next_scheme_components_file == '')
-                            No File
-                          @else
+                           
                             @php  
                               $extension = pathinfo($pval->next_scheme_components_file, PATHINFO_EXTENSION);
                             @endphp
@@ -427,8 +425,7 @@
                       <th>Beneficiary/Community selection Criteria File (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો અહેવાલ.)</th>
                       <td>
                          @if($pval->beneficiary_selection_criteria_file == '')
-                            No File
-                          @else
+                           
                             @php  
                               $extension = pathinfo($pval->beneficiary_selection_criteria_file, PATHINFO_EXTENSION);
                             @endphp
@@ -494,8 +491,7 @@
                       <td>{{$pval->implementing_procedure}} <br><br>
                      
                         @if($pval->implementing_procedure_file == '')
-                          No File
-                        @else
+
                           @php  
                             $extension = pathinfo($pval->implementing_procedure_file, PATHINFO_EXTENSION);
                           @endphp
@@ -532,7 +528,13 @@
                               {{-- Dynamic items will load here --}}
                           </div>
                       </td>
-                  </tr>
+                    </tr>
+                    <tr>
+                      <th> Remarks</th>
+                      <td>
+                        {{$pval->otherbeneficiariesGeoLocal ?? '-'}} 
+                      </td>
+                    </tr>
                      <tr>
                       <th>Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ) <br>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ)</th>
                       <td>
@@ -598,7 +600,7 @@
                     <tr>
                       <th>Asset/Service creation & its maintenance plan if any (યોજના દ્વારા ઊભી થયેલ સંપત્તિ/સેવા અને તેની જાળવણી, જો હોય તો)</th>
                       <td>
-                          {{$pval->benefit_to}}
+                          {{$pval->benefit_to ?? '-'}}
                       </td>
                     </tr>
                   @endforeach
@@ -695,7 +697,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <th>Other Details of the Scheme (યોજનાને લાગતું અન્ય સાહિત્ય)</th>
+                          <th>Other Details (યોજનાને લાગતું અન્ય વિગત)</th>
                           <td>
                               @if($pval->otherdetailscenterstate_files->count() > 0)
                                 @foreach($pval->otherdetailscenterstate_files as $kgrs => $other_file)
@@ -712,8 +714,7 @@
                                   @endif
                                
                                 @endforeach
-                              @else
-                                 No File
+                             
                               @endif
                           </td>
                         </tr>
@@ -742,10 +743,16 @@
                         <th>Major Monitoring Indicator at HOD Level (Other than Secretariat Level) (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ.(સચિવાલય સિવાય))</th>
                         <td>{{$pval->major_indicator_hod}}</td>
                       </tr>
+                      <tr>
+                        <th>Physical and Financial Progress Remarks</th>
+                        <td>
+                          {{ $pval->fin_progress_remarks ?? '-'}}
+                        </td>
+                      </tr>
                     @endforeach
                   </table>
 
-                  <table class="table table-bordered table-hover table-stripped table-responsive" style="margin-top:-20px;">
+                  <table class="table table-bordered table-hover table-stripped table-responsive" style="margin-top: -15px;">
                     <tr>
                       <th rowspan="{{ count($financial_progress)+2 }}">Financial & Physical Progress  (component wise) of the Last Five Years/Beginning of the Plan (યોજના ની શરૂઆત/છેલ્લા પાંચ વર્ષની વર્ષવાર નાણાકીય અને ભૌતિક પ્રગતિ (કમ્પોનેટ વાઇઝ)) :</th>
                      
@@ -776,6 +783,7 @@
                       </tr>
                       @endforeach
                     @endif
+                   
                   </table>
                   
                 </div>
