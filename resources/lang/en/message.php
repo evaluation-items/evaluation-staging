@@ -463,7 +463,6 @@ return [
     'paregraph-47' => 'Matter of Tender cum Public Auction of Government Vehicle of Office Evaluation.',
 
     //Create Stages Page
-
     'proposal_date'=> 'Proposal Received Date',
     'requistion_sent_hod' => 'Requisition sent Form Concern Department',
     'requistion_received_date' => 'Requisition Received Date',
@@ -485,7 +484,7 @@ return [
     'input_draft_report' => 'Inputs on Draft Report received from Implementing Office (HOD)',
     'draft_report_send' => 'Draft Report sent for Department of Evaluation Committee (DEC)',
     'minutes_meeting_dec' => 'Minutes of Meeting from DEC Received',
-    'date_department' => 'Departmental Evaluation Committee (DEC) ',
+    'date_department' => 'Departmental Evaluation Committee (DEC)',
     'draft_report_send_eval' => 'Draft Report sent for Evaluation Coordination Committee (ECC)',
     'committee' => 'Evaluation Coordination Committee (ECC)',
     'minutes_meeting_eval' => 'Minutes of Meeting from ECC Received',

@@ -148,6 +148,7 @@ Route::post('/welcome-popup/seen', function () {
     Route::get('/proposal/{scheme_id}/final-report-pdf',
         [SchemeController::class, 'downloadFinalReportPdf']
     )->name('proposal.final-report.pdf');
+    Route::get('/proposal/{id}/print', [SchemeController::class, 'print'])->name('proposal.print');
 
     Route::post('districts',[SchemeController::class,'getdistricts'])->name('districts');
     Route::post('get_taluka',[SchemeController::class,'gettaluka'])->name('get_taluka');

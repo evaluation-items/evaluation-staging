@@ -3447,6 +3447,135 @@ class SchemeController extends Controller {
             $mpdf->Output($proposal->scheme_name . '.pdf', 'D')
         )->header('Content-Type', 'application/pdf');
     }
+    public function print($draft_id)
+    {
+       $proposal = Proposal::where('draft_id', $draft_id)
+            ->latest()->first(); // better than pluck
+
+        $financial_progress = FinancialProgress::where('scheme_id', $proposal->scheme_id)->get();
+
+        //Condition: Financial Year Available?
+        $isCompleted = FinancialProgress::where('scheme_id', $proposal->scheme_id)->exists();
+        $rows = '';
+
+            if ($financial_progress->count()) {
+                foreach ($financial_progress as $fpv) {
+                    $rows .= '
+                    <tr>
+                        <td>'.$fpv->financial_year.'</td>
+                        <td>'.units($fpv->selection).'</td>
+                        <td>'.$fpv->target.'</td>
+                        <td>'.$fpv->achievement.'</td>
+                        <td>'.$fpv->allocation.'</td>
+                        <td>'.$fpv->expenditure.'</td>
+                    </tr>';
+                }
+            }
+    
+        $html = '<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Proposal Detail</title>
+            <style>
+                body {
+                    font-family: sans-serif;
+                    font-size: 12px;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                table, td, th {
+                    border: 1px solid #000;
+                }
+
+                td, th {
+                    padding: 6px;
+                    vertical-align: top;
+                    page-break-inside: avoid;
+                }
+
+                .title {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                }
+                tr {
+                    page-break-inside: avoid;
+                }
+            </style>
+        </head>
+        <body>
+
+        <div class="title">Proposal Detail</div>
+        <table>
+            <tr>
+                <td><strong>Department Name</strong></td>
+                <td>'.$proposal->department_name.'</td>
+            </tr>
+
+            <tr>
+                <td><strong>Nodal Officer</strong></td>
+                <td>'.$proposal->nodal_officer.'</td>
+            </tr>
+            <tr>
+                <td><strong>Name of the Nodal Officer (નોડલ અધિકારીનું નામ)</strong></td>
+                <td>'.$proposal->convener_name.'</td>
+            </tr>
+        </table>
+            <table>
+                    <tr>
+                    <th rowspan="'.($financial_progress->count() + 2).'">
+                    Financial & Physical Progress
+                    </th>
+                    <th rowspan="2">Financial Year</th>
+                    <th colspan="3">Physical</th>
+                    <th colspan="2">Financial</th>
+                    </tr>
+                    <tr>
+                    <th>Unit</th>
+                    <th>Target</th>
+                    <th>Achievement</th>
+                    <th>Provision</th>
+                    <th>Expenditure</th>
+                    </tr>
+                    '.$rows.'
+                    </table>
+        </body>
+        </html>';
+
+        $mpdf = new Mpdf([
+            'tempDir' => sys_get_temp_dir(),
+            'mode' => 'utf-8',
+            'autoScriptToLang' => true,
+            'autoLangToFont' => true,
+            'format' => 'A4',
+            'margin_top' => 20,
+            'margin_bottom' => 15,
+        ]);
+
+        // ✅ Watermark Condition
+        if ($isCompleted) {
+            $mpdf->SetWatermarkText('COMPLETED');
+        } else {
+            $mpdf->SetWatermarkText('DRAFT');
+        }
+
+        $mpdf->showWatermarkText = true;
+        $mpdf->watermarkTextAlpha = 0.1; // transparency
+        $mpdf->watermark_font = 'Arial';
+        $mpdf->SetAutoPageBreak(true, 10);
+        $mpdf->SetFooter('{PAGENO} / {nbpg}');
+
+        $mpdf->WriteHTML($html);
+
+        return response($mpdf->Output('proposal.pdf', 'I'))
+            ->header('Content-Type', 'application/pdf');
+    }
 
 }
 ?>

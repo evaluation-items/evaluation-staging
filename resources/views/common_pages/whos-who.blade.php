@@ -66,82 +66,113 @@
                         <td>Dr. Rakesh R. Pandya</td>
                         <td>Director</td>
                         <td>52861</td>
-                        {{-- <td>9377298620</td> --}}
                         <td>direvl@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Shri M. B. Gamit</td>
-                        <td>Deputy Director (I/C)</td>
+                        <td>Joint Director (I/C)</td>
                         <td>52877</td>
-                        {{-- <td>9879138813</td> --}}
                         <td>jdevl@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>Smt. A. G. Prajapati</td>
+                        <td>Smt. R. R. Krishyan</td>
                         <td>Deputy Director</td>
                         <td>-</td>
-                        {{-- <td>9998803098</td> --}}
                         <td>ddevl4@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>S. G. Prajapati</td>
+                        <td>Smt. A. G. Prajapati</td>
                         <td>Deputy Director</td>
                         <td>-</td>
-                        {{-- <td>9979990718</td> --}}
                         <td>ddevl4@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>R. M. Maher</td>
+                        <td>Ms. R. R. Maher</td>
                         <td>Deputy Director</td>
                         <td>-</td>
-                        {{-- <td>9979990718</td> --}}
                         <td>roevl1@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td>R. R. Christian</td>
+                        <td>Shri V. B. Parmar</td>
                         <td>Deputy Director</td>
-                        <td>52859</td>
-                        {{-- <td>9979990718</td> --}}
-                        <td>ddevl5@gujarat.gov.in</td>
+                        <td>52877</td>
+                        <td>-</td>
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td>V. B. Parmar</td>
-                        <td>Deputy Director</td>
-                        <td>52877</td>
-                        {{-- <td>9979990718</td> --}}
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>P. K. Saliya</td>
+                        <td>Shri P. K. Saliya</td>
                         <td>Deputy Director</td>
                         <td>-</td>
-                        {{-- <td>9979990718</td> --}}
                         <td>ddsurvey6@gujarat.gov.in</td>
                     </tr>
                     <tr>
-                        <td>9</td>
-                        <td>A. R. Sadhu</td>
+                        <td>8</td>
+                        <td>Shri J. B. Virpura</td>
                         <td>Deputy Director</td>
                         <td>-</td>
-                        {{-- <td>9979990718</td> --}}
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Shri A. R. Sadhu</td>
+                        <td>Deputy Director</td>
+                        <td>-</td>
                         <td>ddevl3@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td>J. B. Virpura</td>
-                        <td>Deputy Director</td>
+                        <td>Smt. S. K. Zala</td>
+                        <td>Research Officer</td>
                         <td>-</td>
-                        {{-- <td>9979990718</td> --}}
-                        <td></td>
+                        <td>-</td>
                     </tr>
-                   
+                    <tr>
+                        <td>11</td>
+                        <td>Shri D. M. Parmar</td>
+                        <td>Research Officer</td>
+                        <td>-</td>
+                        <td>roevl3@gujarat.gov.in</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Ms. B. A. Makawana</td>
+                        <td>Research Officer</td>
+                        <td>-</td>
+                        <td>roevl2@gujarat.gov.in</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Smt. D. R. Gamiti</td>
+                        <td>Research Officer</td>
+                        <td>-</td>
+                        <td>roevl4@gujarat.gov.in</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>P. B. Punarvasu</td>
+                        <td>Research Officer</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>H. N. Manani</td>
+                        <td>Research Officer</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>C. H. Danak</td>
+                        <td>Research Officer</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
