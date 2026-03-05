@@ -106,7 +106,7 @@
                       <tr>
                         <th>Upload report (અહેવાલ.)</th>
                         <td> 
-                          @if($pval->eval_upload_report == '')
+                          @if($pval->eval_upload_report != '')
                           
                             @php  
                               $extension = pathinfo($pval->eval_upload_report, PATHINFO_EXTENSION);
@@ -171,7 +171,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <th>Short Name of the scheme/ Programe to be evaluated (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ):</th>
+                        <th>Short Name of the scheme/ Programe to be evaluated (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)</th>
                         <td>
                           {{ $pval->scheme_short_name ?? '-' }}
                         </td>
@@ -377,8 +377,7 @@
                       <th>Name of Sub-schemes/components (પેટા યોજનાનું નામ/ઘટકો)</th>
                       <td>
                         {{ $pval->sub_scheme }} <br>
-                        @if($pval->next_scheme_components_file == '')
-                           
+                        @if($pval->next_scheme_components_file != '')
                             @php  
                               $extension = pathinfo($pval->next_scheme_components_file, PATHINFO_EXTENSION);
                             @endphp
@@ -421,13 +420,8 @@
                       <th>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો)</th>
                       <td>
                           {{ $pval->scheme_beneficiary_selection_criteria ?? '-' }}
-                        
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Beneficiary/Community selection Criteria File (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો અહેવાલ.)</th>
-                      <td>
-                         @if($pval->beneficiary_selection_criteria_file == '')
+                          <br>
+                          @if($pval->beneficiary_selection_criteria_file != '')
                            
                             @php  
                               $extension = pathinfo($pval->beneficiary_selection_criteria_file, PATHINFO_EXTENSION);
@@ -442,6 +436,7 @@
                           @endif
                       </td>
                     </tr>
+                   
                     <tr>
                       <th>Expected Major Benefits Derived from the Scheme(યોજનાના અપેક્ષિત મુખ્ય લાભો)</th>
                       <td>
@@ -493,7 +488,7 @@
                       <th>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું) </th>
                       <td>{{$pval->implementing_procedure}} <br><br>
                      
-                        @if($pval->implementing_procedure_file == '')
+                        @if($pval->implementing_procedure_file != '')
 
                           @php  
                             $extension = pathinfo($pval->implementing_procedure_file, PATHINFO_EXTENSION);

@@ -154,21 +154,21 @@
                     </tr>
                     <tr>
                         <td>14</td>
-                        <td>P. B. Punarvasu</td>
+                        <td>Shri P. B. Punarvasu</td>
                         <td>Research Officer</td>
                         <td>-</td>
                         <td>-</td>
                     </tr>
                     <tr>
                         <td>15</td>
-                        <td>H. N. Manani</td>
+                        <td>Shri H. N. Manani</td>
                         <td>Research Officer</td>
                         <td>-</td>
                         <td>-</td>
                     </tr>
                     <tr>
                         <td>16</td>
-                        <td>C. H. Danak</td>
+                        <td>Shri C. H. Danak</td>
                         <td>Research Officer</td>
                         <td>-</td>
                         <td>-</td>

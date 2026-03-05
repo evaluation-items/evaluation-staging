@@ -3449,133 +3449,268 @@ class SchemeController extends Controller {
     }
     public function print($draft_id)
     {
-       $proposal = Proposal::where('draft_id', $draft_id)
-            ->latest()->first(); // better than pluck
+        // Fetch data
+        $proposal = Proposal::where('draft_id', $draft_id)->latest()->first();
+        
+        if (!$proposal) {
+            abort(404, 'Proposal not found');
+        }
 
         $financial_progress = FinancialProgress::where('scheme_id', $proposal->scheme_id)->get();
-
-        //Condition: Financial Year Available?
-        $isCompleted = FinancialProgress::where('scheme_id', $proposal->scheme_id)->exists();
+        $isCompleted = $financial_progress->isNotEmpty();
+        
+        // Build rows and count
         $rows = '';
+        foreach ($financial_progress as $fpv) {
+            $rows .= '
+            <tr>
+                <td>'.$fpv->financial_year.'</td>
+                <td>'.units($fpv->selection).'</td>
+                <td>'.$fpv->target.'</td>
+                <td>'.$fpv->achievement.'</td>
+                <td>'.$fpv->allocation.'</td>
+                <td>'.$fpv->expenditure.'</td>
+            </tr>';
+        }
 
-            if ($financial_progress->count()) {
-                foreach ($financial_progress as $fpv) {
-                    $rows .= '
-                    <tr>
-                        <td>'.$fpv->financial_year.'</td>
-                        <td>'.units($fpv->selection).'</td>
-                        <td>'.$fpv->target.'</td>
-                        <td>'.$fpv->achievement.'</td>
-                        <td>'.$fpv->allocation.'</td>
-                        <td>'.$fpv->expenditure.'</td>
-                    </tr>';
-                }
-            }
     
-        $html = '<!DOCTYPE html>
+        $rowCount = $financial_progress->count();
+        $totalRowspan = $rowCount + 2;
+        $evaluationRows = '';
+        if ($proposal->is_evaluation == 'Y') {
+            $evaluationRows .= '
+                <tr><td><strong>By Whom? (કોના દ્વારા?)</strong></td><td>'.$proposal->eval_scheme_bywhom.'</td></tr>
+                <tr><td><strong>When? (ક્યારે?)</strong></td><td>'.$proposal->eval_scheme_when.'</td></tr>
+                <tr><td><strong>Geographical coverage of Beneficiaries <br> (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર)</strong></td><td>'.$proposal->eval_geographical_coverage_beneficiaries.'</td></tr>
+                <tr><td><strong>No. of beneficiaries in sample <br> (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા)</strong></td><td>'.$proposal->eval_scheme_major_recommendation.'</td></tr>
+                <tr><td><strong>Report File (અહેવાલ)</strong></td><td>'.($proposal->eval_upload_report ?: 'No file uploaded').'</td></tr>';
+        }
+        if($proposal->convener_designation == 'ds'){
+            $name = 'Deputy Secretary';
+        }elseif($proposal->convener_designation == 'js'){
+            $name = 'Joint Secretary';
+        }elseif($proposal->convener_designation == 'as'){
+            $name = 'Additional Secretary';   
+        }else{
+            $name = $proposal->convener_designation;
+        } 
+       // 1. Prepare the arrays (using $proposal instead of $pval)
+        $names      = array_map('trim', explode(',', $proposal->hod_officer_name ?? ''));
+        $emails     = array_map('trim', explode(',', $proposal->hod_email ?? ''));
+        $contacts   = array_map('trim', explode(',', $proposal->implementing_office_contact ?? ''));
+        $hod_mobile = array_map('trim', explode(',', $proposal->hod_mobile ?? ''));
+
+        $officerRows = ''; 
+        // 2. Build the rows
+        foreach ($names as $i => $name) {
+            // Optional: Add a separator header if there are multiple officers
+            if (count($names) > 1) {
+                $officerRows .= '<tr><th colspan="2" style="background-color: #eeeeee; text-align: center;">Officer ' . ($i + 1) . '</th></tr>';
+            }
+
+            $officerRows .= '
+            <tr>
+                <th class="label">Name</th>
+                <td>' . ($name ?: '-') . '</td>
+            </tr>
+            <tr>
+                <th class="label">Email Address</th>
+                <td>' . ($emails[$i] ?? '-') . '</td>
+            </tr>
+            <tr>
+                <th class="label">Contact No</th>
+                <td>' . ($contacts[$i] ?? '-') . '</td>
+            </tr>
+            <tr>
+                <th class="label">Mobile No</th>
+                <td>' . ($hod_mobile[$i] ?? '-') . '</td>
+            </tr>';
+        }
+        $entered = '';
+        $goals = Sdggoals::where('status','1')->orderBy('goal_id','desc')->get();
+
+         if(json_decode($proposal->is_sdg) != 'no data'){
+             foreach($goals as $k => $g){
+                if(in_array($g->goal_id,json_decode($proposal->is_sdg))){
+                    $entered .='<p>'.$g->goal_name.' ('. $g->goal_name_guj.')</p>';
+                }
+             }
+         }
+        // --- START DISTRICT FETCHING LOGIC ---
+       // 1. Fetch the JSON string and decode it into an array
+            $enteredDistrictsJson = Scheme::where('scheme_id', $proposal->scheme_id)->value('districts');
+            $enteredDistricts = json_decode($enteredDistrictsJson, true) ?? []; 
+
+            // 2. Fetch all districts from the master table
+            $allDistricts = Districts::select('dcode', 'name_e')
+                ->orderBy('name_e', 'asc')
+                ->get();
+
+            $itemsHtml = [];
+            foreach ($allDistricts as $district) {
+                $dcode = (string)$district->dcode;
+                
+                // Check if dcode exists in the decoded JSON array
+                $isChecked = in_array($dcode, $enteredDistricts) ? '&#9745;' : '&#9744;';
+                
+                // Format name (e.g., AHMEDABAD -> Ahmedabad)
+                $name = ucwords(strtolower($district->name_e));
+
+                $itemsHtml[] = '
+                    <div style="margin-bottom: 2px; white-space: nowrap;">
+                        <span style="font-family: DejaVuSans, sans-serif; font-size: 13px;">'.$isChecked.'</span>
+                        <span style="margin-left: 4px; font-size: 10px;">'.$name.'</span>
+                    </div>';
+            }
+
+            // 3. Create the 4-column layout
+            $totalCols = 4;
+            $chunks = array_chunk($itemsHtml, ceil(count($itemsHtml) / $totalCols));
+
+            $districtTable = '<table style="border:none; width:100%;">';
+            $districtTable .= '<tr>';
+            foreach ($chunks as $chunk) {
+                $districtTable .= '<td style="border:none; width:25%; padding:0; vertical-align:top;">';
+                $districtTable .= implode('', $chunk);
+                $districtTable .= '</td>';
+            }
+            // Fill remaining empty columns if necessary
+            for ($i = count($chunks); $i < $totalCols; $i++) {
+                $districtTable .= '<td style="border:none; width:25%;"></td>';
+            }
+            $districtTable .= '</tr></table>';
+       
+    
+        // --- END DISTRICT FETCHING LOGIC ---      
+    $html = '
+        <!DOCTYPE html>
         <html>
         <head>
             <meta charset="utf-8">
-            <title>Proposal Detail</title>
             <style>
-                body {
-                    font-family: sans-serif;
-                    font-size: 12px;
-                }
-
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
-
-                table, td, th {
-                    border: 1px solid #000;
-                }
-
-                td, th {
-                    padding: 6px;
-                    vertical-align: top;
-                    page-break-inside: avoid;
-                }
-
-                .title {
-                    text-align: center;
-                    font-weight: bold;
-                    font-size: 16px;
-                    margin-bottom: 15px;
-                }
-                tr {
-                    page-break-inside: avoid;
-                }
+                body { font-family: "notosansgujarati", sans-serif; font-size: 12px; }
+                table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                table, td, th { border: 1px solid #000; }
+                td, th { padding: 6px; vertical-align: top; }
+                .title { text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 15px; }
             </style>
         </head>
         <body>
-
-        <div class="title">Proposal Detail</div>
+            <div class="title">Proposal Detail</div>
+        
         <table>
+            <tr><td class="label"><strong>Department Name (વિભાગનું નામ)</strong></td><td>'.department_name($proposal->dept_id).'</td></tr>
+            <tr><td class="label"><strong>Whether evaluation of this scheme already done in past? <br> (આ યોજનાનું મૂલ્યાંકન અગાઉ થઈ ચૂકેલ છે?)</strong></td><td>'.($proposal->is_evaluation == "Y" ? "Yes" : "No").'</td></tr>
+            '.$evaluationRows.'
+            <tr><td class="label"><strong>Name of the Nodal Officer (નોડલ અધિકારીનું નામ)</strong></td><td>'.$proposal->convener_name.'</td></tr>
+            <tr><td class="label"><strong>Designation of the Nodal Officer (નોડલ અધિકારીનો હોદ્દો)</strong></td><td>'.$name.'</td></tr>
+            <tr><td class="label"><strong>Contact Number of the Nodal Officer (નોડલ અધિકારીનો સંપર્ક નંબર)</strong></td><td>'.$proposal->convener_phone.'</td></tr>
+            <tr><td class="label"><strong>Mobile Number of the Nodal Officer (નોડલ અધિકારીનો મોબાઇલ નંબર)</strong></td><td>'.$proposal->convener_mobile.'</td></tr>
+            <tr><td class="label"><strong>Email Address of the Nodal Officer (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</strong></td><td>'.$proposal->convener_email.'</td></tr>
+            <tr><td class="label"><strong>Name of the scheme/ Programe to be evaluated (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજના/કાર્યક્રમનું નામ)</strong></td><td>'.$proposal->scheme_name.'</td></tr>
+            <tr><td class="label"><strong>Short Name of the scheme/ Programe to be evaluated <br> (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)</strong></td><td>'.($proposal->scheme_short_name ?? '-').'</td></tr>
+            <tr><td class="label"><strong>Name of the Financial Adviser (નાણાકીય સલાહકારનું નામ)</strong></td><td>'.$proposal->financial_adviser_name.'</td></tr>
+            <tr><td class="label"><strong>Contact Number of the Financial Adviser (નાણાકીય સલાહકારનો સંપર્ક નંબર)</strong></td><td>'.$proposal->financial_adviser_phone.'</td></tr>
+            <tr><td class="label"><strong>Mobile Number of the Financial Adviser (નાણાકીય સલાહકારનો મોબાઇલ નંબર)</strong></td><td>'.$proposal->financial_adviser_mobile.'</td></tr>
+            <tr><td class="label"><strong>Email Address of the Financial Adviser (નાણાકીય સલાહકારનું ઇમેઇલ એડ્રેસ)</strong></td><td>'.$proposal->financial_adviser_email.'</td></tr>
+            <tr><td class="label"><strong>The Reference year for which the Evaluation study to be done (મૂલ્યાંકન અભ્યાસ માટેનું સંદર્ભ વર્ષ)</strong></td><td> From: '.$proposal->reference_year.'<br> To: '.$proposal->reference_year2.'</td></tr>
+            <tr><td class="label"><strong>Major Objective of the Evaluation study (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ)</strong></td><td>'.$proposal->major_objective.'
+            <br><br>'.$proposal->major_objective_file.'</td></tr>
+            <tr><td class="label"><strong>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો)</strong></td><td>'.$proposal->major_indicator.'<br><br>'.$proposal->major_indicator_file.'</td></tr>
+            <tr><td class="label"><strong>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો)</strong></td><td>'.$proposal->major_indicator.'<br><br>'.$proposal->major_indicator_file.'</td></tr>
+            <tr><td class="label"><strong>Name of the HOD / Branch (કચેરી/શાખાનું નામ)</strong></td><td>'.hod_name($proposal->draft_id).'</td></tr>'.$officerRows.'
+            <tr><td class="label"><strong>Name of the Nodal Officer (HOD) (નોડલ અધિકારીનું નામ)</strong></td><td>'.$proposal->nodal_officer_name.'</td></tr>
+            <tr><td class="label"><strong>Designation of the Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)</strong></td><td>'.$proposal->nodal_officer_designation.'</td></tr>
+            <tr><td class="label"><strong>Contact Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો સંપર્ક નંબર)</strong></td><td>'.$proposal->nodal_officer_contact.'</td></tr>
+            <tr><td class="label"><strong>Mobile Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો મોબાઇલ નંબર)</strong></td><td>'.$proposal->nodal_officer_mobile.'</td></tr>
+            <tr><td class="label"><strong>Email Address of the Nodal Officer(HOD) (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</strong></td><td>'.$proposal->nodal_officer_email.'</td></tr>
+            <tr><td class="label"><strong>Fund Flow Central Govt. (યોજના માટેનો નાણાકીય સ્ત્રોત્ર કેદ્ર: __%)</strong></td><td>'.$proposal->center_ratio.'</td></tr>
+            <tr><td class="label"><strong>Fund Flow State Govt. (યોજના માટેનો નાણાકીય સ્ત્રોત્ર રાજ્ય: __%)</strong></td><td>'.$proposal->state_ratio.'</td></tr>
+            <tr><td class="label"><strong>Fund Flow State Govt. (યોજના માટેનો નાણાકીય સ્ત્રોત્ર અન્ય: __%)</strong></td><td>'.($proposal->other_ratio ?? 0).'</td></tr>
+            <tr><td class="label"><strong>Remarks</strong></td><td>'.($proposal->both_ration ?? '-').'</td></tr>
+            <tr><td class="label"><strong>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય)</strong></td><td>'.$proposal->scheme_overview.'<br><br>'.$proposal->next_scheme_overview_file.'</td></tr>
+            <tr><td class="label"><strong>Objectives of the scheme (યોજનાના હેતુઓ)</strong></td><td>'.$proposal->scheme_objective.'<br><br>'.$proposal->scheme_objective_file.'</td></tr>
+            <tr><td class="label"><strong>Name of Sub-schemes/components (પેટા યોજનાનું નામ/ઘટકો)</strong></td><td>'.$proposal->sub_scheme.'<br><br>'.$proposal->next_scheme_components_file.'</td></tr>
+            <tr><td class="label"><strong>Year of actual commencement of the scheme (યોજનાનું ખરેખર અમલીકરણ શરૂ થયા વર્ષ)</strong></td><td>'.$proposal->commencement_year.'</td></tr>
+            <tr><td class="label"><strong>Present status of the scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)</strong></td><td>'.($proposal->scheme_status == 'Y' ? ' Operational (કાર્યરત)' : 'Non-operational (બિન-કાર્યરત)').'</td></tr>
+            <tr><td class="label"><strong>Sustainable Development Goals (SDG): Which specific goal(s) does this scheme follow? (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ (SDG): આ યોજના કયા ચોક્કસ લક્ષ્યાંકોને અનુસરે છે?)</strong></td><td>'.$entered.'</td></tr>
+            <tr><td class="label"><strong>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો)</strong></td><td>'.$proposal->scheme_beneficiary_selection_criteria.'<br><br>'.$proposal->beneficiary_selection_criteria_file.'</td></tr>
+            <tr><td class="label"><strong>Expected Major Benefits Derived from the Scheme(યોજનાના અપેક્ષિત મુખ્ય લાભો)</strong></td><td>'.$proposal->major_benefits_text.'<br><br>'.$proposal->major_benefits.'</td></tr>
+            <tr><td class="label"><strong>Implementing procedure of the Scheme (યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)</strong></td><td>'.$proposal->scheme_implementing_procedure.'<br><br>'.$proposal->scheme_implement_file.'</td></tr>
+            <tr><td class="label"><strong>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું)</strong></td><td>'.$proposal->implementing_procedure.'<br><br>'.$proposal->implementing_procedure_file.'</td></tr>
             <tr>
-                <td><strong>Department Name</strong></td>
-                <td>'.$proposal->department_name.'</td>
+                <th style="width: 30%; background-color: #f8f9fa; vertical-align: top;">
+                    <strong>Geographical Coverage</strong> <br>
+                    (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ)
+                </th>
+                <td style="vertical-align: top;">
+                    <div style="font-weight: bold; margin-bottom: 5px;">
+                        District Wise Selection
+                    </div>
+                    <hr style="border-top: 1px solid #eee; margin-bottom: 10px; border-bottom:none;">
+                    ' . $districtTable . '
+                </td>
             </tr>
+            <tr><td class="label"><strong>Remarks</strong></td><td>'.$proposal->otherbeneficiariesGeoLocal.'</td></tr>
 
-            <tr>
-                <td><strong>Nodal Officer</strong></td>
-                <td>'.$proposal->nodal_officer.'</td>
-            </tr>
-            <tr>
-                <td><strong>Name of the Nodal Officer (નોડલ અધિકારીનું નામ)</strong></td>
-                <td>'.$proposal->convener_name.'</td>
-            </tr>
+            
+
         </table>
-            <table>
-                    <tr>
-                    <th rowspan="'.($financial_progress->count() + 2).'">
-                    Financial & Physical Progress
-                    </th>
+
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="'.$totalRowspan.'">Financial & Physical Progress</th>
                     <th rowspan="2">Financial Year</th>
                     <th colspan="3">Physical</th>
                     <th colspan="2">Financial</th>
-                    </tr>
-                    <tr>
+                </tr>
+                <tr>
                     <th>Unit</th>
                     <th>Target</th>
                     <th>Achievement</th>
                     <th>Provision</th>
                     <th>Expenditure</th>
-                    </tr>
-                    '.$rows.'
-                    </table>
-        </body>
-        </html>';
+                </tr>
+            </thead>
+            <tbody>
+                '.($rows ?: '<tr><td colspan="6" style="text-align:center">No records found</td></tr>').'
+            </tbody>
+        </table>
+    </body>
+    </html>';
 
-        $mpdf = new Mpdf([
-            'tempDir' => sys_get_temp_dir(),
+
+        // Initialize mPDF with explicit font settings
+        $mpdf = new \Mpdf\Mpdf([
+            'tempDir' => storage_path('app/public/temp'),
             'mode' => 'utf-8',
+            'format' => 'A4',
             'autoScriptToLang' => true,
             'autoLangToFont' => true,
-            'format' => 'A4',
-            'margin_top' => 20,
-            'margin_bottom' => 15,
+            'allow_charset_conversion' => false,
+            'custom_font_data' => [
+                'notosansgujarati' => [
+                    'R' => 'NotoSansGujarati-Regular.ttf',
+                    'B' => 'NotoSansGujarati-Bold.ttf',
+                ]
+            ]
         ]);
 
-        // ✅ Watermark Condition
-        if ($isCompleted) {
-            $mpdf->SetWatermarkText('COMPLETED');
-        } else {
-            $mpdf->SetWatermarkText('DRAFT');
-        }
-
+        // Watermark Logic
+        $mpdf->SetWatermarkText($isCompleted ? 'COMPLETED' : 'DRAFT');
         $mpdf->showWatermarkText = true;
-        $mpdf->watermarkTextAlpha = 0.1; // transparency
-        $mpdf->watermark_font = 'Arial';
-        $mpdf->SetAutoPageBreak(true, 10);
-        $mpdf->SetFooter('{PAGENO} / {nbpg}');
+        $mpdf->watermarkTextAlpha = 0.1;
+        $mpdf->watermark_font = 'DejaVuSansCondensed'; 
 
         $mpdf->WriteHTML($html);
-
-        return response($mpdf->Output('proposal.pdf', 'I'))
-            ->header('Content-Type', 'application/pdf');
+        
+        //$filename = 'proposal.pdf';
+        return response($mpdf->Output('proposal.pdf', 'I'))->header('Content-Type', 'application/pdf');
+        // return response($mpdf->Output($filename, 'S'), 200, [
+        //     'Content-Type' => 'application/pdf',
+        //     'Content-Disposition' => "attachment; filename*=UTF-8''" . rawurlencode($filename)
+        // ]);
     }
-
 }
 ?>
