@@ -3579,24 +3579,53 @@ class SchemeController extends Controller {
                 $districtTable .= '<td style="border:none; width:25%;"></td>';
             }
             $districtTable .= '</tr></table>';
-       
     
-        // --- END DISTRICT FETCHING LOGIC ---      
+        // --- END DISTRICT FETCHING LOGIC ---  
+        $formatFiles = function($files) {
+        if (!$files || empty($files) || count($files) == 0) return '-';
+        $output = '';
+        foreach ($files as $f) {
+            // Some relations return objects, some return strings. 
+            // We ensure we get the string value of the filename.
+            $name = is_object($f) ? ($f->file_name ?? $f->name) : $f;
+            $output .= '• ' . $name . '<br>';
+        }
+        return $output;
+    };
+        
+        // --- Convergence Logic ---
+        $convergenceRows = '';
+        if(json_decode($proposal->all_convergence) != null) {
+            foreach(json_decode($proposal->all_convergence) as $vc) {
+                $dept_name = Department::where('dept_id', $vc->dept_id)->value('dept_name') ?? 'No department';
+                
+                $convergenceRows .= '
+                <tr>
+                    <th class="label">Convergence with other scheme <br> (અન્ય યોજનાઓ સાથે યોજનાનું જોડાણ)</th>
+                    <td>
+                        <strong>Department:</strong> '.$dept_name.'<br>
+                        <strong>Remarks:</strong> '.($vc->dept_remarks ?? '-').'
+                    </td>
+                </tr>';
+            }
+        }
     $html = '
         <!DOCTYPE html>
         <html>
         <head>
-            <meta charset="utf-8">
-            <style>
-                body { font-family: "notosansgujarati", sans-serif; font-size: 12px; }
-                table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-                table, td, th { border: 1px solid #000; }
-                td, th { padding: 6px; vertical-align: top; }
-                .title { text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 15px; }
-            </style>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+           <style>
+    body { font-family: "notosansgujarati", sans-serif; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
+    th, td { border: 1px solid #444; padding: 6px; font-size: 11px; vertical-align: top; word-wrap: break-word; }
+    th { background-color: #f2f2f2; font-weight: bold; }
+    .main-title { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 15px; }
+    .progress-header { width: 30%; font-size: 10px; }
+</style>
+
         </head>
         <body>
-            <div class="title">Proposal Detail</div>
+        <div class="main-title">SCHEME EVALUATION PROPOSAL DETAIL</div>
         
         <table>
             <tr><td class="label"><strong>Department Name (વિભાગનું નામ)</strong></td><td>'.department_name($proposal->dept_id).'</td></tr>
@@ -3651,16 +3680,61 @@ class SchemeController extends Controller {
                     ' . $districtTable . '
                 </td>
             </tr>
-            <tr><td class="label"><strong>Remarks</strong></td><td>'.$proposal->otherbeneficiariesGeoLocal.'</td></tr>
+            <tr><td class="label"><strong>Remarks</strong></td><td>'.($proposal->otherbeneficiariesGeoLocal ?? '-').'</td></tr>
+            <tr><td class="label"><strong>Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ) <br>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ)</strong></td><td>'.$proposal->coverage_beneficiaries_remarks.'<br><br>'.$proposal->beneficiaries_coverage.'</td></tr>
+            <tr><td class="label"><strong>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી)</strong></td><td>'.$proposal->training_capacity_remarks.'<br><br>'.$proposal->training.'</td></tr>
+            <tr><td class="label"><strong>IEC activities (પ્રચાર પ્રસારની કામગીરી)</strong></td><td>'.$proposal->iec_activities_remarks.'<br><br>'.$proposal->iec.'</td></tr>
+            <tr><td class="label"><strong>Asset/Service creation & its maintenance plan if any (યોજના દ્વારા ઊભી થયેલ સંપત્તિ/સેવા અને તેની જાળવણી, જો હોય તો)</strong></td><td>'.($proposal->benefit_to ?? '-').'</td></tr>
+        
+        ' . $convergenceRows . '
 
-            
+        <tr>
+            <th class="label">GR (ઠરાવો)</th>
+            <td>' .$formatFiles($proposal->gr_file) . '</td>
+        </tr>
 
+        <tr>
+            <th class="label">Notification (જાહેરનામું)</th>
+            <td>' .$formatFiles($proposal->notification_files) . '</td>
+        </tr>
+
+        <tr>
+            <th class="label">Brochure (બ્રોશર)</th>
+            <td>' .$formatFiles($proposal->brochure_files) . '</td>
+        </tr>
+
+        <tr>
+            <th class="label">Pamphlets (પેમ્ફલેટ્સ)</th>
+            <td>' .$formatFiles($proposal->pamphlets_files) . '</td>
+        </tr>
+
+        <tr>
+            <th class="label">Other Details (યોજનાને લાગતું અન્ય વિગત)</th>
+            <td>' .$formatFiles($proposal->otherdetailscenterstate_files) . '</td>
+        </tr>
+
+        <tr>
+            <th class="label">Beneficiary Filling form <br> (લાભાર્થી ભરવાનું ફોર્મ)</th>
+            <td>
+                ' . (($proposal->beneficiary_filling_form_type == 0) ? 'Yes' : 'No') . '
+                ' . ($proposal->beneficiary_filling_form ? '<br>File: ' . $proposal->beneficiary_filling_form : '') . '
+            </td>
+        </tr>
+
+        <tr>
+            <th class="label">Major Monitoring Indicator at HOD Level <br> (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ)</th>
+            <td>' . ($proposal->major_indicator_hod ?? '-') . '</td>
+        </tr>
+
+        <tr>
+            <th class="label">Physical and Financial Progress Remarks</th>
+            <td>' . ($proposal->fin_progress_remarks ?? '-') . '</td>
+        </tr>
         </table>
-
         <table>
             <thead>
                 <tr>
-                    <th rowspan="'.$totalRowspan.'">Financial & Physical Progress</th>
+                    <th class="progress-header" rowspan="'.$totalRowspan.'">Financial & Physical Progress  (component wise) of the Last Five Years/Beginning of the Plan (યોજના ની શરૂઆત/છેલ્લા પાંચ વર્ષની વર્ષવાર નાણાકીય અને ભૌતિક પ્રગતિ (કમ્પોનેટ વાઇઝ))</th>
                     <th rowspan="2">Financial Year</th>
                     <th colspan="3">Physical</th>
                     <th colspan="2">Financial</th>
@@ -3677,6 +3751,7 @@ class SchemeController extends Controller {
                 '.($rows ?: '<tr><td colspan="6" style="text-align:center">No records found</td></tr>').'
             </tbody>
         </table>
+        
     </body>
     </html>';
 
@@ -3686,22 +3761,39 @@ class SchemeController extends Controller {
             'tempDir' => storage_path('app/public/temp'),
             'mode' => 'utf-8',
             'format' => 'A4',
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 15,
+            'margin_bottom' => 15,
+            'margin_footer' => 5,
             'autoScriptToLang' => true,
             'autoLangToFont' => true,
-            'allow_charset_conversion' => false,
             'custom_font_data' => [
-                'notosansgujarati' => [
+                'shruti' => [
                     'R' => 'NotoSansGujarati-Regular.ttf',
-                    'B' => 'NotoSansGujarati-Bold.ttf',
+					'B' => 'NotoSansGujarati-Bold.ttf',
                 ]
             ]
         ]);
+     //  $mpdf->SetHeader('Proposal Report| |Generated on: ' . date('d-m-Y'));
 
-        // Watermark Logic
-        $mpdf->SetWatermarkText($isCompleted ? 'COMPLETED' : 'DRAFT');
-        $mpdf->showWatermarkText = true;
-        $mpdf->watermarkTextAlpha = 0.1;
-        $mpdf->watermark_font = 'DejaVuSansCondensed'; 
+$mpdf->SetFooter('
+    <table width="100%" style="font-size: 10px; border: none !important;">
+        <tr>
+            <td style="border: none !important;">{DATE j-m-Y}</td>
+            <td style="border: none !important; text-align: center;">' . ($isCompleted ? 'Completed' : 'Draft') . ' Proposal</td>
+            <td style="border: none !important; text-align: right;">Page {PAGENO} of {nbpg}</td>
+        </tr>
+    </table>
+');
+
+// 4. Watermark Logic
+$mpdf->watermark_font = 'dejavusanscondensed'; // Use Unicode-safe font for watermark
+$mpdf->SetWatermarkText($isCompleted ? 'COMPLETED' : 'DRAFT');
+$mpdf->showWatermarkText = true;
+$mpdf->watermarkTextAlpha = 0.08;
+
+        //$mpdf->watermark_font = 'DejaVuSansCondensed'; 
 
         $mpdf->WriteHTML($html);
         
@@ -3712,5 +3804,6 @@ class SchemeController extends Controller {
         //     'Content-Disposition' => "attachment; filename*=UTF-8''" . rawurlencode($filename)
         // ]);
     }
+    
 }
 ?>
