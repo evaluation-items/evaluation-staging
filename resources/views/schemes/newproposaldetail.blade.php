@@ -68,7 +68,10 @@
                 Download Final Report (PDF)
             </a>
         </div> --}}
-
+       
+        <a href="{{ route('proposal.print', [$proposal_list[0]->draft_id]) }}" target="_blank" class="btn btn-primary">
+          Print PDF
+        </a>
           <div class="wizard wizard-4" id="kt_wizard_v4" data-wizard-state="step-first" data-wizard-clickable="true">
             <div class="card card-custom card-shadowless rounded-top-0">
               <div class="card-body p-10">

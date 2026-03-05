@@ -71,7 +71,7 @@
                         <div class="form-group row">
                           <label for="inputEmail" class="col-sm-2 col-form-label">{{ __('message.email') }}</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control pattern" id="inputEmail" placeholder="Email" value="{{ Auth::user()->email }}" name="email">
+                            <input type="text" class="form-control pattern" id="inputEmail" placeholder="Email" value="{{ Auth::user()->email }}" name="email" readonly>
                             <span class="text-danger error-text email_error"></span>
                           </div>
                         </div>
