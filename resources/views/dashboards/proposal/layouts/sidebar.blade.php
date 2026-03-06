@@ -392,18 +392,21 @@ $('#admin_image').ijaboCropTool({
   });    
 });
 
-// MutationObserver watches for changes to the HTML
-    const emailInput = document.getElementById('inputEmail');
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === "attributes" && !emailInput.hasAttribute('readonly')) {
-                emailInput.setAttribute('readonly', 'readonly');
-                console.warn("Nice try! Readonly is enforced.");
-            }
-        });
-    });
+const emailInput = document.getElementById('inputEmail');
 
-    observer.observe(emailInput, { attributes: true });
+    // Only run if the element actually exists on the current page
+    if (emailInput) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                // If someone removes 'readonly', put it back immediately
+                if (mutation.type === "attributes" && !emailInput.hasAttribute('readonly')) {
+                    emailInput.setAttribute('readonly', 'readonly');
+                }
+            });
+        });
+
+        observer.observe(emailInput, { attributes: true });
+    }
 </script>
 
 </body>
