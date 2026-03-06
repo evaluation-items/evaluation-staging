@@ -270,10 +270,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
 $(function(){
 
-/* UPDATE ADMIN PERSONAL INFO */
-$('.phoneNumber').inputmask("(999) 999-9999");
-// $('#implementing_office_contact').inputmask("(999) 999-9999");
-// $('#financial_adviser_phone').inputmask("(999) 999-9999");
+$(document).on('input', '.mobile_number', function () {
+
+    let value = this.value;
+
+    // Convert Gujarati digits to English
+    value = value.replace(/[૦-૯]/g, function(d) {
+        return '૦૧૨૩૪૫૬૭૮૯'.indexOf(d);
+    });
+
+    // Remove non-numeric
+    value = value.replace(/[^0-9]/g, '');
+
+    this.value = value.slice(0, 10);
+
+    let $this = $(this);
+    let $group = $this.closest('.form-group');
+    $group.find('.mobile-error').remove();
+
+    if (value.length > 0) {
+
+        if (!/^[6-9]/.test(value)) {
+            $this.addClass('is-invalid');
+            $this.after('<div class="text-danger mobile-error">Mobile number must start with 6, 7, 8, or 9</div>');
+        }
+        else if (value.length < 10) {
+            $this.addClass('is-invalid');
+            $this.after('<div class="text-danger mobile-error">Please enter 10 digit mobile number</div>');
+        }
+        else {
+            $this.removeClass('is-invalid');
+        }
+    } else {
+        $this.removeClass('is-invalid');
+    }
+
+    toggleNextButton();
+});
+function toggleNextButton() {
+    if ($('.is-invalid').length > 0) {
+        $('.btn-success').prop('disabled', true);
+    } else {
+        $('.btn-success').prop('disabled', false);
+    }
+}
 $('#AdminInfoForm').on('submit', function(e){
     e.preventDefault();
 
@@ -342,15 +382,28 @@ $('#admin_image').ijaboCropTool({
                 $('span.'+prefix+'_error').text(val[0]);
               });
             }else{
-              $('#changePasswordAdminForm')[0].reset();
+              //$('#changePasswordAdminForm')[0].reset();
               alert(data.msg);
+              // Redirect to login because the session is now destroyed
+              window.location.href = "{{ route('login') }}";
             }
           }
       });
   });    
 });
 
+// MutationObserver watches for changes to the HTML
+    const emailInput = document.getElementById('inputEmail');
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === "attributes" && !emailInput.hasAttribute('readonly')) {
+                emailInput.setAttribute('readonly', 'readonly');
+                console.warn("Nice try! Readonly is enforced.");
+            }
+        });
+    });
 
+    observer.observe(emailInput, { attributes: true });
 </script>
 
 </body>

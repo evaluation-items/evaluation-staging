@@ -255,11 +255,23 @@ class ImplementationController extends Controller {
      $act['officecode'] = Auth::user()->dept_id;
      $act['pagereferred'] = $request->url();
      Activitylog::insert($act);
-     if( !$update ){
-         return response()->json(['status'=>0,'msg'=>'Something went wrong, Failed to update password in db']);
-     }else{
-         return response()->json(['status'=>1,'msg'=>'Your password has been changed successfully']);
-     }
+     if (!$update) {
+         return response()->json(['status' => 0, 'msg' => 'Something went wrong, Failed to update password in db']);
+        } else {
+            // 1. Log the user out on the server
+            Auth::logout();
+            
+            // 2. Invalidate the session for security
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            // 3. NOW return the success message
+            return response()->json([
+                'status' => 1, 
+                'msg' => 'Your password has been changed successfully. You will be redirected to login.'
+            ]);
+        }
+
     }
 }
     

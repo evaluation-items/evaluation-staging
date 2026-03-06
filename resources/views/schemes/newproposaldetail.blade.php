@@ -1,6 +1,31 @@
 @extends( Auth::user()->role == 25  ? 'dashboards.admins.layouts.admin-dash-layout' : ( Auth::user()->role_manage == 1    ? 'dashboards.gad-sec.layouts.gadsec-dash-layout'  : ( Auth::user()->role_manage == 2 ? 'dashboards.eva-dir.layouts.evaldir-dash-layout' : ( Auth::user()->role_manage == 3 || Auth::user()->role_manage == 4 ? 'dashboards.eva-dd.layouts.evaldd-dash-layout' : 'dashboards.proposal.layouts.sidebar'))))
 @section('title','Proposals - Detail')
 <style>
+    /* Use a @media print block to target the print dialog specifically */
+    @media print {
+        body, table, td, th {
+            font-family: 'notosansgujarati', sans-serif !important;
+            font-style: normal !important; /* This fixes the "Italian" look */
+            font-weight: 400 !important;
+        }
+    }
+
+    body { 
+        font-family: 'notosansgujarati', sans-serif; 
+    }
+
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+    }
+
+    td, th { 
+        border: 1px solid #444; 
+        font-style: normal !important; /* Double-check normal style */
+        text-align: left;
+    }
+</style>
+<style>
   .borderless {
     border:0px !important;
   }
@@ -55,23 +80,12 @@
   <div class="d-flex flex-column-fluid">
   <!--begin::Container-->
     <div class="container">
-      {{-- <div class="card card-custom card-transparent">
-          <div class="card-body p-0"> --}}
-          <!--begin: Wizard-->
-        {{-- <div class="d-flex justify-content-end mb-3">
-            <a
-                href="{{ route('proposal.final-report.pdf', Crypt::encrypt($proposal_list[0]->draft_id)) }}"
-                class="btn btn-danger"
-                target="_blank"
-            >
-                <i class="fas fa-file-pdf"></i>
-                Download Final Report (PDF)
-            </a>
-        </div> --}}
-       
-        <a href="{{ route('proposal.print', [$proposal_list[0]->draft_id]) }}" target="_blank" class="btn btn-primary">
-          Print PDF
-        </a>
+       <a href="{{ route('proposal.print', $proposal_list[0]->draft_id) }}#print" target="_blank" class="btn btn-primary">
+          <i class="fa fa-print"></i> Print Now
+      </a>
+      <button onclick="directPrint('{{ route('proposal.print', $proposal_list[0]->draft_id) }}')" class="btn btn-primary">
+          <i class="fa fa-print"></i> Direct Print
+      </button>
           <div class="wizard wizard-4" id="kt_wizard_v4" data-wizard-state="step-first" data-wizard-clickable="true">
             <div class="card card-custom card-shadowless rounded-top-0">
               <div class="card-body p-10">
@@ -885,6 +899,18 @@
         });
     }
 });
-
+function directPrint(url) {
+   const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = url;
+    document.body.appendChild(iframe);
+    
+    iframe.onload = function() {
+        setTimeout(function() {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }, 500); // Wait 0.5 seconds for font rendering to stabilize
+    };
+}
 </script> 
 @endsection
