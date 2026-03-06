@@ -3447,6 +3447,7 @@ class SchemeController extends Controller {
             $mpdf->Output($proposal->scheme_name . '.pdf', 'D')
         )->header('Content-Type', 'application/pdf');
     }
+      
     public function print($draft_id)
     {
         // Fetch data
@@ -3479,11 +3480,11 @@ class SchemeController extends Controller {
         $evaluationRows = '';
         if ($proposal->is_evaluation == 'Y') {
             $evaluationRows .= '
-                <tr><td><strong>By Whom? (કોના દ્વારા?)</strong></td><td>'.$proposal->eval_scheme_bywhom.'</td></tr>
-                <tr><td><strong>When? (ક્યારે?)</strong></td><td>'.$proposal->eval_scheme_when.'</td></tr>
-                <tr><td><strong>Geographical coverage of Beneficiaries <br> (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર)</strong></td><td>'.$proposal->eval_geographical_coverage_beneficiaries.'</td></tr>
-                <tr><td><strong>No. of beneficiaries in sample <br> (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા)</strong></td><td>'.$proposal->eval_scheme_major_recommendation.'</td></tr>
-                <tr><td><strong>Report File (અહેવાલ)</strong></td><td>'.($proposal->eval_upload_report ?: 'No file uploaded').'</td></tr>';
+                <tr><td><strong>By Whom? (કોના દ્વારા?)</td><td>'.$proposal->eval_scheme_bywhom.'</td></tr>
+                <tr><td><strong>When? (ક્યારે?)</td><td>'.$proposal->eval_scheme_when.'</td></tr>
+                <tr><td><strong>Geographical coverage of Beneficiaries <br> (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર)</td><td>'.$proposal->eval_geographical_coverage_beneficiaries.'</td></tr>
+                <tr><td><strong>No. of beneficiaries in sample <br> (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા)</td><td>'.$proposal->eval_scheme_major_recommendation.'</td></tr>
+                <tr><td><strong>Report File (અહેવાલ)</td><td>'.($proposal->eval_upload_report ?: 'No file uploaded').'</td></tr>';
         }
         if($proposal->convener_designation == 'ds'){
             $name = 'Deputy Secretary';
@@ -3582,16 +3583,16 @@ class SchemeController extends Controller {
     
         // --- END DISTRICT FETCHING LOGIC ---  
         $formatFiles = function($files) {
-        if (!$files || empty($files) || count($files) == 0) return '-';
-        $output = '';
-        foreach ($files as $f) {
-            // Some relations return objects, some return strings. 
-            // We ensure we get the string value of the filename.
-            $name = is_object($f) ? ($f->file_name ?? $f->name) : $f;
-            $output .= '• ' . $name . '<br>';
-        }
-        return $output;
-    };
+            if (!$files || empty($files) || count($files) == 0) return '-';
+            $output = '';
+            foreach ($files as $f) {
+                // Some relations return objects, some return strings. 
+                // We ensure we get the string value of the filename.
+                $name = is_object($f) ? ($f->file_name ?? $f->name) : $f;
+                $output .= '• ' . $name . '<br>';
+            }
+            return $output;
+        };
         
         // --- Convergence Logic ---
         $convergenceRows = '';
@@ -3603,195 +3604,185 @@ class SchemeController extends Controller {
                 <tr>
                     <th class="label">Convergence with other scheme <br> (અન્ય યોજનાઓ સાથે યોજનાનું જોડાણ)</th>
                     <td>
-                        <strong>Department:</strong> '.$dept_name.'<br>
-                        <strong>Remarks:</strong> '.($vc->dept_remarks ?? '-').'
+                        <strong>Department: '.$dept_name.'<br>
+                        <strong>Remarks: '.($vc->dept_remarks ?? '-').'
                     </td>
                 </tr>';
             }
         }
-    $html = '
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-           <style>
-    body { font-family: "notosansgujarati", sans-serif; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
-    th, td { border: 1px solid #444; padding: 6px; font-size: 11px; vertical-align: top; word-wrap: break-word; }
-    th { background-color: #f2f2f2; font-weight: bold; }
-    .main-title { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 15px; }
-    .progress-header { width: 30%; font-size: 10px; }
-</style>
+        $html = ' <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                    <style>
+                            body { font-family: "notosansgujarati", sans-serif; }
+                            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
+                            th, td { border: 1px solid #444; padding: 6px; font-size: 11px; vertical-align: top; word-wrap: break-word; }
+                            th { background-color: #f2f2f2; font-weight: bold; }
+                            .main-title { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 15px; }
+                            .progress-header { width: 30%; font-size: 10px; }
+                        </style>
 
-        </head>
-        <body>
-        <div class="main-title">SCHEME EVALUATION PROPOSAL DETAIL</div>
-        
-        <table>
-            <tr><td class="label"><strong>Department Name (વિભાગનું નામ)</strong></td><td>'.department_name($proposal->dept_id).'</td></tr>
-            <tr><td class="label"><strong>Whether evaluation of this scheme already done in past? <br> (આ યોજનાનું મૂલ્યાંકન અગાઉ થઈ ચૂકેલ છે?)</strong></td><td>'.($proposal->is_evaluation == "Y" ? "Yes" : "No").'</td></tr>
-            '.$evaluationRows.'
-            <tr><td class="label"><strong>Name of the Nodal Officer (નોડલ અધિકારીનું નામ)</strong></td><td>'.$proposal->convener_name.'</td></tr>
-            <tr><td class="label"><strong>Designation of the Nodal Officer (નોડલ અધિકારીનો હોદ્દો)</strong></td><td>'.$name.'</td></tr>
-            <tr><td class="label"><strong>Contact Number of the Nodal Officer (નોડલ અધિકારીનો સંપર્ક નંબર)</strong></td><td>'.$proposal->convener_phone.'</td></tr>
-            <tr><td class="label"><strong>Mobile Number of the Nodal Officer (નોડલ અધિકારીનો મોબાઇલ નંબર)</strong></td><td>'.$proposal->convener_mobile.'</td></tr>
-            <tr><td class="label"><strong>Email Address of the Nodal Officer (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</strong></td><td>'.$proposal->convener_email.'</td></tr>
-            <tr><td class="label"><strong>Name of the scheme/ Programe to be evaluated (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજના/કાર્યક્રમનું નામ)</strong></td><td>'.$proposal->scheme_name.'</td></tr>
-            <tr><td class="label"><strong>Short Name of the scheme/ Programe to be evaluated <br> (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)</strong></td><td>'.($proposal->scheme_short_name ?? '-').'</td></tr>
-            <tr><td class="label"><strong>Name of the Financial Adviser (નાણાકીય સલાહકારનું નામ)</strong></td><td>'.$proposal->financial_adviser_name.'</td></tr>
-            <tr><td class="label"><strong>Contact Number of the Financial Adviser (નાણાકીય સલાહકારનો સંપર્ક નંબર)</strong></td><td>'.$proposal->financial_adviser_phone.'</td></tr>
-            <tr><td class="label"><strong>Mobile Number of the Financial Adviser (નાણાકીય સલાહકારનો મોબાઇલ નંબર)</strong></td><td>'.$proposal->financial_adviser_mobile.'</td></tr>
-            <tr><td class="label"><strong>Email Address of the Financial Adviser (નાણાકીય સલાહકારનું ઇમેઇલ એડ્રેસ)</strong></td><td>'.$proposal->financial_adviser_email.'</td></tr>
-            <tr><td class="label"><strong>The Reference year for which the Evaluation study to be done (મૂલ્યાંકન અભ્યાસ માટેનું સંદર્ભ વર્ષ)</strong></td><td> From: '.$proposal->reference_year.'<br> To: '.$proposal->reference_year2.'</td></tr>
-            <tr><td class="label"><strong>Major Objective of the Evaluation study (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ)</strong></td><td>'.$proposal->major_objective.'
-            <br><br>'.$proposal->major_objective_file.'</td></tr>
-            <tr><td class="label"><strong>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો)</strong></td><td>'.$proposal->major_indicator.'<br><br>'.$proposal->major_indicator_file.'</td></tr>
-            <tr><td class="label"><strong>Major Monitoring Indicators for scheme to be evaluated (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો)</strong></td><td>'.$proposal->major_indicator.'<br><br>'.$proposal->major_indicator_file.'</td></tr>
-            <tr><td class="label"><strong>Name of the HOD / Branch (કચેરી/શાખાનું નામ)</strong></td><td>'.hod_name($proposal->draft_id).'</td></tr>'.$officerRows.'
-            <tr><td class="label"><strong>Name of the Nodal Officer (HOD) (નોડલ અધિકારીનું નામ)</strong></td><td>'.$proposal->nodal_officer_name.'</td></tr>
-            <tr><td class="label"><strong>Designation of the Nodal Officer(HOD) (નોડલ અધિકારીનો હોદ્દો)</strong></td><td>'.$proposal->nodal_officer_designation.'</td></tr>
-            <tr><td class="label"><strong>Contact Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો સંપર્ક નંબર)</strong></td><td>'.$proposal->nodal_officer_contact.'</td></tr>
-            <tr><td class="label"><strong>Mobile Number of the Nodal Officer (HOD) (નોડલ અધિકારીનો મોબાઇલ નંબર)</strong></td><td>'.$proposal->nodal_officer_mobile.'</td></tr>
-            <tr><td class="label"><strong>Email Address of the Nodal Officer(HOD) (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</strong></td><td>'.$proposal->nodal_officer_email.'</td></tr>
-            <tr><td class="label"><strong>Fund Flow Central Govt. (યોજના માટેનો નાણાકીય સ્ત્રોત્ર કેદ્ર: __%)</strong></td><td>'.$proposal->center_ratio.'</td></tr>
-            <tr><td class="label"><strong>Fund Flow State Govt. (યોજના માટેનો નાણાકીય સ્ત્રોત્ર રાજ્ય: __%)</strong></td><td>'.$proposal->state_ratio.'</td></tr>
-            <tr><td class="label"><strong>Fund Flow State Govt. (યોજના માટેનો નાણાકીય સ્ત્રોત્ર અન્ય: __%)</strong></td><td>'.($proposal->other_ratio ?? 0).'</td></tr>
-            <tr><td class="label"><strong>Remarks</strong></td><td>'.($proposal->both_ration ?? '-').'</td></tr>
-            <tr><td class="label"><strong>Overview of the scheme/Background of the scheme (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય)</strong></td><td>'.$proposal->scheme_overview.'<br><br>'.$proposal->next_scheme_overview_file.'</td></tr>
-            <tr><td class="label"><strong>Objectives of the scheme (યોજનાના હેતુઓ)</strong></td><td>'.$proposal->scheme_objective.'<br><br>'.$proposal->scheme_objective_file.'</td></tr>
-            <tr><td class="label"><strong>Name of Sub-schemes/components (પેટા યોજનાનું નામ/ઘટકો)</strong></td><td>'.$proposal->sub_scheme.'<br><br>'.$proposal->next_scheme_components_file.'</td></tr>
-            <tr><td class="label"><strong>Year of actual commencement of the scheme (યોજનાનું ખરેખર અમલીકરણ શરૂ થયા વર્ષ)</strong></td><td>'.$proposal->commencement_year.'</td></tr>
-            <tr><td class="label"><strong>Present status of the scheme (યોજનાના અમલની વર્તમાન સ્થિતિ)</strong></td><td>'.($proposal->scheme_status == 'Y' ? ' Operational (કાર્યરત)' : 'Non-operational (બિન-કાર્યરત)').'</td></tr>
-            <tr><td class="label"><strong>Sustainable Development Goals (SDG): Which specific goal(s) does this scheme follow? (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ (SDG): આ યોજના કયા ચોક્કસ લક્ષ્યાંકોને અનુસરે છે?)</strong></td><td>'.$entered.'</td></tr>
-            <tr><td class="label"><strong>Beneficiary/Community selection Criteria (લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો)</strong></td><td>'.$proposal->scheme_beneficiary_selection_criteria.'<br><br>'.$proposal->beneficiary_selection_criteria_file.'</td></tr>
-            <tr><td class="label"><strong>Expected Major Benefits Derived from the Scheme(યોજનાના અપેક્ષિત મુખ્ય લાભો)</strong></td><td>'.$proposal->major_benefits_text.'<br><br>'.$proposal->major_benefits.'</td></tr>
-            <tr><td class="label"><strong>Implementing procedure of the Scheme (યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)</strong></td><td>'.$proposal->scheme_implementing_procedure.'<br><br>'.$proposal->scheme_implement_file.'</td></tr>
-            <tr><td class="label"><strong>Administrative set up for Implementation of the scheme (યોજનાના અમલીકરણ માટેનું વહીવટી માળખું)</strong></td><td>'.$proposal->implementing_procedure.'<br><br>'.$proposal->implementing_procedure_file.'</td></tr>
-            <tr>
-                <th style="width: 30%; background-color: #f8f9fa; vertical-align: top;">
-                    <strong>Geographical Coverage</strong> <br>
-                    (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ)
-                </th>
-                <td style="vertical-align: top;">
-                    <div style="font-weight: bold; margin-bottom: 5px;">
-                        District Wise Selection
-                    </div>
-                    <hr style="border-top: 1px solid #eee; margin-bottom: 10px; border-bottom:none;">
-                    ' . $districtTable . '
-                </td>
-            </tr>
-            <tr><td class="label"><strong>Remarks</strong></td><td>'.($proposal->otherbeneficiariesGeoLocal ?? '-').'</td></tr>
-            <tr><td class="label"><strong>Scheme coverage since inception of the scheme (યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ) <br>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ)</strong></td><td>'.$proposal->coverage_beneficiaries_remarks.'<br><br>'.$proposal->beneficiaries_coverage.'</td></tr>
-            <tr><td class="label"><strong>Training/Capacity building of facilitators (સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી)</strong></td><td>'.$proposal->training_capacity_remarks.'<br><br>'.$proposal->training.'</td></tr>
-            <tr><td class="label"><strong>IEC activities (પ્રચાર પ્રસારની કામગીરી)</strong></td><td>'.$proposal->iec_activities_remarks.'<br><br>'.$proposal->iec.'</td></tr>
-            <tr><td class="label"><strong>Asset/Service creation & its maintenance plan if any (યોજના દ્વારા ઊભી થયેલ સંપત્તિ/સેવા અને તેની જાળવણી, જો હોય તો)</strong></td><td>'.($proposal->benefit_to ?? '-').'</td></tr>
-        
-        ' . $convergenceRows . '
+                    </head>
+                    <body>
+                    <div class="main-title">SCHEME EVALUATION PROPOSAL DETAIL</div>
+                    
+                    <table>
+                        <tr><td class="label"><strong>Department Name</strong> (વિભાગનું નામ)</td><td>'.department_name($proposal->dept_id).'</td></tr>
+                        <tr><td class="label"><strong>Whether evaluation of this scheme already done in past?</strong>  <br> (આ યોજનાનું મૂલ્યાંકન અગાઉ થઈ ચૂકેલ છે?)</td><td>'.($proposal->is_evaluation == "Y" ? "Yes" : "No").'</td></tr>
+                        '.$evaluationRows.'
+                        <tr><td class="label"><strong>Name of the Nodal Officer </strong>(નોડલ અધિકારીનું નામ)</td><td>'.$proposal->convener_name.'</td></tr>
+                        <tr><td class="label"><strong>Designation of the Nodal Officer </strong> (નોડલ અધિકારીનો હોદ્દો)</td><td>'.$name.'</td></tr>
+                        <tr><td class="label"><strong>Contact Number of the Nodal Officer </strong>(નોડલ અધિકારીનો સંપર્ક નંબર)</td><td>'.$proposal->convener_phone.'</td></tr>
+                        <tr><td class="label"><strong>Mobile Number of the Nodal Officer</strong> (નોડલ અધિકારીનો મોબાઇલ નંબર)</td><td>'.$proposal->convener_mobile.'</td></tr>
+                        <tr><td class="label"><strong>Email Address of the Nodal Officer</strong>  (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</td><td>'.$proposal->convener_email.'</td></tr>
+                        <tr><td class="label"><strong>Name of the scheme/ Programe to be evaluated</strong>  (કરવાના થતા મૂલ્યાંકન અભ્યાસ માટેના યોજના/કાર્યક્રમનું નામ)</td><td>'.$proposal->scheme_name.'</td></tr>
+                        <tr><td class="label"><strong>Short Name of the scheme/ Programe to be evaluated </strong> <br> (મૂલ્યાંકન કરવાની યોજના/કાર્યક્રમનું ટૂંકું નામ)</td><td>'.($proposal->scheme_short_name ?? '-').'</td></tr>
+                        <tr><td class="label"><strong>Name of the Financial Adviser</strong> (નાણાકીય સલાહકારનું નામ)</td><td>'.$proposal->financial_adviser_name.'</td></tr>
+                        <tr><td class="label"><strong>Contact Number of the Financial Adviser</strong> (નાણાકીય સલાહકારનો સંપર્ક નંબર)</td><td>'.$proposal->financial_adviser_phone.'</td></tr>
+                        <tr><td class="label"><strong>Mobile Number of the Financial Adviser</strong> (નાણાકીય સલાહકારનો મોબાઇલ નંબર)</td><td>'.$proposal->financial_adviser_mobile.'</td></tr>
+                        <tr><td class="label"><strong>Email Address of the Financial Adviser</strong> (નાણાકીય સલાહકારનું ઇમેઇલ એડ્રેસ)</td><td>'.$proposal->financial_adviser_email.'</td></tr>
+                        <tr><td class="label"><strong>The Reference year for which the Evaluation study to be done</strong> (મૂલ્યાંકન અભ્યાસ માટેનું સંદર્ભ વર્ષ)</td><td> From: '.$proposal->reference_year.'<br> To: '.$proposal->reference_year2.'</td></tr>
+                        <tr><td class="label"><strong>Major Objective of the Evaluation study</strong> (મૂલ્યાંકન અભ્યાસના મુખ્ય હેતુઓ)</td><td>'.$proposal->major_objective.'
+                        <br><br>'.$proposal->major_objective_file.'</td></tr>
+                        <tr><td class="label"><strong>Major Monitoring Indicators for scheme to be evaluated</strong> (મૂલ્યાંકન હાથ ધરવાની થતી યોજનાની સમીક્ષાના મુખ્ય માપદંડો)</td><td>'.$proposal->major_indicator.'<br><br>'.$proposal->major_indicator_file.'</td></tr>
+                        <tr><td class="label"><strong>Name of the HOD / Branch </strong>(કચેરી/શાખાનું નામ)</td><td>'.hod_name($proposal->draft_id).'</td></tr>'.$officerRows.'
+                        <tr><td class="label"><strong>Name of the Nodal Officer (HOD) </strong>(નોડલ અધિકારીનું નામ)</td><td>'.$proposal->nodal_officer_name.'</td></tr>
+                        <tr><td class="label"><strong>Designation of the Nodal Officer(HOD) </strong>(નોડલ અધિકારીનો હોદ્દો)</td><td>'.$proposal->nodal_officer_designation.'</td></tr>
+                        <tr><td class="label"><strong>Contact Number of the Nodal Officer (HOD) </strong>(નોડલ અધિકારીનો સંપર્ક નંબર)</td><td>'.$proposal->nodal_officer_contact.'</td></tr>
+                        <tr><td class="label"><strong>Mobile Number of the Nodal Officer (HOD)</strong> (નોડલ અધિકારીનો મોબાઇલ નંબર)</td><td>'.$proposal->nodal_officer_mobile.'</td></tr>
+                        <tr><td class="label"><strong>Email Address of the Nodal Officer(HOD)</strong> (નોડલ અધિકારીનું ઇમેઇલ એડ્રેસ)</td><td>'.$proposal->nodal_officer_email.'</td></tr>
+                        <tr><td class="label"><strong>Fund Flow Central Govt. </strong>(યોજના માટેનો નાણાકીય સ્ત્રોત્ર કેદ્ર: __%)</td><td>'.$proposal->center_ratio.'</td></tr>
+                        <tr><td class="label"><strong>Fund Flow State Govt. </strong>(યોજના માટેનો નાણાકીય સ્ત્રોત્ર રાજ્ય: __%)</td><td>'.$proposal->state_ratio.'</td></tr>
+                        <tr><td class="label"><strong>Fund Flow State Govt. </strong>(યોજના માટેનો નાણાકીય સ્ત્રોત્ર અન્ય: __%)</td><td>'.($proposal->other_ratio ?? 0).'</td></tr>
+                        <tr><td class="label"><strong>Remarks</strong></td><td>'.($proposal->both_ration ?? '-').'</td></tr>
+                        <tr><td class="label"><strong>Overview of the scheme/Background of the scheme</strong> (યોજનાની પ્રાથમિક માહિતી/યોજનાનો પરિચય)</td><td>'.$proposal->scheme_overview.'<br><br>'.$proposal->next_scheme_overview_file.'</td></tr>
+                        <tr><td class="label"><strong>Objectives of the scheme </strong>(યોજનાના હેતુઓ)</td><td>'.$proposal->scheme_objective.'<br><br>'.$proposal->scheme_objective_file.'</td></tr>
+                        <tr><td class="label"><strong>Name of Sub-schemes/components </strong>(પેટા યોજનાનું નામ/ઘટકો)</td><td>'.$proposal->sub_scheme.'<br><br>'.$proposal->next_scheme_components_file.'</td></tr>
+                        <tr><td class="label"><strong>Year of actual commencement of the scheme </strong>(યોજનાનું ખરેખર અમલીકરણ શરૂ થયા વર્ષ)</td><td>'.$proposal->commencement_year.'</td></tr>
+                        <tr><td class="label"><strong>Present status of the scheme </strong>(યોજનાના અમલની વર્તમાન સ્થિતિ)</td><td>'.($proposal->scheme_status == 'Y' ? ' Operational (કાર્યરત)' : 'Non-operational (બિન-કાર્યરત)').'</td></tr>
+                        <tr><td class="label"><strong>Sustainable Development Goals (SDG): Which specific goal(s) does this scheme follow? </strong> (સસ્ટેનેબલ ડેવલપમેન્ટ ગોલ (SDG): આ યોજના કયા ચોક્કસ લક્ષ્યાંકોને અનુસરે છે?)</td><td>'.$entered.'</td></tr>
+                        <tr><td class="label"><strong>Beneficiary/Community selection Criteria </strong>(લાભાર્થી/સમુદાયની પાત્રતા માટેના માપદંડો)</td><td>'.$proposal->scheme_beneficiary_selection_criteria.'<br><br>'.$proposal->beneficiary_selection_criteria_file.'</td></tr>
+                        <tr><td class="label"><strong>Expected Major Benefits Derived from the Scheme </strong>(યોજનાના અપેક્ષિત મુખ્ય લાભો)</td><td>'.$proposal->major_benefits_text.'<br><br>'.$proposal->major_benefits.'</td></tr>
+                        <tr><td class="label"><strong>Implementing procedure of the Scheme </strong>(યોજનાની અમલીકરણ માટેની પ્રક્રિયા.)</td><td>'.$proposal->scheme_implementing_procedure.'<br><br>'.$proposal->scheme_implement_file.'</td></tr>
+                        <tr><td class="label"><strong>Administrative set up for Implementation of the scheme </strong>(યોજનાના અમલીકરણ માટેનું વહીવટી માળખું)</td><td>'.$proposal->implementing_procedure.'<br><br>'.$proposal->implementing_procedure_file.'</td></tr>
+                        <tr>
+                            <td style="width: 30%; background-color: #f8f9fa; vertical-align: top;">
+                              <strong>Geographical Coverage </strong><br> (રાજ્યકક્ષાથી લઈ લાભાર્થી સુધીનો ભૌગોલિક વ્યાપ)
+                            </td>
+                            <td style="vertical-align: top;">
+                                <div style="font-weight: bold; margin-bottom: 5px;">
+                                    District Wise Selection
+                                </div>
+                                <hr style="border-top: 1px solid #eee; margin-bottom: 10px; border-bottom:none;">
+                                ' . $districtTable . '
+                            </td>
+                        </tr>
+                        <tr><td class="label"><strong>Remarks</strong></td><td>'.($proposal->otherbeneficiariesGeoLocal ?? '-').'</td></tr>
+                        <tr><td class="label"><strong>Scheme coverage since inception of the scheme </strong>(યોજનાની શરૂઆતથી અત્યાર સુધીનો વ્યાપ) <br>Coverage of Beneficiary/Community (લાભાર્થી/સમુદાયનો સમાવેશ)</td><td>'.$proposal->coverage_beneficiaries_remarks.'<br><br>'.$proposal->beneficiaries_coverage.'</td></tr>
+                        <tr><td class="label"><strong>Training/Capacity building of facilitators </strong>(સંબંધિતોની તાલીમ/ક્ષમતા નિર્માણ માટેની કામગીરી)</td><td>'.$proposal->training_capacity_remarks.'<br><br>'.$proposal->training.'</td></tr>
+                        <tr><td class="label"><strong>IEC activities</strong> (પ્રચાર પ્રસારની કામગીરી)</td><td>'.$proposal->iec_activities_remarks.'<br><br>'.$proposal->iec.'</td></tr>
+                        <tr><td class="label"><strong>Asset/Service creation & its maintenance plan if any </strong>(યોજના દ્વારા ઊભી થયેલ સંપત્તિ/સેવા અને તેની જાળવણી, જો હોય તો)</td><td>'.($proposal->benefit_to ?? '-').'</td></tr>
+                    
+                    ' . $convergenceRows . '
 
-        <tr>
-            <th class="label">GR (ઠરાવો)</th>
-            <td>' .$formatFiles($proposal->gr_file) . '</td>
-        </tr>
+                    <tr>
+                        <td class="label"><strong>GR </strong>(ઠરાવો)</td>
+                        <td>' .$formatFiles($proposal->gr_file) . '</td>
+                    </tr>
 
-        <tr>
-            <th class="label">Notification (જાહેરનામું)</th>
-            <td>' .$formatFiles($proposal->notification_files) . '</td>
-        </tr>
+                    <tr>
+                        <td class="label"><strong>Notification</strong> (જાહેરનામું)</td>
+                        <td>' .$formatFiles($proposal->notification_files) . '</td>
+                    </tr>
 
-        <tr>
-            <th class="label">Brochure (બ્રોશર)</th>
-            <td>' .$formatFiles($proposal->brochure_files) . '</td>
-        </tr>
+                    <tr>
+                        <td class="label"><strong>Brochure</strong> (બ્રોશર)</td>
+                        <td>' .$formatFiles($proposal->brochure_files) . '</td>
+                    </tr>
 
-        <tr>
-            <th class="label">Pamphlets (પેમ્ફલેટ્સ)</th>
-            <td>' .$formatFiles($proposal->pamphlets_files) . '</td>
-        </tr>
+                    <tr>
+                        <td class="label"><strong>Pamphlets</strong> (પેમ્ફલેટ્સ)</td>
+                        <td>' .$formatFiles($proposal->pamphlets_files) . '</td>
+                    </tr>
 
-        <tr>
-            <th class="label">Other Details (યોજનાને લાગતું અન્ય વિગત)</th>
-            <td>' .$formatFiles($proposal->otherdetailscenterstate_files) . '</td>
-        </tr>
+                    <tr>
+                        <td class="label"><strong>Other Details</strong> (યોજનાને લાગતું અન્ય વિગત)</td>
+                        <td>' .$formatFiles($proposal->otherdetailscenterstate_files) . '</td>
+                    </tr>
 
-        <tr>
-            <th class="label">Beneficiary Filling form <br> (લાભાર્થી ભરવાનું ફોર્મ)</th>
-            <td>
-                ' . (($proposal->beneficiary_filling_form_type == 0) ? 'Yes' : 'No') . '
-                ' . ($proposal->beneficiary_filling_form ? '<br>File: ' . $proposal->beneficiary_filling_form : '') . '
-            </td>
-        </tr>
+                    <tr>
+                        <td class="label"><strong>Beneficiary Filling form</strong><br> (લાભાર્થી ભરવાનું ફોર્મ)</td>
+                        <td>
+                            ' . (($proposal->beneficiary_filling_form_type == 0) ? 'Yes' : 'No') . '
+                            ' . ($proposal->beneficiary_filling_form ? '<br>File: ' . $proposal->beneficiary_filling_form : '') . '
+                        </td>
+                    </tr>
 
-        <tr>
-            <th class="label">Major Monitoring Indicator at HOD Level <br> (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ)</th>
-            <td>' . ($proposal->major_indicator_hod ?? '-') . '</td>
-        </tr>
+                    <tr>
+                        <td class="label"><strong>Major Monitoring Indicator at HOD Level</strong> <br> (ખાતાના વડાકક્ષાએ મહત્વના ઇન્ડિકેટર નુ મોનીટરીંગ)</td>
+                        <td>' . ($proposal->major_indicator_hod ?? '-') . '</td>
+                    </tr>
 
-        <tr>
-            <th class="label">Physical and Financial Progress Remarks</th>
-            <td>' . ($proposal->fin_progress_remarks ?? '-') . '</td>
-        </tr>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                    <th class="progress-header" rowspan="'.$totalRowspan.'">Financial & Physical Progress  (component wise) of the Last Five Years/Beginning of the Plan (યોજના ની શરૂઆત/છેલ્લા પાંચ વર્ષની વર્ષવાર નાણાકીય અને ભૌતિક પ્રગતિ (કમ્પોનેટ વાઇઝ))</th>
-                    <th rowspan="2">Financial Year</th>
-                    <th colspan="3">Physical</th>
-                    <th colspan="2">Financial</th>
-                </tr>
-                <tr>
-                    <th>Unit</th>
-                    <th>Target</th>
-                    <th>Achievement</th>
-                    <th>Provision</th>
-                    <th>Expenditure</th>
-                </tr>
-            </thead>
-            <tbody>
-                '.($rows ?: '<tr><td colspan="6" style="text-align:center">No records found</td></tr>').'
-            </tbody>
-        </table>
-        
-    </body>
-    </html>';
+                    <tr>
+                        <td class="label"><strong>Physical and Financial Progress Remarks</strong></td>
+                        <td>' . ($proposal->fin_progress_remarks ?? '-') . '</td>
+                    </tr>
+                    </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="progress-header" rowspan="'.$totalRowspan.'"><strong>Financial & Physical Progress  (component wise) of the Last Five Years/Beginning of the Plan </strong>(યોજના ની શરૂઆત/છેલ્લા પાંચ વર્ષની વર્ષવાર નાણાકીય અને ભૌતિક પ્રગતિ (કમ્પોનેટ વાઇઝ))</td>
+                                <th rowspan="2">Financial Year</th>
+                                <th colspan="3">Physical</th>
+                                <th colspan="2">Financial</th>
+                            </tr>
+                            <tr>
+                                <th>Unit</th>
+                                <th>Target</th>
+                                <th>Achievement</th>
+                                <th>Provision</th>
+                                <th>Expenditure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            '.($rows ?: '<tr><td colspan="6" style="text-align:center">No records found</td></tr>').'
+                        </tbody>
+                    </table>
+                    
+                </body>
+                </html>';
 
 
-        // Initialize mPDF with explicit font settings
-        $mpdf = new \Mpdf\Mpdf([
-            'tempDir' => storage_path('app/public/temp'),
-            'mode' => 'utf-8',
-            'format' => 'A4',
-            'margin_left' => 10,
-            'margin_right' => 10,
-            'margin_top' => 15,
-            'margin_bottom' => 15,
-            'margin_footer' => 5,
-            'autoScriptToLang' => true,
-            'autoLangToFont' => true,
-            'custom_font_data' => [
-                'shruti' => [
-                    'R' => 'NotoSansGujarati-Regular.ttf',
-					'B' => 'NotoSansGujarati-Bold.ttf',
-                ]
-            ]
-        ]);
-     //  $mpdf->SetHeader('Proposal Report| |Generated on: ' . date('d-m-Y'));
+                    // Initialize mPDF with explicit font settings
+                    $mpdf = new Mpdf([
+                        'mode' => 'utf-8',
+                        'format' => 'A4',
+                        'margin_left' => 10,
+                        'margin_right' => 10,
+                        'margin_top' => 15,
+                        'margin_bottom' => 15,
+                        'margin_footer' => 5,
+                        'autoScriptToLang' => true,
+                        'autoLangToFont' => true,
+                    ]);
+                //  $mpdf->SetHeader('Proposal Report| |Generated on: ' . date('d-m-Y'));
 
-$mpdf->SetFooter('
-    <table width="100%" style="font-size: 10px; border: none !important;">
-        <tr>
-            <td style="border: none !important;">{DATE j-m-Y}</td>
-            <td style="border: none !important; text-align: center;">' . ($isCompleted ? 'Completed' : 'Draft') . ' Proposal</td>
-            <td style="border: none !important; text-align: right;">Page {PAGENO} of {nbpg}</td>
-        </tr>
-    </table>
-');
+            $mpdf->SetFooter('
+                <table width="100%" style="font-size: 10px; border: none !important;">
+                    <tr>
+                        <td style="border: none !important;">{DATE j-m-Y}</td>
+                        <td style="border: none !important; text-align: center;">' . ($isCompleted ? 'Completed' : 'Draft') . ' Proposal</td>
+                        <td style="border: none !important; text-align: right;">Page {PAGENO} of {nbpg}</td>
+                    </tr>
+                </table>
+            ');
 
-// 4. Watermark Logic
-$mpdf->watermark_font = 'dejavusanscondensed'; // Use Unicode-safe font for watermark
-$mpdf->SetWatermarkText($isCompleted ? 'COMPLETED' : 'DRAFT');
-$mpdf->showWatermarkText = true;
-$mpdf->watermarkTextAlpha = 0.08;
+            // 4. Watermark Logic
+            $mpdf->watermark_font = 'dejavusanscondensed'; // Use Unicode-safe font for watermark
+            $mpdf->SetWatermarkText($isCompleted ? 'COMPLETED' : 'DRAFT');
+            $mpdf->showWatermarkText = true;
+            $mpdf->watermarkTextAlpha = 0.08;
 
         //$mpdf->watermark_font = 'DejaVuSansCondensed'; 
 
