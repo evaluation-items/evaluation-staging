@@ -68,17 +68,16 @@
                             <span class="text-danger error-text name_error"></span>
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <label for="inputEmail" class="col-sm-2 col-form-label">{{ __('message.email') }}</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control pattern" id="inputEmail" placeholder="Email" value="{{ Auth::user()->email }}" name="email">
-                            <span class="text-danger error-text email_error"></span>
-                          </div>
+                         <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">{{ __('message.email') }}</label>
+                            <div class="col-sm-10"> 
+                                <input type="text" class="form-control pattern" id="inputEmail"   value="{{ Auth::user()->email }}"  name="email" readonly onfocus="this.blur()"> <span class="text-danger error-text email_error"></span>
+                            </div>
                         </div>
                         <div class="form-group row">
                           <label for="phoneNumber" class="col-sm-2 col-form-label">{{ __('message.phone_number') }}</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control pattern" id="phoneNumber" placeholder="Enter Phone Number" value="{{ Auth::user()->phone }}" name="phone">
+                            <input type="text" class="form-control mobile_number pattern" placeholder="Enter Phone Number" value="{{ Auth::user()->phone }}" name="phone">
                             <span class="text-danger error-text phone_error"></span>
                           </div>
                         </div>

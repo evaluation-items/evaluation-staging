@@ -3447,8 +3447,120 @@ class SchemeController extends Controller {
             $mpdf->Output($proposal->scheme_name . '.pdf', 'D')
         )->header('Content-Type', 'application/pdf');
     }
-      
     public function print($draft_id)
+    {
+		 $proposal = Proposal::where('draft_id', $draft_id)->latest()->first();
+
+        if (!$proposal) {
+            abort(404, 'Proposal not found');
+        }
+
+         $financial_progress = FinancialProgress::where('scheme_id', $proposal->scheme_id)->get();
+        $isCompleted = $financial_progress->isNotEmpty();
+        
+        // Build rows and count
+        $rows = '';
+        foreach ($financial_progress as $fpv) {
+            $rows .= '
+            <tr>
+                <td>'.$fpv->financial_year.'</td>
+                <td>'.units($fpv->selection).'</td>
+                <td>'.$fpv->target.'</td>
+                <td>'.$fpv->achievement.'</td>
+                <td>'.$fpv->allocation.'</td>
+                <td>'.$fpv->expenditure.'</td>
+            </tr>';
+        }
+
+    
+        $rowCount = $financial_progress->count();
+        $totalRowspan = $rowCount + 2;
+        $evaluationRows = '';
+        if ($proposal->is_evaluation == 'Y') {
+            $evaluationRows .= '
+                <tr><td><strong>By Whom? (કોના દ્વારા?)</td><td>'.$proposal->eval_scheme_bywhom.'</td></tr>
+                <tr><td><strong>When? (ક્યારે?)</td><td>'.$proposal->eval_scheme_when.'</td></tr>
+                <tr><td><strong>Geographical coverage of Beneficiaries <br> (સમાવિષ્ટ કરેલ લાભાર્થીઓનો ભૌગોલિક વિસ્તાર)</td><td>'.$proposal->eval_geographical_coverage_beneficiaries.'</td></tr>
+                <tr><td><strong>No. of beneficiaries in sample <br> (નિદર્શમાં સમાવિષ્ટ લાભાર્થીઓની સંખ્યા)</td><td>'.$proposal->eval_scheme_major_recommendation.'</td></tr>
+                <tr><td><strong>Report File (અહેવાલ)</td><td>'.($proposal->eval_upload_report ?: 'No file uploaded').'</td></tr>';
+        }
+
+        $goals = Sdggoals::where('status','1')->orderBy('goal_id','desc')->get();
+		 // 1. Fetch the JSON string and decode it into an array
+            $enteredDistrictsJson = Scheme::where('scheme_id', $proposal->scheme_id)->value('districts');
+            $enteredDistricts = json_decode($enteredDistrictsJson, true) ?? []; 
+
+            // 2. Fetch all districts from the master table
+            $allDistricts = Districts::select('dcode', 'name_e')
+                ->orderBy('name_e', 'asc')
+                ->get();
+
+            $itemsHtml = [];
+            foreach ($allDistricts as $district) {
+                $dcode = (string)$district->dcode;
+                
+                // Check if dcode exists in the decoded JSON array
+                $isChecked = in_array($dcode, $enteredDistricts) ? '&#9745;' : '&#9744;';
+                
+                // Format name (e.g., AHMEDABAD -> Ahmedabad)
+                $name = ucwords(strtolower($district->name_e));
+
+                $itemsHtml[] = '
+                    <div style="margin-bottom: 2px; white-space: nowrap;">
+                        <span style="font-family: DejaVuSans, sans-serif; font-size: 13px;">'.$isChecked.'</span>
+                        <span style="margin-left: 4px; font-size: 10px;">'.$name.'</span>
+                    </div>';
+            }
+
+            // 3. Create the 4-column layout
+            $totalCols = 4;
+            $chunks = array_chunk($itemsHtml, ceil(count($itemsHtml) / $totalCols));
+
+            $districtTable = '<table style="border:none; width:100%;">';
+            $districtTable .= '<tr>';
+            foreach ($chunks as $chunk) {
+                $districtTable .= '<td style="border:none; width:25%; padding:0; vertical-align:top;">';
+                $districtTable .= implode('', $chunk);
+                $districtTable .= '</td>';
+            }
+            // Fill remaining empty columns if necessary
+            for ($i = count($chunks); $i < $totalCols; $i++) {
+                $districtTable .= '<td style="border:none; width:25%;"></td>';
+            }
+            $districtTable .= '</tr></table>';
+			 // --- Convergence Logic ---
+                $convergenceRows = '';
+                if(json_decode($proposal->all_convergence) != null) {
+                    foreach(json_decode($proposal->all_convergence) as $vc) {
+                        $dept_name = Department::where('dept_id', $vc->dept_id)->value('dept_name') ?? 'No department';
+                        $convergenceRows .= '
+                        <tr>
+                            <th class="label">Convergence with other scheme <br> (અન્ય યોજનાઓ સાથે યોજનાનું જોડાણ)</th>
+                            <td>
+                                <strong>Department: '.$dept_name.'<br>
+                                <strong>Remarks: '.($vc->dept_remarks ?? '-').'
+                            </td>
+                        </tr>';
+                    }
+                }
+                  // --- END DISTRICT FETCHING LOGIC ---  
+                $formatFiles = function($files) {
+                    if (!$files || empty($files) || count($files) == 0) return '-';
+                    $output = '';
+                    foreach ($files as $f) {
+                        // Some relations return objects, some return strings. 
+                        // We ensure we get the string value of the filename.
+                        $name = is_object($f) ? ($f->file_name ?? $f->name) : $f;
+                        $output .= '• ' . $name . '<br>';
+                    }
+                    return $output;
+                };
+
+                
+                return view('schemes.print',compact('proposal','goals','districtTable','convergenceRows','formatFiles','financial_progress','rows'));
+            }
+    
+    public function print12($draft_id)
     {
         // Fetch data
         $proposal = Proposal::where('draft_id', $draft_id)->latest()->first();

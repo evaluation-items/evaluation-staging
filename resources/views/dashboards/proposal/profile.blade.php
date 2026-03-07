@@ -39,7 +39,7 @@
                   <p class="text-muted text-center">{{ __('message.concern_department') }}</p>
                   <input type="file" name="admin_image" id="admin_image" style="opacity: 0;height:1px;display:none">
                   <a href="javascript:void(0)" class="btn btn-primary btn-block" id="change_picture_btn"><b>{{ __('message.change_picture') }}</b></a>
-                  
+
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -67,7 +67,7 @@
                             <span class="text-danger error-text name_error"></span>
                           </div>
                         </div>
-                      <div class="form-group row">
+                        <div class="form-group row">
                             <label for="inputEmail" class="col-sm-2 col-form-label">{{ __('message.email') }}</label>
                             <div class="col-sm-10"> 
                                 <input type="text" 
