@@ -65,6 +65,8 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
 // Route::get('login-user', [LoginController::class, 'showLogin'])->name('login-user');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('force-reset/{id}', [LoginController::class, 'forceReset'])->name('force-reset');
+Route::post('force-reset-submit', [LoginController::class, 'forceResetSubmit'])->name('force.reset.submit');
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 

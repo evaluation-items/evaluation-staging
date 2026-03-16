@@ -219,16 +219,23 @@
 
     // Validation
     $(document).ready(function () {
+        $.validator.addMethod("gujaratEmail", function(value, element) {
+            return this.optional(element) || /^[a-z0-9._%+-]+@([a-z0-9-]+\.)*gujarat\.gov\.in$/i.test(value);
+        }, "Only @gujarat.gov.in email addresses are allowed.");
+
         $("#resetFrm").validate({
             rules: {
-                email: { required: true, email: true },
+                email: { required: true, email: true,gujaratEmail: true  },
                 password: { required: true, minlength: 6 },
                 password_confirmation: { required: true, equalTo: "#password" }
             },
             messages: {
-                email: { required: "Please enter a valid email address" },
-                password: { required: "Please provide a new password" },
-                password_confirmation: { equalTo: "Passwords do not match" }
+            email: {
+                required: "Please enter a valid email address",
+                email: "Please enter a valid email format"
+            },
+            password: { required: "Please provide a new password" },
+            password_confirmation: { equalTo: "Passwords do not match" }
             },
             highlight: function (element) { $(element).addClass("is-invalid"); },
             unhighlight: function (element) { $(element).removeClass("is-invalid"); },

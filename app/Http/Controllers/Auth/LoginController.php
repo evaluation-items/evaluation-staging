@@ -34,8 +34,7 @@ class LoginController extends Controller
             ['email' => $request->email, 'password' => $request->password],
             $remember
         )) {
-            return redirect('login')
-                ->withError('Email and password are incorrect. Please try again.');
+            return redirect('login')->withError('Email and password are incorrect. Please try again.');
         }
 
         // ? Regenerate session (security)
@@ -48,7 +47,9 @@ class LoginController extends Controller
             ->delete();
 
         $user = Auth::user();
-
+        if($user->is_first_login == true && in_array($user->role_manage,[0,1,2])){
+            return redirect()->route('force-reset',['id' => $user->id]);
+        }
         // ? Role-based redirects (unchanged logic)
         if ($user->role == 25) {
             return redirect()->route('admin.dashboard');
@@ -115,29 +116,31 @@ class LoginController extends Controller
         if (!$user) {
             return redirect()->route('login')->withErrors(['error' => 'User not found.']);
         }
-            $request->validate([
-            'email' => [
-                'required',
-                'email:rfc,dns', // ✅ Better email validation
-                Rule::unique('users', 'email')->ignore($userId),
-
-                // ✅ OPTIONAL: Restrict to gov.in only (uncomment if needed)
-                // function ($attribute, $value, $fail) {
-                //     if (!preg_match('/\.gov\.in$/', $value)) {
-                //         $fail('Only government email addresses are allowed.');
-                //     }
-                // }
-            ],
-            'password' => [
-                'required',
-                'confirmed',
-                'min:8',
-                'regex:/[a-z]/',      // lowercase
-                'regex:/[A-Z]/',      // uppercase
-                'regex:/[0-9]/',      // number
-            ],
-        ]);
-    
+           $request->validate([
+        'email' => [
+            'required',
+            'email:rfc,dns',
+            // 1. Ensure it is unique in the 'users' table, ignoring the current user
+            Rule::unique('users', 'email')->ignore($userId),
+            
+            // 2. Custom Regex for gujarat.gov.in domain
+            function ($attribute, $value, $fail) {
+                if (!preg_match('/^[a-z0-9._%+-]+@([a-z0-9-]+\.)*gujarat\.gov\.in$/i', $value)) {
+                    $fail('Only @gujarat.gov.in email addresses are allowed.');
+                }
+            },
+        ],
+        'password' => [
+            'required',
+            'confirmed',
+            'min:6', // Matching your JS minlength
+        ],
+    ], [
+        // Custom error messages
+        'email.unique' => 'This email address is already registered in our system.',
+        'password.confirmed' => 'The password confirmation does not match.',
+    ]);
+    //dd($user);
          $updated = DB::table('public.users')
               ->where('id', $userId)
               ->update([

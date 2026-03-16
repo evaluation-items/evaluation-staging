@@ -77,99 +77,92 @@
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>Smt. R. R. Krishyan</td>
-                        <td>Deputy Director</td>
+                        <td>Shri M. B. Gamit</td>
+                        <td>Deputy Director (Suvery-3)</td>
                         <td>-</td>
                         <td>ddevl4@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>Smt. A. G. Prajapati</td>
-                        <td>Deputy Director</td>
+                        <td>Smt. R. R. Krishyan</td>
+                        <td>Deputy Director (Survey-4)</td>
                         <td>-</td>
                         <td>ddevl4@gujarat.gov.in</td>
                     </tr>
                     <tr>
                         <td>5</td>
+                        <td>Smt. A. G. Prajapati</td>
+                        <td>Deputy Director (Survey-2)</td>
+                        <td>-</td>
+                        <td>ddevl4@gujarat.gov.in</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
                         <td>Ms. R. R. Maher</td>
-                        <td>Deputy Director</td>
+                        <td>Deputy Director (Survey-1 & 3)</td>
                         <td>-</td>
                         <td>roevl1@gujarat.gov.in</td>
                     </tr>
                     <tr>
-                        <td>6</td>
+                        <td>7</td>
                         <td>Shri V. B. Parmar</td>
-                        <td>Deputy Director</td>
+                        <td>Deputy Director (Survey-5)</td>
                         <td>52877</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>7</td>
+                        <td>8</td>
                         <td>Shri P. K. Saliya</td>
-                        <td>Deputy Director</td>
+                        <td>Deputy Director (Survey-6)</td>
                         <td>-</td>
                         <td>ddsurvey6@gujarat.gov.in</td>
                     </tr>
                     <tr>
-                        <td>8</td>
-                        <td>Shri J. B. Virpura</td>
-                        <td>Deputy Director</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
                         <td>9</td>
-                        <td>Shri A. R. Sadhu</td>
-                        <td>Deputy Director</td>
+                        <td>Smt. S. K. Zala</td>
+                        <td>Research Officer (Survey-1)</td>
                         <td>-</td>
-                        <td>ddevl3@gujarat.gov.in</td>
+                        <td>-</td>
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td>Smt. S. K. Zala</td>
-                        <td>Research Officer</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
                         <td>Shri D. M. Parmar</td>
-                        <td>Research Officer</td>
+                        <td>Research Officer (Survey-1)</td>
                         <td>-</td>
                         <td>roevl3@gujarat.gov.in</td>
                     </tr>
                     <tr>
-                        <td>12</td>
+                        <td>11</td>
                         <td>Ms. B. A. Makawana</td>
-                        <td>Research Officer</td>
+                        <td>Research Officer (Survey-1)</td>
                         <td>-</td>
                         <td>roevl2@gujarat.gov.in</td>
                     </tr>
                     <tr>
-                        <td>13</td>
+                        <td>12</td>
                         <td>Smt. D. R. Gamiti</td>
-                        <td>Research Officer</td>
+                        <td>Research Officer (Survey-1)</td>
                         <td>-</td>
                         <td>roevl4@gujarat.gov.in</td>
                     </tr>
                     <tr>
-                        <td>14</td>
+                        <td>13</td>
                         <td>Shri P. B. Punarvasu</td>
-                        <td>Research Officer</td>
+                        <td>Research Officer (Survey-1)</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Shri H. N. Manani</td>
+                        <td>Research Officer (Survey-1)</td>
                         <td>-</td>
                         <td>-</td>
                     </tr>
                     <tr>
                         <td>15</td>
-                        <td>Shri H. N. Manani</td>
-                        <td>Research Officer</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>16</td>
                         <td>Shri C. H. Danak</td>
-                        <td>Research Officer</td>
+                        <td>Research Officer (Survey-1)</td>
                         <td>-</td>
                         <td>-</td>
                     </tr>
