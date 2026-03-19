@@ -262,28 +262,31 @@ if (!function_exists('is_gujarati')) {
 
       return $years;
   }
-  function getFinancialYear(){
-    // Graph related work
-    $proposals = App\Models\Proposal::groupBy(['draft_id','scheme_id'])->get();
+   function getFinancialYear() {
+    // 1. Get all unique years from the created_at column
+    // This works for MySQL and PostgreSQL
+    $years = App\Models\Proposal::selectRaw('DISTINCT EXTRACT(YEAR FROM created_at) as year, EXTRACT(MONTH FROM created_at) as month')
+        ->get();
 
     $financialYears = [];
 
-    foreach ($proposals as $proposal) {
-        $createdAt = Carbon::parse($proposal->created_at);
-        $financialYearStart = $createdAt->month >= 4 ? $createdAt->year : $createdAt->year - 1;
-        $financialYearEnd = $financialYearStart + 1;
-        $financialYear = $financialYearStart . '-' . substr((string)$financialYearEnd, 2);
+    foreach ($years as $row) {
+        // If month is Jan(1), Feb(2), or March(3), the FY start is the previous year
+        $startYear = ($row->month >= 4) ? $row->year : $row->year - 1;
+        $endYear = $startYear + 1;
         
-        if (!in_array($financialYear, $financialYears)) {
-            $financialYears[] = $financialYear;
+        $format = $startYear . '-' . substr((string)$endYear, 2);
+
+        if (!in_array($format, $financialYears)) {
+            $financialYears[] = $format;
         }
     }
 
-    sort($financialYears);
-    rsort($financialYears);
-
+    // Sort descending (Newest first: 2025-26, 2024-25...)
+    sort($financialYears); 
+    $financialYears = array_reverse($financialYears); // Newest first (2025-26)
     return $financialYears;
-  }
+}
   function branch_list($role_id){
     if (!is_null($role_id)) {
         $roleIds = explode(',', $role_id);

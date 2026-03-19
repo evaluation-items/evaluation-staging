@@ -646,258 +646,230 @@ class StageController extends Controller
            
 
 //    }
-   public function labelItem(Request $request){
-    if($request->year){
+    public function labelItem(Request $request)
+    {
+    if ($request->year) {
+        // 1. Parse Year (e.g., "2024-25" -> 2024)
+        $startedYear = explode('-', $request->year);
+        $baseYear = $startedYear[0];
 
-        //split Year
-        $startedYear = explode('-',$request->year);
-      
-        $startDate = $startedYear[0] . '-04-01';
-         // Set the end date to April 1st of the next year
-        $endDate = ($startedYear[0] + 1). '-03-31';
+        $startDate = $baseYear . '-04-01 00:00:00';
+        $endDate = ($baseYear + 1) . '-03-31 23:59:59';
 
-
-        $schemes = Proposal::where('status_id',23)->whereBetween('created_at', [$startDate, $endDate])->get();
+        // 2. Get Proposal IDs for the selected Year vs. Carry Forward
+        $newSchemeIds = Proposal::where('status_id', 23)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->pluck('scheme_id');
             
-           
-        $carry_scheme = Proposal::where('status_id',23)->whereNotBetween('created_at', [$startDate, $endDate])->get();
+        $carrySchemeIds = Proposal::where('status_id', 23)
+            ->where('created_at', '<', $startDate) // Carry forward = strictly older
+            ->pluck('scheme_id');
 
-        $new_scheme_counts = [
-            'requisition' => 0, //1
-            'study_design_date' => 0, //2
-            'polot_study_date' => 0, //3
-            'field_survey_startdate' => 0, //4
-            'data_entry_level_start' => 0, //5
-            'report_startdate' => 0, //6
-            'report_sent_hod_date' => 0, //7
-            'dept_eval_committee_datetime' => 0, //8
-            'eval_cor_date' => 0, //9
-            'final_report' => 0, //10
-            'dropped' => 0 //11
-        ];
-        $carry_forward_scheme_counts = [
-                'requisition' => 0, //1
-                'study_design_date' => 0, //2
-                'polot_study_date' => 0, //3
-                'field_survey_startdate' => 0, //4
-                'data_entry_level_start' => 0, //5
-                'report_startdate' => 0, //6
-                'report_sent_hod_date' => 0, //7
-                'dept_eval_committee_datetime' => 0, //8
-                'eval_cor_date' => 0, //9
-                'final_report' => 0, //10
-                'dropped' => 0 //11
-        ];
+        // 3. Optimized Count for "New Schemes"
+        // We use selectRaw to get all 11 counts in ONE database hit
+        $newBindings = [];
+        for ($i = 0; $i < 11; $i++) { $newBindings[] = $startDate; $newBindings[] = $endDate; }
 
-        foreach ($carry_scheme as $key => $carry_scheme_items) {
-                    $carry_forward_scheme_counts['requisition'] = Stage::whereNotNull('requisition')->whereNotBetween('requisition', [$startDate, $endDate])
-                    ->count(); 
+        $new_scheme_counts = Stage::whereIn('scheme_id', $newSchemeIds)
+            ->selectRaw("
+                COUNT(CASE WHEN requisition BETWEEN ? AND ? THEN 1 END) as requisition,
+                COUNT(CASE WHEN study_design_date BETWEEN ? AND ? THEN 1 END) as study_design_date,
+                COUNT(CASE WHEN polot_study_date BETWEEN ? AND ? THEN 1 END) as polot_study_date,
+                COUNT(CASE WHEN field_survey_startdate BETWEEN ? AND ? THEN 1 END) as field_survey_startdate,
+                COUNT(CASE WHEN data_entry_level_start BETWEEN ? AND ? THEN 1 END) as data_entry_level_start,
+                COUNT(CASE WHEN report_startdate BETWEEN ? AND ? THEN 1 END) as report_startdate,
+                COUNT(CASE WHEN report_sent_hod_date BETWEEN ? AND ? THEN 1 END) as report_sent_hod_date,
+                COUNT(CASE WHEN dept_eval_committee_datetime BETWEEN ? AND ? THEN 1 END) as dept_eval_committee_datetime,
+                COUNT(CASE WHEN eval_cor_date BETWEEN ? AND ? THEN 1 END) as eval_cor_date,
+                COUNT(CASE WHEN final_report BETWEEN ? AND ? THEN 1 END) as final_report,
+                COUNT(CASE WHEN dropped BETWEEN ? AND ? THEN 1 END) as dropped
+            ", $newBindings)->first();
 
-                    $carry_forward_scheme_counts['study_design_date'] = Stage::whereNotNull('study_design_date')->whereNotBetween('study_design_date', [$startDate, $endDate])
-                                    ->count(); 
+        // 4. Optimized Count for "Carry Forward"
+        $carry_forward_scheme_counts = Stage::whereIn('scheme_id', $carrySchemeIds)
+            ->selectRaw("
+                COUNT(CASE WHEN requisition < ? THEN 1 END) as requisition,
+                COUNT(CASE WHEN study_design_date < ? THEN 1 END) as study_design_date,
+                COUNT(CASE WHEN polot_study_date < ? THEN 1 END) as polot_study_date,
+                COUNT(CASE WHEN field_survey_startdate < ? THEN 1 END) as field_survey_startdate,
+                COUNT(CASE WHEN data_entry_level_start < ? THEN 1 END) as data_entry_level_start,
+                COUNT(CASE WHEN report_startdate < ? THEN 1 END) as report_startdate,
+                COUNT(CASE WHEN report_sent_hod_date < ? THEN 1 END) as report_sent_hod_date,
+                COUNT(CASE WHEN dept_eval_committee_datetime < ? THEN 1 END) as dept_eval_committee_datetime,
+                COUNT(CASE WHEN eval_cor_date < ? THEN 1 END) as eval_cor_date,
+                COUNT(CASE WHEN final_report < ? THEN 1 END) as final_report,
+                COUNT(CASE WHEN dropped < ? THEN 1 END) as dropped
+            ", array_fill(0, 11, $startDate))->first();
 
-                    $carry_forward_scheme_counts['polot_study_date'] = Stage::whereNotNull('polot_study_date')->whereNotBetween('polot_study_date', [$startDate, $endDate])
-                                ->count(); 
+        return response()->json([$new_scheme_counts, $carry_forward_scheme_counts]);
 
-                    $carry_forward_scheme_counts['field_survey_startdate'] = Stage::whereNotNull('field_survey_startdate')->whereNotBetween('field_survey_startdate', [$startDate, $endDate])
-                                        ->count(); 
-
-                    $carry_forward_scheme_counts['data_entry_level_start'] = Stage::whereNotNull('data_entry_level_start')->whereNotBetween('data_entry_level_start', [$startDate, $endDate])
-                                        ->count();
-
-                    $carry_forward_scheme_counts['report_startdate'] = Stage::whereNotNull('report_startdate')->whereNotBetween('report_startdate', [$startDate, $endDate])
-                                    ->count(); 
-
-                    $carry_forward_scheme_counts['report_sent_hod_date'] = Stage::whereNotNull('report_sent_hod_date')->whereNotBetween('report_sent_hod_date', [$startDate, $endDate])
-                                        ->count();
-
-                    $carry_forward_scheme_counts['dept_eval_committee_datetime'] = Stage::whereNotNull('dept_eval_committee_datetime')->whereNotBetween('dept_eval_committee_datetime', [$startDate, $endDate])
-                                                ->count();
-
-
-                    $carry_forward_scheme_counts['eval_cor_date'] = Stage::whereNotNull('eval_cor_date')->whereNotBetween('eval_cor_date', [$startDate, $endDate])
-                                ->count();
-
-                    $carry_forward_scheme_counts['final_report'] = Stage::whereNotNull('final_report')->whereNotBetween('final_report', [$startDate, $endDate])
-                                                            ->count();
-
-                    $carry_forward_scheme_counts['dropped'] = Stage::whereNotNull('dropped')->whereNotBetween('dropped', [$startDate, $endDate])
-                                                                ->count(); 
-        }
-       
-        foreach ($schemes as $scheme) {
-            
-            $new_scheme_counts['requisition'] = Stage::whereBetween('requisition', [$startDate, $endDate])->whereNotNull('requisition')
-            ->count(); 
-
-                $new_scheme_counts['study_design_date'] = Stage::whereBetween('study_design_date', [$startDate, $endDate])->whereNotNull('study_design_date')
-                            ->count(); 
-
-                $new_scheme_counts['polot_study_date'] = Stage::whereBetween('polot_study_date', [$startDate, $endDate])->whereNotNull('polot_study_date')
-                            ->count(); 
-
-                $new_scheme_counts['field_survey_startdate']  = Stage::whereBetween('field_survey_startdate', [$startDate, $endDate])->whereNotNull('field_survey_startdate')
-                            ->count(); 
-
-                $new_scheme_counts['data_entry_level_start'] = Stage::whereBetween('data_entry_level_start', [$startDate, $endDate])->whereNotNull('data_entry_level_start')
-                                ->count(); 
-
-                $new_scheme_counts['report_startdate'] = Stage::whereBetween('report_startdate', [$startDate, $endDate])->whereNotNull('report_startdate')
-                            ->count(); 
-
-                $new_scheme_counts['report_sent_hod_date'] = Stage::whereNotNull('report_sent_hod_date')->whereBetween('report_sent_hod_date', [$startDate, $endDate])
-                            ->count();
-
-                $new_scheme_counts['dept_eval_committee_datetime'] = Stage::whereNotNull('dept_eval_committee_datetime')->whereBetween('dept_eval_committee_datetime', [$startDate, $endDate])
-                            ->count();
-
-                $new_scheme_counts['eval_cor_date'] = Stage::whereNotNull('eval_cor_date')->whereBetween('eval_cor_date', [$startDate, $endDate])
-                            ->count();
-
-                $new_scheme_counts['final_report'] = Stage::whereNotNull('final_report')->whereBetween('final_report', [$startDate, $endDate])
-                            ->count();
-
-                $new_scheme_counts['dropped'] = Stage::whereBetween('dropped', [$startDate, $endDate])->whereNotNull('dropped')
-                    ->count(); 
-                
-        }
-
-        return response()->json([$new_scheme_counts,$carry_forward_scheme_counts]);
-
-          
-    }else{
-        return false;
+    } else {
+        return response()->json(['error' => 'No year provided'], 400);
     }
-     
-   }
-   public function schemeCount(){
+}   
+public function schemeCount(){
     $count = Proposal::where('status_id',23)->count(); 
     return response()->json(['count' => $count]);
    }
    
-   public function stageCount(){
+//    public function stageCount(){
 
-            $currentYear = date('Y');
+//             $currentYear = date('Y');
          
-            if(date('m') > 3){
-                $finyear = date('Y') ;
-            }else{
-                $finyear = date('Y') - 1;
-            }
+//             if(date('m') > 3){
+//                 $finyear = date('Y') ;
+//             }else{
+//                 $finyear = date('Y') - 1;
+//             }
         
-            $startDate = $finyear . '-04-01';
-            $endDate = ($finyear + 1). '-03-31';
+//            $startDate = $finyear . '-04-01 00:00:00';
+//            $endDate = ($finyear + 1) . '-03-31 23:59:59';
 
-            //Query is select scheme_name,scheme_id,created_at from "itransaction"."proposals" where "status_id" = 23 and "created_at" between '2024-03-31' and '2025-04-01'
-            $schemes = Proposal::where('status_id',23)->whereBetween('created_at', [$startDate, $endDate])->get();
+//             //Current Financial year scheme
+//             $schemes = Proposal::where('status_id', 23)
+//                             ->whereBetween('created_at', [$startDate, $endDate])
+//                             ->get();
             
            
-            //Query is select scheme_name,scheme_id,created_at from "itransaction"."proposals" where "status_id" = 23 and "created_at" not between '2024-03-31' and '2025-04-01'
-            $carry_scheme = Proposal::where('status_id',23)->whereNotBetween('created_at', [$startDate, $endDate])->get();
+//             $carry_scheme = Proposal::where('status_id', 23)
+//                             ->where('created_at', '<', $startDate)
+//                             ->get();
           
-            $new_scheme_counts = [
-                'requisition' => 0, //1
-                'study_design_date' => 0, //2
-                'polot_study_date' => 0, //3
-                'field_survey_startdate' => 0, //4
-                'data_entry_level_start' => 0, //5
-                'report_startdate' => 0, //6
-                'report_sent_hod_date' => 0, //7
-                'dept_eval_committee_datetime' => 0, //8
-                'eval_cor_date' => 0, //9
-                'final_report' => 0, //10
-                'dropped' => 0 //11
-            ];
-            $carry_forward_scheme_counts = [
-                'requisition' => 0, //1
-                'study_design_date' => 0, //2
-                'polot_study_date' => 0, //3
-                'field_survey_startdate' => 0, //4
-                'data_entry_level_start' => 0, //5
-                'report_startdate' => 0, //6
-                'report_sent_hod_date' => 0, //7
-                'dept_eval_committee_datetime' => 0, //8
-                'eval_cor_date' => 0, //9
-                'final_report' => 0, //10
-                'dropped' => 0 //11
-            ];
+//             $new_scheme_counts = [
+//                 'requisition' => 0, //1
+//                 'study_design_date' => 0, //2
+//                 'polot_study_date' => 0, //3
+//                 'field_survey_startdate' => 0, //4
+//                 'data_entry_level_start' => 0, //5
+//                 'report_startdate' => 0, //6
+//                 'report_sent_hod_date' => 0, //7
+//                 'dept_eval_committee_datetime' => 0, //8
+//                 'eval_cor_date' => 0, //9
+//                 'final_report' => 0, //10
+//                 'dropped' => 0 //11
+//             ];
+//             $carry_forward_scheme_counts = [
+//                 'requisition' => 0, //1
+//                 'study_design_date' => 0, //2
+//                 'polot_study_date' => 0, //3
+//                 'field_survey_startdate' => 0, //4
+//                 'data_entry_level_start' => 0, //5
+//                 'report_startdate' => 0, //6
+//                 'report_sent_hod_date' => 0, //7
+//                 'dept_eval_committee_datetime' => 0, //8
+//                 'eval_cor_date' => 0, //9
+//                 'final_report' => 0, //10
+//                 'dropped' => 0 //11
+//             ];
 
-            foreach ($carry_scheme as $key => $carry_scheme_items) {
-                $carry_forward_scheme_counts['requisition'] = Stage::whereNotNull('requisition')->whereNotBetween('requisition', [$startDate, $endDate])
-                                                                ->count(); 
+//             foreach ($carry_scheme as $key => $carry_scheme_items) {
+//                 $carry_forward_scheme_counts['requisition'] = Stage::whereNotNull('requisition')->whereNotBetween('requisition', [$startDate, $endDate])->count(); 
 
-                $carry_forward_scheme_counts['study_design_date'] = Stage::whereNotNull('study_design_date')->whereNotBetween('study_design_date', [$startDate, $endDate])
-                                                                    ->count(); 
+//                 $carry_forward_scheme_counts['study_design_date'] = Stage::whereNotNull('study_design_date')->whereNotBetween('study_design_date', [$startDate, $endDate])->count(); 
 
-                $carry_forward_scheme_counts['polot_study_date'] = Stage::whereNotNull('polot_study_date')->whereNotBetween('polot_study_date', [$startDate, $endDate])
-                                                                ->count(); 
+//                 $carry_forward_scheme_counts['polot_study_date'] = Stage::whereNotNull('polot_study_date')->whereNotBetween('polot_study_date', [$startDate, $endDate])->count(); 
                 
-                $carry_forward_scheme_counts['field_survey_startdate'] = Stage::whereNotNull('field_survey_startdate')->whereNotBetween('field_survey_startdate', [$startDate, $endDate])
-                                                                         ->count(); 
+//                 $carry_forward_scheme_counts['field_survey_startdate'] = Stage::whereNotNull('field_survey_startdate')->whereNotBetween('field_survey_startdate', [$startDate, $endDate])->count(); 
 
-                $carry_forward_scheme_counts['data_entry_level_start'] = Stage::whereNotNull('data_entry_level_start')->whereNotBetween('data_entry_level_start', [$startDate, $endDate])
-                                                                        ->count();
+//                 $carry_forward_scheme_counts['data_entry_level_start'] = Stage::whereNotNull('data_entry_level_start')->whereNotBetween('data_entry_level_start', [$startDate, $endDate])->count();
 
-                $carry_forward_scheme_counts['report_startdate'] = Stage::whereNotNull('report_startdate')->whereNotBetween('report_startdate', [$startDate, $endDate])
-                                                                    ->count(); 
+//                 $carry_forward_scheme_counts['report_startdate'] = Stage::whereNotNull('report_startdate')->whereNotBetween('report_startdate', [$startDate, $endDate])->count(); 
 
-                $carry_forward_scheme_counts['report_sent_hod_date'] = Stage::whereNotNull('report_sent_hod_date')->whereNotBetween('report_sent_hod_date', [$startDate, $endDate])
-                                                                        ->count();
+//                 $carry_forward_scheme_counts['report_sent_hod_date'] = Stage::whereNotNull('report_sent_hod_date')->whereNotBetween('report_sent_hod_date', [$startDate, $endDate])->count();
 
-                $carry_forward_scheme_counts['dept_eval_committee_datetime'] = Stage::whereNotNull('dept_eval_committee_datetime')->whereNotBetween('dept_eval_committee_datetime', [$startDate, $endDate])
-                                                                                ->count();
+//                 $carry_forward_scheme_counts['dept_eval_committee_datetime'] = Stage::whereNotNull('dept_eval_committee_datetime')->whereNotBetween('dept_eval_committee_datetime', [$startDate, $endDate])->count();
             
 
-                $carry_forward_scheme_counts['eval_cor_date'] = Stage::whereNotNull('eval_cor_date')->whereNotBetween('eval_cor_date', [$startDate, $endDate])
-                                                                ->count();
+//                 $carry_forward_scheme_counts['eval_cor_date'] = Stage::whereNotNull('eval_cor_date')->whereNotBetween('eval_cor_date', [$startDate, $endDate])->count();
 
-                $carry_forward_scheme_counts['final_report'] = Stage::whereNotNull('final_report')->whereNotBetween('final_report', [$startDate, $endDate])
-                        ->count();
+//                 $carry_forward_scheme_counts['final_report'] = Stage::whereNotNull('final_report')->whereNotBetween('final_report', [$startDate, $endDate])->count();
 
-                $carry_forward_scheme_counts['dropped'] = Stage::whereNotNull('dropped')->whereNotBetween('dropped', [$startDate, $endDate])
-                    ->count(); 
-            }
+//                 $carry_forward_scheme_counts['dropped'] = Stage::whereNotNull('dropped')->whereNotBetween('dropped', [$startDate, $endDate])->count(); 
+//             }
 
-            foreach ($schemes as $scheme) {
+//             foreach ($schemes as $scheme) {
                     
-                $new_scheme_counts['requisition'] = Stage::whereBetween('requisition', [$startDate, $endDate])->whereNotNull('requisition')
-                                ->count(); 
+//                 $new_scheme_counts['requisition'] = Stage::whereBetween('requisition', [$startDate, $endDate])->whereNotNull('requisition')->count(); 
 
-                $new_scheme_counts['study_design_date'] = Stage::whereBetween('study_design_date', [$startDate, $endDate])->whereNotNull('study_design_date')
-                                ->count(); 
+//                 $new_scheme_counts['study_design_date'] = Stage::whereBetween('study_design_date', [$startDate, $endDate])->whereNotNull('study_design_date')->count(); 
 
-                $new_scheme_counts['polot_study_date'] = Stage::whereBetween('polot_study_date', [$startDate, $endDate])->whereNotNull('polot_study_date')
-                                ->count(); 
+//                 $new_scheme_counts['polot_study_date'] = Stage::whereBetween('polot_study_date', [$startDate, $endDate])->whereNotNull('polot_study_date')->count(); 
 
-                $new_scheme_counts['field_survey_startdate']  = Stage::whereBetween('field_survey_startdate', [$startDate, $endDate])->whereNotNull('field_survey_startdate')
-                                ->count(); 
+//                 $new_scheme_counts['field_survey_startdate']  = Stage::whereBetween('field_survey_startdate', [$startDate, $endDate])->whereNotNull('field_survey_startdate')->count(); 
                 
-                $new_scheme_counts['data_entry_level_start'] = Stage::whereBetween('data_entry_level_start', [$startDate, $endDate])->whereNotNull('data_entry_level_start')
-                                    ->count(); 
+//                 $new_scheme_counts['data_entry_level_start'] = Stage::whereBetween('data_entry_level_start', [$startDate, $endDate])->whereNotNull('data_entry_level_start')->count(); 
 
-                $new_scheme_counts['report_startdate'] = Stage::whereBetween('report_startdate', [$startDate, $endDate])->whereNotNull('report_startdate')
-                                ->count(); 
+//                 $new_scheme_counts['report_startdate'] = Stage::whereBetween('report_startdate', [$startDate, $endDate])->whereNotNull('report_startdate')->count(); 
 
-                $new_scheme_counts['report_sent_hod_date'] = Stage::whereNotNull('report_sent_hod_date')->whereBetween('report_sent_hod_date', [$startDate, $endDate])
-                                ->count();
+//                 $new_scheme_counts['report_sent_hod_date'] = Stage::whereNotNull('report_sent_hod_date')->whereBetween('report_sent_hod_date', [$startDate, $endDate])->count();
 
-                $new_scheme_counts['dept_eval_committee_datetime'] = Stage::whereNotNull('dept_eval_committee_datetime')->whereBetween('dept_eval_committee_datetime', [$startDate, $endDate])
-                                ->count();
+//                 $new_scheme_counts['dept_eval_committee_datetime'] = Stage::whereNotNull('dept_eval_committee_datetime')->whereBetween('dept_eval_committee_datetime', [$startDate, $endDate])>count();
 
-                $new_scheme_counts['eval_cor_date'] = Stage::whereNotNull('eval_cor_date')->whereBetween('eval_cor_date', [$startDate, $endDate])
-                                ->count();
+//                 $new_scheme_counts['eval_cor_date'] = Stage::whereNotNull('eval_cor_date')->whereBetween('eval_cor_date', [$startDate, $endDate])->count();
 
-                $new_scheme_counts['final_report'] = Stage::whereNotNull('final_report')->whereBetween('final_report', [$startDate, $endDate])
-                                ->count();
+//                 $new_scheme_counts['final_report'] = Stage::whereNotNull('final_report')->whereBetween('final_report', [$startDate, $endDate])->count();
 
-                $new_scheme_counts['dropped'] = Stage::whereBetween('dropped', [$startDate, $endDate])->whereNotNull('dropped')
-                        ->count(); 
+//                 $new_scheme_counts['dropped'] = Stage::whereBetween('dropped', [$startDate, $endDate])->whereNotNull('dropped')->count(); 
                     
-            }
-           
+//             }
+//     return response()->json([$new_scheme_counts,$carry_forward_scheme_counts]);
+//    }
 
-            return response()->json([$new_scheme_counts,$carry_forward_scheme_counts]);
-   }
+public function stageCount() {
+    $currentMonth = date('m');
+    $finyear = ($currentMonth > 3) ? date('Y') : date('Y') - 1;
+
+    $startDate = $finyear . '-04-01 00:00:00';
+    $endDate = ($finyear + 1) . '-03-31 23:59:59';
+    // 1. Get the IDs of the Proposals to filter the Stages
+    $newSchemeIds = Proposal::where('status_id', 23)
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->pluck('scheme_id');
+                    
+    $carrySchemeIds = Proposal::where('status_id', 23)
+                    ->where('created_at', '<', $startDate)
+                    ->pluck('scheme_id');
+    $newBindings = [];
+        for ($i = 0; $i < 11; $i++) {
+            $newBindings[] = $startDate;
+            $newBindings[] = $endDate;
+        }
+    // 2. Aggregate all counts in ONE query for New Schemes
+ 
+    $newCounts = Stage::whereIn('scheme_id', $newSchemeIds) // Ensure relationship link
+        ->selectRaw("
+            COUNT(CASE WHEN requisition BETWEEN ? AND ? THEN 1 END) as requisition,
+            COUNT(CASE WHEN study_design_date BETWEEN ? AND ? THEN 1 END) as study_design_date,
+            COUNT(CASE WHEN polot_study_date BETWEEN ? AND ? THEN 1 END) as polot_study_date,
+            COUNT(CASE WHEN field_survey_startdate BETWEEN ? AND ? THEN 1 END) as field_survey_startdate,
+            COUNT(CASE WHEN data_entry_level_start BETWEEN ? AND ? THEN 1 END) as data_entry_level_start,
+            COUNT(CASE WHEN report_startdate BETWEEN ? AND ? THEN 1 END) as report_startdate,
+            COUNT(CASE WHEN report_sent_hod_date BETWEEN ? AND ? THEN 1 END) as report_sent_hod_date,
+            COUNT(CASE WHEN dept_eval_committee_datetime BETWEEN ? AND ? THEN 1 END) as dept_eval_committee_datetime,
+            COUNT(CASE WHEN eval_cor_date BETWEEN ? AND ? THEN 1 END) as eval_cor_date,
+            COUNT(CASE WHEN final_report BETWEEN ? AND ? THEN 1 END) as final_report,
+            COUNT(CASE WHEN dropped BETWEEN ? AND ? THEN 1 END) as dropped
+        ", $newBindings)->first();
+        
+$carryBindings = array_fill(0, 11, $startDate);
+    // 3. Aggregate all counts in ONE query for Carry Forward
+    $carryCounts = Stage::whereIn('scheme_id', $carrySchemeIds)
+        ->selectRaw("
+            COUNT(CASE WHEN requisition < ? THEN 1 END) as requisition,
+            COUNT(CASE WHEN study_design_date < ? THEN 1 END) as study_design_date,
+            COUNT(CASE WHEN polot_study_date < ? THEN 1 END) as polot_study_date,
+            COUNT(CASE WHEN field_survey_startdate < ? THEN 1 END) as field_survey_startdate,
+            COUNT(CASE WHEN data_entry_level_start < ? THEN 1 END) as data_entry_level_start,
+            COUNT(CASE WHEN report_startdate < ? THEN 1 END) as report_startdate,
+            COUNT(CASE WHEN report_sent_hod_date < ? THEN 1 END) as report_sent_hod_date,
+            COUNT(CASE WHEN dept_eval_committee_datetime < ? THEN 1 END) as dept_eval_committee_datetime,
+            COUNT(CASE WHEN eval_cor_date < ? THEN 1 END) as eval_cor_date,
+            COUNT(CASE WHEN final_report < ? THEN 1 END) as final_report,
+            COUNT(CASE WHEN dropped < ? THEN 1 END) as dropped
+        ",$carryBindings)->first();
+
+    return response()->json([$newCounts, $carryCounts]);
+}
    public function donutCount($draft_id){
  
     $draft_id = base64_decode($draft_id);
@@ -1319,12 +1291,29 @@ class StageController extends Controller
         
    }
 
-    private function countDays($start, $end)
+    // private function countDays($start, $end)
+    // {
+    //     if (empty($start) || empty($end)) {
+    //         return 0;
+    //     }
+    //     return Carbon::parse($start)->diffInDays(Carbon::parse($end));
+    // }
+    private function countDays($date1, $date2)
     {
-        if (empty($start) || empty($end)) {
+        // Check for empty, null, or common "empty" DB strings
+        if (!$date1 || !$date2 || $date1 == '0000-00-00' || $date2 == '0000-00-00') {
             return 0;
         }
-        return Carbon::parse($start)->diffInDays(Carbon::parse($end));
+
+        try {
+            $d1 = Carbon::parse($date1);
+            $d2 = Carbon::parse($date2);
+
+            // diffInDays returns the absolute difference (always positive)
+            return $d1->diffInDays($d2);
+        } catch (\Exception $e) {
+            return 0; // Return 0 if date format is invalid
+        }
     }
    public function detailReport(){
         $proposal_list = Proposal::where('status_id',23)->get();
