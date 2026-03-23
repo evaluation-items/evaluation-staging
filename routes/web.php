@@ -81,13 +81,13 @@ Route::get('/cache-clear', function() {
     dd("cache clear All");
 });
 Route::get('demo-mail',function(){
-     $email = "jakex30161@fursee.com";
+     $email = "evaldeveloper123@gmail.com";
      $details = [
 		   'scheme_name' =>  'test' ,
 		   'department' => 'test d',
 		   'hod_name' => 'test hod name'    
 		];
-	Mail::to($email)->send(new forwardproposalmail($details));
+	Mail::to($email)->send(new ForwardProposalMail($details));
 
     // Mail::raw('This is a test email from Laravel.', function ($message) {
         // $message->to('yurtotuyda@gufum.com')

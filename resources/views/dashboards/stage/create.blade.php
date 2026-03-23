@@ -1383,11 +1383,9 @@
                 lastNonBlankElement = this; // Update the last non-blank element
                 $(this).show();
                 if(login_user == true){
-                    console.log('hey true');
                     $('#' + id).find('.disbleTxt').prop("disabled", false);
                 }else{
                     $('#' + id).find('.disbleTxt').prop("disabled", true);
-                    console.log('hey trufalsee');
                 }
             } else {
                 $(this).hide();

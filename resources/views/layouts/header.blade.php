@@ -239,7 +239,7 @@
                         {{ __('message.director_of_evaluation') }}
                     </h1>
                     <div class="text-secondary" style="margin-top: 5px;">
-                        <strong> Directorate of Evaluation </strong> <br>
+                        <strong> {{__('message.portal')}} </strong><br>
                         {{ __('message.general_administration') }}<br>
                          {{ __('message.government_of_gujarat') }}
                     </div>
@@ -263,61 +263,63 @@
                                 <a aria-label="home" href="{{ env('APP_URL') }}/">{{ __('message.home') }}</a>
                             </li>
                            <li>
-                            <li>
-                                <a href="{{ route('about-us') }}" class="menu-toggle">
-                                    {{ __('message.about_us') }}
-                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
-                                </a>
-                            
-                                <ul class="sub_nav1">
-                                    <h2 class="sub_title">
-                                        <a href="{{ route('organization-chart') }}">
-                                            {{ __('message.organization_chart') }}
-                                        </a>
-                                    </h2>
-                                    <h2 class="sub_title">
-                                        <a href="{{ route('vission-mission') }}">
-                                            Vision, Mission
-                                        </a>
-                                    </h2>
-                                    <h2 class="sub_title">
-                                        <a href="{{ route('whos-who') }}">
-                                            {{ __('message.whos_who') }}
-                                        </a>
-                                    </h2>
-                                    <div class="has-submenu">
-                                        <h2 class="sub_title submenu-title">
-                                            <a href="javascript:void(0)">
-                                                Committee <i class="fa fa-caret-right"></i>
+                                <li>
+                                    <a href="{{ route('about-us') }}" class="menu-toggle">
+                                        {{ __('message.about_us') }}
+                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                    </a>
+                                
+                                    <ul class="sub_nav1">
+                                        <h2 class="sub_title">
+                                            <a href="{{ route('organization-chart') }}">
+                                                {{ __('message.organization_chart') }}
                                             </a>
                                         </h2>
-
-                                        <ul class="sub-dropdown">
-                                            <h2 class="sub_title">
-                                                <a href="{{ route('dec') }}">DEC</a>
+                                        <h2 class="sub_title">
+                                            <a href="{{ route('vission-mission') }}">
+                                               {{__('message.vission')}}
+                                            </a>
+                                        </h2>
+                                        <h2 class="sub_title">
+                                            <a href="{{ route('whos-who') }}">
+                                                {{ __('message.whos_who') }}
+                                            </a>
+                                        </h2>
+                                        <div class="has-submenu">
+                                            <h2 class="sub_title submenu-title">
+                                                <a href="javascript:void(0)">
+                                                    {{__('message.committees')}} <i class="fa fa-caret-right"></i>
+                                                </a>
                                             </h2>
-                                        
-                                            <h2 class="sub_title">
-                                                <a href="{{ route('ecc') }}">ECC</a>
-                                            </h2>
-                                        </ul>
-                                    </div>
-                                </ul>
-                            </li>
 
-                            <li>
+                                            <ul class="sub-dropdown">
+                                                <h2 class="sub_title">
+                                                    <a href="{{ route('dec') }}"> {{__('message.dec')}}</a>
+                                                </h2>
+                                            
+                                                <h2 class="sub_title">
+                                                    <a href="{{ route('ecc') }}"> {{__('message.ecc')}}</a>
+                                                </h2>
+                                            </ul>
+                                        </div>
+                                    </ul>
+                                </li>
+
+                            {{-- <li>
                                 <a aria-label="publications"
                                     href="{{ route('publication_front_page') }}">{{ __('message.publications') }}</a>
-                            </li>
+                            </li> --}}
                            
                             <li>
-                                <a aria-label="privacy-guidance" href="javascript:void(0)">Policy guidance</a>
+                                <a aria-label="privacy-guidance" href="javascript:void(0)">{{__('message.policy_guidance')}}</a>
                             </li>
                             <li>
-                                <a aria-label="media-gallery" href="{{route('media-gallery')}}">Media gallery</a>
+                                <a aria-label="media-gallery" href="{{route('media-gallery')}}">{{__('message.media_gallery')}}</a>
                             </li>
                             <li>
-                                <a  href="javascript:void(0)">E-Citizen <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <a href="{{ route('government-resolution') }}" target="_self" title="">{{__('message.resolution')}}</a>
+
+                                {{-- <a  href="javascript:void(0)">E-Citizen <i class="fa fa-caret-down" aria-hidden="true"></i></a>
                                 <ul class="sub_nav1" style="right: -135%;">
                                     <div class="col-md-12">
                                         <h2 class="sub_title">
@@ -327,7 +329,7 @@
                                                 <a href="{{ route('government-resolution') }}" target="_self" title="">Government Resolution</a>
                                         </h2>
                                     </div>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li>
                                 <a aria-label="contact-us"
@@ -336,15 +338,15 @@
                             <!-- Committee (Mobile Visible) -->
                             <li class="mobile-committee">
                                 <a href="javascript:void(0)">
-                                    Committee <i class="fa fa-caret-down"></i>
+                                     {{__('message.committees')}} <i class="fa fa-caret-down"></i>
                                 </a>
 
                                 <ul class="sub_nav1">
                                     <h2 class="sub_title">
-                                        <a href="{{ route('dec') }}">DEC</a>
+                                        <a href="{{ route('dec') }}">{{__('message.dec')}}</a>
                                     </h2>
                                     <h2 class="sub_title">
-                                        <a href="{{ route('ecc') }}">ECC</a>
+                                        <a href="{{ route('ecc') }}">{{__('message.ecc')}}</a>
                                     </h2>
                                 </ul>
                             </li>

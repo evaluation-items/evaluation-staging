@@ -30,7 +30,7 @@ class LoginController extends Controller
 
         $remember = $request->boolean('remember');
 
-        if (! Auth::attempt(
+        if (!Auth::attempt(
             ['email' => $request->email, 'password' => $request->password],
             $remember
         )) {
@@ -47,6 +47,7 @@ class LoginController extends Controller
             ->delete();
 
         $user = Auth::user();
+        
         if($user->is_first_login == true && in_array($user->role_manage,[0,1,2])){
             return redirect()->route('force-reset',['id' => $user->id]);
         }
@@ -63,10 +64,7 @@ class LoginController extends Controller
             return redirect()->route('gadsec.dashboard');
         }
 
-        if (
-            ($user->role == 23 || $user->role == 24) &&
-            $user->role_manage == 2
-        ) {
+        if ( ($user->role == 23 || $user->role == 24) && $user->role_manage == 2) {
             return redirect()->route('evaldir.dashboard');
         }
 

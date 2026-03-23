@@ -9,6 +9,7 @@ return [
     'english' => 'English',
     'gujarati' => 'ગુજરાતી',
     'director_of_evaluation' => 'Transforming Survey Ecosystem',
+    'portal'=>'Directorate Of Evaluation',
     'general_administration' => 'General Administration Department (Planning Division)',
     'government_of_gujarat' => 'Government of Gujarat',
     'home' => 'Home',
@@ -45,7 +46,7 @@ return [
     'total' => 'Total',
 
     // Committee Table
-    'committee' => 'Committee',
+    'committees' => 'Committee',
     'chairman' => 'Chairman',
     'member' => 'Member',
     'member_secretary' => 'Member Secretary',
@@ -71,6 +72,21 @@ return [
 
     // Sponsors
     'sponsor_image' => 'Sponsor Image',
+    'announcement' => 'Announcement',
+    'what-new' => "What's New",
+    'know-more' => 'Know more about us',
+    'cm_name' => 'Shri Bhupendra Patel',
+    'cm_desc'=> "Hon'ble Chief Minister",
+    'scretory_name' => 'Ms. Ardra Agarwal, IAS',
+    'scretory_desc' => "Secretary",
+    'plan' => "Planning",
+    'vision' => 'Vision',
+    'dec' => 'DEC',
+    'ecc' => "ECC",
+    'policy_guidance' => 'Policy guidance',
+    'media_gallery' => "Media gallery",
+    "resolution" => "Government Resolution",
+
 
     //Login Page
     'officer_login' => 'Officer Login',
@@ -415,6 +431,7 @@ return [
 
     //Main Index Page
     'paregraph-1' => 'A number of development schemes/programmes covering almost every socio-economic aspect of life in rural and urban areas have been launched by the Government. It is in this context that the need for an efficient evaluation system had been strongly felt if maximum benefits are to be derived from these schemes/programmes.In pursuance of the recommendations of the Working Group of Evaluation in the State set up by the Planning Commission, a State Government has created separate set up of Directorate of Evaluation in March 1965 as an integral part of the evaluation machinery. The Directorate of Evaluation was thereafter declared as the head of office in 1st April 1965. Keeping in view the increase works and responsibilities the State Govt. has also declared the Directorate of Evaluation as the Head of Department in July 1991.',
+    'paragraph-main' => 'Every Evaluation studies are unique in itself as the subject under evaluation are different in context and relevance, target subject and impact in terms of socio-political-economical-cultural and structural realm. Directorate of Evaluation has its own unique way of doing evaluation of plans, projects and schemes etc implemented by various Department of Government.',
     'paregraph-2' => 'The Directorate of Evaluation is working under the Supervision and Control of Additional Chief Secretary/Principal Secretary/Secretary, General Administration Department (Planning). For efficient functioning and carry out the studies, the Director is headed by the Sr. Class I officer from the cadre of Gujarat Statistical Services. For undertaking the various evaluation studies Government has also sanctioned 75 posts as follows:',
     'paregraph-3' => 'For proper monitoring and evaluation of schemes/programmes Government had constituted various Advisory Committees shown below:',
     'paregraph-4' => 'Departmental Evaluation Committee (DEC)',

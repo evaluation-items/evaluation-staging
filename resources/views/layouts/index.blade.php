@@ -204,11 +204,13 @@
 
 .official-info h4 {
     margin: 0;
-    color: #0b4d2c;
+    color: #00446d;
     font-size: 16px;
     font-weight: 700;
 }
-
+.official-info a {
+    color: #000;
+}
 .social-icons img {
     width: 30px;
     height: 30px;
@@ -271,7 +273,7 @@
         <div id="slider1 ">
             {{-- <a href="javascript:void(0)" class="control_next">&gt;</a>
             <a href="javascript:void(0)" class="control_prev">&lt;</a> --}}
-                    <img src="{{ asset('img/main/final.png') }}" alt="Directorate of Evaluation" style="min-width: 100%;object-fit: fill;height: 500px;">
+                    <img src="{{ asset('img/vidhansabha.avif') }}" alt="Directorate of Evaluation" style="min-width: 100%;object-fit: fill;height: 500px;">
 
                    {{--<li><img src="{{asset('img/slider-img-2.png')}}" alt="Slide 2"></li>
                {{-- <li><img src="{{asset('img/graph-2.png')}}" alt="Slide 3"></li>
@@ -357,7 +359,7 @@
     </section> --}}
 
     <a href="{{ Config::get('custom_url.url') }}director-of-evaluation1#" class="skip" id="skip_main_content_start"
-        style="visibility: hidden;">skip_main_content_start</a>
+        style="visibility: hidden;">{{__('message.skip_to_main_content')}}</a>
     <div class="clear" id="skip_main_content_end"></div>
     <div class="px-4 main-content-index justify-content-center container">
         <div class="row">
@@ -384,12 +386,12 @@
                     </div>
                 </div> --}}
                 <div class="">
-                        <h4 class="aos-item" data-aos="zoom-in">Directorate Of Evaluation</h4>
+                        <h4 class="aos-item" data-aos="zoom-in">{{__('message.portal')}}</h4>
                         <p></p>
                         {{-- <h4>1. {{ __('message.background') }} :</h4> --}}
                         <p>{{ __('message.paregraph-1') }}</p>
-                        <p> Every Evaluation studies are unique in itself as the subject under evaluation are different in context and relevance, target subject and impact in terms of socio-political-economical-cultural and structural realm. Directorate of Evaluation has its own unique way of doing evaluation of plans, projects and schemes etc implemented by various Department of Government. </p>
-                            <div class="aboutUsButton"><a href="{{ route('about-us') }}">Know more about us</a></div>
+                        <p> {{__('message.paragraph-main')}} </p>
+                         <div class="aboutUsButton"><a href="{{ route('about-us') }}">{{__('message.know-more')}}</a></div>
                         {{-- <h4 class="aos-item" data-aos="fade-up">{{ __('message.paregraph-26') }}</h4>
                         <ol class="aos-item" data-aos="fade-up">
                             <li class="aos-item" data-aos="fade-up">{{ __('message.paregraph-27') }}</li>
@@ -409,8 +411,8 @@
                     <div class="official-card">
                         <img src="{{ asset('img/cm-guj-planning.png') }}" alt="Chief Minister">
                         <div class="official-info">
-                            <h4>Shri Bhupendra Patel</h4>
-                            <p>Hon'ble Chief Minister,<br>Government of Gujarat</p>
+                            <h4>{{__('message.cm_name')}}</h4>
+                            <p>{{__('message.cm_desc')}},<br>{{__('message.government_of_gujarat')}}</p>
                             <div class="social-icons">
                                 <a href="#"><img src="{{ asset('img/IconeFbcm2.png') }}" alt="Facebook"></a>
                                 <a href="#"><img src="{{ asset('img/IconeTwcm2.png') }}" alt="X"></a>
@@ -421,8 +423,8 @@
                     <hr> <div class="official-card">
                         <img src="{{ asset('img/ms-ardra-agrawal.png') }}" alt="Secretary">
                         <div class="official-info">
-                            <h4>Ms. Ardra Agarwal, IAS</h4>
-                            <p>Department of Planning Division,<br> Government of Gujarat</p>
+                            <h4>{{__('message.scretory_name')}}</h4>
+                            <p>{{__('message.scretory_desc')}},<br> <a href="https://gad.gujarat.gov.in/" target="_blank"> {{__('message.plan')}} </a></p>
                         </div>
                     </div>
                 </div>
@@ -465,7 +467,7 @@
                             </div>
                             <div class="card-body">
                                 <ul class="item-list">
-                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i><a href="https://planning.gujarat.gov.in/"> General Administration Department(Planning)</a></li>
+                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i><a href="https://planning.gujarat.gov.in/"> {{__('message.general_administration')}}</a></li>
                                     <li><i class="fa fa-angle-double-right" style="font-size:24px"></i> <a href="https://gujecostat.gujarat.gov.in/">{{ __('message.directorate_economics') }}</a></li>
                                     <li><i class="fa fa-angle-double-right" style="font-size:24px"></i> <a href="https://gujhd.gujarat.gov.in/">{{ __('message.gujarat_social_infra') }}</a></li>
                                 </ul>
@@ -482,7 +484,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="custom-card">
                             <div class="card-header-title">
-                                <h5>What's New</h5>
+                                <h5>{{__('message.what-new')}}</h5>
                             </div>
                             <div class="card-body">
                                 <ul class="item-list">
@@ -503,11 +505,11 @@
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="custom-card">
                             <div class="card-header-title">
-                                <h5>Recruitment</h5>
+                                <h5>{{__('message.announcement')}}</h5>
                             </div>
                             <div class="card-body">
                                 <ul class="item-list">
-                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i>Updated Shortly</li>
+                                    <li><i class="fa fa-angle-double-right" style="font-size:24px"></i>Announcement Updated Shortly</li>
                                 </ul>
                                 <div class="card-footer-btn">
                                     <a href="#" class="btn btn-purple">Read more</a>
