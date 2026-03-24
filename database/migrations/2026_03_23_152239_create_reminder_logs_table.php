@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('stage_id');
             $table->string('stage_type'); // e.g., 'stage_1', 'stage_2'
             $table->string('reminder_type'); // 'before_7_days', 'current_day', 'after_7_days'
+             $table->string('status')->default('active');
             $table->string('recipient_email');
             $table->boolean('is_sent')->default(false);
             $table->timestamp('sent_at')->nullable();

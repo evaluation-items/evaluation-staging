@@ -30,11 +30,11 @@ class SendDateReminders extends Command
     public function handle()
     {
         $this->info('Executing: ' . $this->description); // This will print it to the screen
-        $stages = Stage::with('schemeSend')
-            ->whereHas('schemeSend', function($query) {
-                $query->whereNotNull('evaluation_sent_date');
-            })->get();
-
+            $stages = Stage::with('schemeSend')
+                ->where('status', 'active') // <--- New filter added here
+                ->whereHas('schemeSend', function($query) {
+                    $query->whereNotNull('evaluation_sent_date');
+                })->get();
         foreach ($stages as $stage) {
             // --- STAGE 1 LOGIC ---
             // If evaluation is sent, but study_entrusted is still NULL
@@ -58,41 +58,41 @@ class SendDateReminders extends Command
         }
         $this->info('Reminders processed successfully.');
     }
-private function processReminderTiers($stage, $stageType, $targetDate)
-{
-    if (!$targetDate) return;
+    private function processReminderTiers($stage, $stageType, $targetDate)
+    {
+        if (!$targetDate) return;
 
-    $deadline = \Carbon\Carbon::parse($targetDate);
-    
-    // FOR TESTING ONLY:
-    $today = \Carbon\Carbon::parse('2026-04-15')->startOfDay(); 
-    
-    $diffInDays = (int) $today->diffInDays($deadline, false);
-
-    \Log::info("Testing Stage: $stageType | Today: $today | Deadline: $deadline | Diff: $diffInDays");
-
-    $reminderType = null;
-    if ($diffInDays === 7) { $reminderType = 'before_7_days'; }
-    elseif ($diffInDays === 0) { $reminderType = 'current_day'; }
-    elseif ($diffInDays === -7) { $reminderType = 'after_7_days'; }
-
-    if ($reminderType) {
-        \Log::info("Match found! Type: $reminderType");
+        $deadline = \Carbon\Carbon::parse($targetDate);
         
-        $alreadySent = \DB::table('imaster.reminder_logs')
-            ->where('stage_id', $stage->draft_id)
-            ->where('stage_type', $stageType)
-            ->where('reminder_type', $reminderType)
-            ->exists();
+        // FOR TESTING ONLY:
+       $today = now()->startOfDay();
+        
+        $diffInDays = (int) $today->diffInDays($deadline, false);
 
-        if (!$alreadySent) {
-            $this->sendAndLogEmail($stage, $stageType, $reminderType);
-            \Log::info("Email dispatched to Queue.");
-        } else {
-            \Log::info("Skipped: Already exists in reminder_logs.");
+        \Log::info("Testing Stage: $stageType | Today: $today | Deadline: $deadline | Diff: $diffInDays");
+
+        $reminderType = null;
+        if ($diffInDays === 7) { $reminderType = 'before_7_days'; }
+        elseif ($diffInDays === 0) { $reminderType = 'current_day'; }
+        elseif ($diffInDays === -7) { $reminderType = 'after_7_days'; }
+
+        if ($reminderType) {
+            \Log::info("Match found! Type: $reminderType");
+            
+            $alreadySent = \DB::table('imaster.reminder_logs')
+                ->where('stage_id', $stage->draft_id)
+                ->where('stage_type', $stageType)
+                ->where('reminder_type', $reminderType)
+                ->exists();
+
+            if (!$alreadySent) {
+                $this->sendAndLogEmail($stage, $stageType, $reminderType);
+                \Log::info("Email dispatched to Queue.");
+            } else {
+                \Log::info("Skipped: Already exists in reminder_logs.");
+            }
         }
     }
-}
    private function processReminderTiers11($stage, $stageType, $targetDate)
     {
         
@@ -129,31 +129,32 @@ private function processReminderTiers($stage, $stageType, $targetDate)
             }
         }
     }
-  private function sendAndLogEmail($stage, $stageType, $reminderType)
-{
-    $email = 'evaldeveloper123@gmail.com'; 
+   private function sendAndLogEmail($stage, $stageType, $reminderType)
+    {
+        $email = 'evaldeveloper123@gmail.com'; 
 
-    try {
-        // Use the explicit schema name if needed
-        \DB::table('imaster.reminder_logs')->insert([
-            'stage_id'      => $stage->draft_id, // Ensure this matches your column name
-            'stage_type'    => $stageType,
-            'reminder_type' => $reminderType,
-            'recipient_email'=> $email,
-            'is_sent'       => true,
-            'sent_at'       => now(),
-            'created_at'    => now(),
-            'updated_at'    => now(),
-        ]);
-        
-        \Log::info("Database Log Success for Stage ID: " . $stage->draft_id);
+        try {
+            // Use the explicit schema name if needed
+            \DB::table('imaster.reminder_logs')->insert([
+                'stage_id'      => $stage->draft_id, // Ensure this matches your column name
+                'stage_type'    => $stageType,
+                'reminder_type' => $reminderType,
+                'recipient_email'=> $email,
+                'status'        => $stage->status,
+                'is_sent'       => true,
+                'sent_at'       => now(),
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]);
+            
+            \Log::info("Database Log Success for Stage ID: " . $stage->draft_id);
 
-    } catch (\Exception $e) {
-        // This will tell you exactly why the table didn't receive the entry
-        \Log::error("Database Insert Failed: " . $e->getMessage());
+        } catch (\Exception $e) {
+            // This will tell you exactly why the table didn't receive the entry
+            \Log::error("Database Insert Failed: " . $e->getMessage());
+        }
+
+        // Send the mail after the DB attempt
+        \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\ReminderEmail($stage, $stageType, $reminderType));
     }
-
-    // Send the mail after the DB attempt
-    \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\ReminderEmail($stage, $stageType, $reminderType));
-}
 }
